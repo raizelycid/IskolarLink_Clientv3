@@ -1,3 +1,107 @@
-.App {
-  text-align: center;
+/* Global */
+:root {
+  --red: #880000;
+  --dark-yellow: #D9A31C;
+  --yellow: #FFDF00;
+  --light-black: #272D37; 
+  --black: #111111;
+  --gray: #A5ACBA;
+}
+
+.text-red {
+  color: var(--red) !important;  /*Overrides bootstrap's text-red*/
+}
+
+.text-yellow {
+  color: var(--dark-yellow) !important; /*Overrides bootstrap's text-yellow*/
+}
+
+@font-face {
+  font-family: Urbanist;
+  src: url(../public/Urbanist-VariableFont_wght.ttf);
+}
+
+.Urbanist {
+  font-family: Urbanist, sans-serif;
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url(../public/Inter-VariableFont_slnt\,wght.ttf);
+}
+
+.Inter {
+  font-family: Inter;
+  font-weight: 600;
+}
+
+body {
+  color: var(--light-black); /* Set the default text color */
+}
+
+/* Navbar Specific */
+Navbar {
+  height: 86px;   
+}
+
+.navbar-brand {
+  font-size: 25px;
+}
+
+.nav-link, Button {
+  font-size: 15px;
+}
+
+.btn-primary {
+  background-color: var(--red);
+  border-color: var(--red);
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--red) !important;
+}
+
+.btn-primary:hover{
+  background-color: var(--light-black);
+  border-color: var(--light-black);
+}
+
+
+/* Footer Specific */
+
+.bg-dark {
+  background-color: var(--black) !important;
+}
+
+.text-muted {
+  color: var(--gray) !important;
+}
+
+.bg-muted {
+  background-color: var(--gray) !important;
+}
+
+footer, .data-footer {
+  font-size: 16px;
+}
+
+.footer-brand{
+  font-size: 28px;
+}
+
+.social-icon{
+  margin-right: 1.5rem;
+}
+
+
+.link-button {
+  text-decoration: none; /* Remove underline by default */
+  color: inherit; /* Use the inherited text color */
+
+  /* Define styles for when the link is hovered */
+  &:hover {
+    text-decoration: underline; /* Add underline on hover */
+    color: var(--light-black) !important;
+  }
 }
