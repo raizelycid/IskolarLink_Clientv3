@@ -3,11 +3,17 @@ import './App.css';
 import axios from 'axios';
 import { saveAs } from 'file-saver';
 import { Navbar, Container, Nav, Button, Row, Col } from 'react-bootstrap';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
+import COSOA from './Pages/COSOA';
+import Organizations from './Pages/Organizations';
+import AppDocs from './Pages/AppDocs';
+import FAQs from './Pages/FAQs';
 
 
 function App() {
   return (
-    <>
+    <Router>
       <Navbar expand="lg">
         <Container>
           <Navbar.Brand className="Urbanist navbar-brand">
@@ -17,18 +23,26 @@ function App() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mx-auto Inter">
+              <LinkContainer to="/cosoa">
               <Nav.Link href="#" className="text-dark nav-link ms-4">
                 PUP COSOA
               </Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/organizations">
               <Nav.Link href="#" className="text-dark nav-link ms-4">
                 Accredited Organizations
               </Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/appdocs">
               <Nav.Link href="#" className="text-dark nav-link ms-4">
                 Application Documents
               </Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/faqs">
               <Nav.Link href="#" className="text-dark nav-link ms-4">
                 FAQs
               </Nav.Link>
+              </LinkContainer>
             </Nav>
 
             <Nav className="ms-auto ">
@@ -42,6 +56,13 @@ function App() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+
+      <Routes>
+        <Route path="/cosoa" exact element={<COSOA />} />
+        <Route path="/organizations" exact element={<Organizations />} />
+        <Route path="/appdocs" exact element={<AppDocs />} />
+        <Route path="/faqs" exact element={<FAQs />} />
+      </Routes>
 
       <footer className="footer bg-dark text-white py-4 fixed-bottom border-bottom Inter">
         <Container>
@@ -119,7 +140,7 @@ function App() {
           </Row>
         </Container>
       </footer>
-    </>
+    </Router>
   );
 }
 
