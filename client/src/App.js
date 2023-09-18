@@ -9,17 +9,27 @@ import COSOA from './Pages/COSOA';
 import Organizations from './Pages/Organizations';
 import AppDocs from './Pages/AppDocs';
 import FAQs from './Pages/FAQs';
+import Popup from './components/Popup';
+import LandingPage from './Pages/LandingPage';
+import { useState} from 'react'
 
 
 function App() {
+  const [SignupPopup, setSignupPopup] = useState(false);
+  const [LoginPopup, setLoginPopup] = useState(false);
+
   return (
     <Router>
       <Navbar expand="lg">
         <Container>
+          <LinkContainer to="/">
+          <Nav.Link>
           <Navbar.Brand className="Urbanist navbar-brand">
             <span className="text-red">Iskolar</span>
             <span className="text-yellow">Link</span>
           </Navbar.Brand>
+          </Nav.Link>
+          </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mx-auto Inter">
@@ -46,22 +56,28 @@ function App() {
             </Nav>
 
             <Nav className="ms-auto ">
-              <Button variant="link" className="text-red link-button Inter">
+              <Button variant="link" className="text-red link-button Inter" onClick={() => setSignupPopup(true)}>
                 Sign Up
               </Button>
-              <Button variant="primary" className="text-white ms-2 px-3 Inter">
+              <Button variant="primary" className="text-white ms-2 px-3 Inter" onClick={() => setLoginPopup(true)}>
                 Log In
               </Button>
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-
+      <Popup trigger={SignupPopup} setTrigger={setSignupPopup}>
+        <h3>Sign Up</h3>
+       </Popup>
+      <Popup trigger={LoginPopup} setTrigger={setLoginPopup}>
+        <h3>Log In</h3>
+      </Popup>
       <Routes>
         <Route path="/cosoa" exact element={<COSOA />} />
         <Route path="/organizations" exact element={<Organizations />} />
         <Route path="/appdocs" exact element={<AppDocs />} />
         <Route path="/faqs" exact element={<FAQs />} />
+        <Route path="/" exact element={<LandingPage />} />
       </Routes>
 
       <footer className="footer bg-dark text-white py-4 fixed-bottom border-bottom Inter">
