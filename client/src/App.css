@@ -36,6 +36,28 @@
   font-weight: 600;
 }
 
+@font-face {
+  font-family: 'Poppins';
+  src: url(../public/Poppins-Bold.ttf);
+}
+
+.Poppins {
+  font-family: Poppins, sans-serif;
+  font-weight: 700;
+}
+
+.Inter-normal {
+  font-family: Inter;
+  font-weight: 400;
+}
+
+.vh-70 {
+  height: 70vh;
+}
+
+.vh-50 {
+  height: 50vh;
+}
 body {
   color: var(--light-black); /* Set the default text color */
 }
@@ -57,6 +79,13 @@ Navbar {
   background-color: var(--red);
   border-color: var(--red);
 }
+
+.btn-secondary {
+  background-color: var(--dark-yellow);
+  border-color: var(--dark-yellow);
+  font-size: 15px;
+}
+
 
 .navbar-nav .nav-link:hover {
   color: var(--red) !important;
@@ -104,4 +133,8 @@ footer, .data-footer {
     text-decoration: underline; /* Add underline on hover */
     color: var(--light-black) !important;
   }
+}
+
+.card {
+  border-color: #EAEBF0;
 }
