@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react';
 import LPHero from '../components/Hero';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import './LandingPage.css';
 
+
 function LandingPage() {
+  const [orgCount, setOrgCount] = useState(214);
+  const [studentCount, setStudentCount] = useState(82477);
+  const [programCount, setProgramCount] = useState(219);
   return (
     <main>
       <LPHero />
@@ -23,7 +27,7 @@ function LandingPage() {
               <Card className="align-items-center text-center mx-5 py-4 rounded-0 shadow">
                 <Card.Img variant="top" src="/s1-icon1.png" className="s1-icon" />
                 <Card.Body className="pt-2">
-                  <Card.Title className="Inter s1-title mb-1">214</Card.Title>
+                  <Card.Title className="Inter s1-title mb-1">{orgCount.toLocaleString()}</Card.Title>
                   <Card.Subtitle className="Inter-normal s1-st">Student Organizations</Card.Subtitle>
                 </Card.Body>
               </Card>
@@ -32,7 +36,7 @@ function LandingPage() {
               <Card className="align-items-center text-center mx-5 py-4 rounded-0 shadow">
                 <Card.Img variant="top" src="/s1-icon2.png" className="s1-icon" />
                 <Card.Body className="pt-2">
-                  <Card.Title className="Inter s1-title mb-1">82,477</Card.Title>
+                  <Card.Title className="Inter s1-title mb-1">{studentCount.toLocaleString()}</Card.Title>
                   <Card.Subtitle className="Inter-normal s1-st">Students</Card.Subtitle>
                 </Card.Body>
               </Card>
@@ -41,7 +45,7 @@ function LandingPage() {
               <Card className="align-items-center text-center mx-5 py-4 rounded-0 shadow">
                 <Card.Img variant="top" src="/s1-icon3.png" className="s1-icon" />
                 <Card.Body className="pt-2">
-                  <Card.Title className="Inter s1-title mb-1">219</Card.Title>
+                  <Card.Title className="Inter s1-title mb-1">{programCount.toLocaleString()}</Card.Title>
                   <Card.Subtitle className="Inter-normal s1-st">Academic Programs</Card.Subtitle>
                 </Card.Body>
               </Card>
