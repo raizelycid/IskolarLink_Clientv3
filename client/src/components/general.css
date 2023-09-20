@@ -1,0 +1,16 @@
+.hero-bg {
+    background-image: url('hero.png'); /* Reference the image from the public folder */
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-h1 {
+    font-size: 52px;
+    word-spacing: -1%;
+    font-weight: 700;
+}
+
+.hero-p {
+    font-size: 18;
+    word-spacing: -0.1px;
+}

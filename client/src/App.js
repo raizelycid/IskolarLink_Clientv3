@@ -72,7 +72,7 @@ function App() {
         <Route path="/" exact element={<LandingPage />} />
       </Routes>
 
-      <footer className="footer bg-dark text-white py-4 fixed-bottom border-bottom Inter">
+      <footer className="footer bg-dark text-white py-4 border-bottom Inter">
         <Container>
           <Row className="align-items-center flex-column flex-md-row"> {/* Use flex classes */}
             <Col xs={12} md={3} className="text-center">
