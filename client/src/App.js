@@ -2,24 +2,25 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import axios from 'axios';
 import { saveAs } from 'file-saver';
-import { Navbar, Container, Nav, Button, Row, Col } from 'react-bootstrap';
+import { Navbar, Container, Nav, Button, Row, Col, Modal } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import COSOA from './Pages/COSOA';
 import Organizations from './Pages/Organizations';
 import AppDocs from './Pages/AppDocs';
 import FAQs from './Pages/FAQs';
-import Popup from './components/Popup';
 import LandingPage from './Pages/LandingPage';
-import { useState} from 'react'
+import { useState} from 'react';
+import LoginPopup from './components/LoginPopup';
+import RegisterPopup from './components/RegisterPopup';
+
 
 
 function App() {
-  const [SignupPopup, setSignupPopup] = useState(false);
-  const [LoginPopup, setLoginPopup] = useState(false);
 
   return (
     <Router>
+      
       <Navbar expand="lg">
         <Container>
           <LinkContainer to="/">
@@ -56,22 +57,13 @@ function App() {
             </Nav>
 
             <Nav className="ms-auto ">
-              <Button variant="link" className="text-red link-button Inter" onClick={() => setSignupPopup(true)}>
-                Sign Up
-              </Button>
-              <Button variant="primary" className="text-white ms-2 px-3 Inter" onClick={() => setLoginPopup(true)}>
-                Log In
-              </Button>
+              <RegisterPopup />
+              <LoginPopup />
+              
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Popup trigger={SignupPopup} setTrigger={setSignupPopup}>
-        <h3>Sign Up</h3>
-       </Popup>
-      <Popup trigger={LoginPopup} setTrigger={setLoginPopup}>
-        <h3>Log In</h3>
-      </Popup>
       <Routes>
         <Route path="/cosoa" exact element={<COSOA />} />
         <Route path="/organizations" exact element={<Organizations />} />
