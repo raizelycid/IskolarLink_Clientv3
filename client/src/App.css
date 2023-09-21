@@ -12,6 +12,10 @@
   color: var(--red) !important;  /*Overrides bootstrap's text-red*/
 }
 
+.bg-yellow {
+  background-color: var(--dark-yellow);
+}
+
 .text-yellow {
   color: var(--dark-yellow) !important; /*Overrides bootstrap's text-yellow*/
 }
