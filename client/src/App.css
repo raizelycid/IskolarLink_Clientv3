@@ -6,10 +6,15 @@
   --light-black: #272D37; 
   --black: #111111;
   --gray: #A5ACBA;
+  --light-gray: #F2F2F2;
 }
 
 .text-red {
   color: var(--red) !important;  /*Overrides bootstrap's text-red*/
+}
+
+.bg-red {
+  background-color: var(--red) !important;
 }
 
 .bg-yellow {
@@ -23,6 +28,10 @@
 .bg-transparent {
   background-color: rgba(255, 255, 255, 0.5);
   border: none;
+}
+
+.bg-lightgray {
+  background-color: var(--light-gray);
 }
 
 @font-face {
