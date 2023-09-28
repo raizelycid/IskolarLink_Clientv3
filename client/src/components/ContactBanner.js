@@ -1,16 +1,27 @@
 import React from 'react';
-import {Button} from 'react-bootstrap'
+import { Form, Button, InputGroup, Container } from 'react-bootstrap';
 import './general.css';
 
 const ContactBanner = () => {
   return (
-    <div className="bg-lightgray">
-        <h1>Step Out of Your Comfort Zone and Connect with Your Fellow Iskolars!</h1>
-        <p>To receive email notifications, simply submit your email below.</p>
-
+    <div className='bg-lightgray text-center p-5'>
+      <div className="contact-div">
+        <h1 className="Inter">
+          <span className='text-yellow'>Step Out of Your Comfort Zone </span>and<br />
+          <span className='text-red'> Connect with Your Fellow Iskolars! </span>
+        </h1>
+        <p className='Inter-normal text-gray2'>To receive email notifications, simply submit your email below.</p>
+      </div>
+      <Container style={{ maxWidth: '36%' }} >
+        <Form>
+          <InputGroup>
+            <Form.Control type="email" placeholder="Enter your email" required />
+            <Button variant="primary" type="submit">Submit</Button>
+          </InputGroup>
+        </Form>
+      </Container>
     </div>
   );
 };
 
 export default ContactBanner;
-
