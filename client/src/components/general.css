@@ -103,3 +103,26 @@
     line-height: 24px;
     letter-spacing: -0.1px;
 }
+
+.s3-h1, .s4-h1, .s5-h1 {
+    font-size: 45px;
+    line-height: 40px;
+    letter-spacing: -2%;
+}
+
+.s3-p {
+    font-size: 16px;
+    line-height: 25px;
+    letter-spacing: -0.1px;
+}
+
+.s4-p, .s5-p{
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.1px;
+}
+
+.s4 Button {
+    padding-left: 5%;
+    padding-right: 5%;
+}

@@ -1,15 +1,15 @@
 import React from 'react';
-import {Button} from 'react-bootstrap'
+import { Row } from 'react-bootstrap'
 import './general.css';
 
 const Section5 = () => {
   return (
-    <div>
-        <h1>Frequently Asked Questions</h1>
-        <p>Do you have your questions? We may have your answer below.</p>
-        <Button variant="primary">See More</Button>
-
-    </div>
+    <div className="m-5">
+      <Row className="text-center">
+        <h1 className="s5-h1 text-red Inter-b">Frequently Asked Questions</h1>
+        <p className="s5-p text-gray2 Inter-normal">Do you have your questions? We may have your answer below.</p>
+      </Row>
+  </div>
   );
 };
 
