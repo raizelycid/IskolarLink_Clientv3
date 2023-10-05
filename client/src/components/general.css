@@ -126,3 +126,20 @@
     padding-left: 5%;
     padding-right: 5%;
 }
+
+.announcement-image {
+    max-width: 100%; /* Set the maximum width of the image */
+    max-height: 200px; /* Set the maximum height of the image */
+    object-fit: cover; /* Ensure the image maintains its aspect ratio */
+  }
+  
+  .custom-card {
+    max-width: 75%; /* Adjust the maximum width as needed */
+  }
+
+  .user-avatar {
+    max-width: 40px; /* Adjust the maximum width as needed */
+    max-height: 40px; /* Adjust the maximum height as needed */
+    padding-right: 4%;
+  }
+  
