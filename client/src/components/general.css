@@ -52,7 +52,7 @@
     color: rgba(51, 51, 51, 60%);
 }
 
-.s2-h2 {
+.s2-h2, .dc-title {
     font-size: 36px;
     line-height: 44px;
     word-wrap: -1%;
@@ -68,7 +68,7 @@
     font-size: 22px;
 }
 
-.s2-body {
+.s2-body, .dc-subtitle {
     font-weight: -0.1px;
     font-size: 20px;
     line-height: 24px;
@@ -98,7 +98,7 @@
     letter-spacing: -1%;
 }
 
-.contact-div p {
+.contact-div p, .req {
     font-size: 16px;
     line-height: 24px;
     letter-spacing: -0.1px;
@@ -142,4 +142,29 @@
     max-height: 40px; /* Adjust the maximum height as needed */
     padding-right: 4%;
   }
+
   
+.with-border {
+    border: 2px solid white;
+}
+  
+  
+  .custom-img {
+    max-width: 30%;/* Adjust the maximum width to your desired size */
+    height: auto; /* Automatically adjust the height to maintain aspect ratio */
+  }
+
+.dc-hr {
+    border: 5px solid white;
+}
+
+.dc-p {
+    font-size: 20px;
+    line-height:  28px;
+    letter-spacing: -2%;
+  }
+
+  
+.darkyellow-icon {
+    color: var(--dark-yellow) !important;
+  }
