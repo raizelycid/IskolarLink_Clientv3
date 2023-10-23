@@ -1,7 +1,7 @@
 import React from 'react';
 import './general.css'; // Your existing CSS
 import { Row, Col, Container } from "react-bootstrap";
-import AnnouncementCard from './AnnouncementCard.js'
+import AnnouncementCard from './AnnouncementVariant/AnnouncementCard.js'
 
 const Section3 = () => {
   return (
