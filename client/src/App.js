@@ -33,7 +33,7 @@ function App() {
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mx-auto Inter">
+            <Nav className="mx-auto Inter p-3">
               <LinkContainer to="/cosoa">
               <Nav.Link href="#" className="text-dark nav-link ms-4">
                 PUP COSOA

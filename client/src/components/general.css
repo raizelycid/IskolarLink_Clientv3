@@ -6,23 +6,23 @@
 
 .s1-title {
     font-size: 65px;
-    word-spacing: -1%;
+    letter-spacing: -1%;
 }
 
 .s1-st {
     font-size: 22px;
-    word-spacing: -0.1px;
+    letter-spacing: -0.1px;
 }
 
 .s1-h1 {
     font-size: 36px;
-    word-spacing: -1.5%;
+    letter-spacing: -1.5%;
     font-weight: 700;
 }
 
 .s1-p {
     font-size: 16px;
-    word-spacing: -0.1px;
+    letter-spacing: -0.1px;
 }
 
 .border-light {
@@ -50,7 +50,7 @@
     font-size: 22px;
 }
 
-.s2-body, .dc-subtitle {
+.s2-body, .dc-subtitle, .reg-h3 {
     font-weight: -0.1px;
     font-size: 20px;
     line-height: 24px;
@@ -80,7 +80,7 @@
     letter-spacing: -1%;
 }
 
-.contact-div p, .req {
+.contact-div p, .req, .login-q {
     font-size: 16px;
     line-height: 24px;
     letter-spacing: -0.1px;
@@ -151,3 +151,63 @@
     color: var(--dark-yellow) !important;
   }
 
+  .login-modal {
+    background-image: url("/public/Login.png");
+    background-repeat: no-repeat;
+    background-position: top;
+}
+
+.register-modal {
+    background-image: url("/public/Login.png");
+    background-repeat: no-repeat;
+    background-position: top;
+}
+.rounded-modal {
+    border-radius: 10%;
+}
+
+.login-form, .register-form{
+    background-color: white; 
+    border-radius: 10px;
+    max-width: 80%;
+    margin: 0 auto;
+  }
+  
+  .btn-close {
+    background-color: white;
+    color: white !important; 
+  }
+
+  .modal-title {
+    font-size: 60px;
+    line-height: auto;
+  }
+
+  .modal-subtitle {
+    font-size: 20px;
+    line-height: auto;
+  }
+
+  .login-modal .form-label {
+    font-size: 18px;
+    line-height: 20px;
+    letter-spacing: -0.1px;
+  }
+  
+  .register-modal .form-label {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.1px;
+  }
+
+  .form-control, .forgot-pw, .login-q, .reg-q{
+    font-size: 15px;
+    line-height: 22px;
+    letter-spacing: -0.1px;
+  }
+
+  .form-check {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.1px;
+  }
