@@ -24,7 +24,7 @@ function RegisterPopup() {
         centered
         animation
         >
-            <div className="register-modal pt-5">
+            <div className="register-modal pt-1">
                 <Modal.Header closeButton className="modal-header text-white px-4 mx-5">
                     <Modal.Title id="register-popup" className="ms-auto Inter-b modal-title mt-4">
                     Sign Up!
@@ -75,7 +75,6 @@ function RegisterPopup() {
                                 </Button>
                                 <Col/>
                             </Row>
-                            
                             
                             <Row classname="mb-3">
                                 <p className='text-gray2 Inter-normal reg-q text-center'>Already have an account?<span className='mx-3 text-yellow'>Log in</span></p>             

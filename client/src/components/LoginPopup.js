@@ -23,7 +23,7 @@ function LoginPopup() {
         centered
         animation
       >
-        <div className="login-modal pt-5 " >
+        <div className="login-modal pt-1 " >
  
           <Modal.Header className="px-4 modal-header text-white mx-5" closeButton>
             <Modal.Title id="login-popup" className="ms-auto Inter-b modal-title mt-4">
