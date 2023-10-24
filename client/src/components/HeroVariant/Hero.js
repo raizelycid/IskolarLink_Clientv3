@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Button } from 'react-bootstrap';
+import { Container, Col, Row, Image, Button } from 'react-bootstrap';
 import './Hero.css';
 
 const Hero = () => {
@@ -27,5 +27,24 @@ const HeroVariant = ({ h1Text, pText }) => {
     );
 };
 
+
+const HeroVariant2 = ({ imgSrc, name, webmail }) => {
+  return (
+      <div className="herovariant-bg d-flex align-items-center">
+          <Container>
+            <Row>
+            <Col md={6}>
+              <h2 className="Inter-b text-white">{name}</h2>
+              <p className="hero-p Inter-normal text-white pt-2 pb-3">{webmail}</p>
+            </Col>
+            <Col className="text-end">
+              <Button variant="secondary" >Edit Profile</Button>
+            </Col>
+            </Row>
+          </Container>
+      </div>
+  );
+};
+
 export default Hero;
-export {HeroVariant};
+export {HeroVariant, HeroVariant2};

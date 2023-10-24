@@ -6,6 +6,7 @@ import { Navbar, Container, Nav, Button, Row, Col, Modal } from 'react-bootstrap
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import COSOA from './Pages/COSOA';
+import COSOA_Dashboard from './Pages/COSOA_Portal/Dashboard';
 import Organizations from './Pages/Organizations';
 import AppDocs from './Pages/AppDocs';
 import FAQs from './Pages/FAQs';
@@ -65,6 +66,7 @@ function App() {
         </Container>
       </Navbar>
       <Routes>
+        <Route path="/cosoa_dashboard" exact element={<COSOA_Dashboard />} />
         <Route path="/cosoa" exact element={<COSOA />} />
         <Route path="/organizations" exact element={<Organizations />} />
         <Route path="/appdocs" exact element={<AppDocs />} />
