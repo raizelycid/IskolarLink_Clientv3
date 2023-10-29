@@ -74,6 +74,17 @@ function COSOA_Home() {
           role2="Vice President"
           role3="Secretary"
         />
+        <OfficerCard 
+          imageSrc="Officer.png"
+          imageSrc2="Officer.png"
+          imageSrc3="Officer.png"
+          name="John Doe"
+          name2="James Doe"
+          name3="Joe Doe"
+          role="President"
+          role2="Vice President"
+          role3="Secretary"
+        />
         <Row className='text-center my-5'>
         <Col>
         <Button variant="primary">Modify</Button>
