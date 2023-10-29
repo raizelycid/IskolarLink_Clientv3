@@ -6,7 +6,7 @@ import { AnnouncementVariant } from '../../components/AnnouncementVariant/Announ
 import OfficerCard from '../../components/OfficerCard';
 import ContactBanner from '../../components/ContactBanner';
 
-function Dashboard() {
+function COSOA_Home() {
   return (
     <div>
         <HeroVariant2 
@@ -85,4 +85,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default COSOA_Home;
