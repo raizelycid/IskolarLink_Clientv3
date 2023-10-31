@@ -1,13 +1,72 @@
 import { useState } from 'react';
 import { Button, Modal, Form, Row, Col, Image } from 'react-bootstrap';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './general.css';
 
 function RegisterPopup() {
+
+    const navigate = useNavigate();
+
+    const Departments = [
+        `College of Accountancy and Finance | CAF`,
+`College of Architecture, Design, and Built Environment | CADBE`,
+`College of Arts and Letters | CAL`,
+`College of Business Administration | CBA`,
+`College of Communication | COC`,
+`College of Computer and Information Sciences | CCIS`,
+`College of Education | COED`,
+`College of Engineering | CE`,
+`College of Human Kinetics | CHK`,
+`College of Law | CL`,
+`College of Political Science and Public Administration | CPSPA`,
+`College of Social Sciences and Development | CSSD`,
+`College of Science | CS`,
+`College of Tourism, Hospitality, and Transportation Management | CTHTM`,
+`Institute of Technology | ITECH`,
+`Open University System | OUS`,
+`Graduate School | GS`,
+`Senior High School | SHS`
+    ]
 
     const [showRegister, setShowRegister] = useState(false);
 
     const handleCloseRegister = () => setShowRegister(false);
     const handleShowRegister = () => setShowRegister(true);
+
+    const [regDetails, setRegDetails] = useState({
+        student_num: "",
+        student_Lname: "",
+        student_Fname: "",
+        student_Mname: "",
+        student_suffix: "",
+        department: "",
+        year_level: "",
+        email: "",
+        password: "",
+        confirmPassword: ""
+    });
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if(regDetails.password !== regDetails.confirmPassword){
+            alert("Passwords do not match!");
+        }else{
+            if(regDetails.suffix === "N/A"){
+                setRegDetails({...regDetails, student_suffix: ""});
+            }
+            axios.post('http://localhost:3001/auth/register', regDetails).then((response) => {
+                if(response.data === "Student created!"){
+                    alert("Registration successful!");
+                    handleCloseRegister();  
+                    navigate('/');
+                }else{
+                    alert(response.data);
+                }
+            });
+        }
+        
+    }
   return (
     <>
         <Button variant="link" className="text-red link-button Inter" onClick={handleShowRegister}>
@@ -42,27 +101,66 @@ function RegisterPopup() {
                         <Form>
                             <Form.Group className="mb-3" controlId="formRegisterStudentNum">
                                 <Form.Label className="Inter-med">Student Number</Form.Label>
-                                <Form.Control type="text" placeholder="Enter your Student Number" className="Inter-normal"></Form.Control >
+                                <Form.Control type="text" placeholder="Enter your Student Number" value={regDetails.student_num} onChange={(e) => setRegDetails({...regDetails, student_num: e.target.value})}/>
                             </Form.Group>
 
-                            <Form.Group className="mb-3" controlId="formRegisterName">
-                                <Form.Label className="Inter-med">Name</Form.Label>
-                                <Form.Control type="text" placeholder="Enter your Full Name"></Form.Control >
-                            </Form.Group>
 
+                            <Col><Row>
+                                <Form.Group as={Col} className="mb-3" controlId="formRegisterFname">
+                                    <Form.Label className="Inter-med">First Name*</Form.Label>
+                                    <Form.Control type="text" placeholder="Enter your First Name" value={regDetails.student_Fname} onChange={(e) => setRegDetails({...regDetails, student_Fname: e.target.value})} />
+                                </Form.Group>
+                                <Form.Group as={Col} className="mb-3" controlId="formRegisterMname">
+                                    <Form.Label className="Inter-med">Middle Name*</Form.Label>
+                                    <Form.Control type="text" placeholder="Enter your Middle Name" value={regDetails.student_Mname} onChange={(e) => setRegDetails({...regDetails, student_Mname: e.target.value})} />
+                                </Form.Group>
+                            </Row>
+                            <Row>
+                                <Form.Group as={Col} className="mb-3" controlId="formRegisterLname">
+                                    <Form.Label className="Inter-med">Last Name*</Form.Label>
+                                    <Form.Control type="text" placeholder="Enter your Last Name" value={regDetails.student_Lname} onChange={(e) => setRegDetails({...regDetails, student_Lname: e.target.value})} />
+                                </Form.Group>
+                                <Form.Group as={Col} className="mb-3" controlId="formRegisterSuffix">
+                                    <Form.Label className="Inter-med">Suffix (N/A if Not Applicable)</Form.Label>
+                                    <Form.Control type="text" placeholder="Enter your Suffix" value={regDetails.student_suffix} onChange={(e) => setRegDetails({...regDetails, student_suffix: e.target.value})} />
+                                </Form.Group>
+                            </Row>
+                            </Col>
+                            <Row>
+                                <Form.Group as={Col} className="mb-3" controlId="formRegisterDepartment">
+                                    <Form.Label className="Inter-med">Department*</Form.Label>
+                                    <Form.Select defaultValue="Choose..." value={regDetails.department} onChange={(e) => setRegDetails({...regDetails, department: e.target.value})}>
+                                        <option>Choose...</option>
+                                        {Departments.map((department) => (
+                                            <option>{department}</option>
+                                        ))}
+                                    </Form.Select>
+                                </Form.Group>
+                                <Form.Group as={Col} className="mb-3" controlId="formRegisterYearLevel">
+                                    <Form.Label className="Inter-med">Year Level*</Form.Label>
+                                    <Form.Select defaultValue="Choose..." value={regDetails.year_level} onChange={(e) => setRegDetails({...regDetails, year_level: e.target.value})}>
+                                        <option>Choose...</option>
+                                        <option>1st Year</option>
+                                        <option>2nd Year</option>
+                                        <option>3rd Year</option>
+                                        <option>4th Year</option>
+                                        <option>5th Year</option>
+                                    </Form.Select>
+                                </Form.Group>
+                            </Row>
                             <Form.Group className="mb-3" controlId="formRegisterWebmail">
                                 <Form.Label className="Inter-med">Webmail*</Form.Label>
-                                <Form.Control type="email" placeholder="Please enter your PUP Webmail Address" />
+                                <Form.Control type="email" placeholder="Enter your Webmail" value={regDetails.email} onChange={(e) => setRegDetails({...regDetails, email: e.target.value})}/>
                             </Form.Group>
 
                             <Row>
                                 <Form.Group as={Col} className="mb-3" controlId="formRegisterPassword">
                                     <Form.Label className="Inter-med">Password*</Form.Label>
-                                    <Form.Control type="password" placeholder="Enter your password" />
+                                    <Form.Control type="password" placeholder="Enter your Password" value={regDetails.password} onChange={(e) => setRegDetails({...regDetails, password: e.target.value})} />
                                 </Form.Group>
                                 <Form.Group as={Col} className="mb-3" controlId="formRegisterPassword">
                                     <Form.Label className="Inter-med">Confirm Password* </Form.Label>
-                                    <Form.Control type="password" placeholder="Passwords need to match" />
+                                    <Form.Control type="password" placeholder="Confirm your Password" value={regDetails.confirmPassword} onChange={(e) => setRegDetails({...regDetails, confirmPassword: e.target.value})} />
                                 </Form.Group>
                             </Row>
                             
@@ -70,7 +168,7 @@ function RegisterPopup() {
 
                             <Row className="mt-5 mb-3   ">
                                 <Col/>
-                                <Button as={Col} xs={7} variant="primary" type="submit">
+                                <Button as={Col} xs={7} variant="primary" type="submit" onClick={handleSubmit}>
                                 Register
                                 </Button>
                                 <Col/>
