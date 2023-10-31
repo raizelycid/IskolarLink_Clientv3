@@ -5,9 +5,13 @@ import { AnnouncementVariant } from '../components/AnnouncementVariant/Announcem
 import OfficerCard from '../components/OfficerCard';
 import ContactBanner from '../components/ContactBanner';
 import './COSOA.css';
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
  
 
 function COSOA() {
+
   return (
     <div>
       <HeroVariant 
@@ -33,7 +37,10 @@ function COSOA() {
           <p className='text-gray2'>Discover the latest announcement that will shape the future of PUP COSOA and elevate your student experience!</p>
         </Row>
         <Row>
-          <p>Need to find a calendar plugin</p>
+          <FullCalendar 
+          plugins={[ dayGridPlugin, interactionPlugin ]}
+          initialView="dayGridMonth"
+          />
         </Row>
       </Container>
 
