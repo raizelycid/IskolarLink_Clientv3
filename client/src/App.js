@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import axios from 'axios';
 import { saveAs } from 'file-saver';
-import { Navbar, Container, Nav, Button, Row, Col, Modal } from 'react-bootstrap';
+import { Navbar, Container, Nav, Button, Row, Col, Modal, NavDropdown } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import COSOA from './Pages/COSOA';
@@ -12,15 +12,51 @@ import Organizations from './Pages/Organizations';
 import AppDocs from './Pages/AppDocs';
 import FAQs from './Pages/FAQs';
 import LandingPage from './Pages/LandingPage';
-import { useState} from 'react';
+import { useState, useEffect} from 'react';
 import LoginPopup from './components/LoginPopup';
 import RegisterPopup from './components/RegisterPopup';
+import { AuthContext } from './helpers/AuthContent';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 
 
 function App() {
 
+  axios.defaults.withCredentials = true;
+
+  const [authState, setAuthState] = useState({
+    id: 0,
+    username: "",
+    profile_picture: "",
+    role: "",
+    student_id: 0,
+    status: false
+  });
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/auth/')
+    .then((response) => {
+      if(response.data.error){
+        setAuthState({...authState, status: false});
+        console.log("You are not logged in!");
+      }else{
+        console.log(`You are logged in as ${response.data.role} ${response.data.username}`)
+        setAuthState({
+          id: response.data.id,
+          username: response.data.username,
+          profile_picture: response.data.profile_picture,
+          role: response.data.role,
+          student_id: response.data.student_id,
+          status: true
+        });
+        console.log(response.data);
+      }
+    })
+  }, [])
+
   return (
+    <AuthContext.Provider value={{authState, setAuthState}}>
     <Router>
       
       <Navbar expand="lg">
@@ -59,9 +95,31 @@ function App() {
             </Nav>
 
             <Nav className="ms-auto ">
-              <RegisterPopup />
-              <LoginPopup />
-              
+            {authState.status ? (
+                <NavDropdown title={<>{authState.profile_picture ? <img src={authState.profile_picture} alt="Profile Picture" width="40" height="40" className="rounded-circle" /> : <FontAwesomeIcon icon={faUser}/>} <span className='text-dark'>Hi, {authState.username}!</span></>} id="basic-nav-dropdown" className="text-dark" renderMenuOnMount={true}>
+                  <NavDropdown.Item href="#">Profile</NavDropdown.Item>
+                  <NavDropdown.Item href="#">Settings</NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item onClick={() => {
+                    axios.post('http://localhost:3001/auth/logout')
+                    .then((response) => {
+                      if(response.data.error){
+                        alert(response.data.error);
+                      }
+                      else{
+                        alert('User logged out!');
+                        window.location.reload(false);
+                      }
+                    });
+                  }}>Log Out</NavDropdown.Item>
+                </NavDropdown>
+              ):(
+                <>
+                <LoginPopup />
+                <RegisterPopup />
+                </>
+              )}
+            
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -153,6 +211,7 @@ function App() {
         </Container>
       </footer>
     </Router>
+    </AuthContext.Provider>
   );
 }
 
