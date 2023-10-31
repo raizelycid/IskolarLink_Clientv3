@@ -19,7 +19,7 @@ const Section4 = () => {
         caption: 'Document 1 Caption',
       },
       {
-        imageSrc: '/image 1.png', 
+        imageSrc: '/image1.png', 
         caption: 'Document 2 Caption',
       },
       // Add more documents as needed
@@ -32,7 +32,7 @@ const Section4 = () => {
     list_req: ['Accredited Organization'],
     documents: [
       {
-        imageSrc: '/image 1.png', 
+        imageSrc: '/image1.png', 
         caption: 'Document 1 Caption',
       },
       {
