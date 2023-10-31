@@ -4,8 +4,8 @@ import '../general.css';
 
 const Section2 = () => {
   return (
-    <div className="vh-100 bg-yellow Inter text-black d-flex align-items-center">
-      <Container className='vh-100 bg-yellow'>
+    <div className="p-5 bg-yellow Inter text-black d-flex align-items-center">
+      <Container fluid>
         <Row className="text-center mt-5">
           <h1 className='Inter-b s2-h2'>PUP Commission on Student Organizations<br />and Accreditation (COSOA)</h1>
           <p className="Inter-normal s2-p">An independent institution of the PUP Student Council which has the mandate to accredit and reaccredit.</p>

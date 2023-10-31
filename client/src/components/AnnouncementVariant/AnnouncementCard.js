@@ -4,7 +4,8 @@ import '../general.css';
 
 const AnnouncementCard = ({ imageSrc, title, description, userName, userType, date, userImageSrc }) => {
   return (
-    <Card className="custom-card border-0">
+    <Col fluid>
+    <Card className="mx-3 p-4">
       <Card.Img variant="top" src={imageSrc} className="announcement-image" />
       <Card.Body>
         <Card.Title>{title}</Card.Title>
@@ -32,7 +33,9 @@ const AnnouncementCard = ({ imageSrc, title, description, userName, userType, da
         </Button>
 
       </Card.Footer>
-    </Card>
+    </Card>    
+    </Col>
+
   );
 };
 

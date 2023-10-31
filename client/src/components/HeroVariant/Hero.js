@@ -46,5 +46,16 @@ const HeroVariant2 = ({ imgSrc, name, webmail }) => {
   );
 };
 
+const HeroVariant3 = ({  h1Text, pText  }) => {
+  return (
+      <div className="herovariant-bg d-flex align-items-center">
+        <Container className="text-center">
+          <h1 className="hero-h1 Inter-b text-white">{h1Text}</h1>
+          <p className="hero-p Inter-normal text-white pt-2 pb-3">{pText}</p>
+        </Container>
+      </div>
+  );
+};
+
 export default Hero;
-export {HeroVariant, HeroVariant2};
+export {HeroVariant, HeroVariant2, HeroVariant3};

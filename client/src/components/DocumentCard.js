@@ -14,7 +14,7 @@ const DocumentCard = ({ title, subtitle, list_req, documents }) => {
     setIndex(selectedIndex);
   };
 
-  return (
+  return (  
     <div className="document-card with-border p-4 rounded" style={{ height: '695px', width: '592px' }}> 
       <div className="document-info">
         <div className='border-bottom'>
@@ -51,23 +51,6 @@ const DocumentCard = ({ title, subtitle, list_req, documents }) => {
           </Carousel.Item>
         ))}
       </Carousel>
-
-      <div className="d-flex justify-content-between align-items-center p-3">
-        <button
-          className="carousel-control-prev darkyellow-icon"
-          onClick={() => handleSelect(index - 1)}
-          disabled={index === 0}
-        >
-        <FontAwesomeIcon icon={faChevronLeft} className="darkyellow-icon" />
-        </button>
-        <button
-          className="carousel-control-next darkyellow-icon"
-          onClick={() => handleSelect(index + 1)}
-          disabled={index === documents.length - 1}
-        >
-        <FontAwesomeIcon icon={faChevronRight} style={{ color: "var(--darkyellow)" }} />
-        </button>
-      </div>
     </div>
   );
 };
