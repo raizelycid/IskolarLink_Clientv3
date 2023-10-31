@@ -104,11 +104,6 @@
     letter-spacing: -0.1px;
 }
 
-.s4 Button {
-    padding-left: 5%;
-    padding-right: 5%;
-}
-
 .announcement-image {
     max-width: 100%; /* Set the maximum width of the image */
     max-height: 200px; /* Set the maximum height of the image */
@@ -224,4 +219,3 @@
     margin-right: auto;
   }
 
-  

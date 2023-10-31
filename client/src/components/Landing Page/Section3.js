@@ -12,7 +12,6 @@ const Section3 = () => {
       </Row>
       <Container fluid className="d-flex justify-content-center pb-5"> 
         <Row>
-          <Col className='d-flex justify-content-center'>
             <AnnouncementCard
               imageSrc="studentorg.png"
               title="Important Announcement"
@@ -22,8 +21,6 @@ const Section3 = () => {
               date="Oct 5"
               userImageSrc="s1-icon1.png"
             />
-          </Col>
-          <Col className='d-flex justify-content-center'>
             <AnnouncementCard
               imageSrc="studentorg.png"
               title="Important Announcement"
@@ -33,8 +30,6 @@ const Section3 = () => {
               date="Oct 5"
               userImageSrc="s1-icon1.png"
             />
-          </Col>
-          <Col className='d-flex justify-content-center'>
             <AnnouncementCard
               imageSrc="studentorg.png"
               title="Important Announcement"
@@ -44,7 +39,6 @@ const Section3 = () => {
               date="Oct 5"
               userImageSrc="s1-icon1.png"
             />
-          </Col>
         </Row>
       </Container>
     </div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Stat_Card from '../Stat_Card';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import '../general.css';
 
@@ -8,7 +9,7 @@ const Section1 = () => {
     const [programCount, setProgramCount] = useState(219);
     
     return (
-      <div className="s1-bg vh-70 d-flex align-items-center">
+      <div className="s1-bg m-5 d-flex align-items-center">
         <Container>
           <Row className="mb-4  ">
             <Col className="text-center">
@@ -19,33 +20,21 @@ const Section1 = () => {
             </Col>
           </Row>
           <Row>
-            <Col>
-              <Card className="align-items-center text-center mx-5 py-4 rounded-0 shadow">
-                <Card.Img variant="top" src="/s1-icon1.png" className="s1-icon" />
-                <Card.Body className="pt-2">
-                  <Card.Title className="Inter s1-title mb-1">{orgCount.toLocaleString()}</Card.Title>
-                  <Card.Subtitle className="Inter-normal s1-st">Student Organizations</Card.Subtitle>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col>
-              <Card className="align-items-center text-center mx-5 py-4 rounded-0 shadow">
-                <Card.Img variant="top" src="/s1-icon2.png" className="s1-icon" />
-                <Card.Body className="pt-2">
-                  <Card.Title className="Inter s1-title mb-1">{studentCount.toLocaleString()}</Card.Title>
-                  <Card.Subtitle className="Inter-normal s1-st">Students</Card.Subtitle>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col>
-              <Card className="align-items-center text-center mx-5 py-4 rounded-0 shadow">
-                <Card.Img variant="top" src="/s1-icon3.png" className="s1-icon" />
-                <Card.Body className="pt-2">
-                  <Card.Title className="Inter s1-title mb-1">{programCount.toLocaleString()}</Card.Title>
-                  <Card.Subtitle className="Inter-normal s1-st">Academic Programs</Card.Subtitle>
-                </Card.Body>
-              </Card>
-            </Col>
+              <Stat_Card
+                imgSrc="./s1-icon1.png"
+                subtitle="Student Organizations"
+                numcount="214"
+              />
+              <Stat_Card
+                imgSrc="./s1-icon2.png"
+                subtitle="Students"
+                numcount="82,477"
+              />
+              <Stat_Card 
+                imgSrc="./s1-icon3.png"
+                subtitle="Academic Programs"
+                numcount="219"
+              />
           </Row>
         </Container>
       </div>
