@@ -12,12 +12,13 @@ import Organizations from './Pages/Organizations';
 import AppDocs from './Pages/AppDocs';
 import FAQs from './Pages/FAQs';
 import LandingPage from './Pages/LandingPage';
-import { useState, useEffect} from 'react';
+import { useState, useEffect, useContext} from 'react';
 import LoginPopup from './components/LoginPopup';
 import RegisterPopup from './components/RegisterPopup';
+import MainMenu from './components/mainMenu';
+import CosoaMenu from './components/cosoaMenu';
+import WebAdminMenu from './components/webAdminMenu';
 import { AuthContext } from './helpers/AuthContent';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -25,14 +26,10 @@ function App() {
 
   axios.defaults.withCredentials = true;
 
-  const [authState, setAuthState] = useState({
-    id: 0,
-    username: "",
-    profile_picture: "",
-    role: "",
-    student_id: 0,
-    status: false
-  });
+  const {auth, menu} = useContext(AuthContext);
+  const {authState, setAuthState} = auth;
+  const {activeMenu, setActiveMenu} = menu;
+
 
   useEffect(() => {
     axios.get('http://localhost:3001/auth/')
@@ -42,21 +39,23 @@ function App() {
         console.log("You are not logged in!");
       }else{
         console.log(`You are logged in as ${response.data.role} ${response.data.username}`)
+        console.log(response.data);
         setAuthState({
           id: response.data.id,
           username: response.data.username,
           profile_picture: response.data.profile_picture,
           role: response.data.role,
           student_id: response.data.student_id,
+          is_cosoa: response.data.is_cosoa,
+          is_web_admin: response.data.is_web_admin,
           status: true
         });
-        console.log(response.data);
       }
     })
-  }, [])
+  }, [authState.status])
 
   return (
-    <AuthContext.Provider value={{authState, setAuthState}}>
+    <AuthContext.Provider value={{auth:{authState, setAuthState},menu:{activeMenu,setActiveMenu}}}>
     <Router>
       
       <Navbar expand="lg">
@@ -96,23 +95,17 @@ function App() {
 
             <Nav className="ms-auto ">
             {authState.status ? (
-                <NavDropdown title={<>{authState.profile_picture ? <img src={authState.profile_picture} alt="Profile Picture" width="40" height="40" className="rounded-circle" /> : <FontAwesomeIcon icon={faUser}/>} <span className='text-dark'>Hi, {authState.username}!</span></>} id="basic-nav-dropdown" className="text-dark" renderMenuOnMount={true}>
-                  <NavDropdown.Item href="#">Profile</NavDropdown.Item>
-                  <NavDropdown.Item href="#">Settings</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item onClick={() => {
-                    axios.post('http://localhost:3001/auth/logout')
-                    .then((response) => {
-                      if(response.data.error){
-                        alert(response.data.error);
-                      }
-                      else{
-                        alert('User logged out!');
-                        window.location.reload(false);
-                      }
-                    });
-                  }}>Log Out</NavDropdown.Item>
-                </NavDropdown>
+              // menu depends on activeMenu which has three value (main, cosoa, webadmin)
+
+              activeMenu === 'main' ? (
+                <MainMenu imgSrc={authState.profile_picture} username={authState.username} />
+              ) : activeMenu === 'cosoa' ? (
+                <CosoaMenu imgSrc={authState.profile_picture} username={authState.username} />
+              ) : (
+                <WebAdminMenu imgSrc={authState.profile_picture} username={authState.username} />
+              )
+              
+  
               ):(
                 <>
                 <LoginPopup />

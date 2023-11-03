@@ -10,6 +10,7 @@
   --gray2: #5F6D7E;
 }
 
+
 .text-red {
   color: var(--red) !important;  /*Overrides bootstrap's text-red*/
 }

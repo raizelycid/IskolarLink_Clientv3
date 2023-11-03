@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect, useContext } from 'react';
 import './COSOA_Portal.css';
 import { HeroVariant2 } from '../../components/HeroVariant/Hero';
 import { Container, Row, Col, Button } from 'react-bootstrap';
@@ -6,7 +6,17 @@ import { AnnouncementVariant } from '../../components/AnnouncementVariant/Announ
 import OfficerCard from '../../components/OfficerCard';
 import ContactBanner from '../../components/ContactBanner';
 
+import { AuthContext } from '../../helpers/AuthContent';
+
 function COSOA_Home() {
+
+  const {auth, menu} = useContext(AuthContext);
+    const {authState, setAuthState} = auth;
+    const {activeMenu, setActiveMenu} = menu;
+
+  useEffect(() => {
+    console.log(activeMenu);
+  },[]);
   return (
     <div>
         <HeroVariant2 

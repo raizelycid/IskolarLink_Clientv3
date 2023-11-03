@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AuthProvider from './helpers/AuthContent';
+
 
 const script = document.createElement('script');
 script.src = 'https://kit.fontawesome.com/f7a18fe102.js';
@@ -13,7 +15,9 @@ document.head.appendChild(script);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <AuthProvider>
     <App />
+    </AuthProvider>
   </React.StrictMode>
 );
 

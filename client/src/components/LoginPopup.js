@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Button, Modal, Form, Row, Col, CloseButton} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './general.css';
+import { AuthContext } from '../helpers/AuthContent';
+
 
 function LoginPopup() {
   const [showLogin, setShowLogin] = useState(false);
@@ -13,6 +15,7 @@ function LoginPopup() {
     keepLoggedIn: false
   });
 
+  const {authState, setAuthState} = useContext(AuthContext);
   const navigate = useNavigate();
   axios.defaults.withCredentials = true;
 
@@ -27,8 +30,9 @@ function LoginPopup() {
       if(response.data.error){
         alert(response.data.error);
       }else{
+        alert('User logged in!');
+        setAuthState({...authState, status: true});
         handleCloseLogin();
-        window.location.reload(false);
       }
     });
   }
