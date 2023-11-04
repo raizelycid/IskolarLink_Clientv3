@@ -14,7 +14,7 @@ import LandingPage from './Pages/LandingPage';
 import { useState} from 'react';
 import LoginPopup from './components/LoginPopup';
 import RegisterPopup from './components/RegisterPopup';
-
+import Organization_Profile from './Pages/Student_portal/Organization_Profile';
 
 
 function App() {
@@ -72,6 +72,7 @@ function App() {
         <Route path="/appdocs" exact element={<AppDocs />} />
         <Route path="/faqs" exact element={<FAQs />} />
         <Route path="/" exact element={<LandingPage />} />
+        <Route path="/organization_profile" exact element ={<Organization_Profile />} />
       </Routes>
 
       <footer className="footer bg-dark text-white py-4 border-bottom Inter">
