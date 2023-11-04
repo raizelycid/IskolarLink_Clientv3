@@ -1,15 +1,24 @@
-import {React, useContext,useState} from 'react'
+import {React, useContext,useEffect} from 'react'
 import { NavDropdown } from 'react-bootstrap'
 import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { AuthContext } from '../helpers/AuthContent'
+import { useNavigate } from 'react-router-dom'
+
 
 const WebAdminMenu = ({imgSrc, username}) => {
 
     const {auth, menu} = useContext(AuthContext);
     const {authState, setAuthState} = auth;
     const {activeMenu, setActiveMenu} = menu;
+    
+    const navigate = useNavigate();
+    axios.defaults.withCredentials = true;
+
+    useEffect(() => {
+    },[]);
+
 
     
     return(
@@ -28,6 +37,7 @@ const WebAdminMenu = ({imgSrc, username}) => {
                     alert('User logged out!');
                     // set authState.status to false
                     setAuthState({...authState, status: false});
+                    navigate('/');
                 }
             });
         }}>Log Out</NavDropdown.Item>

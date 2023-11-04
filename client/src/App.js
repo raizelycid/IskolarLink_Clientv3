@@ -19,6 +19,9 @@ import MainMenu from './components/mainMenu';
 import CosoaMenu from './components/cosoaMenu';
 import WebAdminMenu from './components/webAdminMenu';
 import { AuthContext } from './helpers/AuthContent';
+import Accreditation from './Pages/Student_Portal/Accreditation';
+import AccreditationStatus from './Pages/Student_Portal/AccreditationStatus';
+import Cookies from 'js-cookie';
 
 
 
@@ -26,9 +29,10 @@ function App() {
 
   axios.defaults.withCredentials = true;
 
-  const {auth, menu} = useContext(AuthContext);
+  const {auth, menu, handleMenuChange} = useContext(AuthContext);
   const {authState, setAuthState} = auth;
   const {activeMenu, setActiveMenu} = menu;
+
 
 
   useEffect(() => {
@@ -51,11 +55,10 @@ function App() {
           status: true
         });
       }
-    })
+    });
   }, [authState.status])
 
   return (
-    <AuthContext.Provider value={{auth:{authState, setAuthState},menu:{activeMenu,setActiveMenu}}}>
     <Router>
       
       <Navbar expand="lg">
@@ -125,6 +128,8 @@ function App() {
         <Route path="/appdocs" exact element={<AppDocs />} />
         <Route path="/faqs" exact element={<FAQs />} />
         <Route path="/" exact element={<LandingPage />} />
+        <Route path="/accreditation" exact element={<Accreditation />} />
+        <Route path="/accreditation_status" exact element={<AccreditationStatus />} />
       </Routes>
 
       <footer className="footer bg-dark text-white py-4 border-bottom Inter">
@@ -204,7 +209,6 @@ function App() {
         </Container>
       </footer>
     </Router>
-    </AuthContext.Provider>
   );
 }
 
