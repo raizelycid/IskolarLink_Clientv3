@@ -21,7 +21,6 @@ import WebAdminMenu from './components/webAdminMenu';
 import { AuthContext } from './helpers/AuthContent';
 import Accreditation from './Pages/Student_Portal/Accreditation';
 import AccreditationStatus from './Pages/Student_Portal/AccreditationStatus';
-import Cookies from 'js-cookie';
 
 
 
