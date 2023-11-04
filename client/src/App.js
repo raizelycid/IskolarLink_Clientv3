@@ -15,6 +15,7 @@ import LandingPage from './Pages/LandingPage';
 import { useState, useEffect, useContext} from 'react';
 import LoginPopup from './components/LoginPopup';
 import RegisterPopup from './components/RegisterPopup';
+import Organization_Profile from './Pages/Student_portal/Organization_Profile';
 import MainMenu from './components/mainMenu';
 import CosoaMenu from './components/cosoaMenu';
 import WebAdminMenu from './components/webAdminMenu';
@@ -22,7 +23,6 @@ import { AuthContext } from './helpers/AuthContent';
 import Accreditation from './Pages/Student_Portal/Accreditation';
 import AccreditationStatus from './Pages/Student_Portal/AccreditationStatus';
 import Cookies from 'js-cookie';
-
 
 
 function App() {
@@ -128,6 +128,7 @@ function App() {
         <Route path="/appdocs" exact element={<AppDocs />} />
         <Route path="/faqs" exact element={<FAQs />} />
         <Route path="/" exact element={<LandingPage />} />
+        <Route path="/organization_profile" exact element ={<Organization_Profile />} />
         <Route path="/accreditation" exact element={<Accreditation />} />
         <Route path="/accreditation_status" exact element={<AccreditationStatus />} />
       </Routes>
