@@ -2,22 +2,61 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import axios from 'axios';
 import { saveAs } from 'file-saver';
-import { Navbar, Container, Nav, Button, Row, Col, Modal } from 'react-bootstrap';
+import { Navbar, Container, Nav, Button, Row, Col, Modal, NavDropdown } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import COSOA from './Pages/COSOA';
 import COSOA_Home from './Pages/COSOA_Portal/COSOA_Home';
+import COSOA_Dashboard from './Pages/COSOA_Portal/COSOA_Dashboard';
 import Organizations from './Pages/Organizations';
 import AppDocs from './Pages/AppDocs';
 import FAQs from './Pages/FAQs';
 import LandingPage from './Pages/LandingPage';
-import { useState} from 'react';
+import { useState, useEffect, useContext} from 'react';
 import LoginPopup from './components/LoginPopup';
 import RegisterPopup from './components/RegisterPopup';
 import Organization_Profile from './Pages/Student_portal/Organization_Profile';
+import MainMenu from './components/mainMenu';
+import CosoaMenu from './components/cosoaMenu';
+import WebAdminMenu from './components/webAdminMenu';
+import { AuthContext } from './helpers/AuthContent';
+import Accreditation from './Pages/Student_Portal/Accreditation';
+import AccreditationStatus from './Pages/Student_Portal/AccreditationStatus';
+import Cookies from 'js-cookie';
 
 
 function App() {
+
+  axios.defaults.withCredentials = true;
+
+  const {auth, menu, handleMenuChange} = useContext(AuthContext);
+  const {authState, setAuthState} = auth;
+  const {activeMenu, setActiveMenu} = menu;
+
+
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/auth/')
+    .then((response) => {
+      if(response.data.error){
+        setAuthState({...authState, status: false});
+        console.log("You are not logged in!");
+      }else{
+        console.log(`You are logged in as ${response.data.role} ${response.data.username}`)
+        console.log(response.data);
+        setAuthState({
+          id: response.data.id,
+          username: response.data.username,
+          profile_picture: response.data.profile_picture,
+          role: response.data.role,
+          student_id: response.data.student_id,
+          is_cosoa: response.data.is_cosoa,
+          is_web_admin: response.data.is_web_admin,
+          status: true
+        });
+      }
+    });
+  }, [authState.status])
 
   return (
     <Router>
@@ -58,9 +97,25 @@ function App() {
             </Nav>
 
             <Nav className="ms-auto ">
-              <RegisterPopup />
-              <LoginPopup />
+            {authState.status ? (
+              // menu depends on activeMenu which has three value (main, cosoa, webadmin)
+
+              activeMenu === 'main' ? (
+                <MainMenu imgSrc={authState.profile_picture} username={authState.username} />
+              ) : activeMenu === 'cosoa' ? (
+                <CosoaMenu imgSrc={authState.profile_picture} username={authState.username} />
+              ) : (
+                <WebAdminMenu imgSrc={authState.profile_picture} username={authState.username} />
+              )
               
+  
+              ):(
+                <>
+                <LoginPopup />
+                <RegisterPopup />
+                </>
+              )}
+            
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -68,11 +123,14 @@ function App() {
       <Routes>
         <Route path="/cosoa_home" exact element={<COSOA_Home />} />
         <Route path="/cosoa" exact element={<COSOA />} />
+        <Route path="/cosoa_dashboard" exact element={<COSOA_Dashboard />} />
         <Route path="/organizations" exact element={<Organizations />} />
         <Route path="/appdocs" exact element={<AppDocs />} />
         <Route path="/faqs" exact element={<FAQs />} />
         <Route path="/" exact element={<LandingPage />} />
         <Route path="/organization_profile" exact element ={<Organization_Profile />} />
+        <Route path="/accreditation" exact element={<Accreditation />} />
+        <Route path="/accreditation_status" exact element={<AccreditationStatus />} />
       </Routes>
 
       <footer className="footer bg-dark text-white py-4 border-bottom Inter">

@@ -10,6 +10,7 @@
   --gray2: #5F6D7E;
 }
 
+
 .text-red {
   color: var(--red) !important;  /*Overrides bootstrap's text-red*/
 }
@@ -189,5 +190,20 @@ footer, .data-footer {
 
 .card {
   border-color: #EAEBF0;
+}
+
+
+/* Accreditation Form Progress Bar */
+.progressbar {
+  width: 100vw;
+  height: 10px;
+  background-color: white;
+  margin-bottom: 50px;
+}
+
+.progressbar div {
+  width: 33.3%;
+  height: 100%;
+  background-color: rgb(98, 0, 255);
 }
 

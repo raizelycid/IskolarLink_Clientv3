@@ -1,12 +1,43 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Button, Modal, Form, Row, Col, CloseButton} from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './general.css';
+import { AuthContext } from '../helpers/AuthContent';
+
 
 function LoginPopup() {
   const [showLogin, setShowLogin] = useState(false);
 
+  const [loginDetails, setLoginDetails] = useState({
+    email: '',
+    password: '',
+    keepLoggedIn: false
+  });
+
+  const {auth, menu} = useContext(AuthContext);
+  const {authState, setAuthState} = auth;
+  const {activeMenu, setActiveMenu} = menu;
+  const navigate = useNavigate();
+  axios.defaults.withCredentials = true;
+
   const handleCloseLogin = () => setShowLogin(false);
   const handleShowLogin = () => setShowLogin(true);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(loginDetails);
+    axios.post('http://localhost:3001/auth/login', loginDetails).then((response) => {
+      console.log(response);
+      if(response.data.error){
+        alert(response.data.error);
+      }else{
+        alert('User logged in!');
+        setAuthState({...authState, status: true});
+        handleCloseLogin();
+      }
+    });
+  }
 
   return (
     <>
@@ -39,17 +70,17 @@ function LoginPopup() {
               <Form>
                 <Form.Group className="mb-3" controlId="formLoginWebmail">
                   <Form.Label className='Inter-med'>Webmail address</Form.Label>
-                  <Form.Control type="email" placeholder="Enter your webmail" className='Inter-normal'/>
+                  <Form.Control type="email" placeholder="Enter your webmail address" className='Inter-normal' onChange={(e) => setLoginDetails({...loginDetails, email: e.target.value})}/>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formLoginPassword">
                   <Form.Label className='Inter-med'>Password</Form.Label>
-                  <Form.Control type="password" placeholder="Enter your password"  className='Inter-normal'/>
+                  <Form.Control type="password" placeholder="Enter your password" className='Inter-normal' onChange={(e) => setLoginDetails({...loginDetails, password: e.target.value})}/>
                 </Form.Group>
 
                 <Row>
                   <Form.Group as={Col} controlId="formLoginCheckbox">
-                    <Form.Check type="checkbox" label="Keep me logged in"  className='Inter-med'/>
+                    <Form.Check type="checkbox" label="Keep me logged in" className='Inter-normal' onChange={(e) => setLoginDetails({...loginDetails, keepLoggedIn: e.target.value})}/>
                   </Form.Group>
                   <Button as={Col} variant="link" className="text-end no-decoration text-red Inter forgot-pw">
                     Forgot Password?
@@ -57,7 +88,7 @@ function LoginPopup() {
                 </Row>
                 
                 <Row className="p-2 my-1">
-                  <Button variant="primary" type="submit" className="Inter login-b">
+                  <Button variant="primary" type="submit" className="Inter login-b" onClick={handleSubmit}>
                   Log In
                   </Button>
                 </Row>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect, useContext } from 'react';
 import './COSOA_Portal.css';
 import { HeroVariant2 } from '../../components/HeroVariant/Hero';
 import { Container, Row, Col, Button } from 'react-bootstrap';
@@ -6,7 +6,17 @@ import { AnnouncementVariant } from '../../components/AnnouncementVariant/Announ
 import OfficerCard from '../../components/OfficerCard';
 import ContactBanner from '../../components/ContactBanner';
 
+import { AuthContext } from '../../helpers/AuthContent';
+
 function COSOA_Home() {
+
+  const {auth, menu} = useContext(AuthContext);
+    const {authState, setAuthState} = auth;
+    const {activeMenu, setActiveMenu} = menu;
+
+  useEffect(() => {
+    console.log(activeMenu);
+  },[]);
   return (
     <div>
         <HeroVariant2 
@@ -63,6 +73,17 @@ function COSOA_Home() {
             <p className='text-gray2'>Organically grow the holistic world view of disruptive innovation via workplace diversity  and empowerment of people and great talent that truly rocks.</p>
         </Row>
       <Container>
+        <OfficerCard 
+          imageSrc="Officer.png"
+          imageSrc2="Officer.png"
+          imageSrc3="Officer.png"
+          name="John Doe"
+          name2="James Doe"
+          name3="Joe Doe"
+          role="President"
+          role2="Vice President"
+          role3="Secretary"
+        />
         <OfficerCard 
           imageSrc="Officer.png"
           imageSrc2="Officer.png"
