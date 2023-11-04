@@ -15,7 +15,9 @@ function LoginPopup() {
     keepLoggedIn: false
   });
 
-  const {authState, setAuthState} = useContext(AuthContext);
+  const {auth, menu} = useContext(AuthContext);
+  const {authState, setAuthState} = auth;
+  const {activeMenu, setActiveMenu} = menu;
   const navigate = useNavigate();
   axios.defaults.withCredentials = true;
 

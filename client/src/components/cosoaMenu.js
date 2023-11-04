@@ -1,5 +1,5 @@
-import {React, useContext,useState} from 'react'
-import { NavDropdown } from 'react-bootstrap'
+import {React, useContext,useEffect} from 'react'
+import { Nav, NavDropdown } from 'react-bootstrap'
 import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
@@ -13,6 +13,7 @@ const CosoaMenu = ({imgSrc, username}) => {
     const {activeMenu, setActiveMenu} = menu;
 
     const navigate = useNavigate();
+    axios.defaults.withCredentials = true;
 
     const switchStudent = (e) => {
         e.preventDefault();
@@ -20,8 +21,12 @@ const CosoaMenu = ({imgSrc, username}) => {
         navigate('/');
     }
 
+    useEffect(() => {
+    },[]);
+
     return(
     <NavDropdown title={<>{imgSrc ? <img src={`http://localhost:3001/images/${imgSrc}`} alt="Profile Picture" width="40" height="40" className="rounded-circle" /> : <FontAwesomeIcon icon={faUser}/>} <span className='text-dark'>Hi, {username}!</span></>} id="basic-nav-dropdown" className="text-dark" renderMenuOnMount={true}>
+        <NavDropdown.Item onClick={()=>navigate('/cosoa_dashboard')}>Dashboard</NavDropdown.Item>
         <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
         <NavDropdown.Item onClick={switchStudent}>Switch to Student</NavDropdown.Item>
         <NavDropdown.Item href="/settings">Settings</NavDropdown.Item>
@@ -36,6 +41,7 @@ const CosoaMenu = ({imgSrc, username}) => {
                     alert('User logged out!');
                     // set authState.status to false
                     setAuthState({...authState, status: false});
+                    navigate('/');
                 }
             });
         }}>Log Out</NavDropdown.Item>

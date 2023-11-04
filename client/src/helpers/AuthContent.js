@@ -18,11 +18,12 @@ export default ({children}) => {
     is_web_admin: false,
     status: false
   });
+
     return (
         <AuthContext.Provider
         value={{
             auth: { authState, setAuthState },
-            menu: { activeMenu, setActiveMenu }
+            menu: { activeMenu, setActiveMenu },
         }}
         >
         {children}
