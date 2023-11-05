@@ -9,6 +9,7 @@ import COSOA from './Pages/COSOA';
 import COSOA_Home from './Pages/COSOA_Portal/COSOA_Home';
 import COSOA_Dashboard from './Pages/COSOA_Portal/COSOA_Dashboard';
 import COSOA_Applicants from './Pages/COSOA_Portal/COSOA_Applicants';
+import Applicant_Page from './components/Applicant_Page';
 import Organizations from './Pages/Organizations';
 import AppDocs from './Pages/AppDocs';
 import FAQs from './Pages/FAQs';
@@ -125,7 +126,8 @@ function App() {
         <Route path="/cosoa" exact element={<COSOA />} />
         <Route path="/cosoa/home" exact element={<COSOA_Home />} />
         <Route path="/cosoa/dashboard" exact element={<COSOA_Dashboard />} />
-        <Route path="/cosoa/application" exact element={<COSOA_Applicants />} />
+        <Route path="/cosoa/applicant" exact element={<COSOA_Applicants />} />
+        <Route path="/cosoa/applicant/puptpg" exact element={<Applicant_Page />} />
         <Route path="/organizations" exact element={<Organizations />} />
         <Route path="/appdocs" exact element={<AppDocs />} />
         <Route path="/faqs" exact element={<FAQs />} />

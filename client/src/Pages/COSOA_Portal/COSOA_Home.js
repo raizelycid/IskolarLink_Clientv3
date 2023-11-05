@@ -57,12 +57,12 @@ function COSOA_Home() {
           <p className='text-gray2'>Discover the latest announcement that will shape the future of PUP COSOA and elevate your student experience!</p>
         </Row>
         <AnnouncementVariant
-          imageSrc="image2.png"
+          imageSrc="/image2.png"
           title="PUP Student Formations' Conference Announcement"
           description="We are thrilled to announce the upcoming PUP Student Formations' Conference, a dynamic event set to empower, inspire, and unite the student community at the Polytechnic University of the Philippines (PUP). This conference is a testament to our commitment to holistic student development and leadership growth. Over the course of this exciting gathering, students from various backgrounds and disciplines will come together to engage in thought-provoking discussions, interactive workshops, and networking opportunities. Our aim is to foster an environment that encourages intellectual exploration, creativity, and collaboration, allowing students to enhance their skills and make lasting connections. Join us as we embark on this transformative journey of knowledge sharing and personal growth, marking a significant milestone in the PUP student experience. Stay tuned for further details and mark your calendars for an event that promises to be both enriching and inspiring. Together, let's shape the future of PUP's student community!"
         />
          <AnnouncementVariant
-          imageSrc="image3.png"
+          imageSrc="/image3.png"
           title="Official Statement of PUP SC COSOA on the 23rd Anak PUP Student..."
           description="As the custodians of student organizations and accreditation processes at the Polytechnic University of the Philippines (PUP), the PUP Student Council Commission on Student Organizations and Accreditation (COSOA) takes immense pride in supporting and commemorating the 23rd Anak PUP Student Celebration. This event marks a significant milestone in the history of our university, celebrating the vibrant spirit, achievements, and contributions of PUP students over the years. We extend our heartfelt congratulations to the organizing committee and all the students involved in making this celebration a reality. It is a testament to the dedication, resilience, and creativity of our student body. We believe that this gathering will not only foster a sense of unity and camaraderie but also inspire our students to continue their pursuit of excellence in academics, leadership, and community engagement."
         />
@@ -79,9 +79,9 @@ function COSOA_Home() {
         </Row>
       <Container>
         <OfficerCard 
-          imageSrc="Officer.png"
-          imageSrc2="Officer.png"
-          imageSrc3="Officer.png"
+          imageSrc="/Officer.png"
+          imageSrc2="/Officer.png"
+          imageSrc3="/Officer.png"
           name="John Doe"
           name2="James Doe"
           name3="Joe Doe"
@@ -90,15 +90,15 @@ function COSOA_Home() {
           role3="Secretary"
         />
         <OfficerCard 
-          imageSrc="Officer.png"
-          imageSrc2="Officer.png"
-          imageSrc3="Officer.png"
-          name="John Doe"
-          name2="James Doe"
-          name3="Joe Doe"
-          role="President"
-          role2="Vice President"
-          role3="Secretary"
+          imageSrc="/Officer.png"
+          imageSrc2="/Officer.png"
+          imageSrc3="/Officer.png"
+          name="Jared Doe"
+          name2="Jerald Doe"
+          name3="Jest Doe"
+          role="Head for Membership"
+          role2="Vice President for Finance"
+          role3="Head for Creatives"
         />
         <Row className='text-center my-5'>
         <Col>
