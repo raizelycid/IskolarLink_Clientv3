@@ -5,7 +5,9 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import { AnnouncementVariant } from '../../components/AnnouncementVariant/AnnouncementCard';
 import OfficerCard from '../../components/OfficerCard';
 import ContactBanner from '../../components/ContactBanner';
-
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
 import { AuthContext } from '../../helpers/AuthContent';
 
 function COSOA_Home() {
@@ -42,7 +44,10 @@ function COSOA_Home() {
           <p className='text-gray2'>Discover the latest announcement that will shape the future of PUP COSOA and elevate your student experience!</p>
         </Row>
         <Row>
-          <p>Need to find a calendar plugin</p>
+          <FullCalendar 
+          plugins={[ dayGridPlugin, interactionPlugin ]}
+          initialView="dayGridMonth"
+          />
         </Row>
       </Container>
 
