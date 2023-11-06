@@ -15,18 +15,34 @@ const CosoaMenu = ({imgSrc, username}) => {
     const navigate = useNavigate();
     axios.defaults.withCredentials = true;
 
-    const switchStudent = (e) => {
+    
+
+    const changeMainMenu = () => {
+        setActiveMenu('main');
+        axios.post('http://localhost:3001/menu/', {menu: 'main'})
+      }
+    
+      const changeCosoaMenu = () => {
+        setActiveMenu('cosoa');
+        axios.post('http://localhost:3001/menu/', {menu: 'cosoa'})
+      }
+    
+      const changeWebAdminMenu = () => {
+        setActiveMenu('webadmin');
+        axios.post('http://localhost:3001/menu/', {menu: 'webadmin'})
+      }
+
+      const switchStudent = (e) => {
         e.preventDefault();
         setActiveMenu('main');
+        changeMainMenu();
         navigate('/');
-    }
-
-    useEffect(() => {
-    },[]);
+    };
 
     return(
     <NavDropdown title={<>{imgSrc ? <img src={`http://localhost:3001/images/${imgSrc}`} alt="Profile Picture" width="40" height="40" className="rounded-circle" /> : <FontAwesomeIcon icon={faUser}/>} <span className='text-dark'>Hi, {username}!</span></>} id="basic-nav-dropdown" className="text-dark" renderMenuOnMount={true}>
-        <NavDropdown.Item onClick={()=>navigate('/cosoa_dashboard')}>Dashboard</NavDropdown.Item>
+        <NavDropdown.Item onClick={()=>navigate('/cosoa/home')}>Home</NavDropdown.Item>
+        <NavDropdown.Item onClick={()=>navigate('/cosoa/dashboard')}>Dashboard</NavDropdown.Item>
         <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
         <NavDropdown.Item onClick={switchStudent}>Switch to Student</NavDropdown.Item>
         <NavDropdown.Item href="/settings">Settings</NavDropdown.Item>

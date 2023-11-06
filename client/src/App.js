@@ -24,7 +24,6 @@ import WebAdminMenu from './components/webAdminMenu';
 import { AuthContext } from './helpers/AuthContent';
 import Accreditation from './Pages/Student_Portal/Accreditation';
 import AccreditationStatus from './Pages/Student_Portal/AccreditationStatus';
-import Cookies from 'js-cookie';
 
 
 function App() {
@@ -59,6 +58,19 @@ function App() {
       }
     });
   }, [authState.status])
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/menu/')
+    .then((response) => {
+      if(response.data.error){
+        console.log(response.data.error);
+      }else{
+        setActiveMenu(response.data.menu);
+      }
+    });
+  }, [])
+
+  
 
   return (
     <Router>
@@ -127,7 +139,7 @@ function App() {
         <Route path="/cosoa/home" exact element={<COSOA_Home />} />
         <Route path="/cosoa/dashboard" exact element={<COSOA_Dashboard />} />
         <Route path="/cosoa/applicant" exact element={<COSOA_Applicants />} />
-        <Route path="/cosoa/applicant/puptpg" exact element={<Applicant_Page />} />
+        <Route path="/cosoa/applicant/:id" exact element={<Applicant_Page />} />
         <Route path="/organizations" exact element={<Organizations />} />
         <Route path="/appdocs" exact element={<AppDocs />} />
         <Route path="/faqs" exact element={<FAQs />} />

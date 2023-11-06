@@ -1,95 +1,191 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { HeroVariant3 } from '../components/HeroVariant/Hero';
-import { Container, Row, Col, Image, Form} from 'react-bootstrap';
-import './general.css'
+import { Container, Row, Col, Image} from 'react-bootstrap';
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
+import Form from 'react-bootstrap/Form'
+import axios from 'axios';
+import Dropdown from 'react-bootstrap/Dropdown';
+import './Applicant_Page.css'
+import Table from 'react-bootstrap/Table'
 
-export default function Applicant_Page() {
-    const [selectedValue, setSelectedValue] = useState("1");
-    const [field, setField] = useState([]);
+function Applicant_Page() {
 
-    const handleChange = (e) => {
-      setSelectedValue(e.target.value);
-    };
-  
-    const getSelectClass = () => {
-      switch (selectedValue) {
-        case "1":
-          return 'option-pending text-center';
-        case "2":
-          return 'option-approve text-center';
-        case "3":
-          return 'option-return text-center';
-        case "4":
-          return 'option-reject text-center';
-        default:
-          return '';
+  const Actions = ['Proceed to IE2', 'Proceed to FE1', 'Proceed to FE2', 'Accredit', 'Revalidate', 'Give Feedback', 'Reject']
+
+  const ActionLinks = (action) => {
+    if(action === 'Proceed to IE2'){
+      axios.post(`http://localhost:3001/cosoa/ie2/${org_application.id}`).then((res) => {
+        if(res.data.error){
+          alert(res.data.error);
+        }else{
+        alert('Successfully updated application to IE2');
+        window.location.reload('false');
+        }
+      });
+    }else if(action === 'Proceed to FE1'){
+      axios.post(`http://localhost:3001/cosoa/fe1/${org_application.id}`).then((res) => {
+        if(res.data.error){
+          alert(res.data.error);
+        }else{
+        alert('Successfully updated application to FE1');
+        window.location.reload('false');
+        }
+      });
+    }else if(action === 'Proceed to FE2'){
+      axios.post(`http://localhost:3001/cosoa/fe2/${org_application.id}`).then((res) => {
+        if(res.data.error){
+          alert(res.data.error);
+        }else{
+        alert('Successfully updated application to FE2');
+        window.location.reload('false');
+        }
+      });
+    }else if(action === 'Accredit'){
+      axios.post(`http://localhost:3001/cosoa/accredit/${org_application.id}`).then((res) => {
+        if(res.data.error){
+          alert(res.data.error);
+        }else{
+        alert('Successfully accredited organization');
+        navigate('/cosoa/dashboard')
+        }
+      });
+    }else if(action === 'Revalidate'){
+      axios.post(`http://localhost:3001/cosoa/accredit/${org_application.id}`).then((res) => {
+        if(res.data.error){
+          alert(res.data.error);
+        }else{
+        alert('Successfully revalidated organization');
+        navigate('/cosoa/dashboard')
+        }
+      });
+    }
+  }
+
+  const location = useLocation();
+  const {id} = useParams();
+  const navigate = useNavigate();
+
+  const [applicant, setApplicant] = useState([]);
+  const [requirements, setRequirements] = useState([]);
+  const [advisers, setAdvisers] = useState([]);
+  const [user, setUser] = useState([]);
+  const [org_application, setOrg_Application] = useState([]);
+
+  useEffect(() => {
+    axios.get(`http://localhost:3001/cosoa_dashboard/get_org/${id}`)
+    .then((response) => {
+      // check if error first
+      if(response.data.error){
+        navigate('/cosoa/dashboard');
+        alert(response.data.error);
+      }else{
+        setApplicant(response.data.org);
+        setRequirements(response.data.organized_requirements);
+        setAdvisers(response.data.adviser_names);
+        setUser(response.data.user);
+        setOrg_Application(response.data.org_application);
       }
-    };
+    });
+  }, [location.pathname])
 
-    return (
-        <div>
-        <HeroVariant3
-            h1Text="Revalidation and Accreditation Applicants"
-            pText="Check your applicants."
-        />
-        <Container className='p-5'>
-            <Row>
-                <Col xs={2} lg={1}>
-                    <Image fluid roundedCircle src="/tpg-icon.png"/>
-                </Col>
-                <Col xs={8} className='pt-4'>
-                    <h2>PUP The Programmers' Guild</h2>
-                </Col>
-                <Col className="text-end pt-4">
-                    <Form.Select size="lg" className={getSelectClass()} onChange={handleChange} value={selectedValue}>
-                        <option value="1">Pending</option>
-                        <option value="2">Approve</option>
-                        <option value="3">Return</option>
-                        <option value="4">Reject</option>
-                    </Form.Select>
-                </Col>
-            </Row>
-            <Row className='mt-5 pt-3 mb-3'>
-                <Form.Group>
-                    <Form.Label>Classification of Jursidiction</Form.Label>
-                    <Form.Control type="text" placeholder="Local Student Organization or University-Wide Student Organization" className='Inter-normal' />
-                </Form.Group>
-            </Row>
-            <Row className='mb-3'>
-                <Form.Group as={Col}>
-                    <Form.Label>Nature / Type of Student Organization</Form.Label>
-                    <Form.Control as="select">
-                        <option value="1">Multiselect</option>
-                    </Form.Control>
-                </Form.Group>
-                <Form.Group as={Col}>
-                    <Form.Label>Sub-classification of  Jurisdiction</Form.Label>
-                    <Form.Control as="select">
-                        <option value="1">College of Accountancy and Finance | CAF</option>
-                    </Form.Control>
-                </Form.Group>
-            </Row>
-            <Row>
-            <Form.Group as={Col}>
-                    <Form.Label>Complete Name of Student Organization’s Adviser(s)</Form.Label>
-                    <Form.Control type="text" placeholder="e.g. Instructor III Juan S. Dela Cruz"></Form.Control>
-                </Form.Group>
-                <Form.Group as={Col}>
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" placeholder="Please input your email"></Form.Control>
-                </Form.Group>
-            </Row>
-        </Container>
-        
-        <Container className='text-center my-3 pb-4'>
-            <Row>
-                <h1 className='text-red'>Submitted Documents</h1>
-            </Row>
-            <Row>
-                <p>Byron Insert Here the Table for Requirements</p>
-            </Row>
-        </Container>
-        </div>
-    );
+  return (
+    <>
+      <HeroVariant3
+        h1Text="Revalidation and Accreditation Applicants"
+        pText="Check your applicants."
+      />
+      <Container>
+        <Row>
+            <Col>
+                <Image roundedCircle/>
+            </Col>
+        </Row>
+      </Container>
+    <Container className='applicant-header-container'>
+      <Row>
+        <Col>
+        {user.profile_picture ? <img src={`http://localhost:3001/org_images/${user.profile_picture}`} alt="Profile Picture" width="100" height="100" className="rounded-circle" /> : <img src='http://localhost:3001/org_images/default-org-photo.jpg' alt="Profile Picture" width="100" height="100" className="rounded-circle" />
+          }
+        <span className='applicant-org-name'>{applicant.org_name}</span>
+        </Col>
+        <Col className='d-flex align-items-center justify-content-end'>
+          <Dropdown>
+            <Dropdown.Toggle variant='success' id='applicant-actions'>
+              {org_application.application_status}
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              {
+              org_application.application_status === 'Pending' ? <Dropdown.Item onClick={()=>ActionLinks(Actions[0])}>{Actions[0]}</Dropdown.Item> :
+              org_application.application_status === 'IE1' ? <Dropdown.Item onClick={()=>ActionLinks(Actions[0])}>{Actions[0]}</Dropdown.Item> :
+              org_application.application_status === 'IE2' ? <Dropdown.Item onClick={()=>ActionLinks(Actions[1])}>{Actions[1]}</Dropdown.Item> :
+              org_application.application_status === 'FE1' ? <Dropdown.Item onClick={()=>ActionLinks(Actions[2])}>{Actions[2]}</Dropdown.Item> :
+              org_application.application_status === 'FE2' && applicant.application_status === 'Accreditation' ? <Dropdown.Item onClick={()=>ActionLinks(Actions[3])}>{Actions[3]}</Dropdown.Item> :
+              org_application.application_status === 'FE2' && applicant.application_status === 'Revalidation' ? <Dropdown.Item onClick={()=>ActionLinks(Actions[4])}>{Actions[4]}</Dropdown.Item> : null
+            }
+            <Dropdown.Item>{Actions[5]}</Dropdown.Item>
+            <Dropdown.Item>{Actions[6]}</Dropdown.Item>
+            </Dropdown.Menu>
+
+          </Dropdown>
+        </Col>
+      </Row>
+
+    </Container>
+    <Container>
+      
+      <form>
+        <Form.Group as={Col} controlId='jurisdiction'>
+          <Form.Label>Classification of Jurisdiction</Form.Label>
+          <Form.Control type='text' placeholder='Jurisdiction' value={applicant.jurisdiction} readOnly/>
+        </Form.Group>
+        <Row>
+          <Form.Group as={Col} controlId='type'>
+            <Form.Label>Nature / Type of Student Organization</Form.Label>
+            <Form.Control type='text' placeholder='Type' value={applicant.type} readOnly/>
+          </Form.Group>
+          <Form.Group as={Col} controlId='subjurisdiction'>
+            <Form.Label>Sub-classification of  Jurisdiction</Form.Label>
+            <Form.Control type='text' placeholder='Sub-Jurisdiction' value={applicant.subjurisdiction} readOnly/>
+          </Form.Group>
+        </Row>
+        <Row>
+          <Form.Group as={Col} controlId='advisers'>
+            <Form.Label>Advisers</Form.Label>
+            <Form.Control type='text' placeholder='Advisers' value={advisers} readOnly/>
+          </Form.Group>
+          <Form.Group as={Col} controlId='email'>
+            <Form.Label>Email</Form.Label>
+            <Form.Control type='text' placeholder='Email' value={user.email} readOnly/>
+          </Form.Group>
+        </Row>
+      </form>
+
+    </Container>
+    <Container className='applicant-footer-container'>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>File Submitted</th>
+            <th>Download Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          {requirements.map((requirement, index) => {
+            return(
+              <tr key={index}>
+                <td><span className='applicant-requirement-name'>{requirement.requirement_name}</span></td>
+                {applicant.application_status === "Accreditation" ? 
+                <td><span className='applicant-download-text' onClick={() => window.open(`http://localhost:3001/accreditation/${applicant.id}/${requirement.requirement_name}.pdf`,'_blank','noopener')}>Download</span></td>
+                 : <td><span className='applicant-download-text' onClick={() => window.open(`http://localhost:3001/revalidation/${applicant.id}/${requirement.requirement_name}.pdf`,'_blank','noopener')}>Download</span></td>}
+              </tr>
+            )
+          })}
+        </tbody>
+      </Table>
+    </Container>
+    </>
+  );
 }
+
+export default Applicant_Page;
 

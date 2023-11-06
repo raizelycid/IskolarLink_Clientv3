@@ -18,11 +18,6 @@ const MainMenu = ({imgSrc, username}) => {
 
     const [accreditationStatus, setAccreditationStatus] = useState(false);
 
-    const switchCosoa = (e) => {
-        e.preventDefault();
-        setActiveMenu('cosoa');
-        navigate('/cosoa_home');
-    }
 
     useEffect(() => {
         axios.get('http://localhost:3001/student/accreditation_status').then((response) => {
@@ -34,6 +29,28 @@ const MainMenu = ({imgSrc, username}) => {
             }
         });
     },[]);
+
+    const changeMainMenu = () => {
+        setActiveMenu('main');
+        axios.post('http://localhost:3001/menu/', {menu: 'main'})
+      }
+    
+      const changeCosoaMenu = () => {
+        setActiveMenu('cosoa');
+        axios.post('http://localhost:3001/menu/', {menu: 'cosoa'})
+      }
+    
+      const changeWebAdminMenu = () => {
+        setActiveMenu('webadmin');
+        axios.post('http://localhost:3001/menu/', {menu: 'webadmin'})
+      }
+
+      const switchCosoa = (e) => {
+        e.preventDefault();
+        setActiveMenu('cosoa');
+        changeCosoaMenu();
+        navigate('/cosoa/home');
+    }
 
 
     return(
