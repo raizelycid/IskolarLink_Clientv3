@@ -57,6 +57,19 @@ function App() {
     });
   }, [authState.status])
 
+  useEffect(() => {
+    axios.get('http://localhost:3001/menu/')
+    .then((response) => {
+      if(response.data.error){
+        console.log(response.data.error);
+      }else{
+        setActiveMenu(response.data.menu);
+      }
+    });
+  }, [])
+
+  
+
   return (
     <Router>
       
