@@ -49,7 +49,7 @@ const MainMenu = ({imgSrc, username}) => {
         e.preventDefault();
         setActiveMenu('cosoa');
         changeCosoaMenu();
-        navigate('/cosoa_home');
+        navigate('/cosoa/home');
     }
 
 

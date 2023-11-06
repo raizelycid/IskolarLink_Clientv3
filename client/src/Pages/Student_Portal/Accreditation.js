@@ -91,9 +91,13 @@ function Accreditation() {
 
     const submitData = async () => {
         try {
-            const res = await axios.post('http://localhost:3001/org/addorg', formData, {
+            await axios.post('http://localhost:3001/org/addorg', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
+                }
+            }).then((res) => {
+                if(res.data.error){
+                    alert(res.data.error);
                 }
             });
         } catch (err) {

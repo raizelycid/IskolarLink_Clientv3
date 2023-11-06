@@ -139,7 +139,7 @@ function App() {
         <Route path="/cosoa/home" exact element={<COSOA_Home />} />
         <Route path="/cosoa/dashboard" exact element={<COSOA_Dashboard />} />
         <Route path="/cosoa/applicant" exact element={<COSOA_Applicants />} />
-        <Route path="/cosoa/applicant/puptpg" exact element={<Applicant_Page />} />
+        <Route path="/cosoa/applicant/:id" exact element={<Applicant_Page />} />
         <Route path="/organizations" exact element={<Organizations />} />
         <Route path="/appdocs" exact element={<AppDocs />} />
         <Route path="/faqs" exact element={<FAQs />} />
