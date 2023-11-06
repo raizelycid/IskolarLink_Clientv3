@@ -8,6 +8,8 @@ import { LinkContainer } from 'react-router-bootstrap';
 import COSOA from './Pages/COSOA';
 import COSOA_Home from './Pages/COSOA_Portal/COSOA_Home';
 import COSOA_Dashboard from './Pages/COSOA_Portal/COSOA_Dashboard';
+import COSOA_Applicants from './Pages/COSOA_Portal/COSOA_Applicants';
+import Applicant_Page from './components/Applicant_Page';
 import Organizations from './Pages/Organizations';
 import AppDocs from './Pages/AppDocs';
 import FAQs from './Pages/FAQs';
@@ -15,13 +17,13 @@ import LandingPage from './Pages/LandingPage';
 import { useState, useEffect, useContext} from 'react';
 import LoginPopup from './components/LoginPopup';
 import RegisterPopup from './components/RegisterPopup';
+import Organization_Profile from './Pages/Student_Portal/Organization_Profile';
 import MainMenu from './components/mainMenu';
 import CosoaMenu from './components/cosoaMenu';
 import WebAdminMenu from './components/webAdminMenu';
 import { AuthContext } from './helpers/AuthContent';
 import Accreditation from './Pages/Student_Portal/Accreditation';
 import AccreditationStatus from './Pages/Student_Portal/AccreditationStatus';
-
 
 
 function App() {
@@ -133,13 +135,16 @@ function App() {
         </Container>
       </Navbar>
       <Routes>
-        <Route path="/cosoa_home" exact element={<COSOA_Home />} />
         <Route path="/cosoa" exact element={<COSOA />} />
-        <Route path="/cosoa_dashboard" exact element={<COSOA_Dashboard />} />
+        <Route path="/cosoa/home" exact element={<COSOA_Home />} />
+        <Route path="/cosoa/dashboard" exact element={<COSOA_Dashboard />} />
+        <Route path="/cosoa/applicant" exact element={<COSOA_Applicants />} />
+        <Route path="/cosoa/applicant/puptpg" exact element={<Applicant_Page />} />
         <Route path="/organizations" exact element={<Organizations />} />
         <Route path="/appdocs" exact element={<AppDocs />} />
         <Route path="/faqs" exact element={<FAQs />} />
         <Route path="/" exact element={<LandingPage />} />
+        <Route path="/organization_profile" exact element ={<Organization_Profile />} />
         <Route path="/accreditation" exact element={<Accreditation />} />
         <Route path="/accreditation_status" exact element={<AccreditationStatus />} />
       </Routes>

@@ -1,29 +1,17 @@
-import React, { useState,useEffect, useContext } from 'react';
-import './COSOA_Portal.css';
+import React, { useState } from 'react';
+import './Organization_Profile.css';
 import { HeroVariant2 } from '../../components/HeroVariant/Hero';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { AnnouncementVariant } from '../../components/AnnouncementVariant/AnnouncementCard';
 import OfficerCard from '../../components/OfficerCard';
 import ContactBanner from '../../components/ContactBanner';
-import FullCalendar from '@fullcalendar/react';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import interactionPlugin from '@fullcalendar/interaction';
-import { AuthContext } from '../../helpers/AuthContent';
 
-function COSOA_Home() {
-
-  const {auth, menu} = useContext(AuthContext);
-    const {authState, setAuthState} = auth;
-    const {activeMenu, setActiveMenu} = menu;
-
-  useEffect(() => {
-    console.log(activeMenu);
-  },[]);
+function Organization_Profile() {
   return (
     <div>
         <HeroVariant2 
-        name="Commission on Student Organizations and Accreditation (COSOA)"
-        webmail="pupcosoa.iskolarngbayan.pup.edu.ph"
+        name="PUP The Programmers’ Guild"
+        webmail="username@iskolarngbayan.pup.edu.ph"
         />
       <Container className='my-5'>
         <Row>
@@ -38,31 +26,18 @@ function COSOA_Home() {
         </Row>
       </Container>
 
-      <Container className='text-center my-5'>
-        <Row>
-          <h1 className='text-red'>COSOA Calendar</h1>
-          <p className='text-gray2'>Discover the latest announcement that will shape the future of PUP COSOA and elevate your student experience!</p>
-        </Row>
-        <Row>
-          <FullCalendar 
-          plugins={[ dayGridPlugin, interactionPlugin ]}
-          initialView="dayGridMonth"
-          />
-        </Row>
-      </Container>
-
       <Container className='my-5'>
         <Row className='text-center'>
           <h1 className='text-red'>Latest Announcements</h1>
           <p className='text-gray2'>Discover the latest announcement that will shape the future of PUP COSOA and elevate your student experience!</p>
         </Row>
         <AnnouncementVariant
-          imageSrc="/image2.png"
+          imageSrc="image2.png"
           title="PUP Student Formations' Conference Announcement"
           description="We are thrilled to announce the upcoming PUP Student Formations' Conference, a dynamic event set to empower, inspire, and unite the student community at the Polytechnic University of the Philippines (PUP). This conference is a testament to our commitment to holistic student development and leadership growth. Over the course of this exciting gathering, students from various backgrounds and disciplines will come together to engage in thought-provoking discussions, interactive workshops, and networking opportunities. Our aim is to foster an environment that encourages intellectual exploration, creativity, and collaboration, allowing students to enhance their skills and make lasting connections. Join us as we embark on this transformative journey of knowledge sharing and personal growth, marking a significant milestone in the PUP student experience. Stay tuned for further details and mark your calendars for an event that promises to be both enriching and inspiring. Together, let's shape the future of PUP's student community!"
         />
          <AnnouncementVariant
-          imageSrc="/image3.png"
+          imageSrc="image3.png"
           title="Official Statement of PUP SC COSOA on the 23rd Anak PUP Student..."
           description="As the custodians of student organizations and accreditation processes at the Polytechnic University of the Philippines (PUP), the PUP Student Council Commission on Student Organizations and Accreditation (COSOA) takes immense pride in supporting and commemorating the 23rd Anak PUP Student Celebration. This event marks a significant milestone in the history of our university, celebrating the vibrant spirit, achievements, and contributions of PUP students over the years. We extend our heartfelt congratulations to the organizing committee and all the students involved in making this celebration a reality. It is a testament to the dedication, resilience, and creativity of our student body. We believe that this gathering will not only foster a sense of unity and camaraderie but also inspire our students to continue their pursuit of excellence in academics, leadership, and community engagement."
         />
@@ -79,26 +54,15 @@ function COSOA_Home() {
         </Row>
       <Container>
         <OfficerCard 
-          imageSrc="/Officer.png"
-          imageSrc2="/Officer.png"
-          imageSrc3="/Officer.png"
+          imageSrc="Officer.png"
+          imageSrc2="Officer.png"
+          imageSrc3="Officer.png"
           name="John Doe"
           name2="James Doe"
           name3="Joe Doe"
           role="President"
           role2="Vice President"
           role3="Secretary"
-        />
-        <OfficerCard 
-          imageSrc="/Officer.png"
-          imageSrc2="/Officer.png"
-          imageSrc3="/Officer.png"
-          name="Jared Doe"
-          name2="Jerald Doe"
-          name3="Jest Doe"
-          role="Head for Membership"
-          role2="Vice President for Finance"
-          role3="Head for Creatives"
         />
         <Row className='text-center my-5'>
         <Col>
@@ -111,4 +75,4 @@ function COSOA_Home() {
   );
 }
 
-export default COSOA_Home;
+export default Organization_Profile;

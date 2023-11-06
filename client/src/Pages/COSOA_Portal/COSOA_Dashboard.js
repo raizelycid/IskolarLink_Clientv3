@@ -14,22 +14,22 @@ function COSOA_Dashboard() {
       <Container>
         <Row className='my-5 align-items-center'>
           <Stat_Card 
-            imgSrc="./check_icon.png"
+            imgSrc="/check_icon.png"
             numcount="60"
             subtitle="Approved"
           />
           <Stat_Card
-            imgSrc="./time_icon.png"
+            imgSrc="/time_icon.png"
             numcount="23"
             subtitle="Pending"
           />
           <Stat_Card 
-            imgSrc="./cross_icon.png"
+            imgSrc="/cross_icon.png"
             numcount="43"
             subtitle="Rejected"
           />
           <Stat_Card 
-            imgSrc="./clipboard_icon.png"
+            imgSrc="/clipboard_icon.png"
             numcount="126"
             subtitle="Submission"
           />
