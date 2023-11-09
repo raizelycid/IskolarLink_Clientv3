@@ -68,7 +68,7 @@ function App() {
         setActiveMenu(response.data.menu);
       }
     });
-  }, [])
+  }, [activeMenu])
 
   
 
@@ -146,7 +146,7 @@ function App() {
         <Route path="/" exact element={<LandingPage />} />
         <Route path="/organization_profile" exact element ={<Organization_Profile />} />
         <Route path="/accreditation" exact element={<Accreditation />} />
-        <Route path="/accreditation_status" exact element={<AccreditationStatus />} />
+        <Route path="/accreditation/status" exact element={<AccreditationStatus />} />
       </Routes>
 
       <footer className="footer bg-dark text-white py-4 border-bottom Inter">

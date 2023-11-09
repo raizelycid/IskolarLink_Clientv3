@@ -60,7 +60,7 @@ function Accreditation() {
             else{
                 if(response.data.status === true){
                     alert("You have already submitted an application. You will be redirected to the Accreditation Status Page.");
-                    navigate('/accreditation_status');
+                    navigate('/accreditation/status');
                 }  
             }
         });
@@ -99,6 +99,7 @@ function Accreditation() {
                 if(res.data.error){
                     alert(res.data.error);
                 }
+                navigate(`/accreditation/status`)
             });
         } catch (err) {
             console.log(err);

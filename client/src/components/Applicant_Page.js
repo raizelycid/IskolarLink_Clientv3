@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useRef } from 'react';
 import { HeroVariant3 } from '../components/HeroVariant/Hero';
 import { Container, Row, Col, Image} from 'react-bootstrap';
 import { useParams, useNavigate, useLocation } from 'react-router-dom'
@@ -7,6 +7,7 @@ import axios from 'axios';
 import Dropdown from 'react-bootstrap/Dropdown';
 import './Applicant_Page.css'
 import Table from 'react-bootstrap/Table'
+import Button from 'react-bootstrap/Button'
 
 function Applicant_Page() {
 
@@ -70,6 +71,7 @@ function Applicant_Page() {
   const [advisers, setAdvisers] = useState([]);
   const [user, setUser] = useState([]);
   const [org_application, setOrg_Application] = useState([]);
+  const [selectedFile, setSelectedFile] = useState('');
 
   useEffect(() => {
     axios.get(`http://localhost:3001/cosoa_dashboard/get_org/${id}`)
@@ -87,6 +89,34 @@ function Applicant_Page() {
       }
     });
   }, [location.pathname])
+
+  const hiddenFileInput = useRef(null);
+
+  const handleClick = (event, requirement_name) => {
+    setSelectedFile(requirement_name);
+    hiddenFileInput.current.click();
+  };
+
+  const handleChange = async event => {
+    try{
+      await axios.post(`http://localhost:3001/org/update_form/${applicant.id}/${applicant.application_status}`, {file: event.target.files[0], requirement_name: selectedFile}, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }
+      }).then((res) => {
+        if(res.data.error){
+          alert(res.data.error);
+        }else{
+          alert('Successfully updated form');
+          window.location.reload('false');
+        }
+      });
+    }
+    catch(err){
+    console.log(err);
+  }
+  };
+    
 
   return (
     <>
@@ -167,6 +197,8 @@ function Applicant_Page() {
           <tr>
             <th>File Submitted</th>
             <th>Download Link</th>
+            <th>Submit Signed Form</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
@@ -177,6 +209,22 @@ function Applicant_Page() {
                 {applicant.application_status === "Accreditation" ? 
                 <td><span className='applicant-download-text' onClick={() => window.open(`http://localhost:3001/accreditation/${applicant.id}/${requirement.requirement_name}.pdf`,'_blank','noopener')}>Download</span></td>
                  : <td><span className='applicant-download-text' onClick={() => window.open(`http://localhost:3001/revalidation/${applicant.id}/${requirement.requirement_name}.pdf`,'_blank','noopener')}>Download</span></td>}
+                 <td>
+                  <Button variant="primary" onClick={event => handleClick(event, requirement.requirement_name)}>Update</Button>
+                  <input type="file" style={{display:'none'}} onChange={handleChange} ref={hiddenFileInput}/>
+                  </td>
+                  <td>
+                    <Dropdown>
+                      <Dropdown.Toggle variant="primmary" id="requirement-status">
+                        {requirement.status}
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        <Dropdown.Item onClick={()=>ActionLinks('Approve')}>Approve</Dropdown.Item>
+                        <Dropdown.Item onClick={()=>ActionLinks('Give Feedback')}>Give Feedback</Dropdown.Item>
+                        <Dropdown.Item onClick={()=>ActionLinks('Reject')}>Reject</Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </td>
               </tr>
             )
           })}

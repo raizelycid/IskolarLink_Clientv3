@@ -71,6 +71,7 @@ const MainMenu = ({imgSrc, username}) => {
                     alert('User logged out!');
                     // set authState.status to false
                     setAuthState({...authState, status: false});
+                    setActiveMenu('main');
                     navigate('/');
                 }
             });
