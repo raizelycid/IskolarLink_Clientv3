@@ -1,10 +1,29 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { HeroVariant } from '../components/HeroVariant/Hero';
 import './Organizations.css';
 import Accredited_Org from '../components/Accredited_Org'; 
 import { Container, Row, InputGroup, Form, Button, Col } from 'react-bootstrap';
+import axios from 'axios';
 
 function Organizations() {
+
+  const [organizations, setOrganizations] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/org/show_accredited_orgs')
+    .then((response) => {
+      console.log(response.data);
+      setOrganizations(response.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }, [])
+
+  useEffect(() => {
+    console.log(organizations);
+  },[organizations]);
+
   return (
     <div>
       <HeroVariant 
@@ -28,24 +47,21 @@ function Organizations() {
       </Row>
       <Container className='mx-auto mb-5'>
         <Row className='mx-4'>
-          <Accredited_Org
-          imageSrc="image2.png"
-          title="PUP Aggregates"
-          description="PUP Aggregates is all about geology and earth sciences. Join us to dig deep into the mysteries of our planet, from rocks to natural disasters and beyond."
-          tags={["Academic","Open to Any Program"]}
-          />
-          <Accredited_Org
-          imageSrc="image3.png"
-          title="Every Nation Campus PUP"
-          description="Every Nation Campus Polytechnic University of the Philippines: Your community for faith, friendship, and personal growth on campus."
-          tags={["Religious","Open to Any Program"]}
-          />
-          <Accredited_Org
-          imageSrc="tpg-photo.jpg"
-          title="PUP The Programmers' Guild"
-          description="PUP TPG is home to programmers, no matter what course or background you have, we believe that anyone can code. Join our community as we tech-splore!"
-          tags={["Technology","Open to Any Program"]}
-          />
+          {organizations.map((org) => {
+            return (
+              <>
+              {org.User.role !== 'student' &&
+              <Col xs={12} md={4} className='mb-4'>
+                <Accredited_Org 
+                  imageSrc={org.User.profile_picture ? org.User.profile_picture : 'http://localhost:3001/org_images/default-org-photo.jpg'}
+                  title={org.org_name}
+                  description={org.User.description ? org.User.description : 'No description'}
+                  tags={[org.jurisdiction, org.subjurisdiction]}
+                />
+              </Col>
+            }
+            </>
+            )})}
         </Row>
         
       </Container>
