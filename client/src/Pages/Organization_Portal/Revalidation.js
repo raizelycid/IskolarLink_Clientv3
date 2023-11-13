@@ -1,12 +1,17 @@
 import React, {useState,useEffect} from 'react'
-import GenInfo from '../../components/Accreditation/GenInfo'
-import AccForms1 from '../../components/Accreditation/AccForms1'
-import AccForms2 from '../../components/Accreditation/AccForms2'
-import AccFinish from '../../components/Accreditation/AccFinish'
+import GenInfo from '../../components/Revalidation/GenInfo'
+import RevForms1 from '../../components/Revalidation/RevForms1'
+import RevForms2 from '../../components/Revalidation/RevForms2'
+import RevFinish from '../../components/Revalidation/RevFinish'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import './Organization_Profile.css';
+import { HeroVariant } from '../../components/HeroVariant/Hero';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
-function Accreditation() {
+
+
+function Revalidation() {
     const [page, setPage] = useState(0);
     const [formData, setFormData] = useState({
         orgName: '',
@@ -28,7 +33,7 @@ function Accreditation() {
         privacyPolicy: '',
     });
 
-    const FormTitles = [ 'Organization Information', 'Upload Documents', 'Tracker Form and Waiver', '']
+    const FormTitles = [ ]
 
     const [show1, setShow1] = useState('none');
     const [show2, setShow2] = useState('none');
@@ -60,7 +65,7 @@ function Accreditation() {
             else{
                 if(response.data.status === true){
                     alert("You have already submitted an application. You will be redirected to the Accreditation Status Page.");
-                    navigate('/accreditation/status');
+                    navigate('/accreditation_status');
                 }  
             }
         });
@@ -91,15 +96,10 @@ function Accreditation() {
 
     const submitData = async () => {
         try {
-            await axios.post('http://localhost:3001/org/addorg', formData, {
+            const res = await axios.post('http://localhost:3001/org/addorg', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 }
-            }).then((res) => {
-                if(res.data.error){
-                    alert(res.data.error);
-                }
-                navigate(`/accreditation/status`)
             });
         } catch (err) {
             console.log(err);
@@ -108,14 +108,19 @@ function Accreditation() {
 
   return (
     <>
-    <div className="bar">
-    <div className="progressbar">
-        <div
-         style={{ width: page === 0 ? "25%" : page === 1 ? "50%" : page === 2 ? "75%" : "100%" }}
-        ></div>
-
-        
-    </div>
+        <div>
+      <HeroVariant
+        h1Text="Revalidation Form"
+        pText="Fill up our Accreditation Form Page to kickstart your journey towards official recognition and support for your student organization.  "
+      />
+      <Container className='my-5'>
+        <Row>
+          <Col className="text-center">
+            <h2>Complete the form below </h2>
+            <p className='text-gray2'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the <br /> industry's standard dummy text ever since the 1500s, </p>
+          </Col>
+        </Row>
+      </Container>
     </div>
     <div className="form-container">
         <div className="form-header">
@@ -123,39 +128,38 @@ function Accreditation() {
         </div>
         <div className="form-body">
         <GenInfo formData={formData} setFormData={setFormData} show={show1}/>
-        <AccForms1 formData={formData} setFormData={setFormData} show={show2}/>
-        <AccForms2 formData={formData} setFormData={setFormData} show={show3} path={trackerForm} path2={waiverForm}/>
-        <AccFinish show={show4}/>
+        <RevForms1 formData={formData} setFormData={setFormData} show={show2}/>
+        <RevForms2 formData={formData} setFormData={setFormData} show={show3} path={trackerForm} path2={waiverForm}/>
+        <RevFinish show={show4}/>
         </div>
-        <div className="form-footer">
+        <Container>
+        <div className="d-flex justify-content-center form-footer">
             <button 
-            disabled={page == 0}
-            onClick={() => {
-                setPage((currPage) => currPage - 1);
-            }}
-            className="form-button"
+            disabled={page === 0}
+            onClick={() => setPage((currPage) => currPage - 1)}
+            className="custom-button2 margin-right"
             >
-                {`< Prev`}
+            {`< Prev`}
             </button>
             <button
             onClick={() => {
-                if(page === FormTitles.length - 1){
-                    submitData();
-                    alert("Form Submitted");
+                if (page == 3) {
+                submitData();
+                alert("Form Submitted");
                 } else {
-                    if(page === 0){generatePDF()}
-                    setPage((currPage) => currPage + 1);
+                if (page === 0) { generatePDF(); }
+                setPage((currPage) => currPage + 1);
                 }
             }}
-            className="form-button"
+            className="custom-button margin-right"
             >
-                {page === FormTitles.length - 1 ? "Submit" : "Next >"}
+            {page == 3? "Submit" : "Next >"}
             </button>
         </div>
+        </Container>
       
     </div>
     </>
   )
 }
-
-export default Accreditation
+export default Revalidation

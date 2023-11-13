@@ -57,6 +57,17 @@
     color: var(--yellow);
 }
 
+.bar {
+    width: 100%;
+    padding-top: 48px;
+    margin-left: 10px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    border-radius: 20px;
+    background: var(--Red, #800);
+}
 
 
 
