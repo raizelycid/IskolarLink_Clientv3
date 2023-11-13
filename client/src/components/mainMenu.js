@@ -18,11 +18,6 @@ const MainMenu = ({imgSrc, username}) => {
 
     const [accreditationStatus, setAccreditationStatus] = useState(false);
 
-    const switchCosoa = (e) => {
-        e.preventDefault();
-        setActiveMenu('cosoa');
-        navigate('/cosoa_home');
-    }
 
     useEffect(() => {
         axios.get('http://localhost:3001/student/accreditation_status').then((response) => {
@@ -35,11 +30,33 @@ const MainMenu = ({imgSrc, username}) => {
         });
     },[]);
 
+    const changeMainMenu = () => {
+        setActiveMenu('main');
+        axios.post('http://localhost:3001/menu/', {menu: 'main'})
+      }
+    
+      const changeCosoaMenu = () => {
+        setActiveMenu('cosoa');
+        axios.post('http://localhost:3001/menu/', {menu: 'cosoa'})
+      }
+    
+      const changeWebAdminMenu = () => {
+        setActiveMenu('webadmin');
+        axios.post('http://localhost:3001/menu/', {menu: 'webadmin'})
+      }
+
+      const switchCosoa = (e) => {
+        e.preventDefault();
+        setActiveMenu('cosoa');
+        changeCosoaMenu();
+        navigate('/cosoa/home');
+    }
+
 
     return(
     <NavDropdown title={<>{imgSrc ? <img src={`http://localhost:3001/images/${imgSrc}`} alt="Profile Picture" width="40" height="40" className="rounded-circle" /> : <FontAwesomeIcon icon={faUser}/>} <span className='text-dark'>Hi, {username}!</span></>} id="basic-nav-dropdown" className="text-dark" renderMenuOnMount={true}>
         <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-        {accreditationStatus ? <NavDropdown.Item onClick={() => navigate('/accreditation_status')}> Accreditation Status</NavDropdown.Item> : <NavDropdown.Item onClick={() => navigate('/accreditation')}>Create an Organization</NavDropdown.Item>}
+        {accreditationStatus ? <NavDropdown.Item onClick={() => navigate('/accreditation/status')}> Accreditation Status</NavDropdown.Item> : <NavDropdown.Item onClick={() => navigate('/accreditation')}>Create an Organization</NavDropdown.Item>}
         {authState.is_cosoa && <NavDropdown.Item onClick={switchCosoa}>Switch to COSOA</NavDropdown.Item>}
         {authState.is_web_admin && <NavDropdown.Item href="/web_admin_home"  onClick={() => setActiveMenu('webadmin')}>Switch to Web Admin</NavDropdown.Item>}
         <NavDropdown.Item href="/settings">Settings</NavDropdown.Item>
@@ -54,6 +71,7 @@ const MainMenu = ({imgSrc, username}) => {
                     alert('User logged out!');
                     // set authState.status to false
                     setAuthState({...authState, status: false});
+                    setActiveMenu('main');
                     navigate('/');
                 }
             });
