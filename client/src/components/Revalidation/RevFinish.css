@@ -1,0 +1,18 @@
+.accreditation-form-success-header {
+    font-weight: bold; /* or 600 depending on your font */
+    text-align: center;
+  }
+
+  .red-text {
+    color: #880000;
+  }
+  
+  .accreditation-form-success-subheader {
+    font-weight: normal; /* or 400 depending on your font */
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .bold-text {
+    font-weight: bold; /* or 600 depending on your font */
+  }

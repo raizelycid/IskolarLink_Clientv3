@@ -15,7 +15,9 @@ import LandingPage from './Pages/LandingPage';
 import { useState, useEffect, useContext} from 'react';
 import LoginPopup from './components/LoginPopup';
 import RegisterPopup from './components/RegisterPopup';
-import Organization_Profile from './Pages/Student_portal/Organization_Profile';
+import Organization_Profile from './Pages/Organization_Portal/Organization_Profile';
+import Revalidation from './Pages/Organization_Portal/Revalidation';
+import OrgSettings from './Pages/Organization_Portal/Settings';
 import MainMenu from './components/mainMenu';
 import CosoaMenu from './components/cosoaMenu';
 import WebAdminMenu from './components/webAdminMenu';
@@ -129,6 +131,8 @@ function App() {
         <Route path="/faqs" exact element={<FAQs />} />
         <Route path="/" exact element={<LandingPage />} />
         <Route path="/organization_profile" exact element ={<Organization_Profile />} />
+        <Route path="/revalidation" exact element ={<Revalidation />} />
+        <Route path='/org_settings' exact element ={<OrgSettings />} />
         <Route path="/accreditation" exact element={<Accreditation />} />
         <Route path="/accreditation_status" exact element={<AccreditationStatus />} />
       </Routes>

@@ -5,6 +5,7 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import { AnnouncementVariant } from '../../components/AnnouncementVariant/AnnouncementCard';
 import OfficerCard from '../../components/OfficerCard';
 import ContactBanner from '../../components/ContactBanner';
+import ContactBanner2 from '../../components/ContactBanner2';
 
 function Organization_Profile() {
   return (
@@ -50,7 +51,7 @@ function Organization_Profile() {
       </Container>
         <Row className='text-center'>
             <h1 className='text-red'>The Core of Our Team</h1>
-            <p className='text-gray2'>Organically grow the holistic world view of disruptive innovation via workplace diversity  and empowerment of people and great talent that truly rocks.</p>
+            <p className='text-gray2'>Organically grow the holistic world view of disruptive innovation via workplace diversity  and empowerment <br /> of people and great talent that truly rocks.</p>
         </Row>
       <Container>
         <OfficerCard 
@@ -70,7 +71,7 @@ function Organization_Profile() {
         </Col>
         </Row>
       </Container>
-      <ContactBanner />
+      <ContactBanner2 />
     </div>
   );
 }
