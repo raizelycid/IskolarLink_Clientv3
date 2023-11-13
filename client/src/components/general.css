@@ -219,3 +219,22 @@
     margin-right: auto;
   }
 
+.option-pending {
+  background-color: var(--dark-yellow);
+  color: white;
+}
+
+.option-approve {
+  background-color: green;
+  color: white;
+}
+
+.option-return {
+  background-color: blue;
+  color: white;
+}
+
+.option-reject {
+  background-color: var(--red);
+  color: white;
+}

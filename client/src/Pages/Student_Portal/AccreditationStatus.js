@@ -12,6 +12,7 @@ function AccreditationStatus() {
 
     useEffect(() => {
         axios.get('http://localhost:3001/student/org_application_status').then((response) => {
+            console.log(response.data);
             setOrg(response.data.org);
             setOrgApp(response.data.org_app);
             setAdvisers(response.data.advisers);

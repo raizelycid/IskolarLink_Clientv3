@@ -16,8 +16,21 @@ const WebAdminMenu = ({imgSrc, username}) => {
     const navigate = useNavigate();
     axios.defaults.withCredentials = true;
 
-    useEffect(() => {
-    },[]);
+    const changeMainMenu = () => {
+        setActiveMenu('main');
+        axios.post('http://localhost:3001/menu/', {menu: 'main'})
+      }
+    
+      const changeCosoaMenu = () => {
+        setActiveMenu('cosoa');
+        axios.post('http://localhost:3001/menu/', {menu: 'cosoa'})
+      }
+    
+      const changeWebAdminMenu = () => {
+        setActiveMenu('webadmin');
+        axios.post('http://localhost:3001/menu/', {menu: 'webadmin'})
+      }
+
 
 
     
@@ -37,6 +50,7 @@ const WebAdminMenu = ({imgSrc, username}) => {
                     alert('User logged out!');
                     // set authState.status to false
                     setAuthState({...authState, status: false});
+                    setActiveMenu('main');
                     navigate('/');
                 }
             });
