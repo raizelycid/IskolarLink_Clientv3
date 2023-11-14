@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from 'react';
 import { HeroVariant3 } from '../../components/HeroVariant/Hero';
 import Stat_Card from '../../components/Stat_Card';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col, Button, InputGroup, Form} from 'react-bootstrap';
 import './COSOA_Portal.css'
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -56,6 +56,22 @@ function COSOA_Dashboard() {
             subtitle="Submission"
           />
         </Row>
+        <Row className='m-4'>
+        <Col xs={1}></Col>
+        <Col>
+          <Button variant="outline-secondary"><i class="fa-solid fa-filter"></i> Filter</Button>
+        </Col>
+        <InputGroup as={Col}>
+          <Button variant="outline-secondary" id="button-addon2">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </Button>
+          <Form.Control
+            placeholder="Search"
+            className="shadow-lg"
+          />
+        </InputGroup>
+        <Col xs={1}></Col>
+      </Row>
       </Container>
       <Container>
         <Table striped bordered hover>

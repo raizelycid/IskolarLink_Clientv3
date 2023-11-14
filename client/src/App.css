@@ -207,3 +207,19 @@ footer, .data-footer {
   background-color: rgb(98, 0, 255);
 }
 
+
+.transparent-navbar {
+  background-color: transparent !important;
+  transition: background-color 0.5s ease;
+}
+
+.transparent-navbar .navbar-brand,
+.transparent-navbar .nav-link,
+.transparent-navbar .navbar-toggler-icon {
+  color: black !important;
+}
+
+.solid-navbar {
+  background-color: #ffffff !important;
+  color: black !important;
+}

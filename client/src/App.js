@@ -72,12 +72,45 @@ function App() {
     });
   }, [activeMenu])
 
+  const [scrolling, setScrolling] = useState(false);
+  const [initialScroll, setInitialScroll] = useState(true);
+  const [scrollTimeout, setScrollTimeout] = useState(null);
+
+  const handleScroll = () => {
+    const scrolled = window.scrollY > 100; // Adjust the threshold as needed
+    setScrolling(scrolled);
+
+    if (scrolled) {
+      setInitialScroll(false);
+    } else {
+      setInitialScroll(true);
+    }
+
+    clearTimeout(scrollTimeout);
+    const timeout = setTimeout(() => {
+      setScrolling(false);
+    }, 500); // Adjust the timeout duration as needed
+
+    setScrollTimeout(timeout);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(scrollTimeout);
+    };
+  }, [scrollTimeout]);
+
+  const navbarClass = initialScroll ? 'solid-navbar' : scrolling ? 'fixed-top transparent-navbar' : 'fixed-top solid-navbar';
+
   
 
   return (
     <Router>
       
-      <Navbar expand="lg">
+      <Navbar expand="lg" className={navbarClass}>
         <Container>
           <LinkContainer to="/">
           <Nav.Link>

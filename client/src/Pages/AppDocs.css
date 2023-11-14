@@ -1,0 +1,8 @@
+tbody th:first-child {
+    width: 50%;
+  }
+  
+  tbody th:last-child {
+    width: 20%;
+  }
+  

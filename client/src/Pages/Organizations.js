@@ -41,6 +41,7 @@ function Organizations() {
           </Button>
           <Form.Control
             placeholder="Search"
+            className="shadow-lg"
           />
         </InputGroup>
         <Col xs={1}></Col>
