@@ -27,7 +27,6 @@ import { AuthContext } from './helpers/AuthContent';
 import Accreditation from './Pages/Student_Portal/Accreditation';
 import AccreditationStatus from './Pages/Student_Portal/AccreditationStatus';
 
-
 function App() {
 
   axios.defaults.withCredentials = true;
@@ -35,7 +34,6 @@ function App() {
   const {auth, menu, handleMenuChange} = useContext(AuthContext);
   const {authState, setAuthState} = auth;
   const {activeMenu, setActiveMenu} = menu;
-
 
 
   useEffect(() => {
@@ -61,6 +59,7 @@ function App() {
     });
   }, [authState.status])
 
+
   useEffect(() => {
     axios.get('http://localhost:3001/menu/')
     .then((response) => {
@@ -72,12 +71,36 @@ function App() {
     });
   }, [activeMenu])
 
-  
+  const [scrolling, setScrolling] = useState(false);
+  const [scrollTimeout, setScrollTimeout] = useState(null);
+
+  const handleScroll = () => {
+    setScrolling(true);
+    clearTimeout(scrollTimeout);
+
+    const timeout = setTimeout(() => {
+      setScrolling(false);
+    }, 500); // Adjust the timeout duration as needed
+
+    setScrollTimeout(timeout);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(scrollTimeout);
+    };
+  }, [scrollTimeout]);
+
+  const navbarClass = scrolling ? 'transparent-navbar' : 'solid-navbar';
+
 
   return (
     <Router>
       
-      <Navbar expand="lg">
+      <Navbar expand="lg" className={`fixed-top ${navbarClass}`}>
         <Container>
           <LinkContainer to="/">
           <Nav.Link>
