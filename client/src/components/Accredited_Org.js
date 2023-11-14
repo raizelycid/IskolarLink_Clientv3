@@ -15,7 +15,7 @@ const Accredited_Org = ({ imageSrc, title, description, tags }) => {
                 variant="primary" 
                 className="me-2 mb-2"
               >
-                {tag}
+                {tag.length > 100 ? tag.substring(0, 100) + '...' : description}
               </Badge>
             ))}
           </div>
