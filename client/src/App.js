@@ -27,6 +27,7 @@ import { AuthContext } from './helpers/AuthContent';
 import Accreditation from './Pages/Student_Portal/Accreditation';
 import AccreditationStatus from './Pages/Student_Portal/AccreditationStatus';
 
+
 function App() {
 
   axios.defaults.withCredentials = true;
@@ -34,6 +35,7 @@ function App() {
   const {auth, menu, handleMenuChange} = useContext(AuthContext);
   const {authState, setAuthState} = auth;
   const {activeMenu, setActiveMenu} = menu;
+
 
 
   useEffect(() => {
@@ -59,7 +61,6 @@ function App() {
     });
   }, [authState.status])
 
-
   useEffect(() => {
     axios.get('http://localhost:3001/menu/')
     .then((response) => {
@@ -72,12 +73,20 @@ function App() {
   }, [activeMenu])
 
   const [scrolling, setScrolling] = useState(false);
+  const [initialScroll, setInitialScroll] = useState(true);
   const [scrollTimeout, setScrollTimeout] = useState(null);
 
   const handleScroll = () => {
-    setScrolling(true);
-    clearTimeout(scrollTimeout);
+    const scrolled = window.scrollY > 100; // Adjust the threshold as needed
+    setScrolling(scrolled);
 
+    if (scrolled) {
+      setInitialScroll(false);
+    } else {
+      setInitialScroll(true);
+    }
+
+    clearTimeout(scrollTimeout);
     const timeout = setTimeout(() => {
       setScrolling(false);
     }, 500); // Adjust the timeout duration as needed
@@ -94,13 +103,14 @@ function App() {
     };
   }, [scrollTimeout]);
 
-  const navbarClass = scrolling ? 'transparent-navbar' : 'solid-navbar';
+  const navbarClass = initialScroll ? 'solid-navbar' : scrolling ? 'fixed-top transparent-navbar' : 'fixed-top solid-navbar';
 
+  
 
   return (
     <Router>
       
-      <Navbar expand="lg" className={`fixed-top ${navbarClass}`}>
+      <Navbar expand="lg" className={navbarClass}>
         <Container>
           <LinkContainer to="/">
           <Nav.Link>
