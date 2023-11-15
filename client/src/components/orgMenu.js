@@ -6,7 +6,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { AuthContext } from '../helpers/AuthContent'
 import { useNavigate } from 'react-router-dom'
 
-const CosoaMenu = ({imgSrc, username}) => {
+function OrgMenu({imgSrc, username}) {
 
     const {auth, menu} = useContext(AuthContext);
     const {authState, setAuthState} = auth;
@@ -15,40 +15,19 @@ const CosoaMenu = ({imgSrc, username}) => {
     const navigate = useNavigate();
     axios.defaults.withCredentials = true;
 
-    
-
-    const changeMainMenu = () => {
-        setActiveMenu('main');
-        axios.post('http://localhost:3001/menu/', {menu: 'main'})
-      }
-    
-      const changeCosoaMenu = () => {
-        setActiveMenu('cosoa');
-        axios.post('http://localhost:3001/menu/', {menu: 'cosoa'})
-      }
-    
-      const changeWebAdminMenu = () => {
-        setActiveMenu('webadmin');
-        axios.post('http://localhost:3001/menu/', {menu: 'webadmin'})
-      }
-
-      const switchStudent = (e) => {
-        e.preventDefault();
-        setActiveMenu('main');
-        changeMainMenu();
-        navigate('/');
-    };
-
+    //use useEffect to set the ActiveMenu to org and the cookie to org
     useEffect(() => {
-        changeCosoaMenu();
-    },[]);
+        setActiveMenu('org');
+        axios.post('http://localhost:3001/menu/', {menu: 'org'})
+    }, [])
 
-    return(
+
+  return (
     <NavDropdown title={<>{imgSrc ? <img src={`http://localhost:3001/images/${imgSrc}`} alt="Profile Picture" width="40" height="40" className="rounded-circle" /> : <FontAwesomeIcon icon={faUser}/>} <span className='text-dark'>Hi, {username}!</span></>} id="basic-nav-dropdown" className="text-dark" renderMenuOnMount={true}>
-        <NavDropdown.Item onClick={()=>navigate('/cosoa/home')}>Home</NavDropdown.Item>
-        <NavDropdown.Item onClick={()=>navigate('/cosoa/dashboard')}>Dashboard</NavDropdown.Item>
-        <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-        <NavDropdown.Item onClick={switchStudent}>Switch to Student</NavDropdown.Item>
+        <NavDropdown.Item onClick={()=>navigate('/organization/profile')}>Profile</NavDropdown.Item>
+        <NavDropdown.Item href="/profile">Official Members</NavDropdown.Item>
+        <NavDropdown.Item href="/profile">Memberships</NavDropdown.Item>
+        <NavDropdown.Item href="/profile">Revalidation</NavDropdown.Item>
         <NavDropdown.Item href="/settings">Settings</NavDropdown.Item>
         <NavDropdown.Divider />
         <NavDropdown.Item onClick={() => {
@@ -67,6 +46,7 @@ const CosoaMenu = ({imgSrc, username}) => {
             });
         }}>Log Out</NavDropdown.Item>
     </NavDropdown>
-)}
+  )
+}
 
-export default CosoaMenu
+export default OrgMenu

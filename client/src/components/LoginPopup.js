@@ -34,6 +34,10 @@ function LoginPopup() {
       }else{
         alert('User logged in!');
         setAuthState({...authState, status: true});
+        if(response.org){
+          setActiveMenu('org');
+          navigate('/organization/profile');
+        }
         handleCloseLogin();
       }
     });

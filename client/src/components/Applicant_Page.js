@@ -8,6 +8,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import './Applicant_Page.css'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
+import GiveFeedback from './COSOA_Dashboard/GiveFeedback';
 
 function Applicant_Page() {
 
@@ -116,6 +117,25 @@ function Applicant_Page() {
     console.log(err);
   }
   };
+
+
+  const handleApprove = async requirementId => {
+    try{
+      if(org_application.application_status === 'IE1' || org_application.application_status === 'Pending'){
+        await axios.post(`http://localhost:3001/cosoa/ie1/${org_application.id}/${requirementId}`).then((res) => {
+          if(res.data.error){
+            alert(res.data.error);
+          }
+          else{
+            alert('Successfully approved requirement');
+            window.location.reload('false');
+          }
+        });
+      }
+    }catch(err){
+      console.log(err);
+    }
+  }
     
 
   return (
@@ -214,16 +234,17 @@ function Applicant_Page() {
                   <input type="file" style={{display:'none'}} onChange={handleChange} ref={hiddenFileInput}/>
                   </td>
                   <td>
+                    {(requirement.status !== 'Approved' && requirement.status !== 'Revision')?
                     <Dropdown>
                       <Dropdown.Toggle variant="primmary" id="requirement-status">
                         {requirement.status}
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
-                        <Dropdown.Item onClick={()=>ActionLinks('Approve')}>Approve</Dropdown.Item>
-                        <Dropdown.Item onClick={()=>ActionLinks('Give Feedback')}>Give Feedback</Dropdown.Item>
-                        <Dropdown.Item onClick={()=>ActionLinks('Reject')}>Reject</Dropdown.Item>
+                        <Dropdown.Item onClick={event => handleApprove(requirement.id)}>Approve</Dropdown.Item>
+                        <GiveFeedback org_applicationId={org_application.id} requirementId={requirement.id} orgApplicationStatus={org_application.application_status} />
                       </Dropdown.Menu>
                     </Dropdown>
+                     : requirement.status === 'Approved' ? <span className='applicant-approved-text'>{requirement.status}</span> : requirement.status === 'Revision' ? <span className='applicant-revision-text'>Revision needed</span> : null}
                   </td>
               </tr>
             )
