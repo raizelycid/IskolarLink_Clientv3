@@ -9,8 +9,6 @@ import './Organization_Profile.css';
 import { HeroVariant } from '../../components/HeroVariant/Hero';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
-
-
 function Revalidation() {
     const [page, setPage] = useState(0);
     const [formData, setFormData] = useState({
@@ -100,7 +98,7 @@ function Revalidation() {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 }
-            });
+            }); 
         } catch (err) {
             console.log(err);
         }
@@ -111,7 +109,7 @@ function Revalidation() {
         <div>
       <HeroVariant
         h1Text="Revalidation Form"
-        pText="Fill up our Accreditation Form Page to kickstart your journey towards official recognition and support for your student organization.  "
+        pText="Fill up our Revalidation Form Page to kickstart your journey towards official recognition and support for your student organization.  "
       />
       <Container className='my-5'>
         <Row>
@@ -136,7 +134,8 @@ function Revalidation() {
         <div className="d-flex justify-content-center form-footer">
             <button 
             disabled={page === 0}
-            onClick={() => setPage((currPage) => currPage - 1)}
+            onClick={() => 
+                setPage((currPage) => currPage - 1)}
             className="custom-button2 margin-right"
             >
             {`< Prev`}

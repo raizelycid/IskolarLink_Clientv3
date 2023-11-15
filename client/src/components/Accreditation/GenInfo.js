@@ -40,6 +40,7 @@ const GenInfo = ({formData, setFormData, show}) => {
     ]
 
   return (
+    <>
     <form style={{display:show}}>
         <Container>
         <Image src="/1st.png" alt="IskolarLink Logo"  fluid style={{ marginBottom: '40px' }}/>    
@@ -48,6 +49,7 @@ const GenInfo = ({formData, setFormData, show}) => {
                 <Form.Label>Complete Name of Student Organization (Abbreviation/Initialisim)</Form.Label>
                 <Form.Control type="text" placeholder="e.g. Association of Concerned Students (ACS)" onChange={(e) => setFormData({...formData, orgName: e.target.value})} value={formData.orgName}/>
             </Form.Group>
+
             <Form.Group as={Col} controlId="jurisdiction" className="mb-3">
                 <Form.Label>Classification of Jurisdiction</Form.Label>
                 <Form.Select aria-label='Jurisdiction' onChange={(e) => setFormData({...formData, jurisdiction: e.target.value})} value={formData.jurisdiction}>
@@ -57,7 +59,7 @@ const GenInfo = ({formData, setFormData, show}) => {
                 </Form.Select>
             </Form.Group>
         </Row>
-        <Row>
+        <Row className="p-3">
             <Form.Group as={Col} controlId="orgType" className="mb-3">
                 <Form.Label>Nature/Type of Student Organization</Form.Label>
                 <Form.Select aria-label='OrgType' onChange={(e) => setFormData({...formData, orgType: e.target.value})} value={formData.orgType}>
@@ -77,7 +79,7 @@ const GenInfo = ({formData, setFormData, show}) => {
                 </Form.Select>
             </Form.Group>
         </Row>
-        <Row>
+        <Row className="p-3">
             <Form.Group as={Col} controlId="advisers" className="mb-3">
                 <Form.Label>Complete Name of Student Organization Adviser(s) (Separated by comma)</Form.Label>
                 <Form.Control type="text" placeholder="e.g. Juan Dela Cruz, Pedro Penduko" onChange={(e) => setFormData({...formData, advisers: e.target.value})} value={formData.advisers}/>
@@ -85,6 +87,7 @@ const GenInfo = ({formData, setFormData, show}) => {
         </Row>
         </Container>
     </form>
+    </>
   )
 }
 
