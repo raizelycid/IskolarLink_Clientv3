@@ -20,6 +20,7 @@ import RegisterPopup from './components/RegisterPopup';
 import Organization_Profile from './Pages/Organization_Portal/Organization_Profile';
 import Revalidation from './Pages/Organization_Portal/Revalidation';
 import OrgSettings from './Pages/Organization_Portal/Settings';
+import OrgFeedback from './Pages/Organization_Portal/Feedback';
 import MainMenu from './components/mainMenu';
 import CosoaMenu from './components/cosoaMenu';
 import WebAdminMenu from './components/webAdminMenu';
@@ -28,6 +29,7 @@ import Accreditation from './Pages/Student_Portal/Accreditation';
 import AccreditationStatus from './Pages/Student_Portal/AccreditationStatus';
 import OrgMenu from './components/orgMenu';
 import { useNavigate } from 'react-router-dom';
+import Org_Profile from './components/Org_Profile';
 
 
 function App() {
@@ -193,8 +195,10 @@ function App() {
         <Route path="/organization/profile" exact element ={<Organization_Profile />} />
         <Route path="/revalidation" exact element ={<Revalidation />} />
         <Route path='/org_settings' exact element ={<OrgSettings />} />
+        <Route path='/org_feedback' exact element ={<OrgFeedback />} />
         <Route path="/accreditation" exact element={<Accreditation />} />
         <Route path="/accreditation/status" exact element={<AccreditationStatus />} />
+        <Route path="/org_profile" exact element ={<Org_Profile />} />
       </Routes>
 
       <footer className="footer bg-dark text-white py-4 border-bottom Inter">
