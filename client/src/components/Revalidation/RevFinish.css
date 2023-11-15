@@ -16,3 +16,7 @@
   .bold-text {
     font-weight: bold; /* or 600 depending on your font */
   }
+
+  .form-group-spacing {
+    margin-right: .8rem; /* Or however much space you want */
+  }
