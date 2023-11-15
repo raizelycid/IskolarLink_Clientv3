@@ -26,6 +26,8 @@ import WebAdminMenu from './components/webAdminMenu';
 import { AuthContext } from './helpers/AuthContent';
 import Accreditation from './Pages/Student_Portal/Accreditation';
 import AccreditationStatus from './Pages/Student_Portal/AccreditationStatus';
+import OrgMenu from './components/orgMenu';
+import { useNavigate } from 'react-router-dom';
 
 
 function App() {
@@ -61,16 +63,23 @@ function App() {
     });
   }, [authState.status])
 
+
   useEffect(() => {
-    axios.get('http://localhost:3001/menu/')
-    .then((response) => {
-      if(response.data.error){
-        console.log(response.data.error);
-      }else{
-        setActiveMenu(response.data.menu);
+    if(authState.role === 'organization'){
+      setActiveMenu('org');
+      axios.post('http://localhost:3001/menu/', {menu: 'org'})}
+      else{
+        axios.get('http://localhost:3001/menu/').then((response) => {
+          if(response.data.error){
+            console.log(response.data.error);
+          }
+          else{
+            setActiveMenu(response.data.menu);
+          }
+        });
       }
-    });
-  }, [activeMenu])
+    }, [authState.status])
+
 
   const [scrolling, setScrolling] = useState(false);
   const [initialScroll, setInitialScroll] = useState(true);
@@ -146,6 +155,7 @@ function App() {
             </Nav>
 
             <Nav className="ms-auto ">
+            
             {authState.status ? (
               // menu depends on activeMenu which has three value (main, cosoa, webadmin)
 
@@ -153,10 +163,11 @@ function App() {
                 <MainMenu imgSrc={authState.profile_picture} username={authState.username} />
               ) : activeMenu === 'cosoa' ? (
                 <CosoaMenu imgSrc={authState.profile_picture} username={authState.username} />
-              ) : (
+              ) : activeMenu === 'webadmin' ? (
                 <WebAdminMenu imgSrc={authState.profile_picture} username={authState.username} />
-              )
-              
+              ) : activeMenu === 'org' ? (
+                <OrgMenu imgSrc={authState.profile_picture} username={authState.username} />
+              ) : null
   
               ):(
                 <>
@@ -179,7 +190,7 @@ function App() {
         <Route path="/appdocs" exact element={<AppDocs />} />
         <Route path="/faqs" exact element={<FAQs />} />
         <Route path="/" exact element={<LandingPage />} />
-        <Route path="/organization_profile" exact element ={<Organization_Profile />} />
+        <Route path="/organization/profile" exact element ={<Organization_Profile />} />
         <Route path="/revalidation" exact element ={<Revalidation />} />
         <Route path='/org_settings' exact element ={<OrgSettings />} />
         <Route path="/accreditation" exact element={<Accreditation />} />

@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from 'react'
+import React, {useEffect, useState, useRef } from 'react'
 import axios from 'axios';
 import './AccreditationStatus.css';
 import Table from 'react-bootstrap/Table';
@@ -9,19 +9,65 @@ function AccreditationStatus() {
     const [org, setOrg] = useState([]);
     const [org_app, setOrgApp] = useState([]);
     const [advisers, setAdvisers] = useState([]);
+    const [requirements, setRequirements] = useState([]);
+    const [selectedFile, setSelectedFile] = useState('');
+    const [selectedRequirementId, setSelectedRequirementId] = useState('');
+
+    const hiddenFileInput = useRef(null);
+    const handleClick = (event, requirement_name, requirement_id) => {
+        setSelectedFile(requirement_name);
+        setSelectedRequirementId(requirement_id);
+        console.log(requirement_id)
+        hiddenFileInput.current.click();
+      };
+
+    const handleChange = async event => {
+    try{
+        await axios.post(`http://localhost:3001/student/update_form/${org.id}/${selectedRequirementId}`, {file: event.target.files[0], requirement_name: selectedFile}, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        }
+        }).then((res) => {
+        if(res.data.error){
+            alert(res.data.error);
+        }else{
+            alert('Successfully updated form');
+            window.location.reload('false');
+        }
+        });
+    }
+    catch(err){
+    console.log(err);
+    }
+    };
+
+    const Forms = [ 'Certificate of Recognition', 'Official List', 'Officer\'s Profile', 'Letter of Concurrence', 'Letter of Concurrence-Sub', 'CBL 101', 'GPOA', 'Advocacy Plan','Tracker Form', 'Waiver of Responsibility']
 
     useEffect(() => {
         axios.get('http://localhost:3001/student/org_application_status').then((response) => {
             console.log(response.data);
             setOrg(response.data.org);
             setOrgApp(response.data.org_app);
+            setRequirements(response.data.requirements);
             setAdvisers(response.data.advisers);
     });
+
     }, []);
 
     const DateConverter = (date) => {
         const newDate = new Date(date);
         return newDate.toDateString();
+    }
+
+    // A function that will push the Form names to the Requirements array
+    useEffect(() => {
+        pushNames();
+    }, [requirements]);
+    const pushNames = () => {
+        for(let i = 0; i < requirements.length; i++){
+            requirements[i].form_name = Forms[i];
+        }
+        console.log(requirements)
     }
 
   return (
@@ -67,59 +113,22 @@ function AccreditationStatus() {
                         <th>Form Code</th>
                         <th>Form Name</th>
                         <th>Resubmission</th>
+                        <th>Remarks</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>AF001</td>
-                        <td>Tracker Form</td>
-                        <td><Button variant="primary" disabled>Resubmit</Button></td>
-                    </tr>
-                    <tr>
-                        <td>AD001</td>
-                        <td>Certificate of Recognition</td>
-                        <td><Button variant="primary" disabled>Resubmit</Button></td>
-                    </tr>
-                    <tr>
-                        <td>AD002</td>
-                        <td>Official List</td>
-                        <td><Button variant="primary" disabled>Resubmit</Button></td>
-                    </tr>
-                    <tr>
-                        <td>AD003</td>
-                        <td>Officer's Profile</td>
-                        <td><Button variant="primary" disabled>Resubmit</Button></td>
-                    </tr>
-                    <tr>
-                        <td>AD004</td>
-                        <td>Letter of Concurrence</td>
-                        <td><Button variant="primary" disabled>Resubmit</Button></td>
-                    </tr>
-                    <tr>
-                        <td>AD005</td>
-                        <td>Letter of Concurrence-Sub</td>
-                        <td><Button variant="primary" disabled>Resubmit</Button></td>
-                    </tr>
-                    <tr>
-                        <td>AD006</td>
-                        <td>CBL 101</td>
-                        <td><Button variant="primary" disabled>Resubmit</Button></td>
-                    </tr>
-                    <tr>
-                        <td>AD007</td>
-                        <td>GPOA</td>
-                        <td><Button variant="primary" disabled>Resubmit</Button></td>
-                    </tr>
-                    <tr>
-                        <td>AD008</td>
-                        <td>Advocacy Plan</td>
-                        <td><Button variant="primary" disabled>Resubmit</Button></td>
-                    </tr>
-                    <tr>
-                        <td>AD009</td>
-                        <td>Waiver of Responsibility</td>
-                        <td><Button variant="primary" disabled>Resubmit</Button></td>
-                    </tr>
+                    {requirements.map((requirement) => {
+                        return (
+                            <tr>
+                                <td>{requirement.requirement_name}</td>
+                                <td>{requirement.form_name}</td>
+                                <td>{requirement.status === 'Approved' ? <Button variant='success' disabled>Approved</Button>
+                                : requirement.status === 'Revision' ? <><Button variant="warning" onClick={event => handleClick(event, requirement.requirement_name, requirement.id)}>Resubmit</Button> <input type="file" style={{display:'none'}} onChange={handleChange} ref={hiddenFileInput}/> </>
+                                : <Button variant='primary' disabled>Resubmit</Button>}</td>
+                                <td>{requirement.remarks}</td>
+                            </tr>
+                        );
+                    })}
                 </tbody>
             </Table>
         </div>
