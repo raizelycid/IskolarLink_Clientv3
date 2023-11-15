@@ -53,3 +53,16 @@
     border-color: #333333;
   }
   
+  .btn-cancel {
+    background-color: #838e98; /* Bootstrap's gray color for the 'secondary' variant */
+    color: rgb(255, 255, 255); /* Adjust text color as needed */
+    border-color: #6c757d; /* Usually the same as the background for a solid button */
+  }
+  
+  .btn-cancel:hover {
+    background-color: #5a6268; /* A slightly darker gray for hover state */
+    border-color: #545b62; /* Adjust the border color for hover state as needed */
+  }
+  
+
+  

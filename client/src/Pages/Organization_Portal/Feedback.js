@@ -1,27 +1,23 @@
 import React, { useState } from 'react';
 import './Organization_Profile.css';
 import { HeroVariant } from '../../components/HeroVariant/Hero';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import FAQs_Form from '../../components/FAQs_Form';
+import { Container, Row, Col, Button, Form, Image } from 'react-bootstrap';
 
 
-function RevalidationForm1() {
+function OrgFeedback() {
   return (
     <div>
       <HeroVariant
-        h1Text="Revalidation Form"
-        pText="Fill up our Accreditation Form Page to kickstart your journey towards official recognition and support for your student organization.  "
+        h1Text="Feedback"
+        pText="Tell us what we can improve! "
       />
       <Container className='my-5'>
-        <Row>
-          <Col className="text-center">
-            <h2>Complete the form below </h2>
-            <p className='text-gray2'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the <br /> industry's standard dummy text ever since the 1500s, </p>
-          </Col>
-        </Row>
-      </Container>
+    <FAQs_Form/>
+    </Container>
     </div>
 
   )
 }
 
-export default RevalidationForm1
+export default OrgFeedback

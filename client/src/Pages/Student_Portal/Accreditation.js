@@ -5,6 +5,9 @@ import AccForms2 from '../../components/Accreditation/AccForms2'
 import AccFinish from '../../components/Accreditation/AccFinish'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import './Student_Profile.css';
+import { HeroVariant } from '../../components/HeroVariant/Hero';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
 function Accreditation() {
     const [page, setPage] = useState(0);
@@ -28,8 +31,7 @@ function Accreditation() {
         privacyPolicy: '',
     });
 
-    const FormTitles = [ 'Organization Information', 'Upload Documents', 'Tracker Form and Waiver', '']
-
+    const FormTitles = [ ]
     const [show1, setShow1] = useState('none');
     const [show2, setShow2] = useState('none');
     const [show3, setShow3] = useState('none');
@@ -91,32 +93,38 @@ function Accreditation() {
 
     const submitData = async () => {
         try {
-            await axios.post('http://localhost:3001/org/addorg', formData, {
+            const res = await axios.post('http://localhost:3001/org/addorg', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 }
-            }).then((res) => {
-                if(res.data.error){
-                    alert(res.data.error);
-                }
-                navigate(`/accreditation/status`)
             });
+            if(res.data.error){
+                alert(res.data.error);
+            }
+            navigate(`/accreditation/status`);
         } catch (err) {
             console.log(err);
         }
     }
+    
 
   return (
     <>
-    <div className="bar">
-    <div className="progressbar">
-        <div
-         style={{ width: page === 0 ? "25%" : page === 1 ? "50%" : page === 2 ? "75%" : "100%" }}
-        ></div>
+    <div>
+      <HeroVariant
+        h1Text="Accreditation Form"
+        pText="Fill up our Accreditation Form Page to kickstart your journey towards official recognition and support for your student organization.  "
+      />
+      <Container className='my-5'>
+        <Row>
+          <Col className="text-center">
+            <h2>Complete the form below </h2>
+            <p className='text-gray2'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the <br /> industry's standard dummy text ever since the 1500s, </p>
+          </Col>
+        </Row>
+      </Container>
+    </div>
 
-        
-    </div>
-    </div>
     <div className="form-container">
         <div className="form-header">
             <h1 className="form-title">{FormTitles[page]}</h1>
@@ -127,19 +135,19 @@ function Accreditation() {
         <AccForms2 formData={formData} setFormData={setFormData} show={show3} path={trackerForm} path2={waiverForm}/>
         <AccFinish show={show4}/>
         </div>
-        <div className="form-footer">
+        <Container>
+        <div className="d-flex justify-content-center form-footer">
             <button 
             disabled={page == 0}
             onClick={() => {
-                setPage((currPage) => currPage - 1);
-            }}
-            className="form-button"
+                setPage((currPage) => currPage - 1);}}
+            className="custom-button2 margin-right"
             >
                 {`< Prev`}
             </button>
             <button
             onClick={() => {
-                if(page === FormTitles.length - 1){
+                if(page == 3){
                     submitData();
                     alert("Form Submitted");
                 } else {
@@ -147,12 +155,13 @@ function Accreditation() {
                     setPage((currPage) => currPage + 1);
                 }
             }}
-            className="form-button"
+            className="custom-button margin-right"
             >
-                {page === FormTitles.length - 1 ? "Submit" : "Next >"}
+                {page == 3? "Submit" : "Next >"}
             </button>
         </div>
-      
+        </Container>
+
     </div>
     </>
   )
