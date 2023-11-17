@@ -9,6 +9,7 @@ import './Applicant_Page.css'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import GiveFeedback from './COSOA_Dashboard/GiveFeedback';
+import { Alert } from 'react-bootstrap'
 
 function Applicant_Page() {
 
@@ -63,6 +64,19 @@ function Applicant_Page() {
     }
   }
 
+  const showApprovedAlert = () => {
+    if(showAlert){
+    return(
+      <Alert variant='success' onClose={() => setShowAlert(false)} dismissible>
+        <Alert.Heading>Requirement Approved</Alert.Heading>
+        <p>
+          You have successfully approved a requirement.
+        </p>
+      </Alert>
+    )
+    }
+  }
+
   const location = useLocation();
   const {id} = useParams();
   const navigate = useNavigate();
@@ -73,6 +87,7 @@ function Applicant_Page() {
   const [user, setUser] = useState([]);
   const [org_application, setOrg_Application] = useState([]);
   const [selectedFile, setSelectedFile] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     axios.get(`http://localhost:3001/cosoa_dashboard/get_org/${id}`)
@@ -122,13 +137,76 @@ function Applicant_Page() {
   const handleApprove = async requirementId => {
     try{
       if(org_application.application_status === 'IE1' || org_application.application_status === 'Pending'){
-        await axios.post(`http://localhost:3001/cosoa/ie1/${org_application.id}/${requirementId}`).then((res) => {
+        await axios.post(`http://localhost:3001/cosoa/ie2/${org_application.id}/${requirementId}`).then((res) => {
           if(res.data.error){
             alert(res.data.error);
           }
           else{
-            alert('Successfully approved requirement');
-            window.location.reload('false');
+            // Change the status of the requirement to approved
+            setRequirements(requirements.map((requirement) => {
+              if(requirement.id === requirementId){
+                requirement.status = 'Approved';
+              }
+              return requirement;
+            }))
+            setShowAlert(true);
+            setTimeout(() => {
+              setShowAlert(false);
+            }, 3000);
+          }
+        });
+      }else if(org_application.application_status === 'IE2'){
+        await axios.post(`http://localhost:3001/cosoa/fe1/${org_application.id}/${requirementId}`).then((res) => {
+          if(res.data.error){
+            alert(res.data.error);
+          }
+          else{
+            setRequirements(requirements.map((requirement) => {
+              if(requirement.id === requirementId){
+                requirement.status = 'Approved';
+              }
+              return requirement;
+            }))
+            setShowAlert(true);
+            setTimeout(() => {
+              setShowAlert(false);
+            }, 3000);
+          }
+        });
+      }else if(org_application.application_status === 'FE1'){
+        await axios.post(`http://localhost:3001/cosoa/fe2/${org_application.id}/${requirementId}`).then((res) => {
+          if(res.data.error){
+            alert(res.data.error);
+          }
+          else{
+            setRequirements(requirements.map((requirement) => {
+              if(requirement.id === requirementId){
+                requirement.status = 'Approved';
+              }
+              return requirement;
+            }))
+            setShowAlert(true);
+            setTimeout(() => {
+              setShowAlert(false);
+            }, 3000);
+          }
+        });
+      }else if(org_application.application_status === 'FE2'){
+        await axios.post(`http://localhost:3001/cosoa/acc/${org_application.id}/${requirementId}`).then((res) => {
+          if(res.data.error){
+            alert(res.data.error);
+          }
+          else{
+            setRequirements(requirements.map((requirement) => {
+              if(requirement.id === requirementId){
+                requirement.status = 'Approved';
+              }
+              return requirement;
+            }))
+            setShowAlert(true);
+            setTimeout(() => {
+              setShowAlert(false);
+            }, 3000);
           }
         });
       }
@@ -211,6 +289,7 @@ function Applicant_Page() {
       </form>
 
     </Container>
+    {showApprovedAlert()}
     <Container className='applicant-footer-container'>
       <Table striped bordered hover>
         <thead>

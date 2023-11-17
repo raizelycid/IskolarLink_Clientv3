@@ -15,7 +15,37 @@ function GiveFeedback({org_applicationId, requirementId, orgApplicationStatus}) 
     const handleSubmit = async event => {
         try{
         if(orgApplicationStatus === 'IE1' || orgApplicationStatus === 'Pending'){
-            await axios.post(`http://localhost:3001/cosoa/ie1/${org_applicationId}/${requirementId}`, { feedback: feedback }).then((response) => {
+            await axios.post(`http://localhost:3001/cosoa/ie2/${org_applicationId}/${requirementId}`, { feedback: feedback }).then((response) => {
+                if(response.data.error){
+                    alert(response.data.error);
+                }else{
+                    alert('Feedback given!');
+                    handleCloseFeedback();
+                    window.location.reload();
+                }
+            });
+        }else if(orgApplicationStatus === 'IE2'){
+            await axios.post(`http://localhost:3001/cosoa/fe1/${org_applicationId}/${requirementId}`, { feedback: feedback }).then((response) => {
+                if(response.data.error){
+                    alert(response.data.error);
+                }else{
+                    alert('Feedback given!');
+                    handleCloseFeedback();
+                    window.location.reload();
+                }
+            });
+        }else if(orgApplicationStatus === 'FE1'){
+            await axios.post(`http://localhost:3001/cosoa/fe2/${org_applicationId}/${requirementId}`, { feedback: feedback }).then((response) => {
+                if(response.data.error){
+                    alert(response.data.error);
+                }else{
+                    alert('Feedback given!');
+                    handleCloseFeedback();
+                    window.location.reload();
+                }
+            });
+        }else if(orgApplicationStatus === 'FE2'){
+            await axios.post(`http://localhost:3001/cosoa/acc/${org_applicationId}/${requirementId}`, { feedback: feedback }).then((response) => {
                 if(response.data.error){
                     alert(response.data.error);
                 }else{
@@ -25,7 +55,7 @@ function GiveFeedback({org_applicationId, requirementId, orgApplicationStatus}) 
                 }
             });
         }
-        }catch(err){
+    }catch(err){
             console.log(err);
         }
     }

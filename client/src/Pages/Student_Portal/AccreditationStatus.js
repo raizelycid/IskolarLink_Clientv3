@@ -17,7 +17,6 @@ function AccreditationStatus() {
     const handleClick = (event, requirement_name, requirement_id) => {
         setSelectedFile(requirement_name);
         setSelectedRequirementId(requirement_id);
-        console.log(requirement_id)
         hiddenFileInput.current.click();
       };
 

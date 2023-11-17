@@ -5,7 +5,6 @@ import Container from 'react-bootstrap/Container';
 
 const AccForms2 = ({formData, setFormData,show,path,path2}) => {
 
-    const [checked, setChecked] = useState(false);
   return (
     <>
     <form style={{display:show}}>
@@ -32,8 +31,8 @@ const AccForms2 = ({formData, setFormData,show,path,path2}) => {
                 I agree to the <span className='accreditation-download'>Privacy Policy</span>
             </>
             }
-            checked={checked}
-            onChange={(e) => setChecked(e.currentTarget.checked)}
+            checked={formData.privacyPolicy}
+            onChange={(e) => setFormData({...formData, privacyPolicy: e.target.checked})}
         />
         </Form.Group>
         </Row>
