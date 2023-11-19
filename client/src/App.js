@@ -30,6 +30,7 @@ import AccreditationStatus from './Pages/Student_Portal/AccreditationStatus';
 import OrgMenu from './components/orgMenu';
 import { useNavigate } from 'react-router-dom';
 import Org_Profile from './components/Org_Profile';
+import COSOASettings from './Pages/COSOA_Portal/COSOA_Settings';
 
 
 function App() {
@@ -199,6 +200,8 @@ function App() {
         <Route path="/accreditation" exact element={<Accreditation />} />
         <Route path="/accreditation/status" exact element={<AccreditationStatus />} />
         <Route path="/org_profile" exact element ={<Org_Profile />} />
+        <Route path="/cosoa/settings" exact element ={<COSOASettings />} />
+        
       </Routes>
 
       <footer className="footer bg-dark text-white py-4 border-bottom Inter">
