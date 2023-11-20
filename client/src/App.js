@@ -204,7 +204,6 @@ function App() {
         <Route path="/accreditation/status" exact element={<AccreditationStatus />} />
         <Route path="/org_profile" exact element ={<Org_Profile />} />
         <Route path="/cosoa/settings" exact element ={<COSOASettings />} />
-        
         <Route path="/student/membership" exact element ={<S_Membership /> } />
         <Route path="/organization/membership" exact element={<O_Membership/>} />
         <Route path="/organization/members" exact element={<Official_Members/>}/>
