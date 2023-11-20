@@ -30,7 +30,9 @@ import AccreditationStatus from './Pages/Student_Portal/AccreditationStatus';
 import OrgMenu from './components/orgMenu';
 import { useNavigate } from 'react-router-dom';
 import Org_Profile from './components/Org_Profile';
-
+import S_Membership from './Pages/Student_Portal/S_Membership';
+import O_Membership from './Pages/Organization_Portal/O_Membership';
+import Official_Members from './Pages/Organization_Portal/Official_Members';
 
 function App() {
 
@@ -88,7 +90,7 @@ function App() {
   const [scrollTimeout, setScrollTimeout] = useState(null);
 
   const handleScroll = () => {
-    const scrolled = window.scrollY > 100; // Adjust the threshold as needed
+    const scrolled = window.scrollY > 100;
     setScrolling(scrolled);
 
     if (scrolled) {
@@ -100,7 +102,7 @@ function App() {
     clearTimeout(scrollTimeout);
     const timeout = setTimeout(() => {
       setScrolling(false);
-    }, 500); // Adjust the timeout duration as needed
+    }, 500);
 
     setScrollTimeout(timeout);
   };
@@ -199,6 +201,9 @@ function App() {
         <Route path="/accreditation" exact element={<Accreditation />} />
         <Route path="/accreditation/status" exact element={<AccreditationStatus />} />
         <Route path="/org_profile" exact element ={<Org_Profile />} />
+        <Route path="/student/membership" exact element ={<S_Membership /> } />
+        <Route path="/organization/membership" exact element={<O_Membership/>} />
+        <Route path="/organization/members" exact element={<Official_Members/>}/>
       </Routes>
 
       <footer className="footer bg-dark text-white py-4 border-bottom Inter">
