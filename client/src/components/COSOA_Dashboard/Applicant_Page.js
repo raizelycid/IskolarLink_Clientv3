@@ -1,5 +1,5 @@
 import React, { useEffect, useState,useRef } from 'react';
-import { HeroVariant3 } from '../components/HeroVariant/Hero';
+import { HeroVariant3 } from '../HeroVariant/Hero';
 import { Container, Row, Col, Image} from 'react-bootstrap';
 import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import Form from 'react-bootstrap/Form'
@@ -8,7 +8,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import './Applicant_Page.css'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
-import GiveFeedback from './COSOA_Dashboard/GiveFeedback';
+import GiveFeedback from './GiveFeedback';
 import { Alert } from 'react-bootstrap'
 
 function Applicant_Page() {

@@ -2,14 +2,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import axios from 'axios';
 import { saveAs } from 'file-saver';
-import { Navbar, Container, Nav, Button, Row, Col, Modal, NavDropdown } from 'react-bootstrap';
+import { Navbar, Container, Nav, Button, Row, Col, Modal, NavDropdown, Offcanvas, Image} from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import COSOA from './Pages/COSOA';
 import COSOA_Home from './Pages/COSOA_Portal/COSOA_Home';
 import COSOA_Dashboard from './Pages/COSOA_Portal/COSOA_Dashboard';
 import COSOA_Applicants from './Pages/COSOA_Portal/COSOA_Applicants';
-import Applicant_Page from './components/Applicant_Page';
+import Applicant_Page from './components/COSOA_Dashboard/Applicant_Page';
 import Organizations from './Pages/Organizations';
 import AppDocs from './Pages/AppDocs';
 import FAQs from './Pages/FAQs';
@@ -30,9 +30,12 @@ import AccreditationStatus from './Pages/Student_Portal/AccreditationStatus';
 import OrgMenu from './components/orgMenu';
 import { useNavigate } from 'react-router-dom';
 import Org_Profile from './components/Org_Profile';
+import COSOASettings from './Pages/COSOA_Portal/COSOA_Settings';
 import S_Membership from './Pages/Student_Portal/S_Membership';
 import O_Membership from './Pages/Organization_Portal/O_Membership';
 import Official_Members from './Pages/Organization_Portal/Official_Members';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 function App() {
 
@@ -41,7 +44,6 @@ function App() {
   const {auth, menu, handleMenuChange} = useContext(AuthContext);
   const {authState, setAuthState} = auth;
   const {activeMenu, setActiveMenu} = menu;
-
 
 
   useEffect(() => {
@@ -118,7 +120,7 @@ function App() {
 
   const navbarClass = initialScroll ? 'solid-navbar' : scrolling ? 'fixed-top transparent-navbar' : 'fixed-top solid-navbar';
 
-  
+
 
   return (
     <Router>
@@ -184,6 +186,7 @@ function App() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+
       <Routes>
         <Route path="/cosoa" exact element={<COSOA />} />
         <Route path="/cosoa/home" exact element={<COSOA_Home />} />
@@ -201,6 +204,7 @@ function App() {
         <Route path="/accreditation" exact element={<Accreditation />} />
         <Route path="/accreditation/status" exact element={<AccreditationStatus />} />
         <Route path="/org_profile" exact element ={<Org_Profile />} />
+        <Route path="/cosoa/settings" exact element ={<COSOASettings />} />
         <Route path="/student/membership" exact element ={<S_Membership /> } />
         <Route path="/organization/membership" exact element={<O_Membership/>} />
         <Route path="/organization/members" exact element={<Official_Members/>}/>
