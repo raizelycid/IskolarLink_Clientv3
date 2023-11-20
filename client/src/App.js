@@ -9,7 +9,7 @@ import COSOA from './Pages/COSOA';
 import COSOA_Home from './Pages/COSOA_Portal/COSOA_Home';
 import COSOA_Dashboard from './Pages/COSOA_Portal/COSOA_Dashboard';
 import COSOA_Applicants from './Pages/COSOA_Portal/COSOA_Applicants';
-import Applicant_Page from './components/Applicant_Page';
+import Applicant_Page from './components/COSOA_Dashboard/Applicant_Page';
 import Organizations from './Pages/Organizations';
 import AppDocs from './Pages/AppDocs';
 import FAQs from './Pages/FAQs';
