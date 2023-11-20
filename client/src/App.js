@@ -9,7 +9,7 @@ import COSOA from './Pages/COSOA';
 import COSOA_Home from './Pages/COSOA_Portal/COSOA_Home';
 import COSOA_Dashboard from './Pages/COSOA_Portal/COSOA_Dashboard';
 import COSOA_Applicants from './Pages/COSOA_Portal/COSOA_Applicants';
-import Applicant_Page from './components/Applicant_Page';
+import Applicant_Page from './components/COSOA_Dashboard/Applicant_Page';
 import Organizations from './Pages/Organizations';
 import AppDocs from './Pages/AppDocs';
 import FAQs from './Pages/FAQs';
@@ -30,6 +30,7 @@ import AccreditationStatus from './Pages/Student_Portal/AccreditationStatus';
 import OrgMenu from './components/orgMenu';
 import { useNavigate } from 'react-router-dom';
 import Org_Profile from './components/Org_Profile';
+import COSOASettings from './Pages/COSOA_Portal/COSOA_Settings';
 import S_Membership from './Pages/Student_Portal/S_Membership';
 import O_Membership from './Pages/Organization_Portal/O_Membership';
 import Official_Members from './Pages/Organization_Portal/Official_Members';
@@ -201,6 +202,7 @@ function App() {
         <Route path="/accreditation" exact element={<Accreditation />} />
         <Route path="/accreditation/status" exact element={<AccreditationStatus />} />
         <Route path="/org_profile" exact element ={<Org_Profile />} />
+        <Route path="/cosoa/settings" exact element ={<COSOASettings />} />
         <Route path="/student/membership" exact element ={<S_Membership /> } />
         <Route path="/organization/membership" exact element={<O_Membership/>} />
         <Route path="/organization/members" exact element={<Official_Members/>}/>
