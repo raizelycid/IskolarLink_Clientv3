@@ -1,0 +1,22 @@
+.applicant-org-name {
+    margin-left:20px;
+    font-size: 1.5rem;
+}
+
+.applicant-header-container{
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.applicant-requirement-name{
+    display:flex;
+    justify-content: center;
+}
+
+.applicant-download-text{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-size: 1.1rem;
+    color: var(--red);
+}

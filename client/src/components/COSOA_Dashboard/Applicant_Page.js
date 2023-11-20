@@ -1,5 +1,5 @@
 import React, { useEffect, useState,useRef } from 'react';
-import { HeroVariant3 } from '../components/HeroVariant/Hero';
+import { HeroVariant3 } from '../HeroVariant/Hero';
 import { Container, Row, Col, Image} from 'react-bootstrap';
 import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import Form from 'react-bootstrap/Form'
@@ -8,6 +8,8 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import './Applicant_Page.css'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
+import GiveFeedback from './GiveFeedback';
+import { Alert } from 'react-bootstrap'
 
 function Applicant_Page() {
 
@@ -62,6 +64,19 @@ function Applicant_Page() {
     }
   }
 
+  const showApprovedAlert = () => {
+    if(showAlert){
+    return(
+      <Alert variant='success' onClose={() => setShowAlert(false)} dismissible>
+        <Alert.Heading>Requirement Approved</Alert.Heading>
+        <p>
+          You have successfully approved a requirement.
+        </p>
+      </Alert>
+    )
+    }
+  }
+
   const location = useLocation();
   const {id} = useParams();
   const navigate = useNavigate();
@@ -72,6 +87,7 @@ function Applicant_Page() {
   const [user, setUser] = useState([]);
   const [org_application, setOrg_Application] = useState([]);
   const [selectedFile, setSelectedFile] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     axios.get(`http://localhost:3001/cosoa_dashboard/get_org/${id}`)
@@ -116,6 +132,88 @@ function Applicant_Page() {
     console.log(err);
   }
   };
+
+
+  const handleApprove = async requirementId => {
+    try{
+      if(org_application.application_status === 'IE1' || org_application.application_status === 'Pending'){
+        await axios.post(`http://localhost:3001/cosoa/ie2/${org_application.id}/${requirementId}`).then((res) => {
+          if(res.data.error){
+            alert(res.data.error);
+          }
+          else{
+            // Change the status of the requirement to approved
+            setRequirements(requirements.map((requirement) => {
+              if(requirement.id === requirementId){
+                requirement.status = 'Approved';
+              }
+              return requirement;
+            }))
+            setShowAlert(true);
+            setTimeout(() => {
+              setShowAlert(false);
+            }, 3000);
+          }
+        });
+      }else if(org_application.application_status === 'IE2'){
+        await axios.post(`http://localhost:3001/cosoa/fe1/${org_application.id}/${requirementId}`).then((res) => {
+          if(res.data.error){
+            alert(res.data.error);
+          }
+          else{
+            setRequirements(requirements.map((requirement) => {
+              if(requirement.id === requirementId){
+                requirement.status = 'Approved';
+              }
+              return requirement;
+            }))
+            setShowAlert(true);
+            setTimeout(() => {
+              setShowAlert(false);
+            }, 3000);
+          }
+        });
+      }else if(org_application.application_status === 'FE1'){
+        await axios.post(`http://localhost:3001/cosoa/fe2/${org_application.id}/${requirementId}`).then((res) => {
+          if(res.data.error){
+            alert(res.data.error);
+          }
+          else{
+            setRequirements(requirements.map((requirement) => {
+              if(requirement.id === requirementId){
+                requirement.status = 'Approved';
+              }
+              return requirement;
+            }))
+            setShowAlert(true);
+            setTimeout(() => {
+              setShowAlert(false);
+            }, 3000);
+          }
+        });
+      }else if(org_application.application_status === 'FE2'){
+        await axios.post(`http://localhost:3001/cosoa/acc/${org_application.id}/${requirementId}`).then((res) => {
+          if(res.data.error){
+            alert(res.data.error);
+          }
+          else{
+            setRequirements(requirements.map((requirement) => {
+              if(requirement.id === requirementId){
+                requirement.status = 'Approved';
+              }
+              return requirement;
+            }))
+            setShowAlert(true);
+            setTimeout(() => {
+              setShowAlert(false);
+            }, 3000);
+          }
+        });
+      }
+    }catch(err){
+      console.log(err);
+    }
+  }
     
 
   return (
@@ -191,6 +289,7 @@ function Applicant_Page() {
       </form>
 
     </Container>
+    {showApprovedAlert()}
     <Container className='applicant-footer-container'>
       <Table striped bordered hover>
         <thead>
@@ -214,16 +313,17 @@ function Applicant_Page() {
                   <input type="file" style={{display:'none'}} onChange={handleChange} ref={hiddenFileInput}/>
                   </td>
                   <td>
+                    {(requirement.status !== 'Approved' && requirement.status !== 'Revision')?
                     <Dropdown>
                       <Dropdown.Toggle variant="primmary" id="requirement-status">
                         {requirement.status}
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
-                        <Dropdown.Item onClick={()=>ActionLinks('Approve')}>Approve</Dropdown.Item>
-                        <Dropdown.Item onClick={()=>ActionLinks('Give Feedback')}>Give Feedback</Dropdown.Item>
-                        <Dropdown.Item onClick={()=>ActionLinks('Reject')}>Reject</Dropdown.Item>
+                        <Dropdown.Item onClick={event => handleApprove(requirement.id)}>Approve</Dropdown.Item>
+                        <GiveFeedback org_applicationId={org_application.id} requirementId={requirement.id} orgApplicationStatus={org_application.application_status} />
                       </Dropdown.Menu>
                     </Dropdown>
+                     : requirement.status === 'Approved' ? <span className='applicant-approved-text'>{requirement.status}</span> : requirement.status === 'Revision' ? <span className='applicant-revision-text'>Revision needed</span> : null}
                   </td>
               </tr>
             )

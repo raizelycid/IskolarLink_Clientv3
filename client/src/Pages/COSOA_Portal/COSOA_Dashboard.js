@@ -9,6 +9,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import Table from 'react-bootstrap/Table'
 import {useNavigate} from 'react-router-dom'
+import GiveCredentials from '../../components/COSOA_Dashboard/GiveCredentials';
 
 
 function COSOA_Dashboard() {
@@ -82,6 +83,7 @@ function COSOA_Dashboard() {
               <th>Status</th>
               <th>Classification</th>
               <th>Action</th>
+              <th>Credentials</th>
             </tr>
           </thead>
           <tbody>
@@ -89,12 +91,15 @@ function COSOA_Dashboard() {
               return(
                 <tr key={index}>
                   <td>{org.org_name}</td>
-                  <td>{org.representative.photo ? <img src={`http://localhost:3001/images/${org.representative.photo}`} alt="Profile Picture" width="40" height="40" className="rounded-circle" /> : <FontAwesomeIcon icon={faUser} size='2xl'/>} {org.representative.username}</td>
+                  <td>{org.representative.photo ? <img src={`http://localhost:3001/images/${org.photo}`} alt="Profile Picture" width="40" height="40" className="rounded-circle" /> : <FontAwesomeIcon icon={faUser} size='2xl'/>} {org.representative}</td>
                   <td>{org.application.application_status}</td>
                   <td><span className='cs-dashboard-jurisdiction'>{org.subjurisdiction}<br/>{org.type}</span></td>
                   <td><FontAwesomeIcon icon={faArrowRight} size="lg" onClick={() => {
                     navigate(`/cosoa/applicant/${org.id}`)
                   }}/></td>
+                  <td>
+                    <GiveCredentials role={org.role} applicationStatus={org.application.application_status} orgId={org.id}/>
+                  </td>
                 </tr>
               )
             })}

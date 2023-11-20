@@ -8,6 +8,10 @@ import { useNavigate } from 'react-router-dom'
 import './Student_Profile.css';
 import { HeroVariant } from '../../components/HeroVariant/Hero';
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import {accreditationSchema} from '../../Validations/AccreditationValidation'
+import * as yup from "yup";
+import ConfirmationDialog from '../../components/Accreditation/ConfirmationDialog'
+import { Alert } from 'react-bootstrap'
 
 function Accreditation() {
     const [page, setPage] = useState(0);
@@ -16,7 +20,6 @@ function Accreditation() {
         jurisdiction: '',
         subjurisdiction: '',
         orgType: '',
-        department: '',
         advisers: '',
         AD001: '',
         AD002: '',
@@ -28,7 +31,7 @@ function Accreditation() {
         AD008: '',
         AF001: '',
         AD009: '',
-        privacyPolicy: '',
+        privacyPolicy: false,
     });
 
     const FormTitles = [ ]
@@ -38,6 +41,8 @@ function Accreditation() {
     const [show4, setShow4] = useState('none');
     const [trackerForm, setTrackerForm] = useState('');
     const [waiverForm, setWaiverForm] = useState('');
+    const [confirmation, setConfirmation] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
 
 
     const generatePDF = async () => {
@@ -91,8 +96,20 @@ function Accreditation() {
         }
     }, [page])
 
+    useEffect(() => {
+        if(confirmation){
+            submitData();
+            setConfirmation(false);
+        }else{
+            return;
+        }
+    }, [confirmation])
+
     const submitData = async () => {
         try {
+            const isValid = await accreditationSchema.isValid(formData);
+            console.log(isValid)
+            if(isValid){
             const res = await axios.post('http://localhost:3001/org/addorg', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -102,8 +119,24 @@ function Accreditation() {
                 alert(res.data.error);
             }
             navigate(`/accreditation/status`);
+        } else {
+            console.log('invalid');
+            setShowAlert(true);
+        }
+        
         } catch (err) {
             console.log(err);
+        }
+    }
+
+    const showAlertPopup = () => {
+        if(showAlert){
+            return(
+                <Alert variant='danger' onClose={() => setShowAlert(false)} dismissible>
+                    <Alert.Heading>You have incomplete fields!</Alert.Heading>
+                    <p>Please click the "Prev" button and check what fields you haven't filled yet.</p>
+                </Alert>
+            );
         }
     }
     
@@ -130,10 +163,12 @@ function Accreditation() {
             <h1 className="form-title">{FormTitles[page]}</h1>
         </div>
         <div className="form-body">
+        
         <GenInfo formData={formData} setFormData={setFormData} show={show1}/>
         <AccForms1 formData={formData} setFormData={setFormData} show={show2}/>
         <AccForms2 formData={formData} setFormData={setFormData} show={show3} path={trackerForm} path2={waiverForm}/>
         <AccFinish show={show4}/>
+        {showAlert && showAlertPopup()}
         </div>
         <Container>
         <div className="d-flex justify-content-center form-footer">
@@ -145,20 +180,18 @@ function Accreditation() {
             >
                 {`< Prev`}
             </button>
+            {page == 3? <ConfirmationDialog confirmation={confirmation} setConfirmation={setConfirmation}/> :
             <button
             onClick={() => {
-                if(page == 3){
-                    submitData();
-                    alert("Form Submitted");
-                } else {
                     if(page === 0){generatePDF()}
                     setPage((currPage) => currPage + 1);
                 }
-            }}
+            }
             className="custom-button margin-right"
             >
-                {page == 3? "Submit" : "Next >"}
+               Next &#8594;
             </button>
+            }
         </div>
         </Container>
 

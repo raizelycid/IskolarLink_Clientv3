@@ -9,7 +9,7 @@ import COSOA from './Pages/COSOA';
 import COSOA_Home from './Pages/COSOA_Portal/COSOA_Home';
 import COSOA_Dashboard from './Pages/COSOA_Portal/COSOA_Dashboard';
 import COSOA_Applicants from './Pages/COSOA_Portal/COSOA_Applicants';
-import Applicant_Page from './components/Applicant_Page';
+import Applicant_Page from './components/COSOA_Dashboard/Applicant_Page';
 import Organizations from './Pages/Organizations';
 import AppDocs from './Pages/AppDocs';
 import FAQs from './Pages/FAQs';
@@ -30,7 +30,13 @@ import AccreditationStatus from './Pages/Student_Portal/AccreditationStatus';
 import StudSettings from './Pages/Student_Portal/Settings';
 import Org_Profile from './components/Org_Profile';
 import Student_Profile from './Pages/Student_Portal/Student_Profile';
-
+import OrgMenu from './components/orgMenu';
+import { useNavigate } from 'react-router-dom';
+import Org_Profile from './components/Org_Profile';
+import COSOASettings from './Pages/COSOA_Portal/COSOA_Settings';
+import S_Membership from './Pages/Student_Portal/S_Membership';
+import O_Membership from './Pages/Organization_Portal/O_Membership';
+import Official_Members from './Pages/Organization_Portal/Official_Members';
 
 function App() {
 
@@ -65,23 +71,30 @@ function App() {
     });
   }, [authState.status])
 
+
   useEffect(() => {
-    axios.get('http://localhost:3001/menu/')
-    .then((response) => {
-      if(response.data.error){
-        console.log(response.data.error);
-      }else{
-        setActiveMenu(response.data.menu);
+    if(authState.role === 'organization'){
+      setActiveMenu('org');
+      axios.post('http://localhost:3001/menu/', {menu: 'org'})}
+      else{
+        axios.get('http://localhost:3001/menu/').then((response) => {
+          if(response.data.error){
+            console.log(response.data.error);
+          }
+          else{
+            setActiveMenu(response.data.menu);
+          }
+        });
       }
-    });
-  }, [activeMenu])
+    }, [authState.status])
+
 
   const [scrolling, setScrolling] = useState(false);
   const [initialScroll, setInitialScroll] = useState(true);
   const [scrollTimeout, setScrollTimeout] = useState(null);
 
   const handleScroll = () => {
-    const scrolled = window.scrollY > 100; // Adjust the threshold as needed
+    const scrolled = window.scrollY > 100;
     setScrolling(scrolled);
 
     if (scrolled) {
@@ -93,7 +106,7 @@ function App() {
     clearTimeout(scrollTimeout);
     const timeout = setTimeout(() => {
       setScrolling(false);
-    }, 500); // Adjust the timeout duration as needed
+    }, 500);
 
     setScrollTimeout(timeout);
   };
@@ -150,6 +163,7 @@ function App() {
             </Nav>
 
             <Nav className="ms-auto ">
+            
             {authState.status ? (
               // menu depends on activeMenu which has three value (main, cosoa, webadmin)
 
@@ -157,10 +171,11 @@ function App() {
                 <MainMenu imgSrc={authState.profile_picture} username={authState.username} />
               ) : activeMenu === 'cosoa' ? (
                 <CosoaMenu imgSrc={authState.profile_picture} username={authState.username} />
-              ) : (
+              ) : activeMenu === 'webadmin' ? (
                 <WebAdminMenu imgSrc={authState.profile_picture} username={authState.username} />
-              )
-              
+              ) : activeMenu === 'org' ? (
+                <OrgMenu imgSrc={authState.profile_picture} username={authState.username} />
+              ) : null
   
               ):(
                 <>
@@ -183,7 +198,7 @@ function App() {
         <Route path="/appdocs" exact element={<AppDocs />} />
         <Route path="/faqs" exact element={<FAQs />} />
         <Route path="/" exact element={<LandingPage />} />
-        <Route path="/organization_profile" exact element ={<Organization_Profile />} />
+        <Route path="/organization/profile" exact element ={<Organization_Profile />} />
         <Route path="/revalidation" exact element ={<Revalidation />} />
         <Route path='/org_settings' exact element ={<OrgSettings />} />
         <Route path='/org_feedback' exact element ={<OrgFeedback />} />
@@ -192,6 +207,10 @@ function App() {
         <Route path="/student/settings" exact element={<StudSettings />} />
         <Route path="/org_profile" exact element ={<Org_Profile />} />
         <Route path= '/student/profile' exact element ={<Student_Profile />} />
+        <Route path="/cosoa/settings" exact element ={<COSOASettings />} />
+        <Route path="/student/membership" exact element ={<S_Membership /> } />
+        <Route path="/organization/membership" exact element={<O_Membership/>} />
+        <Route path="/organization/members" exact element={<Official_Members/>}/>
       </Routes>
 
       <footer className="footer bg-dark text-white py-4 border-bottom Inter">
