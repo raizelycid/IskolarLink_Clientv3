@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import axios from 'axios';
 import { saveAs } from 'file-saver';
-import { Navbar, Container, Nav, Button, Row, Col, Modal, NavDropdown } from 'react-bootstrap';
+import { Navbar, Container, Nav, Button, Row, Col, Modal, NavDropdown, Offcanvas, Image} from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import COSOA from './Pages/COSOA';
@@ -37,6 +37,8 @@ import COSOASettings from './Pages/COSOA_Portal/COSOA_Settings';
 import S_Membership from './Pages/Student_Portal/S_Membership';
 import O_Membership from './Pages/Organization_Portal/O_Membership';
 import Official_Members from './Pages/Organization_Portal/Official_Members';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 function App() {
 
@@ -45,7 +47,6 @@ function App() {
   const {auth, menu, handleMenuChange} = useContext(AuthContext);
   const {authState, setAuthState} = auth;
   const {activeMenu, setActiveMenu} = menu;
-
 
 
   useEffect(() => {
@@ -122,7 +123,7 @@ function App() {
 
   const navbarClass = initialScroll ? 'solid-navbar' : scrolling ? 'fixed-top transparent-navbar' : 'fixed-top solid-navbar';
 
-  
+
 
   return (
     <Router>
@@ -188,6 +189,7 @@ function App() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+
       <Routes>
         <Route path="/cosoa" exact element={<COSOA />} />
         <Route path="/cosoa/home" exact element={<COSOA_Home />} />

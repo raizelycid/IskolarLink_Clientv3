@@ -256,3 +256,8 @@
   color: white; /* This sets the text color to white for all 'warning' variant buttons */
 }
 
+
+.offcanvas {
+  --bs-offcanvas-width: 23%;
+}
+
