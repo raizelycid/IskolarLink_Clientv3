@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { HeroVariant3 } from '../../components/HeroVariant/Hero';
 import { Container, Row, Col, Button, InputGroup, Form} from 'react-bootstrap';
 
-function Official_Members() {
+function S_Membership() {
   return (
     <div>
       <HeroVariant3
-        h1Text="Official Members"
-        pText="Keep track of your members."
+        h1Text="Your Student Organizations"
+        pText="Kickstart your journey towards widening your engagement. Nurture your members."
       />
       <Container>
       <Row className='m-4'>
@@ -31,4 +31,4 @@ function Official_Members() {
   );
 }
 
-export default Official_Members;
+export default S_Membership;
