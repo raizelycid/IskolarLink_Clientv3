@@ -8,6 +8,9 @@ import { useNavigate } from 'react-router-dom'
 import './Organization_Profile.css';
 import { HeroVariant } from '../../components/HeroVariant/Hero';
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import {revalidationSchema} from '../../Validations/RevalidationValidation';
+import ConfirmationDialog from '../../components/Revalidation/ConfirmationDialog';
+import { Alert } from 'react-bootstrap';
 
 function Revalidation() {
     const [page, setPage] = useState(0);
@@ -39,6 +42,8 @@ function Revalidation() {
     const [show4, setShow4] = useState('none');
     const [trackerForm, setTrackerForm] = useState('');
     const [waiverForm, setWaiverForm] = useState('');
+    const [confirmation, setConfirmation] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
 
 
     const generatePDF = async () => {
@@ -55,7 +60,7 @@ function Revalidation() {
 
     const navigate = useNavigate();
 
-    useEffect(() => {
+    useEffect(() => {/*
         axios.get('http://localhost:3001/student/accreditation_status').then((response) => {
             if(response.data.error){
                 alert(response.data.error);
@@ -66,7 +71,7 @@ function Revalidation() {
                     navigate('/accreditation_status');
                 }  
             }
-        });
+        });*/
     },[]);
     useEffect(() => {
         if(page === 0){
@@ -92,6 +97,15 @@ function Revalidation() {
         }
     }, [page])
 
+    useEffect(() => {
+        if(confirmation){
+            submitData();
+            setConfirmation(false);
+        }else{
+            return;
+        }
+    }, [confirmation])
+
     const submitData = async () => {
         try {
             const res = await axios.post('http://localhost:3001/org/addorg', formData, {
@@ -101,6 +115,17 @@ function Revalidation() {
             }); 
         } catch (err) {
             console.log(err);
+        }
+    }
+
+    const showAlertPopup = () => {
+        if(showAlert){
+            return(
+                <Alert variant='danger' onClose={() => setShowAlert(false)} dismissible>
+                    <Alert.Heading>You have incomplete fields!</Alert.Heading>
+                    <p>Please click the "Prev" button and check what fields you haven't filled yet.</p>
+                </Alert>
+            );
         }
     }
 
@@ -129,6 +154,7 @@ function Revalidation() {
         <RevForms1 formData={formData} setFormData={setFormData} show={show2}/>
         <RevForms2 formData={formData} setFormData={setFormData} show={show3} path={trackerForm} path2={waiverForm}/>
         <RevFinish show={show4}/>
+        {showAlert && showAlertPopup()}
         </div>
         <Container>
         <div className="d-flex justify-content-center form-footer">

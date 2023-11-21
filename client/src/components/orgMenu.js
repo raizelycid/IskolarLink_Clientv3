@@ -23,12 +23,12 @@ function OrgMenu({imgSrc, username}) {
 
 
   return (
-    <NavDropdown title={<>{imgSrc ? <img src={`http://localhost:3001/images/${imgSrc}`} alt="Profile Picture" width="40" height="40" className="rounded-circle" /> : <FontAwesomeIcon icon={faUser}/>} <span className='text-dark'>Hi, {username}!</span></>} id="basic-nav-dropdown" className="text-dark" renderMenuOnMount={true}>
+    <NavDropdown title={<>{imgSrc ? <img src={`http://localhost:3001/org_images/${imgSrc}`} alt="Profile Picture" width="40" height="40" className="rounded-circle" /> : <FontAwesomeIcon icon={faUser}/>} <span className='text-dark'>Hi, {username}!</span></>} id="basic-nav-dropdown" className="text-dark" renderMenuOnMount={true}>
         <NavDropdown.Item onClick={()=>navigate('/organization/profile')}>Profile</NavDropdown.Item>
-        <NavDropdown.Item href="/profile">Official Members</NavDropdown.Item>
-        <NavDropdown.Item href="/profile">Memberships</NavDropdown.Item>
-        <NavDropdown.Item href="/profile">Revalidation</NavDropdown.Item>
-        <NavDropdown.Item href="/settings">Settings</NavDropdown.Item>
+        <NavDropdown.Item onClick={() => navigate('/organization/members')}>Official Members</NavDropdown.Item>
+        <NavDropdown.Item onClick={() => navigate('/organization/membership')}>Memberships</NavDropdown.Item>
+        <NavDropdown.Item onClick={() => navigate('/organization/revalidation')}>Revalidation</NavDropdown.Item>
+        <NavDropdown.Item onClick={() => navigate('/organization/settings')}>Settings</NavDropdown.Item>
         <NavDropdown.Divider />
         <NavDropdown.Item onClick={() => {
             axios.post('http://localhost:3001/auth/logout')

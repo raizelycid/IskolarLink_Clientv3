@@ -9,7 +9,6 @@ import './Student_Profile.css';
 import { HeroVariant } from '../../components/HeroVariant/Hero';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import {accreditationSchema} from '../../Validations/AccreditationValidation'
-import * as yup from "yup";
 import ConfirmationDialog from '../../components/Accreditation/ConfirmationDialog'
 import { Alert } from 'react-bootstrap'
 
@@ -21,16 +20,19 @@ function Accreditation() {
         subjurisdiction: '',
         orgType: '',
         advisers: '',
-        AD001: '',
-        AD002: '',
-        AD003: '',
-        AD004: '',
-        AD005: '',
-        AD006: '',
-        AD007: '',
-        AD008: '',
-        AF001: '',
-        AD009: '',
+        RD001: '',
+        RD002: '',
+        RD003: '',
+        RD004: '',
+        RD004X: '',
+        RD005: '',
+        RD006: '',
+        RD007: '',
+        RD008: '',
+        RD008X: '',
+        RD010:'',
+        RF001: '',
+        RD011: '',
         privacyPolicy: false,
     });
 
@@ -46,12 +48,13 @@ function Accreditation() {
 
 
     const generatePDF = async () => {
-        try {
+        try {/*
             await axios.post('http://localhost:3001/appdocs/generate_AF001_temp', formData).then((res) => {
                 setTrackerForm(res.data.filename);});
 
             await axios.post('http://localhost:3001/appdocs/generate_AD009_temp', formData).then((res) => {
                 setWaiverForm(res.data.filename);});
+                */
         } catch (err) {
             console.log(err);
         }
@@ -72,6 +75,8 @@ function Accreditation() {
             }
         });
     },[]);
+
+
     useEffect(() => {
         if(page === 0){
             setShow1('block');
