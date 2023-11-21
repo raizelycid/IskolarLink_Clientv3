@@ -27,6 +27,9 @@ import WebAdminMenu from './components/webAdminMenu';
 import { AuthContext } from './helpers/AuthContent';
 import Accreditation from './Pages/Student_Portal/Accreditation';
 import AccreditationStatus from './Pages/Student_Portal/AccreditationStatus';
+import StudSettings from './Pages/Student_Portal/Settings';
+import Org_Profile from './components/Org_Profile';
+import Student_Profile from './Pages/Student_Portal/Student_Profile';
 import OrgMenu from './components/orgMenu';
 import { useNavigate } from 'react-router-dom';
 import Org_Profile from './components/Org_Profile';
@@ -204,7 +207,9 @@ function App() {
         <Route path='/org_feedback' exact element ={<OrgFeedback />} />
         <Route path="/accreditation" exact element={<Accreditation />} />
         <Route path="/accreditation/status" exact element={<AccreditationStatus />} />
+        <Route path="/student/settings" exact element={<StudSettings />} />
         <Route path="/org_profile" exact element ={<Org_Profile />} />
+        <Route path= '/student/profile' exact element ={<Student_Profile />} />
         <Route path="/cosoa/settings" exact element ={<COSOASettings />} />
         <Route path="/student/membership" exact element ={<S_Membership /> } />
         <Route path="/organization/membership" exact element={<O_Membership/>} />

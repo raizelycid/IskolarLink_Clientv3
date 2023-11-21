@@ -1,21 +1,40 @@
 import React, { useState } from 'react';
-// import './Organization_Profile.css';
-import { HeroVariant2 } from '../components/HeroVariant/Hero';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import './general.css';
+import { HeroVariant } from '../components/HeroVariant/Hero';
+import { Container, Row, Col, Button, Badge } from 'react-bootstrap';
 import { AnnouncementVariant } from '../components/AnnouncementVariant/AnnouncementCard';
 import OfficerCard from '../components/OfficerCard';
 import ContactBanner from '../components/ContactBanner';
 import ContactBanner2 from '../components/ContactBanner2';
+import { FaCheckCircle } from 'react-icons/fa';
+
 
 function Org_Profile() {
   return (
     <div>
-        <HeroVariant2 
-        name="PUP The Programmers’ Guild"
-        webmail="username@iskolarngbayan.pup.edu.ph"
+        <HeroVariant
+        h1Text="Feedback"
         />
       <Container className='my-5'>
         <Row>
+        <Row className="mb-0 align-items-center">
+          <Col xs={12} md={8} lg={9} className='mb-3'>
+            <div className="d-flex align-items-center">
+              {/*<img src="" alt="The Programmers' Guild Logo" className="organization-logo" />*/}
+              <div className="ml-3">
+                <h3 className='mb-0'>The Programmers' Guild</h3>
+                <p className="mb-0 text-muted">Recruitment Open to Any Program</p>
+                <Badge bg="success">
+                      <FaCheckCircle className="mr-1" /> Active
+                    </Badge>
+              </div>
+            </div>
+          </Col>
+          <Col xs={12} md={4} lg={3} className="text-md-right text-end mt-3 mt-md-0">
+            <Button variant="warning"  className="apply-now-btn">Apply Now</Button>
+          </Col>
+        </Row>
+
           <Col>
             <h2>Our Mission</h2>
             <p className='text-gray2'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
@@ -42,11 +61,6 @@ function Org_Profile() {
           title="Official Statement of PUP SC COSOA on the 23rd Anak PUP Student..."
           description="As the custodians of student organizations and accreditation processes at the Polytechnic University of the Philippines (PUP), the PUP Student Council Commission on Student Organizations and Accreditation (COSOA) takes immense pride in supporting and commemorating the 23rd Anak PUP Student Celebration. This event marks a significant milestone in the history of our university, celebrating the vibrant spirit, achievements, and contributions of PUP students over the years. We extend our heartfelt congratulations to the organizing committee and all the students involved in making this celebration a reality. It is a testament to the dedication, resilience, and creativity of our student body. We believe that this gathering will not only foster a sense of unity and camaraderie but also inspire our students to continue their pursuit of excellence in academics, leadership, and community engagement."
         />
-        <Row className='text-center'>
-        <Col>
-        <Button variant="primary">+ Add Announcement</Button>
-        </Col>
-        </Row>
         
       </Container>
         <Row className='text-center'>
@@ -65,11 +79,6 @@ function Org_Profile() {
           role2="Vice President"
           role3="Secretary"
         />
-        <Row className='text-center my-5'>
-        <Col>
-        <Button variant="primary">Modify</Button>
-        </Col>
-        </Row>
       </Container>
       <ContactBanner2 />
     </div>

@@ -239,7 +239,25 @@
   color: white;
 }
 
+.apply-now-btn {
+  color: white; /* This sets the text color to white */
+  background-color: #f0ad4e; 
+  border: none; 
+  transition: background-color 0.3s; 
+
+}
+
+.apply-now-btn:hover {
+  color: white; 
+  background-color: #800; 
+}
+
+.btn-warning {
+  color: white; /* This sets the text color to white for all 'warning' variant buttons */
+}
+
 
 .offcanvas {
   --bs-offcanvas-width: 23%;
 }
+
