@@ -261,3 +261,10 @@
   --bs-offcanvas-width: 23%;
 }
 
+
+.card-image-orgvariant {
+  width: 100%;
+  height: 15vw;
+  object-fit: contain;
+
+}
