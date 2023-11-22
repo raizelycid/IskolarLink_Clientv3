@@ -27,7 +27,7 @@ function StudSettings() {
   };
 
   // Max characters for the bio
-  const maxBioCharacters = 300;
+  const maxBioCharacters = 600;
 
   const [mobile, setMobile] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
