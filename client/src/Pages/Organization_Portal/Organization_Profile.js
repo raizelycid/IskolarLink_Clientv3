@@ -26,6 +26,7 @@ useEffect(() => {
   return (
     <div>
         <HeroVariant2 
+        
         name={organization.org_name}
         webmail={user.email}
         />

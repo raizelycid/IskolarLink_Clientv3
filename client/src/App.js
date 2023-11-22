@@ -32,12 +32,11 @@ import Org_Profile from './components/Org_Profile';
 import Student_Profile from './Pages/Student_Portal/Student_Profile';
 import OrgMenu from './components/orgMenu';
 import { useNavigate } from 'react-router-dom';
-import Org_Profile from './components/Org_Profile';
 import COSOASettings from './Pages/COSOA_Portal/COSOA_Settings';
-
 import S_Membership from './Pages/Student_Portal/S_Membership';
 import O_Membership from './Pages/Organization_Portal/O_Membership';
 import Official_Members from './Pages/Organization_Portal/Official_Members';
+import Admin_Dashboard from './Pages/Admin_Portal/Admin_Dashboard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
@@ -88,7 +87,7 @@ function App() {
           }
         });
       }
-    }, [authState.status])
+    }, [authState.role])
 
 
   const [scrolling, setScrolling] = useState(false);
@@ -202,8 +201,8 @@ function App() {
         <Route path="/faqs" exact element={<FAQs />} />
         <Route path="/" exact element={<LandingPage />} />
         <Route path="/organization/profile" exact element ={<Organization_Profile />} />
-        <Route path="/revalidation" exact element ={<Revalidation />} />
-        <Route path='/org_settings' exact element ={<OrgSettings />} />
+        <Route path="/organization/revalidation" exact element ={<Revalidation />} />
+        <Route path='/organization/settings' exact element ={<OrgSettings />} />
         <Route path='/org_feedback' exact element ={<OrgFeedback />} />
         <Route path="/accreditation" exact element={<Accreditation />} />
         <Route path="/accreditation/status" exact element={<AccreditationStatus />} />
@@ -214,6 +213,7 @@ function App() {
         <Route path="/student/membership" exact element ={<S_Membership /> } />
         <Route path="/organization/membership" exact element={<O_Membership/>} />
         <Route path="/organization/members" exact element={<Official_Members/>}/>
+        <Route path="/admin/dashboard" exact element={<Admin_Dashboard/>}/>
       </Routes>
 
       <footer className="footer bg-dark text-white py-4 border-bottom Inter">
