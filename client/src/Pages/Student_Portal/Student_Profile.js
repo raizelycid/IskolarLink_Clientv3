@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Student_Profile.css';
 import { HeroVariant2 } from '../../components/HeroVariant/Hero';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
@@ -7,21 +7,45 @@ import OfficerCard from '../../components/OfficerCard';
 import ContactBanner from '../../components/ContactBanner';
 import ContactBanner2 from '../../components/ContactBanner2';
 import { FaFacebook, FaTwitter, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import axios from 'axios';
+import Accredited_Org2 from '../../components/Accredited_Org'; 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons' 
+
 
 function Student_Profile() {
+
+  const [info, setInfo] = useState([]);
+  const [organizations, setOrganizations] = useState([]);
+
+  useEffect(() => {
+    try{
+      axios.get('http://localhost:3001/student_portal').then((response) => {
+        setInfo(response.data);
+      });
+
+      axios.get('http://localhost:3001/org/show_accredited_orgs').then((response) => {
+      setOrganizations(response.data);
+    })
+    }catch(err){
+      console.log(err);
+    }
+  },[]);
+
   return (
     <div>
-        <HeroVariant2 
-        name="First Name, Last Name"
-        webmail="username@iskolarngbayan.pup.edu.ph"
+        <HeroVariant2
+        imgSrc={info.profile_picture}
+        name={`${info.student_Fname} ${info.student_Lname}`}
+        webmail={info.email}
         />
         <Container>
         <Row className="my-4">
                 <Col xs={12}>
                     <h2>About me</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    <p><strong>Department:</strong> Lorem Ipsum</p>
-                    <p><strong>Program:</strong> Lorem Ipsum</p>
+                    {info.description ? <p>{info.description}</p> : <p>No description yet.</p>}
+                    <p><strong>Department:</strong> {info.department}</p>
+                    <p><strong>Year Level:</strong> {info.year_level}</p>
                 </Col>
             </Row>
             <Row className="my-4">
@@ -30,26 +54,23 @@ function Student_Profile() {
                 </Col>
             </Row>
             <Row>
-                <Col md={6}>
-                    <Card className="mb-3">
-                        <Card.Body>
-                            <Card.Title>President (2022 - Present)</Card.Title>
-                            <Card.Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...</Card.Text>
-                            <Card.Subtitle>PUP The Programmers' Guild</Card.Subtitle>
-                            <Card.Text className="text-muted">University Wide</Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col md={6}>
-                    <Card className="mb-3">
-                        <Card.Body>
-                            <Card.Title>Vice President (2021 - 2022)</Card.Title>
-                            <Card.Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...</Card.Text>
-                            <Card.Subtitle>PUP The Programmers' Guild</Card.Subtitle>
-                            <Card.Text className="text-muted">University Wide</Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Col>
+              {organizations.map((org) => {
+                return (
+                  <>
+                  {org.User.role !== 'student' &&
+                  <Col xs={12} md={4} className='mb-4'>
+                    <Accredited_Org2 
+                      imageSrc={org.User.profile_picture ? org.User.profile_picture : 'http://localhost:3001/org_images/default-org-photo.jpg'}
+                      title={org.org_name}
+                      description={org.User.description ? org.User.description : 'No description'}
+                      tags={[org.jurisdiction, org.subjurisdiction]}
+                    />
+                  </Col>
+                  }
+                  </>
+                )
+              }
+              )}
             </Row>
               <Row className="my-4">
                   <Col xs={12}>
