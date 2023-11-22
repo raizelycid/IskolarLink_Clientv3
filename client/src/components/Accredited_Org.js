@@ -33,7 +33,31 @@ const Accredited_Org = ({ imageSrc, title, description, tags }) => {
   );
 };
 
+const Accredited_OrgVariant = ({ imageSrc, title, description }) => {
+  return (
+    <Col fluid>
+      <Card className="p-3 mx-3 shadow">
+      <Card.Img variant="top" src={imageSrc} className='card-image-orgvariant'/>
+
+        <Card.Header className='bg-white'>
+          <Card.Title className='text-center'>{title}</Card.Title>
+        </Card.Header>
+        
+        <Card.Body>
+          <Card.Text>
+          {description.length > 150 ? description.substring(0, 150) + '...' : description}
+          </Card.Text>
+        </Card.Body>
+        <Card.Footer className="bg-transparent border-0 text-center">
+          <Row>
+          <Button variant="primary" className='px-5'>View</Button>
+          </Row>
+        </Card.Footer>
+      </Card>
+    </Col>
+  );
+};
+
 export default Accredited_Org;
-export {Accredited_Org2};
 
 export {Accredited_OrgVariant};
