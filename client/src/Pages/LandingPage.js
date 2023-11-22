@@ -19,7 +19,6 @@ function LandingPage() {
       <Section4 />
       <Section5 />
       <ContactBanner />
-      
     </main>
   );
 }
