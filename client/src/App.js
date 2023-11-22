@@ -32,7 +32,6 @@ import Org_Profile from './components/Org_Profile';
 import Student_Profile from './Pages/Student_Portal/Student_Profile';
 import OrgMenu from './components/orgMenu';
 import { useNavigate } from 'react-router-dom';
-import Org_Profile from './components/Org_Profile';
 import COSOASettings from './Pages/COSOA_Portal/COSOA_Settings';
 
 import S_Membership from './Pages/Student_Portal/S_Membership';

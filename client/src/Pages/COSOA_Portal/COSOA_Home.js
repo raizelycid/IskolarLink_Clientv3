@@ -66,6 +66,7 @@ function COSOA_Home() {
   return (
     <div>
         <HeroVariant2 
+        imgSrc="/cosoa_logo.jpg"
         name="Commission on Student Organizations and Accreditation (COSOA)"
         webmail="pupcosoa.iskolarngbayan.pup.edu.ph"
         />

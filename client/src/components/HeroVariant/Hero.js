@@ -33,6 +33,9 @@ const HeroVariant2 = ({ imgSrc, name, webmail }) => {
       <div className="herovariant-bg d-flex align-items-center">
           <Container>
             <Row>
+            <Col md={1} className="mb-3 pe-0">
+              <Image src={imgSrc} roundedCircle fluid />
+            </Col>
             <Col md={6}>
               <h2 className="Inter-b text-white">{name}</h2>
               <p className="hero-p Inter-normal text-white pt-2 pb-3">{webmail}</p>
