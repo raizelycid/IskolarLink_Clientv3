@@ -159,7 +159,7 @@ function COSOASettings(){
                 </Row>
                 </div>
            
-          <h2>Social Media Profile</h2>
+          <h2 className='mt-5'>Social Media Profile</h2>
           <p className="text-gray2 mb-4">Update your Social Media Links</p>
           <Row>
             <Col md={6}>
@@ -221,6 +221,18 @@ function COSOASettings(){
                 </InputGroup>
               </Form.Group>
             </Col>
+          </Row>
+          <Row className='my-5'>
+            <h2>Accreditation and Revalidation Period</h2>            
+            <Form>
+              <Form.Group>
+                <Form.Check
+                  type="switch"
+                  id="anr-period-toggle"
+                  label="Toggling this switch will open the Accreditation and Revalidation Period of this Academic Year."
+                />
+              </Form.Group>
+            </Form>
           </Row>
           <Row>
             <Col className="text-end mb-4">
