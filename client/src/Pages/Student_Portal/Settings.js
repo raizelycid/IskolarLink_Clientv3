@@ -104,9 +104,10 @@ function StudSettings() {
                 {profile.description && 600 - profile.description.length} characters left
               </Form.Text>
           </Form.Group>
-
+          {!profile.is_verified ?
           <Form.Group as={Row}  md={12}  className="mb-3" controlId="formCOR">
             <Form.Label>Certificate of Registration</Form.Label>
+            {!profile.cor ?
               <InputGroup>
                 <FormControl
                   type="file"
@@ -115,7 +116,20 @@ function StudSettings() {
                   onChange={(e) => setProfile({...profile, cor: e.target.files[0]})}
                 />
               </InputGroup>
+              : (profile.cor && profile.cor_remarks) ? 
+              (<><InputGroup>
+                <FormControl
+                  type="file"
+                  placeholder="Upload Certificate of Registration"
+                  style={{ width: '98%', margin: '10px' }}
+                  onChange={(e) => setProfile({...profile, cor: e.target.files[0]})}
+                />
+              </InputGroup>
+              <p className="text-gray2">{profile.cor_remarks}</p></>)
+              :
+               "You have already uploaded your Certificate of Registration. Please wait for the admin to verify your COR or for feedback."}
           </Form.Group>
+          : "Congratulations! Your account has been verified."}
 
           <div className='my-5'>
             <h2>Password</h2>

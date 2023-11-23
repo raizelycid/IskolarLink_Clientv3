@@ -38,7 +38,7 @@ useEffect(() => {
   return (
     <div>
         <HeroVariant2 
-        
+        imgSrc={user.profile_picture ? `http://localhost:3001/org_images/${user.profile_picture}` : null}
         name={organization.org_name}
         webmail={user.email}
         />

@@ -8,25 +8,24 @@ import ContactBanner from '../../components/ContactBanner';
 import ContactBanner2 from '../../components/ContactBanner2';
 import { FaFacebook, FaTwitter, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import axios from 'axios';
-import Accredited_Org2 from '../../components/Accredited_Org'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons' 
+import { Affiliated_Organizations } from '../../components/Accredited_Org';
+import {useNavigate} from 'react-router-dom';
 
 
 function Student_Profile() {
 
-  const [info, setInfo] = useState([]);
-  const [organizations, setOrganizations] = useState([]);
+  const [info, setInfo] = useState({});
+  const [orgs, setOrgs] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     try{
       axios.get('http://localhost:3001/student_portal').then((response) => {
         setInfo(response.data);
+        setOrgs(response.data.orgs);
       });
-
-      axios.get('http://localhost:3001/org/show_accredited_orgs').then((response) => {
-      setOrganizations(response.data);
-    })
     }catch(err){
       console.log(err);
     }
@@ -41,12 +40,13 @@ function Student_Profile() {
         />
         <Container>
         <Row className="my-4">
-                <Col xs={12}>
+                <Col xs={10}>
                     <h2>About me</h2>
                     {info.description ? <p>{info.description}</p> : <p>No description yet.</p>}
                     <p><strong>Department:</strong> {info.department}</p>
                     <p><strong>Year Level:</strong> {info.year_level}</p>
                 </Col>
+                
             </Row>
             <Row className="my-4">
                 <Col xs={12}>
@@ -54,40 +54,24 @@ function Student_Profile() {
                 </Col>
             </Row>
             <Row>
-              {organizations.map((org) => {
-                return (
-                  <>
-                  {org.User.role !== 'student' &&
-                  <Col xs={12} md={4} className='mb-4'>
-                    <Accredited_Org2 
-                      imageSrc={org.User.profile_picture ? org.User.profile_picture : 'http://localhost:3001/org_images/default-org-photo.jpg'}
-                      title={org.org_name}
-                      description={org.User.description ? org.User.description : 'No description'}
-                      tags={[org.jurisdiction, org.subjurisdiction]}
-                    />
-                  </Col>
-                  }
-                  </>
-                )
-              }
-              )}
+                {orgs.map((org, index) => (
+                    <Col xs={12} md={6} lg={4} key={index}>
+                        <Affiliated_Organizations
+                            imageSrc={org.profile_picture ? `http://localhost:3001/org_images/${org.profile_picture}` : `http://localhost:3001/org_images/default-org-photo.jpg`}
+                            title={org.org_name}
+                            description={org.description}
+                        />
+                    </Col>
+                ))}
             </Row>
               <Row className="my-4">
                   <Col xs={12}>
                           <h2>Social Media</h2>
                           <div>
-                            <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
-                              <FaLinkedin className="social-icon  text-red" />
-                            </a>
-                            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
-                              <FaFacebook className="social-icon  text-red" />
-                            </a>
-                            <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
-                              <FaTwitter className="social-icon  text-red" />
-                            </a>
-                            <a href="mailto:example@example.com">
-                              <FaEnvelope className="social-icon text-red" />
-                            </a>
+                            {info.facebook ? <a href={info.facebook} target="_blank" rel="noopener noreferrer"><FaFacebook className="social-icon  text-red" /></a> : null}
+                            {info.twitter ? <a href={info.twitter} target="_blank" rel="noopener noreferrer"><FaTwitter className="social-icon  text-red" /></a> : null}
+                            {info.instagram ? <a href={info.instagram} target="_blank" rel="noopener noreferrer"><FaEnvelope className="social-icon  text-red" /></a> : null}
+                            {info.linkedin ? <a href={info.linkedin} target="_blank" rel="noopener noreferrer"><FaLinkedin className="social-icon  text-red" /></a> : null}
                           </div>
                   </Col>
             </Row>
