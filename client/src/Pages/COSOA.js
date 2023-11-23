@@ -6,9 +6,49 @@ import './COSOA.css';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
  
 
 function COSOA() {
+
+  const [announcements, setAnnouncements] = useState([]);
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    try{
+      axios.get(`http://localhost:3001/cosoa_ann`).then((response) => {
+        setAnnouncements(response.data);
+      });
+    }catch(err){
+      console.log(err);
+    }
+  },[]);
+
+  useEffect(() => {
+    try{
+      axios.get(`http://localhost:3001/cosoa_ann/get_events`).then((response) => {
+        if(response.data.err){
+          console.log(response.data.err);
+        }else{
+        setEvents(response.data);
+        }
+      });
+    }catch(err){
+      console.log(err);
+    }
+  },[]);
+
+  const handleDateClick = (eventInfo) => {
+    // Format date to YYYY-MM-DD
+    let date = eventInfo.event.extendedProps.date;
+    date = date.split('T')[0];
+
+    // Alert the date, event title, event description, and event link
+    console.log({date: date, title: eventInfo.event.title, description: eventInfo.event.extendedProps.description, link: eventInfo.event.extendedProps.link})
+
+    alert(`${date}\n${eventInfo.event.title}\n${eventInfo.event.extendedProps.description}\n${eventInfo.event.extendedProps.link}`)
+  }
 
   return (
     <div>
@@ -31,9 +71,25 @@ function COSOA() {
           <p className='text-gray2'>Discover the latest announcement that will shape the future of PUP COSOA and elevate your student experience!</p>
         </Row>
         <Row>
-          <FullCalendar 
+        <FullCalendar 
           plugins={[ dayGridPlugin, interactionPlugin ]}
           initialView="dayGridMonth"
+          events={events.map((event) => {
+            return(
+              {
+                id: event.id,
+                title: event.title,
+                date: event.date,
+                extendedProps: {
+                  date: event.date,
+                  description: event.description,
+                  link: event.link,
+                }
+              }
+            );
+          })}
+          eventClick={handleDateClick}
+          displayEventTime={false}
           />
         </Row>
       </Container>
@@ -43,16 +99,18 @@ function COSOA() {
           <h1 className='text-red'>Latest Announcements</h1>
           <p className='text-gray2'>Discover the latest announcement that will shape the future of PUP COSOA and elevate your student experience!</p>
         </Row>
-        <AnnouncementVariant
-          imageSrc="image2.png"
-          title="PUP Student Formations' Conference Announcement"
-          description="We are thrilled to announce the upcoming PUP Student Formations' Conference, a dynamic event set to empower, inspire, and unite the student community at the Polytechnic University of the Philippines (PUP). This conference is a testament to our commitment to holistic student development and leadership growth. Over the course of this exciting gathering, students from various backgrounds and disciplines will come together to engage in thought-provoking discussions, interactive workshops, and networking opportunities. Our aim is to foster an environment that encourages intellectual exploration, creativity, and collaboration, allowing students to enhance their skills and make lasting connections. Join us as we embark on this transformative journey of knowledge sharing and personal growth, marking a significant milestone in the PUP student experience. Stay tuned for further details and mark your calendars for an event that promises to be both enriching and inspiring. Together, let's shape the future of PUP's student community!"
-        />
-         <AnnouncementVariant
-          imageSrc="image3.png"
-          title="Official Statement of PUP SC COSOA on the 23rd Anak PUP Student..."
-          description="As the custodians of student organizations and accreditation processes at the Polytechnic University of the Philippines (PUP), the PUP Student Council Commission on Student Organizations and Accreditation (COSOA) takes immense pride in supporting and commemorating the 23rd Anak PUP Student Celebration. This event marks a significant milestone in the history of our university, celebrating the vibrant spirit, achievements, and contributions of PUP students over the years. We extend our heartfelt congratulations to the organizing committee and all the students involved in making this celebration a reality. It is a testament to the dedication, resilience, and creativity of our student body. We believe that this gathering will not only foster a sense of unity and camaraderie but also inspire our students to continue their pursuit of excellence in academics, leadership, and community engagement."
-        />
+        <Row>
+          {
+            announcements.map((announcement) => {
+              return (
+                <AnnouncementVariant 
+                  key={announcement.cosoa_ann_id}
+                  announcement={announcement}
+                />
+              )
+            })
+          }
+        </Row>
       </Container>
         <Row className='text-center'>
             <h1 className='text-red'>The Core of Our Team</h1>

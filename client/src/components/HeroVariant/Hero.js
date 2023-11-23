@@ -3,6 +3,9 @@ import { Container, Col, Row, Image, Button } from 'react-bootstrap';
 import './Hero.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { AuthContext } from '../../helpers/AuthContent'
+import { useContext } from 'react';
+import {useNavigate} from 'react-router-dom';
 
 const Hero = () => {
     return (
@@ -31,13 +34,30 @@ const HeroVariant = ({ h1Text, pText }) => {
 
 
 const HeroVariant2 = ({ imgSrc, name, webmail }) => {
+
+  const {auth, menu} = useContext(AuthContext);
+  const {authState, setAuthState} = auth;
+  const {activeMenu, setActiveMenu} = menu;
+  const navigate = useNavigate();
+
+  const handleEditProfile = () => {
+    if(activeMenu === 'main'){
+      navigate('/student/settings');
+    }else if(activeMenu === 'org'){
+      navigate('/organization/settings');
+    }else if(activeMenu === 'cosoa'){
+      navigate('/cosoa/settings');
+    }
+  }
+    
+
   return (
       <div className="herovariant-bg d-flex align-items-center">
           <Container>
             <Row>
             <Col md={1} className="mb-3 pe-0 mx-4">
               {
-                imgSrc ? <Image src={`http://localhost:3001/images/imgSrc`} roundedCircle fluid /> : <FontAwesomeIcon icon={faUserCircle} size="6x" className="text-white" />
+                imgSrc ? <Image src={imgSrc} roundedCircle fluid /> : <FontAwesomeIcon icon={faUserCircle} size="6x" className="text-white" />
               }
             </Col>
             <Col md={6}>
@@ -45,8 +65,9 @@ const HeroVariant2 = ({ imgSrc, name, webmail }) => {
               <p className="hero-p Inter-normal text-white pt-2 pb-3">{webmail}</p>
             </Col>
             <Col className="text-end">
-              <Button variant="secondary" >Edit Profile</Button>
-            </Col>
+              <Button variant="secondary" onClick={handleEditProfile} >Edit Profile</Button>
+                </Col>
+
             </Row>
           </Container>
       </div>

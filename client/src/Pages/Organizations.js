@@ -8,21 +8,35 @@ import axios from 'axios';
 function Organizations() {
 
   const [organizations, setOrganizations] = useState([]);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:3001/org/show_accredited_orgs')
-    .then((response) => {
-      console.log(response.data);
-      setOrganizations(response.data);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }, [])
+    const fetchOrganizations = async () => {
+      try {
+        if (search === '') {
+          const response = await axios.get('http://localhost:3001/org/show_accredited_orgs');
+          setOrganizations(response.data);
+        } else {
+          const response = await axios.get(`http://localhost:3001/org/show_accredited_orgs/${search}`);
+          setOrganizations(response.data);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
-  useEffect(() => {
-    console.log(organizations);
-  },[organizations]);
+    // Debounce the search input
+    const debounceTimeout = setTimeout(() => {
+      fetchOrganizations();
+    }, 500); // Adjust the debounce timeout as needed (e.g., 500 milliseconds)
+
+    // Clear timeout on unmount or when the search value changes
+    return () => clearTimeout(debounceTimeout);
+  }, [search]);
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
 
   return (
     <div>
@@ -42,6 +56,9 @@ function Organizations() {
           <Form.Control
             placeholder="Search"
             className="shadow-lg"
+            type='text'
+            onChange={handleSearch}
+            value={search}
           />
         </InputGroup>
         <Col xs={1}></Col>
@@ -54,10 +71,11 @@ function Organizations() {
               {org.User.role !== 'student' &&
               <Col xs={12} md={4} className='mb-4'>
                 <Accredited_Org 
-                  imageSrc={org.User.profile_picture ? org.User.profile_picture : 'http://localhost:3001/org_images/default-org-photo.jpg'}
+                  imageSrc={org.User.profile_picture ? `http://localhost:3001/org_images/${org.User.profile_picture}` : 'http://localhost:3001/org_images/default-org-photo.jpg'}
                   title={org.org_name}
                   description={org.User.description ? org.User.description : 'No description'}
                   tags={[org.jurisdiction, org.subjurisdiction]}
+                  orgId={org.id}
                 />
               </Col>
             }

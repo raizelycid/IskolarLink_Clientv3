@@ -1,11 +1,13 @@
 import React from 'react';
 import { Card, Button, Col, Badge, Row, Container } from 'react-bootstrap';
 import './general.css'
+import {useNavigate} from 'react-router-dom';
 
-const Accredited_Org = ({ imageSrc, title, description, tags }) => {
+const Accredited_Org = ({ imageSrc, title, description, tags, orgId }) => {
+  const navigate = useNavigate();
   return (
     <Col fluid>
-      <Card className="p-3 mx-3" style={{width:'350px',height:'450px'}} >
+      <Card className="p-3 mx-3" style={{width:'350px',height:'450px'}} onClick={()=>{navigate(`/org/profile/${orgId}`)}}>
         <Card.Img variant="top" src={imageSrc} className="announcement-image" style={{backgroundSize:'cover'}}/>
         <Card.Body>
           <div className="d-flex flex-wrap mb-2">
@@ -33,7 +35,7 @@ const Accredited_Org = ({ imageSrc, title, description, tags }) => {
   );
 };
 
-const Accredited_OrgVariant = ({ imageSrc, title, description }) => {
+const Affiliated_Organizations = ({ imageSrc, title, description }) => {
   return (
     <Col fluid>
       <Card className="p-3 mx-3 shadow">
@@ -45,7 +47,7 @@ const Accredited_OrgVariant = ({ imageSrc, title, description }) => {
         
         <Card.Body>
           <Card.Text>
-          {description.length > 150 ? description.substring(0, 150) + '...' : description}
+          {description ? (description.length > 150 ? description.substring(0, 150) + '...' : description): 'No description yet.'}
           </Card.Text>
         </Card.Body>
         <Card.Footer className="bg-transparent border-0 text-center">
@@ -60,4 +62,4 @@ const Accredited_OrgVariant = ({ imageSrc, title, description }) => {
 
 export default Accredited_Org;
 
-export {Accredited_OrgVariant};
+export {Affiliated_Organizations};
