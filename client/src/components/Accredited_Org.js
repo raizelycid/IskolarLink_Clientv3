@@ -1,12 +1,12 @@
 import React from 'react';
-import { Card, Button, Col, Badge, Row } from 'react-bootstrap';
+import { Card, Button, Col, Badge, Row, Container } from 'react-bootstrap';
 import './general.css'
 
 const Accredited_Org = ({ imageSrc, title, description, tags }) => {
   return (
     <Col fluid>
-      <Card className="p-3 mx-3">
-        <Card.Img variant="top" src={imageSrc} className="announcement-image" />
+      <Card className="p-3 mx-3" style={{width:'350px',height:'450px'}} >
+        <Card.Img variant="top" src={imageSrc} className="announcement-image" style={{backgroundSize:'cover'}}/>
         <Card.Body>
           <div className="d-flex flex-wrap mb-2">
             {tags.map((tag, index) => (
@@ -16,7 +16,7 @@ const Accredited_Org = ({ imageSrc, title, description, tags }) => {
                 variant="primary" 
                 className="me-2 mb-2"
               >
-                {tag.length > 100 ? tag.substring(0, 100) + '...' : description}
+                {tag.length > 100 ? tag.substring(0, 100) + '...' : tag}
               </Badge>
             ))}
           </div>

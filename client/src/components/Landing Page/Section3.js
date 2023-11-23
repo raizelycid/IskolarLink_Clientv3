@@ -1,12 +1,12 @@
 import React from 'react';
 import '../general.css'; 
-import { Row, Col, Container } from "react-bootstrap";
+import { Row, Container } from "react-bootstrap";
 import AnnouncementCard from '../AnnouncementVariant/AnnouncementCard.js'
 
 const Section3 = () => {
   return (
     <div>
-      <Row className="text-center m-5">
+      <Row className="text-center m-3">
         <h1 className="s3-h1 text-red Inter-b">Announcements</h1>
         <p className="s3-p text-gray2 Inter-normal">Discover the latest announcement that will shape the future of PUP COSOA and<br/>elevate your student experience!</p>
       </Row>
@@ -14,7 +14,7 @@ const Section3 = () => {
         <Row>
             <AnnouncementCard
               imageSrc="studentorg.png"
-              title="Important Announcement"
+              title="PUP COSOA wins the Lottery!"
               description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit."
               userName="John Doe"
               userType="Announcement"
@@ -23,7 +23,7 @@ const Section3 = () => {
             />
             <AnnouncementCard
               imageSrc="studentorg.png"
-              title="Important Announcement"
+              title="Ang Kwento ng Mahabang Title - TBAAAAAAAAAAAAAA"
               description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
               userName="John Doe"
               userType="Announcement"
@@ -32,11 +32,11 @@ const Section3 = () => {
             />
             <AnnouncementCard
               imageSrc="studentorg.png"
-              title="Important Announcement"
-              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+              title="Sana Pumasa Tayong Lahat"
+              description="BSIT 4-1 will be undergoing their tool defense on the 30th of November. 13 Groups facing the esteemed panel of judges."
               userName="John Doe"
               userType="Announcement"
-              date="Oct 5"
+              date="Nov 23"
               userImageSrc="s1-icon1.png"
             />
         </Row>
