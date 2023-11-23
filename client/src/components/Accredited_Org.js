@@ -4,9 +4,9 @@ import './general.css'
 
 const Accredited_Org = ({ imageSrc, title, description, tags }) => {
   return (
-    <Col fluid>
-      <Card className="p-3 mx-3">
-        <Card.Img variant="top" src={imageSrc} className="announcement-image" />
+    <div className='m-3'>
+      <Card className="p-3 mx-3" style={{width:'21em',height:'25em'}}>
+        <Card.Img variant="top" src={imageSrc} className="announcement-image" style={{backgroundSize:'cover'}}/>
         <Card.Body>
           <div className="d-flex flex-wrap mb-2">
             {tags.map((tag, index) => (
@@ -16,7 +16,7 @@ const Accredited_Org = ({ imageSrc, title, description, tags }) => {
                 variant="primary" 
                 className="me-2 mb-2"
               >
-                {tag.length > 100 ? tag.substring(0, 100) + '...' : description}
+                {tag.length > 100 ? tag.substring(0, 100) + '...' : tag}
               </Badge>
             ))}
           </div>
@@ -29,7 +29,7 @@ const Accredited_Org = ({ imageSrc, title, description, tags }) => {
           <Button variant="primary">Apply Now</Button>
         </Card.Footer>
       </Card>
-    </Col>
+    </div>
   );
 };
 
