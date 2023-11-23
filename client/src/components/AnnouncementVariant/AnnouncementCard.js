@@ -2,36 +2,32 @@ import React from 'react';
 import { Card, Button, Col, Row, Container } from 'react-bootstrap';
 import '../general.css';
 
-const AnnouncementCard = ({ imageSrc, title, description, userImageSrc, userName, userType, date }) => {
+const AnnouncementCard = ({ imageSrc, title, description, userName, date }) => {
   return (
     <Col fluid>
-    <Card className="mx-3 p-4">
-      <Card.Img variant="top" src={imageSrc} className="announcement-image" />
-      <Card.Body>
-        <Card.Title>{title}</Card.Title>
-        <Card.Text>
-          {description.length > 100 ? description.substring(0, 100) + '...' : description}
-        </Card.Text>
-        <Row className="justify-content-between">
-          <Col xs={6}>
-            <div className="d-flex align-items-center">
-              <img src={userImageSrc} alt={userName} className="user-avatar" />
-              <div className="ml-2">
-                <div>{userName}</div>
-                <div>{userType}</div>
-              </div>
-            </div>
+    <Card className="mx-3 p-3 shadow" style={{minHeight:'65vh', maxHeight:'65vh', minWidth:'60vh'}}>
+      <Card.Img variant="top" src={imageSrc} className="announcement-image mt-2" />
+      <Card.Body className='my-0'> 
+        <Row className='my-1'>
+          <Col xs={9}>
+            <Card.Title className='mx-0'>{title}</Card.Title>               
           </Col>
-          <Col xs={6} className="text-end">
+          <Col xs={3} className="text-end">
             {date}
           </Col>
         </Row>
+        <Card.Text>
+          {description.length > 100 ? description.substring(0, 100) + '...' : description}
+        </Card.Text>
+        <Row >
+
+        </Row>
       </Card.Body>
-      <Card.Footer className="bg-transparent border-0 text-end">
-        <Button variant="link text-yellow no-decoration Inter p-0 m-0">
+      <Card.Footer className='no-decoration border-0 bg-transparent text-start ' as={Col}>
+      <Button variant="link text-yellow no-decoration Inter ps-0">
           Learn More <i className="fas fa-arrow-right"></i>
         </Button>
-
+      
       </Card.Footer>
     </Card>    
     </Col>

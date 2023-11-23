@@ -223,3 +223,11 @@ footer, .data-footer {
   background-color: #ffffff !important;
   color: black !important;
 }
+
+.border-primary {
+  border-color: var(--red) !important;
+}
+
+.nav-pills .nav-link:hover{
+  color: var(--red) !important;
+}
