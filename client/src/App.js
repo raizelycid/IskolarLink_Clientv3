@@ -256,16 +256,16 @@ function App() {
               {/* Social Media Icons */}
               <div className="social-icons d-flex justify-content-center justify-content-md-end">
                 <a href="#" className="social-icon">
-                  <i className="fab fa-facebook text-white fa-lg"></i>
+                  <i className="fab fa-facebook text-white"></i>
                 </a>
                 <a href="#" className="social-icon">
-                  <i className="fas fa-envelope text-white fa-lg"></i>
+                  <i className="fas fa-envelope text-white"></i>
                 </a>
                 <a href="#" className="social-icon">
-                  <i className="fab fa-twitter text-white fa-lg"></i>
+                  <i className="fab fa-twitter text-white"></i>
                 </a>
-                <a href="#" className="me-1">
-                  <i className="fab fa-instagram text-white fa-lg"></i>
+                <a href="#" className="social-icon">
+                  <i className="fab fa-instagram text-white"></i>
                 </a>
               </div>
             </Col>
