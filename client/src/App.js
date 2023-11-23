@@ -107,7 +107,7 @@ function App() {
     clearTimeout(scrollTimeout);
     const timeout = setTimeout(() => {
       setScrolling(false);
-    }, 500);
+    }, 400);
 
     setScrollTimeout(timeout);
   };
@@ -121,7 +121,7 @@ function App() {
     };
   }, [scrollTimeout]);
 
-  const navbarClass = initialScroll ? 'solid-navbar' : scrolling ? 'fixed-top transparent-navbar' : 'fixed-top solid-navbar';
+  const navbarClass = initialScroll ? 'solid-navbar shadow' : scrolling ? 'fixed-top solid-navbar shadow' : 'fixed-top solid-navbar shadow';
 
 
 
@@ -219,10 +219,10 @@ function App() {
       <footer className="footer bg-dark text-white py-4 border-bottom Inter">
         <Container>
           <Row className="align-items-center flex-column flex-md-row"> {/* Use flex classes */}
-            <Col xs={12} md={3} className="text-center">
+            <Col xs={12} md={3} className="text-start">
               {/* Logo */}
-              <Navbar.Brand className="footer-brand text-white Urbanist" href="#">
-                <img src={require('./logo.svg').default} alt="Logo" width="40" height="40" />
+              <Navbar.Brand className="footer-brand text-white Urbanist my-0" href="#">
+                <Image src={require('./logo.svg').default} alt="Logo" width="40" height="40" />
                 IskolarLink
               </Navbar.Brand>
             </Col>
@@ -230,22 +230,22 @@ function App() {
               {/* Footer Navigation Links (Vertical for small screens) */}
               <ul className="nav d-flex flex-column flex-md-row" style={{ listStyleType: 'none' }}>
                 <li className="nav-item">
-                  <a className="nav-link text-muted" href="#">
+                  <a className="nav-link text-muted" href="/cosoa">
                     PUP COSOA
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link text-muted" href="#">
+                  <a className="nav-link text-muted" href="/organizations">
                     Accredited Organizations
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link text-muted" href="#">
+                  <a className="nav-link text-muted" href="/appdocs">
                     Application Documents
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link text-muted" href="#">
+                  <a className="nav-link text-muted" href="/faqs">
                     FAQs
                   </a>
                 </li>
@@ -256,29 +256,26 @@ function App() {
               {/* Social Media Icons */}
               <div className="social-icons d-flex justify-content-center justify-content-md-end">
                 <a href="#" className="social-icon">
-                  <i className="fab fa-facebook text-white fa-lg"></i>
+                  <i className="fab fa-facebook text-white"></i>
                 </a>
                 <a href="#" className="social-icon">
-                  <i className="fas fa-envelope text-white fa-lg"></i>
+                  <i className="fas fa-envelope text-white"></i>
                 </a>
                 <a href="#" className="social-icon">
-                  <i className="fab fa-twitter text-white fa-lg"></i>
+                  <i className="fab fa-twitter text-white"></i>
                 </a>
-                <a href="#" className="me-1">
-                  <i className="fab fa-instagram text-white fa-lg"></i>
+                <a href="#" className="social-icon">
+                  <i className="fab fa-instagram text-white"></i>
                 </a>
               </div>
             </Col>
           </Row>
           <hr className="bg-muted flex-grow-1" />
           <Row>
-            <Col xs={12} md={6} className="text-center text-md-left">
-              {/* Copyright */}
-              <div className="footer-copyright bg-dark text-muted py-2 text-center text-md-left ms-1">
-                &copy; 2023 IskolarLink All Rights Reserved.
-              </div>
+            <Col className="text-start bg-dark text-muted">
+              <p>&copy; 2023 IskolarLink All Rights Reserved.</p>
             </Col>
-            <Col xs={12} md={6} className="text-center text-md-right mt-3 mt-md-0">
+            <Col className="text-center text-md-right mt-3 mt-md-0">
               {/* Privacy Policy and Terms & Conditions Links */}
               <div className="data-footer d-flex justify-content-center justify-content-md-end">
                 <a className="nav-link text-muted" href="#">

@@ -6,3 +6,7 @@ tbody th:first-child {
     width: 20%;
   }
   
+
+th {
+  font-weight: normal;
+}
