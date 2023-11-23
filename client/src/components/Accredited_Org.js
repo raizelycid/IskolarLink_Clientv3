@@ -1,11 +1,11 @@
 import React from 'react';
-import { Card, Button, Col, Badge, Row } from 'react-bootstrap';
+import { Card, Button, Col, Badge, Row, Container } from 'react-bootstrap';
 import './general.css'
 
 const Accredited_Org = ({ imageSrc, title, description, tags }) => {
   return (
-    <div className='m-3'>
-      <Card className="p-3 mx-3" style={{width:'21em',height:'25em'}}>
+    <Col fluid>
+      <Card className="p-3 mx-3" style={{width:'350px',height:'450px'}} >
         <Card.Img variant="top" src={imageSrc} className="announcement-image" style={{backgroundSize:'cover'}}/>
         <Card.Body>
           <div className="d-flex flex-wrap mb-2">
@@ -29,7 +29,7 @@ const Accredited_Org = ({ imageSrc, title, description, tags }) => {
           <Button variant="primary">Apply Now</Button>
         </Card.Footer>
       </Card>
-    </div>
+    </Col>
   );
 };
 
