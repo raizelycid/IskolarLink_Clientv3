@@ -6,7 +6,9 @@ import { AnnouncementVariant } from '../../components/AnnouncementVariant/Announ
 import OfficerCard from '../../components/OfficerCard';
 import ContactBanner from '../../components/ContactBanner';
 import ContactBanner2 from '../../components/ContactBanner2';
+import AddAnnouncement from '../../components/Org_Home/AddAnnouncement';
 import axios from 'axios';
+import { AnnouncementVariant2 } from '../../components/AnnouncementVariant/AnnouncementCard';
 
 
 
@@ -14,6 +16,8 @@ function Organization_Profile() {
 
   const [organization, setOrganization] = useState({});
 const [user, setUser] = useState({});
+const [refreshAnnouncement, setRefreshAnnouncement] = useState(false);
+const [announcements, setAnnouncements] = useState([]);
 
 
 useEffect(() => {
@@ -22,6 +26,14 @@ useEffect(() => {
     setUser(response.data.user);
   });
 }, []);
+
+useEffect(() => {
+  axios.get('http://localhost:3001/org_portal/get_announcements').then((response) => {
+    setAnnouncements(response.data);
+    console.log(response.data);
+    setRefreshAnnouncement(false);
+  });
+}, [refreshAnnouncement]);
 
   return (
     <div>
@@ -46,7 +58,16 @@ useEffect(() => {
           <h1 className='text-red'>Latest Announcements</h1>
           <p className='text-gray2'>Discover the latest announcement that will shape the future of PUP COSOA and elevate your student experience!</p>
         </Row>
-        {/* Put announcement if time is lot */}
+        {
+          announcements.map((announcement, index) => {
+            return(
+              <AnnouncementVariant2 key={index} announcement={announcement}/>
+            );
+          })
+        }
+        <Row>
+          <AddAnnouncement setRefreshAnnouncement={setRefreshAnnouncement}/>
+        </Row>
       </Container>
       <ContactBanner2 />
     </div>

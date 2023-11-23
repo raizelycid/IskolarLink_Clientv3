@@ -25,6 +25,17 @@ function COSOA_Home() {
 
   const [announcements, setAnnouncements] = useState([]);
   const [events, setEvents] = useState([]);
+  const [info, setInfo] = useState({});
+
+  useEffect(() => {
+    try{
+      axios.get(`http://localhost:3001/cosoa_profile/get_cosoa_details`).then((response) => {
+        setInfo(response.data);
+      });
+    }catch(err){
+      console.log(err);
+    }
+  },[]);
 
   
   useEffect(() => {
@@ -66,7 +77,7 @@ function COSOA_Home() {
   return (
     <div>
         <HeroVariant2 
-        imgSrc="/cosoa_logo.jpg"
+        imgSrc={info.org_picture ? `http://localhost:3001/cosoa/${info.org_picture}` : null}
         name="Commission on Student Organizations and Accreditation (COSOA)"
         webmail="pupcosoa.iskolarngbayan.pup.edu.ph"
         />

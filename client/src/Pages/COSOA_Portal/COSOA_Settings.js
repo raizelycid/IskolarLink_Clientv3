@@ -9,16 +9,6 @@ import axios from 'axios';
 function COSOASettings(){
 
     const [cosoa, setCOSOA] = useState({
-        org_name: "",
-        org_picture: "",
-        mission: "",
-        vision: "",
-        contact_number: "",
-        email: "",
-        social1: "",
-        social2: "",
-        social3: "",
-        social4: "",
     });
 
   // Function to handle saving changes
@@ -43,21 +33,51 @@ function COSOASettings(){
     }
   };
 
-  // Function to handle cancel action
-  const handleCancel = () => {
-    // Logic to handle cancel action
+  const handleToggle = () => {
+    // Logic to handle toggle
+    try{
+      axios.post('http://localhost:3001/cosoa/application_period')
+      .then((response) => {
+        if(response.data.success){
+          alert(response.data.success);
+          setCOSOA({ ...cosoa, application_period: response.data.period });
+        }else{
+          alert(response.data.error);
+        }
+      });
+    }catch(err){
+      console.log(err);
+    }
   };
   
   useEffect(() => {
     try{
         axios.get('http://localhost:3001/cosoa_profile/get_cosoa_details')
         .then((response) => {
+          console.log(response.data);
             setCOSOA(response.data);
         });
+
+        
     }catch(err){
         console.log(err);
     }
     }, []);
+
+    useEffect(() => {
+      try{
+        axios.get('http://localhost:3001/cosoa/application_period').then((response) => {
+          setCOSOA(response.data.application_period);
+          if(response.data.application_period === true){
+            document.getElementById('anr-period-toggle').checked = true;
+          }else{
+            document.getElementById('anr-period-toggle').checked = false;
+          }
+        });
+      }catch(err){
+        console.log(err);
+      }
+    }, [cosoa.application_period]);
 
   return (
     <div>
@@ -78,7 +98,9 @@ function COSOASettings(){
                 type="text" 
                 placeholder="e.g. PUP The Programmers’ Guild (PUPTPG)" 
                 defaultValue={cosoa.org_name} 
+                value={cosoa.org_name}
                 onChange={(e) => setCOSOA({ ...cosoa, org_name: e.target.value })}
+                disabled
                 />
             </Form.Group>
 
@@ -230,14 +252,16 @@ function COSOASettings(){
                   type="switch"
                   id="anr-period-toggle"
                   label="Toggling this switch will open the Accreditation and Revalidation Period of this Academic Year."
+                  checked={cosoa.application_period}
+                  onChange={(e) => setCOSOA({ ...cosoa, application_period: e.target.checked })}
+                  
                 />
               </Form.Group>
             </Form>
           </Row>
           <Row>
             <Col className="text-end mb-4">
-              <Button variant="secondary" onClick={handleSaveChanges}>Save Changes</Button>{' '}
-              <Button className="btn-cancel" onClick={handleCancel}>Cancel</Button>
+              <Button variant="secondary" onClick={handleSaveChanges}>Save Changes</Button>
             </Col>
           </Row>
     

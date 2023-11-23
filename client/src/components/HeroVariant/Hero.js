@@ -37,7 +37,7 @@ const HeroVariant2 = ({ imgSrc, name, webmail }) => {
             <Row>
             <Col md={1} className="mb-3 pe-0 mx-4">
               {
-                imgSrc ? <Image src={`http://localhost:3001/images/${imgSrc}`} roundedCircle fluid /> : <FontAwesomeIcon icon={faUserCircle} size="6x" className="text-white" />
+                imgSrc ? <Image src={imgSrc} roundedCircle fluid /> : <FontAwesomeIcon icon={faUserCircle} size="6x" className="text-white" />
               }
             </Col>
             <Col md={6}>

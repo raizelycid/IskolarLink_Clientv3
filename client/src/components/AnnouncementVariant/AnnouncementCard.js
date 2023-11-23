@@ -58,5 +58,25 @@ const AnnouncementVariant = ({key, announcement}) => {
   );
 };
 
+
+const AnnouncementVariant2 = ({key, announcement}) => {
+  return (
+    <Container className='my-4'>
+      <Card style={{height: "600px"}}>
+        <Card.Img variant='top' src={`http://localhost:3001/org_announcements/${announcement.org_ann_photo}`} style={{height:"300px",objectFit:'cover'}}></Card.Img>
+        <Card.Body>
+          <Card.Title>{announcement.org_ann_title}</Card.Title>
+          <Card.Text>{announcement.org_ann_body}</Card.Text>
+        </Card.Body>
+        <Card.Footer className="bg-transparent border-0 text-start">
+        <Button variant="link text-yellow no-decoration Inter p-0 m-0" onClick={() => window.open(`${announcement.org_ann_link}`)} >
+          Check Facebook Post <i className="fas fa-arrow-right"></i>
+        </Button>
+      </Card.Footer>
+      </Card>
+    </Container>
+  );
+};
+
 export default AnnouncementCard;
-export {AnnouncementVariant};
+export {AnnouncementVariant, AnnouncementVariant2};

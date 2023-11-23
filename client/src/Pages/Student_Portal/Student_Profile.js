@@ -35,7 +35,7 @@ function Student_Profile() {
   return (
     <div>
         <HeroVariant2
-        imgSrc={info.profile_picture}
+        imgSrc={info.profile_picture ? `http://localhost:3001/images/${info.profile_picture}` : null}
         name={`${info.student_Fname} ${info.student_Lname}`}
         webmail={info.email}
         />
