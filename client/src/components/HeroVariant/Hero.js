@@ -64,5 +64,20 @@ const HeroVariant3 = ({  h1Text, pText  }) => {
   );
 };
 
+const HeroVariant4 = ({  h1Text  }) => {
+  return (
+      <div className="herovariant-bg d-flex align-items-center">
+        <Container className="text-start">
+          <Col xs={6}>
+          <h1 className="hero-h1 Inter-b text-white">{h1Text}</h1>
+          </Col>
+          <Col xs={9}>
+          </Col>
+        </Container>
+      </div>
+  );
+};
+
+
 export default Hero;
-export {HeroVariant, HeroVariant2, HeroVariant3};
+export {HeroVariant, HeroVariant2, HeroVariant3, HeroVariant4};
