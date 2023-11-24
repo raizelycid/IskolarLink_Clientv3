@@ -18,14 +18,15 @@ function StudSettings() {
   // Function to handle saving changes
   const handleSaveChanges = () => {
     try{
+      console.log(profile)
       axios.post(`${process.env.REACT_APP_BASE_URL}/student_portal/update_profile`, profile, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       })
       .then((response) => {
-        if(response.data === 'Successfully updated Student Profile'){
-          alert(response.data);
+        if(response.data.success){
+          alert(response.data.success);
         }else{
           alert(response.data.error);
         }
@@ -236,10 +237,12 @@ function StudSettings() {
           </div>
 
       </Form>
+      {/*
       <Verification/>
       <Verifying/>
       <Verified/>
-      <VerifyFailed/>
+      <VerifyFailed/>*/
+}
     </Container>
     
     </div>
