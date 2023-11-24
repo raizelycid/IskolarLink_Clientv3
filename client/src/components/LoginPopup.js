@@ -27,14 +27,17 @@ function LoginPopup() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(loginDetails);
-    axios.post('http://localhost:3001/auth/login', loginDetails).then((response) => {
+    axios.post(`${process.env.REACT_APP_BASE_URL}/auth/login`, loginDetails).then((response) => {
       console.log(response);
       if(response.data.error){
         alert(response.data.error);
       }else{
-        alert('User logged in!');
+        if(response.student){
+        alert(response.data);
+        }
         setAuthState({...authState, status: true});
         if(response.org){
+          alert("Logged in as an organization");
           setActiveMenu('org');
           navigate('/organization/profile');
         }

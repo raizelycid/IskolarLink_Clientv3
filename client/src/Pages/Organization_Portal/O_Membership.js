@@ -12,7 +12,7 @@ function O_Membership() {
 
   useEffect(() => {
     try{
-      axios.get('http://localhost:3001/org_portal/organization/membership')
+      axios.get(`${process.env.REACT_APP_BASE_URL}/org_portal/organization/membership`)
       .then((response) => {
         setMembers(response.data);
       });

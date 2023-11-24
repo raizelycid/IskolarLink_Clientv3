@@ -22,7 +22,7 @@ function Student_Profile() {
 
   useEffect(() => {
     try{
-      axios.get('http://localhost:3001/student_portal').then((response) => {
+      axios.get(`${process.env.REACT_APP_BASE_URL}/student_portal`).then((response) => {
         setInfo(response.data);
         setOrgs(response.data.orgs);
       });
@@ -34,7 +34,7 @@ function Student_Profile() {
   return (
     <div>
         <HeroVariant2
-        imgSrc={info.profile_picture ? `http://localhost:3001/images/${info.profile_picture}` : null}
+        imgSrc={info.profile_picture ? `${process.env.REACT_APP_BASE_URL}/images/${info.profile_picture}` : null}
         name={`${info.student_Fname} ${info.student_Lname}`}
         webmail={info.email}
         />
@@ -57,7 +57,7 @@ function Student_Profile() {
                 {orgs.map((org, index) => (
                     <Col xs={12} md={6} lg={4} key={index}>
                         <Affiliated_Organizations
-                            imageSrc={org.profile_picture ? `http://localhost:3001/org_images/${org.profile_picture}` : `http://localhost:3001/org_images/default-org-photo.jpg`}
+                            imageSrc={org.profile_picture ? `${process.env.REACT_APP_BASE_URL}/org_images/${org.profile_picture}` : `${process.env.REACT_APP_BASE_URL}/org_images/default-org-photo.jpg`}
                             title={org.org_name}
                             description={org.description}
                         />

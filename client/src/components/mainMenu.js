@@ -22,7 +22,7 @@ const MainMenu = ({imgSrc, username}) => {
 
 
     useEffect(() => {
-        axios.get('http://localhost:3001/student/accreditation_status').then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/student/accreditation_status`).then((response) => {
             if(response.data.error){
                 alert(response.data.error);
             }
@@ -34,17 +34,17 @@ const MainMenu = ({imgSrc, username}) => {
 
     const changeMainMenu = () => {
         setActiveMenu('main');
-        axios.post('http://localhost:3001/menu/', {menu: 'main'})
+        axios.post(`${process.env.REACT_APP_BASE_URL}/menu/`, {menu: 'main'})
       }
     
       const changeCosoaMenu = () => {
         setActiveMenu('cosoa');
-        axios.post('http://localhost:3001/menu/', {menu: 'cosoa'})
+        axios.post(`${process.env.REACT_APP_BASE_URL}/menu/`, {menu: 'cosoa'})
       }
     
       const changeWebAdminMenu = () => {
         setActiveMenu('webadmin');
-        axios.post('http://localhost:3001/menu/', {menu: 'webadmin'})
+        axios.post(`${process.env.REACT_APP_BASE_URL}/menu/`, {menu: 'webadmin'})
       }
 
       const switchCosoa = (e) => {
@@ -63,7 +63,7 @@ const MainMenu = ({imgSrc, username}) => {
 
 
     return(
-    <NavDropdown title={<>{imgSrc ? <img src={`http://localhost:3001/images/${imgSrc}`} alt="Profile Picture" width="40" height="40" className="rounded-circle" /> : <FontAwesomeIcon icon={faUser}/>} <span className='text-dark'>Hi, {username}!</span></>} id="basic-nav-dropdown" className="text-dark" renderMenuOnMount={true}>
+    <NavDropdown title={<>{imgSrc ? <img src={`${process.env.REACT_APP_BASE_URL}/images/${imgSrc}`} alt="Profile Picture" width="40" height="40" className="rounded-circle" /> : <FontAwesomeIcon icon={faUser}/>} <span className='text-dark'>Hi, {username}!</span></>} id="basic-nav-dropdown" className="text-dark" renderMenuOnMount={true}>
         <NavDropdown.Item onClick={() => navigate('/student/profile')}>Profile</NavDropdown.Item>
         {accreditationStatus ? <NavDropdown.Item onClick={() => navigate('/accreditation/status')}> Accreditation Status</NavDropdown.Item> : <NavDropdown.Item onClick={() => navigate('/accreditation')}>Create an Organization</NavDropdown.Item>}
         {authState.is_cosoa && <NavDropdown.Item onClick={switchCosoa}>Switch to COSOA</NavDropdown.Item>}
@@ -71,7 +71,7 @@ const MainMenu = ({imgSrc, username}) => {
         <NavDropdown.Item onClick={() => navigate('/student/settings')}>Settings</NavDropdown.Item>
         <NavDropdown.Divider />
         <NavDropdown.Item onClick={() => {
-            axios.post('http://localhost:3001/auth/logout')
+            axios.post(`${process.env.REACT_APP_BASE_URL}/auth/logout`)
             .then((response) => {
                 if(response.data.error){
                     alert(response.data.error);

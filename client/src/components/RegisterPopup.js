@@ -55,7 +55,7 @@ function RegisterPopup() {
             if(regDetails.suffix === "N/A"){
                 setRegDetails({...regDetails, student_suffix: ""});
             }
-            axios.post('http://localhost:3001/auth/register', regDetails).then((response) => {
+            axios.post(`${process.env.REACT_APP_BASE_URL}/auth/register`, regDetails).then((response) => {
                 if(response.data === "Student created!"){
                     alert("Registration successful!");
                     handleCloseRegister();  

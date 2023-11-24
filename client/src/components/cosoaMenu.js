@@ -19,17 +19,17 @@ const CosoaMenu = ({imgSrc, username}) => {
 
     const changeMainMenu = () => {
         setActiveMenu('main');
-        axios.post('http://localhost:3001/menu/', {menu: 'main'})
+        axios.post(`${process.env.REACT_APP_BASE_URL}/menu/`, {menu: 'main'})
       }
     
       const changeCosoaMenu = () => {
         setActiveMenu('cosoa');
-        axios.post('http://localhost:3001/menu/', {menu: 'cosoa'})
+        axios.post(`${process.env.REACT_APP_BASE_URL}/menu/`, {menu: 'cosoa'})
       }
     
       const changeWebAdminMenu = () => {
         setActiveMenu('webadmin');
-        axios.post('http://localhost:3001/menu/', {menu: 'webadmin'})
+        axios.post(`${process.env.REACT_APP_BASE_URL}/menu/`, {menu: 'webadmin'})
       }
 
       const switchStudent = (e) => {
@@ -44,14 +44,14 @@ const CosoaMenu = ({imgSrc, username}) => {
     },[]);
 
     return(
-    <NavDropdown title={<>{imgSrc ? <img src={`http://localhost:3001/images/${imgSrc}`} alt="Profile Picture" width="40" height="40" className="rounded-circle" /> : <FontAwesomeIcon icon={faUser}/>} <span className='text-dark'>Hi, {username}!</span></>} id="basic-nav-dropdown" className="text-dark" renderMenuOnMount={true}>
+    <NavDropdown title={<>{imgSrc ? <img src={`${process.env.REACT_APP_BASE_URL}/images/${imgSrc}`} alt="Profile Picture" width="40" height="40" className="rounded-circle" /> : <FontAwesomeIcon icon={faUser}/>} <span className='text-dark'>Hi, {username}!</span></>} id="basic-nav-dropdown" className="text-dark" renderMenuOnMount={true}>
         <NavDropdown.Item onClick={()=>navigate('/cosoa/home')}>Home</NavDropdown.Item>
         <NavDropdown.Item onClick={()=>navigate('/cosoa/dashboard')}>Dashboard</NavDropdown.Item>
         <NavDropdown.Item onClick={switchStudent}>Switch to Student</NavDropdown.Item>
         <NavDropdown.Item onClick={()=>navigate('/cosoa/settings')}>Settings</NavDropdown.Item>
         <NavDropdown.Divider />
         <NavDropdown.Item onClick={() => {
-            axios.post('http://localhost:3001/auth/logout')
+            axios.post(`${process.env.REACT_APP_BASE_URL}/auth/logout`)
             .then((response) => {
                 if(response.data.error){
                     alert(response.data.error);
