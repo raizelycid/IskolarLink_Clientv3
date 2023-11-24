@@ -14,7 +14,7 @@ function OrgSettings() {
 
     useEffect(() => {
         try{
-            axios.get('http://localhost:3001/org_portal/organization')
+            axios.get(`${process.env.REACT_APP_BASE_URL}/org_portal/organization`)
             .then((response) => {
                 setOrg(response.data.organization);
                 setUser(response.data.user);
@@ -39,7 +39,7 @@ function OrgSettings() {
         formData.linkedin = socials.linkedin;
         formData.instagram = socials.instagram;
         console.log(formData)
-        axios.post('http://localhost:3001/org_portal/organization/settings',
+        axios.post(`${process.env.REACT_APP_BASE_URL}/org_portal/organization/settings`,
             formData,{
                 headers: {
                     'Content-Type': 'multipart/form-data'

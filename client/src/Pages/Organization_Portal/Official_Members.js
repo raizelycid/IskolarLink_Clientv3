@@ -12,7 +12,7 @@ function Official_Members() {
 
   useEffect(() => {
     try{
-      axios.get('http://localhost:3001/org_portal/organization/members')
+      axios.get(`${process.env.REACT_APP_BASE_URL}/org_portal/organization/members`)
       .then((response) => {
         setMembers(response.data);
       });
