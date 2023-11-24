@@ -22,7 +22,7 @@ function AccreditationStatus() {
 
     const handleChange = async event => {
     try{
-        await axios.post(`http://localhost:3001/student/update_form/${org.id}/${selectedRequirementId}`, {file: event.target.files[0], requirement_name: selectedFile}, {
+        await axios.post(`${process.env.REACT_APP_BASE_URL}/student/update_form/${org.id}/${selectedRequirementId}`, {file: event.target.files[0], requirement_name: selectedFile}, {
         headers: {
             'Content-Type': 'multipart/form-data',
         }
@@ -43,7 +43,7 @@ function AccreditationStatus() {
     const Forms = [ 'Certificate of Recognition', 'Official List', 'Officer\'s Profile', 'Letter of Concurrence', 'Letter of Concurrence-Sub', 'CBL 101', 'GPOA', 'Advocacy Plan','Tracker Form', 'Waiver of Responsibility']
 
     useEffect(() => {
-        axios.get('http://localhost:3001/student/org_application_status').then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/student/org_application_status`).then((response) => {
             console.log(response.data);
             setOrg(response.data.org);
             setOrgApp(response.data.org_app);

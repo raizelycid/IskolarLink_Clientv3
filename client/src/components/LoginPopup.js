@@ -27,7 +27,7 @@ function LoginPopup() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(loginDetails);
-    axios.post('http://localhost:3001/auth/login', loginDetails).then((response) => {
+    axios.post(`${process.env.REACT_APP_BASE_URL}:3001/auth/login`, loginDetails).then((response) => {
       console.log(response);
       if(response.data.error){
         alert(response.data.error);
