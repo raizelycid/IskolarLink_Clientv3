@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import Hero from '../components/HeroVariant/Hero';
 import Section1 from '../components/Landing Page/Section1';
 import Section2 from '../components/Landing Page/Section2';
@@ -10,10 +10,19 @@ import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 
 
+
+
 function LandingPage() {
+
+  useEffect(() => {
+    axios.get(`https://iskolarlink-production.up.railway.app/luke/hello`).then((res) => {
+      console.log(res.data);
+      alert(res.data);
+    })
+  }, []);
+  
   return (
     <main>
-      <Button onClick={() => {axios.get(`${process.env.REACT_APP_BASE_URL}.up.railway.app/luke/hello`).then(res => alert(res.data))}}>Test</Button>
       <Hero />
       <Section1 />
       <Section2 />
