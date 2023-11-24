@@ -107,17 +107,17 @@ function RegisterPopup() {
 
                             <Col><Row>
                                 <Form.Group as={Col} className="mb-3" controlId="formRegisterFname">
-                                    <Form.Label className="Inter-med">First Name*</Form.Label>
+                                    <Form.Label className="Inter-med">First Name<span className="text-red">*</span></Form.Label>
                                     <Form.Control type="text" placeholder="Enter your First Name" value={regDetails.student_Fname} onChange={(e) => setRegDetails({...regDetails, student_Fname: e.target.value})} />
                                 </Form.Group>
                                 <Form.Group as={Col} className="mb-3" controlId="formRegisterMname">
-                                    <Form.Label className="Inter-med">Middle Name*</Form.Label>
+                                    <Form.Label className="Inter-med">Middle Name<span className="text-red">*</span></Form.Label>
                                     <Form.Control type="text" placeholder="Enter your Middle Name" value={regDetails.student_Mname} onChange={(e) => setRegDetails({...regDetails, student_Mname: e.target.value})} />
                                 </Form.Group>
                             </Row>
                             <Row>
                                 <Form.Group as={Col} className="mb-3" controlId="formRegisterLname">
-                                    <Form.Label className="Inter-med">Last Name*</Form.Label>
+                                    <Form.Label className="Inter-med">Last Name<span className="text-red">*</span></Form.Label>
                                     <Form.Control type="text" placeholder="Enter your Last Name" value={regDetails.student_Lname} onChange={(e) => setRegDetails({...regDetails, student_Lname: e.target.value})} />
                                 </Form.Group>
                                 <Form.Group as={Col} className="mb-3" controlId="formRegisterSuffix">
@@ -128,7 +128,7 @@ function RegisterPopup() {
                             </Col>
                             <Row>
                                 <Form.Group as={Col} className="mb-3" controlId="formRegisterDepartment">
-                                    <Form.Label className="Inter-med">Department*</Form.Label>
+                                    <Form.Label className="Inter-med">Department<span className="text-red">*</span></Form.Label>
                                     <Form.Select defaultValue="Choose..." value={regDetails.department} onChange={(e) => setRegDetails({...regDetails, department: e.target.value})}>
                                         <option>Choose...</option>
                                         {Departments.map((department) => (
@@ -137,7 +137,7 @@ function RegisterPopup() {
                                     </Form.Select>
                                 </Form.Group>
                                 <Form.Group as={Col} className="mb-3" controlId="formRegisterYearLevel">
-                                    <Form.Label className="Inter-med">Year Level*</Form.Label>
+                                    <Form.Label className="Inter-med">Year Level<span className="text-red">*</span></Form.Label>
                                     <Form.Select defaultValue="Choose..." value={regDetails.year_level} onChange={(e) => setRegDetails({...regDetails, year_level: e.target.value})}>
                                         <option>Choose...</option>
                                         <option>1st Year</option>
@@ -149,17 +149,17 @@ function RegisterPopup() {
                                 </Form.Group>
                             </Row>
                             <Form.Group className="mb-3" controlId="formRegisterWebmail">
-                                <Form.Label className="Inter-med">Webmail*</Form.Label>
+                                <Form.Label className="Inter-med">Webmail<span className="text-red">*</span></Form.Label>
                                 <Form.Control type="email" placeholder="Enter your Webmail" value={regDetails.email} onChange={(e) => setRegDetails({...regDetails, email: e.target.value})}/>
                             </Form.Group>
 
                             <Row>
                                 <Form.Group as={Col} className="mb-3" controlId="formRegisterPassword">
-                                    <Form.Label className="Inter-med">Password*</Form.Label>
+                                    <Form.Label className="Inter-med">Password<span className="text-red">*</span></Form.Label>
                                     <Form.Control type="password" placeholder="Enter your Password" value={regDetails.password} onChange={(e) => setRegDetails({...regDetails, password: e.target.value})} />
                                 </Form.Group>
                                 <Form.Group as={Col} className="mb-3" controlId="formRegisterPassword">
-                                    <Form.Label className="Inter-med">Confirm Password* </Form.Label>
+                                    <Form.Label className="Inter-med">Confirm Password<span className="text-red">*</span> </Form.Label>
                                     <Form.Control type="password" placeholder="Confirm your Password" value={regDetails.confirmPassword} onChange={(e) => setRegDetails({...regDetails, confirmPassword: e.target.value})} />
                                 </Form.Group>
                             </Row>

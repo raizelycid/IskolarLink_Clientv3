@@ -279,7 +279,6 @@ function AppDocs() {
           </Tab.Container>
         </Row>
       </Container>
-      <ContactBanner1/>
     </div>
   )
 }

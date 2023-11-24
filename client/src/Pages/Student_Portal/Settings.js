@@ -5,6 +5,7 @@ import { Container, Row, Col, Form, Image, Button, InputGroup, FormControl } fro
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import Verification, { Verified, VerifyFailed, Verifying } from '../../components/Student Verification/Verification';
 import axios from 'axios';
 
 
@@ -235,8 +236,12 @@ function StudSettings() {
           </div>
 
       </Form>
-
+      <Verification/>
+      <Verifying/>
+      <Verified/>
+      <VerifyFailed/>
     </Container>
+    
     </div>
 
   )

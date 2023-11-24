@@ -231,3 +231,9 @@ footer, .data-footer {
 .nav-pills .nav-link:hover{
   color: var(--red) !important;
 }
+
+.form-check-input:checked {
+  background-color: var(--dark-yellow) !important;
+  color: var(--dark-yellow) !important;
+  border: none;
+}
