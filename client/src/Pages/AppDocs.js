@@ -11,83 +11,83 @@ function AppDocs() {
 
 
   const downloadAF001 = () => {
-    saveAs(`${process.env.BACKEND_URL}/accreditation/${'AF001-TRACKER FORM.docx'}`, 'AF001-TRACKER FORM.docx');
+    saveAs(`${process.env.REACT_APP_BASE_URL}/accreditation/${'AF001-TRACKER FORM.docx'}`, 'AF001-TRACKER FORM.docx');
   }
 
   const downloadAD001 = () => {
-    saveAs(`${process.env.BACKEND_URL}/accreditation/${'AD001-CERTIFICATE OF RECOGNITION.docx'}`, 'AD001-CERTIFICATE OF RECOGNITION.docx');
+    saveAs(`${process.env.REACT_APP_BASE_URL}/accreditation/${'AD001-CERTIFICATE OF RECOGNITION.docx'}`, 'AD001-CERTIFICATE OF RECOGNITION.docx');
   }
 
   const downloadAD002 = () => {
-    saveAs(`${process.env.BACKEND_URL}/accreditation/${'AD002-OFFICIAL LIST.docx'}`, 'AD002-OFFICIAL LIST OF OFFICERS AND ADVISERS.docx');
+    saveAs(`${process.env.REACT_APP_BASE_URL}/accreditation/${'AD002-OFFICIAL LIST.docx'}`, 'AD002-OFFICIAL LIST OF OFFICERS AND ADVISERS.docx');
   }
 
   const downloadAD003 = () => {
-    saveAs(`${process.env.BACKEND_URL}/accreditation/${'AD003-OFFICERS\' PROFILE.docx'}`, 'AD003-OFFICERS PROFILE.docx');
+    saveAs(`${process.env.REACT_APP_BASE_URL}/accreditation/${'AD003-OFFICERS\' PROFILE.docx'}`, 'AD003-OFFICERS PROFILE.docx');
   }
 
   const downloadAD004 = () => {
-    saveAs(`${process.env.BACKEND_URL}/accreditation/${'AD004-LETTER OF CONCURRENCE.docx'}`, 'AD004-ADVIER LETTER OF CONCURRENCE.docx');
+    saveAs(`${process.env.REACT_APP_BASE_URL}/accreditation/${'AD004-LETTER OF CONCURRENCE.docx'}`, 'AD004-ADVIER LETTER OF CONCURRENCE.docx');
   }
 
   const downloadAD005 = () => {
-    saveAs(`${process.env.BACKEND_URL}/accreditation/${'AD005-CBL 101.docx'}`, 'AD005-CONSTITUTION AND BYLAWS.docx');
+    saveAs(`${process.env.REACT_APP_BASE_URL}/accreditation/${'AD005-CBL 101.docx'}`, 'AD005-CONSTITUTION AND BYLAWS.docx');
   }
 
   const downloadAD006 = () => {
-    saveAs(`${process.env.BACKEND_URL}/accreditation/${'AD006-GPOA.docx'}`, 'AD006-GENERAL PLAN OF ACTIVITIES.docx');
+    saveAs(`${process.env.REACT_APP_BASE_URL}/accreditation/${'AD006-GPOA.docx'}`, 'AD006-GENERAL PLAN OF ACTIVITIES.docx');
   }
 
   const downloadAD007 = () => {
-    saveAs(`${process.env.BACKEND_URL}/accreditation/${'AD007-ADVOCACY PLAN.docx'}`, 'AD007-ADVOCACY PLAN.docx');
+    saveAs(`${process.env.REACT_APP_BASE_URL}/accreditation/${'AD007-ADVOCACY PLAN.docx'}`, 'AD007-ADVOCACY PLAN.docx');
   }
 
   const downloadAD009 = () => {
-    saveAs(`${process.env.BACKEND_URL}/accreditation/${'AD009-WAIVER OF RESPONSIBILITY.docx'}`, 'AD009-WAIVER OF RESPONSIBILITY.docx');
+    saveAs(`${process.env.REACT_APP_BASE_URL}/accreditation/${'AD009-WAIVER OF RESPONSIBILITY.docx'}`, 'AD009-WAIVER OF RESPONSIBILITY.docx');
   }
 
   const downloadRF001 = () => {
-    saveAs(`${process.env.BACKEND_URL}/revalidation/${'RF001-TRACKER FORM.docx'}`, 'RF001-TRACKER FORM.docx');
+    saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RF001-TRACKER FORM.docx'}`, 'RF001-TRACKER FORM.docx');
   }
 
   const downloadRD001 = () => {
-    saveAs(`${process.env.BACKEND_URL}/revalidation/${'RD001-CERTIFICATE OF RECOGNITION.docx'}`, 'RD001-CERTIFICATE OF RECOGNITION.docx');
+    saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD001-CERTIFICATE OF RECOGNITION.docx'}`, 'RD001-CERTIFICATE OF RECOGNITION.docx');
   }
 
   const downloadRD003 = () => {
-    saveAs(`${process.env.BACKEND_URL}/revalidation/${'RD002-OFFICIAL LIST.docx'}`, 'RD003-OFFICIAL LIST OF OFFICERS AND ADVISERS.docx');
+    saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD002-OFFICIAL LIST.docx'}`, 'RD003-OFFICIAL LIST OF OFFICERS AND ADVISERS.docx');
   }
 
   const downloadRD004 = () => {
-    saveAs(`${process.env.BACKEND_URL}/revalidation/${'RD003-OFFICERS\' PROFILE.docx'}`, 'RD004-OFFICERS PROFILE.docx');
+    saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD003-OFFICERS\' PROFILE.docx'}`, 'RD004-OFFICERS PROFILE.docx');
   }
 
   const downloadRD005 = () => {
-    saveAs(`${process.env.BACKEND_URL}/revalidation/${'RD004-LETTER OF CONCURRENCE.docx'}`, 'RD005-ADVIER LETTER OF CONCURRENCE.docx');
+    saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD004-LETTER OF CONCURRENCE.docx'}`, 'RD005-ADVIER LETTER OF CONCURRENCE.docx');
   }
 
   const downloadRD006 = () => {
-    saveAs(`${process.env.BACKEND_URL}/revalidation/${'RD005-CBL-TABLE-OF-AMENDMENTS.docx'}`, 'RD006-CONSTITUTION AND BYLAWS.docx');
+    saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD005-CBL-TABLE-OF-AMENDMENTS.docx'}`, 'RD006-CONSTITUTION AND BYLAWS.docx');
   }
 
   const downloadRD007 = () => {
-    saveAs(`${process.env.BACKEND_URL}/revalidation/${'RD006-GPOA.docx'}`, 'RD007-GENERAL PLAN OF ACTIVITIES.docx');
+    saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD006-GPOA.docx'}`, 'RD007-GENERAL PLAN OF ACTIVITIES.docx');
   }
 
   const downloadRD008 = () => {
-    saveAs(`${process.env.BACKEND_URL}/revalidation/${'RD007-ADVOCACY PLAN.docx'}`, 'RD008-ADVOCACY PLAN.docx');
+    saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD007-ADVOCACY PLAN.docx'}`, 'RD008-ADVOCACY PLAN.docx');
   }
 
   const downloadRD009 = () => {
-    saveAs(`${process.env.BACKEND_URL}/revalidation/${'RD008-ACCOMPLISHMENT REPORT.docx'}`, 'RD009-ACCOMPLISHMENT REPORT.docx');
+    saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD008-ACCOMPLISHMENT REPORT.docx'}`, 'RD009-ACCOMPLISHMENT REPORT.docx');
   }
 
   const downloadRD012 = () => {
-    saveAs(`${process.env.BACKEND_URL}/revalidation/${'RD010-TURNOVER-OF-ASSETS-AND-FUNDS.docx'}`, 'RD010-FINANCIAL STATEMENTS.docx');
+    saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD010-TURNOVER-OF-ASSETS-AND-FUNDS.docx'}`, 'RD010-FINANCIAL STATEMENTS.docx');
   }
 
   const downloadRD013 = () => {
-    saveAs(`${process.env.BACKEND_URL}/revalidation/${'RD011-WAIVER OF RESPONSIBILITY.docx'}`, 'RD011-CERTIFICATE OF CLEARANCE.docx');
+    saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD011-WAIVER OF RESPONSIBILITY.docx'}`, 'RD011-CERTIFICATE OF CLEARANCE.docx');
   }
 
   

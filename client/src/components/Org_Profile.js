@@ -21,7 +21,7 @@ function Org_Profile() {
 
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/accredited/org/${orgId}`)
+    axios.get(`${process.env.REACT_APP_BASE_URL}/accredited/org/${orgId}`)
     .then((response) => {
       if(response.data.error){
         navigate('/404');
@@ -35,7 +35,7 @@ function Org_Profile() {
   }, [location.pathname])
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/accredited/org/get_announcements/${orgId}`)
+    axios.get(`${process.env.REACT_APP_BASE_URL}/accredited/org/get_announcements/${orgId}`)
     .then((response) => {
       if(response.data.error){
         navigate('/404');
