@@ -19,8 +19,11 @@ function LandingPage() {
       console.log(res.data);
       alert(res.data);
     })
+    .catch((err) => {
+      console.log(err);
+    })
   }, []);
-  
+
   return (
     <main>
       <Hero />
