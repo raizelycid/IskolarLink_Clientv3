@@ -19,7 +19,7 @@ const Section1 = () => {
               <p className="s1-p Inter-normal">Explore your interests, make valuable connections, and elevate your campus life.</p>
             </Col>
           </Row>
-          <Row fluid>
+          <Row>
               <Stat_Card
                 imgSrc="./s1-icon1.png"
                 subtitle="Student Organizations"

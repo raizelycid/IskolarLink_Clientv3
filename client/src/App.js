@@ -38,7 +38,7 @@ import O_Membership from './Pages/Organization_Portal/O_Membership';
 import Official_Members from './Pages/Organization_Portal/Official_Members';
 import Admin_Dashboard from './Pages/Admin_Portal/Admin_Dashboard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import COSOA_Accesibility from './Pages/COSOA_Portal/COSOA_Accesibility';
 
 function App() {
 
@@ -122,8 +122,6 @@ function App() {
   }, [scrollTimeout]);
 
   const navbarClass = initialScroll ? 'solid-navbar shadow' : scrolling ? 'fixed-top solid-navbar shadow' : 'fixed-top solid-navbar shadow';
-
-
 
   return (
     <Router>
@@ -214,6 +212,7 @@ function App() {
         <Route path="/organization/membership" exact element={<O_Membership/>} />
         <Route path="/organization/members" exact element={<Official_Members/>}/>
         <Route path="/admin/dashboard" exact element={<Admin_Dashboard/>}/>
+        <Route path="/cosoa/accessibility" exact element={<COSOA_Accesibility/>}/>
       </Routes>
 
       <footer className="footer bg-dark text-white py-4 border-bottom Inter">
