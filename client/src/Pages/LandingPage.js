@@ -13,7 +13,7 @@ import axios from 'axios';
 function LandingPage() {
   return (
     <main>
-      <Button onClick={() => {axios.get('/luke/hello').then(res => alert(res.data))}}>Test</Button>
+      <Button onClick={() => {axios.get(`${process.env.REACT_APP_BASE_URL}.up.railway.app/luke/hello`).then(res => alert(res.data))}}>Test</Button>
       <Hero />
       <Section1 />
       <Section2 />
