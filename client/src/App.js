@@ -38,7 +38,7 @@ import O_Membership from './Pages/Organization_Portal/O_Membership';
 import Official_Members from './Pages/Organization_Portal/Official_Members';
 import Admin_Dashboard from './Pages/Admin_Portal/Admin_Dashboard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import COSOA_Accesibility from './Pages/COSOA_Portal/COSOA_Accesibility';
 
 function App() {
 
@@ -122,8 +122,6 @@ function App() {
   }, [scrollTimeout]);
 
   const navbarClass = initialScroll ? 'solid-navbar shadow' : scrolling ? 'fixed-top solid-navbar shadow' : 'fixed-top solid-navbar shadow';
-
-
 
   return (
     <Router>
@@ -214,11 +212,12 @@ function App() {
         <Route path="/organization/membership" exact element={<O_Membership/>} />
         <Route path="/organization/members" exact element={<Official_Members/>}/>
         <Route path="/admin/dashboard" exact element={<Admin_Dashboard/>}/>
+        <Route path="/cosoa/accesibility" exact element={<COSOA_Accesibility/>}/>
       </Routes>
 
       <footer className="footer bg-dark text-white py-4 border-bottom Inter">
         <Container>
-          <Row className="align-items-center flex-column flex-md-row"> {/* Use flex classes */}
+          <Row className="text-center d-flex justify-content-center align-items-center flex-column flex-md-row">
             <Col xs={12} md={3} className="text-start">
               {/* Logo */}
               <Navbar.Brand className="footer-brand text-white Urbanist my-0" href="#">
@@ -249,10 +248,9 @@ function App() {
                     FAQs
                   </a>
                 </li>
-                {/* Add more navigation links as needed */}
               </ul>
             </Col>
-            <Col xs={12} md={3} className="text-center mt-3 mt-md-0">
+            <Col xs={12} md={3} className="mt-3 mt-md-0 text-end">
               {/* Social Media Icons */}
               <div className="social-icons d-flex justify-content-center justify-content-md-end">
                 <a href="#" className="social-icon">
