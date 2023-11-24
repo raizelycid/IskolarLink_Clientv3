@@ -5,20 +5,21 @@ import './COSOA_Portal.css'
 
 function COSOA_Accesibility() {
   return (
-    <Container>
+    <>
         <HeroVariant3 
           h1Text="Page Accessibility"
           pText="Assign permissions to COSOA Staff."
         />
-        <Row>
+        <Row className='text-center my-5'>
           <h1 className='text-red'>Lorem Ipsum</h1>
           <p>Another Lorem ipsum pero subtitle</p>
         </Row>
-        <Row>
-          <Button variant="primary">+ Add New COSOA Officer</Button>
-        </Row>
+        
+        <Container className='text-center my-5'>
+        <Button variant="primary">+ Add New COSOA Officer</Button>
 
-    </Container>
+        </Container>
+  </>
   );
 };
 
