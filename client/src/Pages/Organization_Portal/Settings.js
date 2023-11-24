@@ -18,7 +18,9 @@ function OrgSettings() {
             .then((response) => {
                 setOrg(response.data.organization);
                 setUser(response.data.user);
+                if(response.data.socials){
                 setSocials(response.data.socials);
+                }
             });
         }catch(err){
             console.log(err);
