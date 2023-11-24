@@ -50,7 +50,7 @@ function App() {
 
 
   useEffect(() => {
-    axios.get('http://localhost:3001/auth/')
+    axios.get(`${process.env.BACKEND_URL}:3001/auth/`)
     .then((response) => {
       if(response.data.error){
         setAuthState({...authState, status: false});
@@ -76,9 +76,9 @@ function App() {
   useEffect(() => {
     if(authState.role === 'organization'){
       setActiveMenu('org');
-      axios.post('http://localhost:3001/menu/', {menu: 'org'})}
+      axios.post(`${process.env.BACKEND_URL}/menu`, {menu: 'org'})}
       else{
-        axios.get('http://localhost:3001/menu/').then((response) => {
+        axios.get(`${process.env.BACKEND_URL}/menu/`).then((response) => {
           if(response.data.error){
             console.log(response.data.error);
           }
