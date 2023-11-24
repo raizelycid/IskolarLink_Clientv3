@@ -17,7 +17,7 @@ function COSOA() {
 
   useEffect(() => {
     try{
-      axios.get(`${process.env.BACKEND_URL}/cosoa_ann`).then((response) => {
+      axios.get(`${process.env.REACT_APP_BASE_URL}/cosoa_ann`).then((response) => {
         setAnnouncements(response.data);
       });
     }catch(err){
@@ -27,7 +27,7 @@ function COSOA() {
 
   useEffect(() => {
     try{
-      axios.get(`${process.env.BACKEND_URL}/cosoa_ann/get_events`).then((response) => {
+      axios.get(`${process.env.REACT_APP_BASE_URL}/cosoa_ann/get_events`).then((response) => {
         if(response.data.err){
           console.log(response.data.err);
         }else{
