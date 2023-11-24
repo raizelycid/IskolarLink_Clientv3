@@ -17,7 +17,7 @@ function LandingPage() {
   axios.defaults.withCredentials = true;
 
   useEffect(() => {
-    axios.get(`https://iskolarlink-production.up.railway.app/luke/hello`).then((res) => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/luke/hello`).then((res) => {
       console.log(res.data);
       alert(res.data);
     })
