@@ -32,9 +32,12 @@ function LoginPopup() {
       if(response.data.error){
         alert(response.data.error);
       }else{
+        if(response.student){
         alert(response.data);
+        }
         setAuthState({...authState, status: true});
         if(response.org){
+          alert("Logged in as an organization");
           setActiveMenu('org');
           navigate('/organization/profile');
         }
