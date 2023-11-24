@@ -6,11 +6,14 @@ import Section3 from '../components/Landing Page/Section3';
 import Section4 from '../components/Landing Page/Section4';
 import Section5 from '../components/Landing Page/Section5';
 import './LandingPage.css';
+import Button from 'react-bootstrap/Button';
+import axios from 'axios';
 
 
 function LandingPage() {
   return (
     <main>
+      <Button onClick={() => {axios.get('/luke/hello').then(res => alert(res.data))}}>Test</Button>
       <Hero />
       <Section1 />
       <Section2 />
