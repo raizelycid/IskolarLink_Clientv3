@@ -50,7 +50,7 @@ function App() {
 
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BASE_URL}:3001/auth/`)
+    axios.get(`${process.env.REACT_APP_BASE_URL}/auth/`)
     .then((response) => {
       if(response.data.error){
         setAuthState({...authState, status: false});

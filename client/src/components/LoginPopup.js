@@ -32,7 +32,7 @@ function LoginPopup() {
       if(response.data.error){
         alert(response.data.error);
       }else{
-        alert('User logged in!');
+        alert(response.data);
         setAuthState({...authState, status: true});
         if(response.org){
           setActiveMenu('org');
