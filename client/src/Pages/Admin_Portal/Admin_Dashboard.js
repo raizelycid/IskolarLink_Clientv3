@@ -2,7 +2,7 @@ import React from 'react';
 import { HeroVariant3 } from '../../components/HeroVariant/Hero';
 import Stat_Card from '../../components/Stat_Card';
 import { Container, Row, Col, Button, InputGroup, Form, Image} from 'react-bootstrap';
-import './COSOA_Portal.css'
+import './Admin_Portal.css'
 
 
 function Admin_Dashboard() {

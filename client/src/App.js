@@ -40,7 +40,7 @@ import Official_Members from './Pages/Organization_Portal/Official_Members';
 import Admin_Dashboard from './Pages/Admin_Portal/Admin_Dashboard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import COSOA_Accesibility from './Pages/COSOA_Portal/COSOA_Accesibility';
-
+import User_Feedback from './Pages/Admin_Portal/User_Feedback';
 function App() {
 
   axios.defaults.withCredentials = true;
@@ -216,6 +216,7 @@ function App() {
         <Route path="/organization/members" exact element={<Official_Members/>}/>
         <Route path="/admin/dashboard" exact element={<Admin_Dashboard/>}/>
         <Route path="/cosoa/accesibility" exact element={<COSOA_Accesibility/>}/>
+        <Route path="/admin/feedback" exact element={<User_Feedback/>}/>
       </Routes>
 
       <footer className="footer bg-dark text-white py-4 border-bottom Inter">
