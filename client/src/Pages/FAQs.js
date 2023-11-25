@@ -3,8 +3,6 @@ import { HeroVariant } from '../components/HeroVariant/Hero';
 import './FAQs.css';
 import { Container, Row } from 'react-bootstrap';
 import FAQs_Accordion from '../components/FAQs_Accordion';
-import { ContactBanner1 } from '../components/ContactBanner';
-import FAQs_Form from '../components/FAQs_Form';
 
 function FAQs() {
   return (
@@ -21,9 +19,7 @@ function FAQs() {
         <Row className='m-5'>
           <FAQs_Accordion/>
         </Row>
-        <FAQs_Form/>
       </Container>
-      <ContactBanner1/>
     </div>
   )
 }

@@ -21,6 +21,7 @@ import Organization_Profile from './Pages/Organization_Portal/Organization_Profi
 import Revalidation from './Pages/Organization_Portal/Revalidation';
 import OrgSettings from './Pages/Organization_Portal/Settings';
 import OrgFeedback from './Pages/Organization_Portal/Feedback';
+import StudentFeedback from './Pages/Student_Portal/Feedback';
 import MainMenu from './components/mainMenu';
 import CosoaMenu from './components/cosoaMenu';
 import WebAdminMenu from './components/webAdminMenu';
@@ -202,7 +203,8 @@ function App() {
         <Route path="/organization/profile" exact element ={<Organization_Profile />} />
         <Route path="/organization/revalidation" exact element ={<Revalidation />} />
         <Route path='/organization/settings' exact element ={<OrgSettings />} />
-        <Route path='/org_feedback' exact element ={<OrgFeedback />} />
+        <Route path='/organization/feedback' exact element ={<OrgFeedback />} />
+        <Route path="/student/feedback" exact element={<StudentFeedback/>} />
         <Route path="/accreditation" exact element={<Accreditation />} />
         <Route path="/accreditation/status" exact element={<AccreditationStatus />} />
         <Route path="/student/settings" exact element={<StudSettings />} />
