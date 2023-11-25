@@ -56,7 +56,7 @@ import {useNavigate} from 'react-router-dom';
           controls={false}
           fade={true}
           indicators={false}
-          interval={1500}
+          interval={500}
         >
           {slides}
         </Carousel>
