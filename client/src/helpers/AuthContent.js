@@ -14,6 +14,7 @@ export default ({children}) => {
     profile_picture: "",
     role: "",
     student_id: 0,
+    is_verified: false,
     is_cosoa: false,
     is_web_admin: false,
     status: false
