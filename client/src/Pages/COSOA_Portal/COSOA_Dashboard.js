@@ -144,11 +144,12 @@ function COSOA_Dashboard() {
             </Form>
         </Row>
         <Row className='m-4'>
-        <Col xs={1}></Col>
-        <Col>
+        <Col className='text-start'>
           <Button variant="outline-secondary"><i class="fa-solid fa-filter"></i> Filter</Button>
         </Col>
-        <InputGroup as={Col}>
+        <Col>
+        </Col>
+        <InputGroup as={Col} className="text-end">
           <Button variant="outline-secondary" id="button-addon2">
             <i class="fa-solid fa-magnifying-glass"></i>
           </Button>
@@ -157,7 +158,6 @@ function COSOA_Dashboard() {
             className="shadow-lg"
           />
         </InputGroup>
-        <Col xs={1}></Col>
       </Row>
       </Container>
       <Container>

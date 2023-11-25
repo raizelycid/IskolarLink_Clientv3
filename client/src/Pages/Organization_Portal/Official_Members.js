@@ -5,6 +5,7 @@ import Table from 'react-bootstrap/Table';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import Stat_Card from '../../components/Stat_Card';
 
 function Official_Members() {
 
@@ -29,12 +30,56 @@ function Official_Members() {
         pText="Keep track of your members."
       />
       <Container>
-      <Row className='m-4'>
-        <Col xs={1}></Col>
-        <Col>
+      <Row className='mt-4 mb-3'>
+          <h1 className='text-red'>Overview</h1>
+          <h3>Academic Year 2023-2024</h3>
+        </Row>
+        <Row className='my-5 align-items-center'>
+          <Stat_Card 
+            imgSrc="/check_icon.png"
+            numcount="60"
+            subtitle="Approved"
+          />
+          <Stat_Card
+            imgSrc="/time_icon.png"
+            numcount="23"
+            subtitle="Pending"
+          />
+          <Stat_Card 
+            imgSrc="/cross_icon.png"
+            numcount="43"
+            subtitle="Rejected"
+          />
+          <Stat_Card 
+            imgSrc="/clipboard_icon.png"
+            numcount="126"
+            subtitle="Submission"
+          />
+        </Row>
+        <Row className='mt-4 mb-3'>
+          <h1 className='text-red'>Accreditation and Revalidation Period</h1>
+        </Row>
+        <Row>
+        <Form>
+              <Form.Group>
+                <Form.Check
+                  type="switch"
+                  id="anr-period-initial-toggle"
+                  label="Membership"
+                />
+              </Form.Group>
+              <Form.Label className='text-red'>
+              Iskolars <strong>may now apply</strong>.
+              </Form.Label>
+            </Form>
+          </Row>
+          <Row className='m-4'>
+        <Col className='text-start'>
           <Button variant="outline-secondary"><i class="fa-solid fa-filter"></i> Filter</Button>
         </Col>
-        <InputGroup as={Col}>
+        <Col>
+        </Col>
+        <InputGroup as={Col} className="text-end">
           <Button variant="outline-secondary" id="button-addon2">
             <i class="fa-solid fa-magnifying-glass"></i>
           </Button>
@@ -43,7 +88,6 @@ function Official_Members() {
             className="shadow-lg"
           />
         </InputGroup>
-        <Col xs={1}></Col>
       </Row>
       </Container>
       <Container>
