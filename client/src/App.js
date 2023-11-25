@@ -66,6 +66,7 @@ function App() {
           profile_picture: response.data.profile_picture,
           role: response.data.role,
           student_id: response.data.student_id,
+          is_verified: response.data.is_verified,
           is_cosoa: response.data.is_cosoa,
           is_web_admin: response.data.is_web_admin,
           status: true

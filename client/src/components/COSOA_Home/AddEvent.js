@@ -21,7 +21,7 @@ function AddEvent({setRefreshEvents}) {
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      axios.post(`http://localhost:3001/cosoa_ann/add_event`, postEvent).then((response) => {
+      axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa_ann/add_event`, postEvent).then((response) => {
         if(response.data.error){
           alert(response.data.error);
         }else{
