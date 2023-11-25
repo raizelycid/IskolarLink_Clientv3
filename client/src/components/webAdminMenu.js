@@ -40,7 +40,8 @@ const WebAdminMenu = ({imgSrc, username}) => {
     
     return(
     <NavDropdown title={<>{imgSrc ? <img src={`${process.env.REACT_APP_BASE_URL}/images/${imgSrc}`} alt="Profile Picture" width="40" height="40" className="rounded-circle" /> : <FontAwesomeIcon icon={faUser}/>} <span className='text-dark'>Hi, {username}!</span></>} id="basic-nav-dropdown" className="text-dark" renderMenuOnMount={true}>
-        <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+        <NavDropdown.Item onClick={() => navigate('/admin/dashboard')}>Dashboard</NavDropdown.Item>
+        <NavDropdown.Item onClick={() => navigate('/admin/feedback')}>Manage Feedbacks</NavDropdown.Item>
         <NavDropdown.Item onClick={changeMainMenu}>Switch to Student</NavDropdown.Item>
         <NavDropdown.Item href="/settings">Settings</NavDropdown.Item>
         <NavDropdown.Divider />
