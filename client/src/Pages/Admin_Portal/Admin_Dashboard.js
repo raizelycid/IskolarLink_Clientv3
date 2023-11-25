@@ -2,13 +2,13 @@ import React,{useState,useEffect} from 'react';
 import { HeroVariant3 } from '../../components/HeroVariant/Hero';
 import Stat_Card from '../../components/Stat_Card';
 import { Container, Row, Col, Button, InputGroup, Form, Image} from 'react-bootstrap';
-import './COSOA_Portal.css'
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import Table from 'react-bootstrap/Table'
 import Dropdown from 'react-bootstrap/Dropdown'
 import GiveFeedback from '../../components/Admin_Dashboard/GiveFeedback';
+import './Admin_Portal.css'
 
 
 function Admin_Dashboard() {

@@ -244,21 +244,6 @@ function COSOASettings(){
               </Form.Group>
             </Col>
           </Row>
-          <Row className='my-5'>
-            <h2>Accreditation and Revalidation Period</h2>            
-            <Form>
-              <Form.Group>
-                <Form.Check
-                  type="switch"
-                  id="anr-period-toggle"
-                  label="Toggling this switch will open the Accreditation and Revalidation Period of this Academic Year."
-                  checked={cosoa.application_period}
-                  onChange={(e) => setCOSOA({ ...cosoa, application_period: e.target.checked })}
-                  
-                />
-              </Form.Group>
-            </Form>
-          </Row>
           <Row>
             <Col className="text-end mb-4">
               <Button variant="secondary" onClick={handleSaveChanges}>Save Changes</Button>

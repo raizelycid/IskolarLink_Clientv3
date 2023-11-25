@@ -18,6 +18,53 @@ function COSOA_Dashboard() {
 
   const [orgs, setOrgs] = useState([]);
   const navigate = useNavigate();
+  const [cosoa, setCOSOA] = useState({});
+
+  const handleToggle = () => {
+    // Logic to handle toggle
+    try{
+      axios.post('http://localhost:3001/cosoa/application_period')
+      .then((response) => {
+        if(response.data.success){
+          alert(response.data.success);
+          setCOSOA({ ...cosoa, application_period: response.data.period });
+        }else{
+          alert(response.data.error);
+        }
+      });
+    }catch(err){
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    try{
+        axios.get('http://localhost:3001/cosoa_profile/get_cosoa_details')
+        .then((response) => {
+          console.log(response.data);
+            setCOSOA(response.data);
+        });
+
+        
+    }catch(err){
+        console.log(err);
+    }
+    }, []);
+
+    useEffect(() => {
+      try{
+        axios.get('http://localhost:3001/cosoa/application_period').then((response) => {
+          setCOSOA(response.data.application_period);
+          if(response.data.application_period === true){
+            document.getElementById('anr-period-toggle').checked = true;
+          }else{
+            document.getElementById('anr-period-toggle').checked = false;
+          }
+        });
+      }catch(err){
+        console.log(err);
+      }
+    }, [cosoa.application_period]);
 
   useEffect(() => {
     axios.get('http://localhost:3001/cosoa_dashboard/get_orgs')
@@ -35,6 +82,10 @@ function COSOA_Dashboard() {
         pText="See your organization analytics"
       />
       <Container>
+        <Row className='mt-4 mb-3'>
+          <h1 className='text-red'>Overview</h1>
+          <h3>Academic Year 2023-2024</h3>
+        </Row>
         <Row className='my-5 align-items-center'>
           <Stat_Card 
             imgSrc="/check_icon.png"
@@ -57,12 +108,48 @@ function COSOA_Dashboard() {
             subtitle="Submission"
           />
         </Row>
+        <Row className='mt-4 mb-3'>
+          <h1 className='text-red'>Accreditation and Revalidation Period</h1>
+        </Row>
+        <Row>
+        <Form>
+              <Form.Group>
+                <Form.Check
+                  type="switch"
+                  id="anr-period-initial-toggle"
+                  label="Initial Evaluation"
+                  checked={cosoa.application_period}
+                  /*onChange={(e) => setCOSOA({ ...cosoa, application_period: e.target.checked })}*/
+                />
+              </Form.Group>
+              <Form.Label className="text-red">
+              Student organizations and Student Representatives may now submit their applications.
+              </Form.Label>
+            </Form>
+        </Row>
+        <Row className="my-2">
+        <Form>
+              <Form.Group>  
+                <Form.Check
+                  type="switch"
+                  id="anr-period-final-toggle"
+                  label="Final Evaluation"
+                  checked={cosoa.application_period}
+                  /*onChange={(e) => setCOSOA({ ...cosoa, application_period: e.target.checked })}*/
+                />
+              </Form.Group>
+              <Form.Label className="text-red">
+              Student organizations and Student Representatives may still resubmit their documents.
+              </Form.Label>
+            </Form>
+        </Row>
         <Row className='m-4'>
-        <Col xs={1}></Col>
-        <Col>
+        <Col className='text-start'>
           <Button variant="outline-secondary"><i class="fa-solid fa-filter"></i> Filter</Button>
         </Col>
-        <InputGroup as={Col}>
+        <Col>
+        </Col>
+        <InputGroup as={Col} className="text-end">
           <Button variant="outline-secondary" id="button-addon2">
             <i class="fa-solid fa-magnifying-glass"></i>
           </Button>
@@ -71,7 +158,6 @@ function COSOA_Dashboard() {
             className="shadow-lg"
           />
         </InputGroup>
-        <Col xs={1}></Col>
       </Row>
       </Container>
       <Container>

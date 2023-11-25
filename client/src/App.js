@@ -21,6 +21,7 @@ import Organization_Profile from './Pages/Organization_Portal/Organization_Profi
 import Revalidation from './Pages/Organization_Portal/Revalidation';
 import OrgSettings from './Pages/Organization_Portal/Settings';
 import OrgFeedback from './Pages/Organization_Portal/Feedback';
+import StudentFeedback from './Pages/Student_Portal/Feedback';
 import MainMenu from './components/mainMenu';
 import CosoaMenu from './components/cosoaMenu';
 import WebAdminMenu from './components/webAdminMenu';
@@ -39,7 +40,7 @@ import Official_Members from './Pages/Organization_Portal/Official_Members';
 import Admin_Dashboard from './Pages/Admin_Portal/Admin_Dashboard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import COSOA_Accesibility from './Pages/COSOA_Portal/COSOA_Accesibility';
-
+import User_Feedback from './Pages/Admin_Portal/User_Feedback';
 function App() {
 
   axios.defaults.withCredentials = true;
@@ -50,7 +51,8 @@ function App() {
 
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BASE_URL}/auth/`)
+    document.title = 'Iskolar Link';
+     axios.get(`${process.env.REACT_APP_BASE_URL}/auth/`)
     .then((response) => {
       if(response.data.error){
         setAuthState({...authState, status: false});
@@ -201,7 +203,8 @@ function App() {
         <Route path="/organization/profile" exact element ={<Organization_Profile />} />
         <Route path="/organization/revalidation" exact element ={<Revalidation />} />
         <Route path='/organization/settings' exact element ={<OrgSettings />} />
-        <Route path='/org_feedback' exact element ={<OrgFeedback />} />
+        <Route path='/organization/feedback' exact element ={<OrgFeedback />} />
+        <Route path="/student/feedback" exact element={<StudentFeedback/>} />
         <Route path="/accreditation" exact element={<Accreditation />} />
         <Route path="/accreditation/status" exact element={<AccreditationStatus />} />
         <Route path="/student/settings" exact element={<StudSettings />} />
@@ -213,6 +216,7 @@ function App() {
         <Route path="/organization/members" exact element={<Official_Members/>}/>
         <Route path="/admin/dashboard" exact element={<Admin_Dashboard/>}/>
         <Route path="/cosoa/accesibility" exact element={<COSOA_Accesibility/>}/>
+        <Route path="/admin/feedback" exact element={<User_Feedback/>}/>
       </Routes>
 
       <footer className="footer bg-dark text-white py-4 border-bottom Inter">

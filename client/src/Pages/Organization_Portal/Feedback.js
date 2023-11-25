@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Organization_Profile.css';
 import { HeroVariant } from '../../components/HeroVariant/Hero';
 import FAQs_Form from '../../components/FAQs_Form';
-import { Container, Row, Col, Button, Form, Image } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 
 
 function OrgFeedback() {

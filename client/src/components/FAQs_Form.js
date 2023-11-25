@@ -7,7 +7,7 @@ const FAQs_Form = () => {
     <>
         <Container>
             <Container className='text-center'>
-              <Image src="icon_125.png"/>
+              <Image src="/icon_125.png"/>
               <Row>
                 <h3>Still Have Questions? <strong>Get In Touch With Us</strong></h3>
                 <p>Can’t find the answer you’re looking for? Please chat to our friendly team.</p>
