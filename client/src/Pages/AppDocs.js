@@ -8,8 +8,6 @@ import { saveAs } from 'file-saver';
 function AppDocs() {
   const [activeKey, setActiveKey] = useState('reval');
   let backend_url = process.env.BACKEND_URL;
-
-
   const downloadAF001 = () => {
     saveAs(`${process.env.REACT_APP_BASE_URL}/accreditation/${'AF001-TRACKER FORM.docx'}`, 'AF001-TRACKER FORM.docx');
   }
@@ -54,48 +52,43 @@ function AppDocs() {
     saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD001-CERTIFICATE OF RECOGNITION.docx'}`, 'RD001-CERTIFICATE OF RECOGNITION.docx');
   }
 
-  const downloadRD003 = () => {
+  const downloadRD002 = () => {
     saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD002-OFFICIAL LIST.docx'}`, 'RD003-OFFICIAL LIST OF OFFICERS AND ADVISERS.docx');
   }
 
-  const downloadRD004 = () => {
+  const downloadRD003 = () => {
     saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD003-OFFICERS\' PROFILE.docx'}`, 'RD004-OFFICERS PROFILE.docx');
   }
 
-  const downloadRD005 = () => {
+  const downloadRD004 = () => {
     saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD004-LETTER OF CONCURRENCE.docx'}`, 'RD005-ADVIER LETTER OF CONCURRENCE.docx');
   }
 
-  const downloadRD006 = () => {
+  const downloadRD005 = () => {
     saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD005-CBL-TABLE-OF-AMENDMENTS.docx'}`, 'RD006-CONSTITUTION AND BYLAWS.docx');
   }
 
-  const downloadRD007 = () => {
+  const downloadRD006 = () => {
     saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD006-GPOA.docx'}`, 'RD007-GENERAL PLAN OF ACTIVITIES.docx');
   }
 
-  const downloadRD008 = () => {
+  const downloadRD007 = () => {
     saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD007-ADVOCACY PLAN.docx'}`, 'RD008-ADVOCACY PLAN.docx');
   }
 
-  const downloadRD009 = () => {
+  const downloadRD008 = () => {
     saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD008-ACCOMPLISHMENT REPORT.docx'}`, 'RD009-ACCOMPLISHMENT REPORT.docx');
   }
 
-  const downloadRD012 = () => {
+  const downloadRD010 = () => {
     saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD010-TURNOVER-OF-ASSETS-AND-FUNDS.docx'}`, 'RD010-FINANCIAL STATEMENTS.docx');
   }
 
-  const downloadRD013 = () => {
+  const downloadRD011 = () => {
     saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD011-WAIVER OF RESPONSIBILITY.docx'}`, 'RD011-CERTIFICATE OF CLEARANCE.docx');
   }
 
-  
 
-  
-  
-
-  
   return (
     <div>
       <HeroVariant 
@@ -143,52 +136,52 @@ function AppDocs() {
                     <tr>
                       <th>Tracker Form</th>
                       <th>AF001</th>
-                      <th><a onClick={downloadAF001}>View</a></th>
+                      <th><a href="#" onClick={downloadAF001}>View</a></th>
                     </tr>
                     <tr>
                       <th>Certificate of Recognition from Central/Local Student Council</th>
                       <th>AD001</th>
-                      <th><a onClick={downloadAD001}>View</a></th>
+                      <th><a onClick={downloadAD001}>No Template</a></th>
                     </tr>
                     <tr>
                       <th>Official List of Officers and Adviser(s) with signatures over printed names, and list of members <i>(at least 15 members including the officers/executives)</i></th>
                       <th>AD002</th>
-                      <th><a onClick={downloadAD002}>View</a></th>
+                      <th><a href="#" onClick={downloadAD002}>View</a></th>
                     </tr>
                     <tr>
                       <th>Officers' Profile with 1st Semester Certificate of Registration <i>*alternatives, e.g., Confirmation Slip/Certificate of Enrollment</i></th>
                       <th>AD003</th>
-                      <th><a onClick={downloadAD003}>View</a></th>
+                      <th><a href="#" onClick={downloadAD003}>View</a></th>
                     </tr>
                     <tr>
                       <th>Advier(s)'s Letter of Concurrence with scanned copy of their University-issued ID</th>
                       <th>AD004</th>
-                      <th><a onClick={downloadAD004}>View</a></th>
+                      <th><a href="#" onClick={downloadAD004}>View</a></th>
                     </tr>
                     <tr>
                       <th>Student Organization's Constitution and Bylaws (CBL)</th>
                       <th>AD005</th>
-                      <th><a onClick={downloadAD005}>View</a></th>
+                      <th><a href="#" onClick={downloadAD005}>View</a></th>
                     </tr>
                     <tr>
                       <th>General Plan of Activities with Budgetary Outlay</th>
                       <th>AD006</th>
-                      <th><a onClick={downloadAD006}>View</a></th>
+                      <th><a href="#" onClick={downloadAD006}>View</a></th>
                     </tr>
                     <tr>
                       <th>Advocacy Plan</th>
                       <th>AD007</th>
-                      <th><a onClick={downloadAD007}>View</a></th>
+                      <th><a href="#" onClick={downloadAD007}>View</a></th>
                     </tr>
                     <tr>
                       <th>Certificate of Clearance from PUP Student Council Commission on Audit (PUP SC COA)</th>
                       <th>AD008</th>
-                      <th><a href="#" target="_blank">View</a></th>
+                      <th><a >No Template</a></th>
                     </tr>
                     <tr>
                       <th>Waiver of Responsibility</th>
                       <th>AD009</th>
-                      <th><a onClick={downloadAD009}>View</a></th>
+                      <th><a href="#" onClick={downloadAD009}>View</a></th>
                     </tr>
                   </tbody>
                 </Table>  
@@ -206,72 +199,62 @@ function AppDocs() {
                     <tr>
                       <th>Tracker Form</th>
                       <th>RF001</th>
-                      <th><a href="#" target="_blank">View</a></th>
+                      <th><a href="#" onClick={downloadRF001}>View</a></th>
                     </tr>
                     <tr>
                       <th>Certificate of Recognition from Central/Local Student Council</th>
                       <th>RD001</th>
-                      <th><a onClick={downloadRD001}>View</a></th>
-                    </tr>
-                    <tr>
-                      <th>Scanned Copy of the Latest Certificate of Accreditation/Revalidation</th>
-                      <th>RD002</th>
-                      <th><a href="#" target="_blank">View</a></th>
+                      <th><a onClick={downloadRD001}>No Template</a></th>
                     </tr>
                     <tr>
                       <th>Official List of Officers and Adviser(s) with signatures over printed names, and list of members</th>
-                      <th>RD003</th>
-                      <th><a onClick={downloadRD003}>View</a></th>
+                      <th>RD002</th>
+                      <th><a href="#" onClick={downloadRD002}>View</a></th>
                     </tr>
                     <tr>
                       <th>Officers' Profile with 1st Semester Certificate of Registration <i>*alternatives, e.g., Confirmation Slip/Certificate of Enrollment</i></th>
-                      <th>RD004</th>
-                      <th><a onClick={downloadRD004}>View</a></th>
+                      <th>RD003</th>
+                      <th><a href="#" onClick={downloadRD003}>View</a></th>
                     </tr>
                     <tr>
                       <th>Advier(s)'s Letter of Concurrence with scanned copy of their University-issued ID</th>
-                      <th>RD005</th>
-                      <th><a onClick={downloadRD005}>View</a></th>
+                      <th>RD004</th>
+                      <th><a href="#" onClick={downloadRD004}>View</a></th>
                     </tr>
                     <tr>
                       <th>Student Organization's Constitution and Bylaws (CBL)</th>
-                      <th>RD006</th>
-                      <th><a onClick={downloadRD006}>View</a></th>
+                      <th>RD005</th>
+                      <th><a onClick={downloadRD005}>No Template</a></th>
                     </tr>
                     <tr>
                       <th>General Plan of Activities with Budgetary Outlay</th>
-                      <th>RD007</th>
-                      <th><a onClick={downloadRD007}>View</a></th>
+                      <th>RD006</th>
+                      <th><a href="#" onClick={downloadRD006}>View</a></th>
                     </tr>
                     <tr>
                       <th>Advocacy Plan</th>
-                      <th>RD008</th>
-                      <th><a onClick={downloadRD008}>View</a></th>
+                      <th>RD007</th>
+                      <th><a href="#" onClick={downloadRD007}>View</a></th>
                     </tr>
                     <tr>
                       <th>Accomplishment Report</th>
-                      <th>RD009</th>
-                      <th><a onClick={downloadRD009}>View</a></th>
-                    </tr>
-                    <tr>
-                      <th>Financial Statements</th>
-                      <th>RD010</th>
-                      <th><a href="#" target="_blank">View</a></th>
+                      <th>RD008</th>
+                      <th><a href="#" onClick={downloadRD008}>View</a></th>
                     </tr>
                     <tr>
                       <th>Certificate of Clearance from PUP Student Council Commission on Audit (PUP SC COA)</th>
-                      <th>RD011</th>
-                      <th><a href="#" target="_blank">View</a></th>
+                      <th>RD009</th>
+                      <th><a>No Template</a></th>
                     </tr>
                     <tr>
                       <th>Turnover of Assets and Funds</th>
-                      <th>RD012</th>
-                      <th><a onClick={downloadRD012}>View</a></th>
+                      <th>RD010</th>
+                      <th><a href="#" onClick={downloadRD010}>View</a></th>
                     </tr>
                     <tr>
                       <th>Waiver of Responsibility</th>
-                      <th>RD013</th>
-                      <th><a onClick={downloadRD013}>View</a></th>
+                      <th>RD011</th>
+                      <th><a href="#" onClick={downloadRD011}>View</a></th>
                     </tr>
                   </tbody>
                 </Table> 
