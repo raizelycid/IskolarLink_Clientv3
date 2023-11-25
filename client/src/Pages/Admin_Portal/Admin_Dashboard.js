@@ -3,6 +3,7 @@ import { HeroVariant3 } from '../../components/HeroVariant/Hero';
 import Stat_Card from '../../components/Stat_Card';
 import { Container, Row, Col, Button, InputGroup, Form, Image} from 'react-bootstrap';
 import './Admin_Portal.css'
+import Add_Chairperson from '../../components/Add_Chairperson';
 
 
 function Admin_Dashboard() {
@@ -47,7 +48,7 @@ function Admin_Dashboard() {
             <p className='text-red'>markmacaraeg@iskolarngbayan.pup.edu.ph</p>
           </Col>
           <Col className='text-end mt-1'>
-            <Button variant="primary">Update Chairperson</Button>
+            <Add_Chairperson />
           </Col>
         </Row>
         <Row className='text-center mt-5'>
