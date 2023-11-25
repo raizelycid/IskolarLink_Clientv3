@@ -50,7 +50,8 @@ function App() {
 
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BASE_URL}/auth/`)
+    document.title = 'Iskolar Link';
+     axios.get(`${process.env.REACT_APP_BASE_URL}/auth/`)
     .then((response) => {
       if(response.data.error){
         setAuthState({...authState, status: false});
