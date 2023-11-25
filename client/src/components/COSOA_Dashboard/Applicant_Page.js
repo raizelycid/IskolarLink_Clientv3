@@ -232,7 +232,7 @@ function Applicant_Page() {
     <Container className='applicant-header-container'>
       <Row>
         <Col>
-        {user.profile_picture ? <img src={`${process.env.REACT_APP_BASE_URL}/org_images/${user.profile_picture}`} alt="Profile Picture" width="100" height="100" className="rounded-circle" /> : <img src={`${process.env.REACT_APP_BASE_URL}/org_images/default-org-photo.jpg`} alt="Profile Picture" width="100" height="100" className="rounded-circle" />
+        {(user.profile_picture && user.role === "organization") ? <img src={`${process.env.REACT_APP_BASE_URL}/org_images/${user.profile_picture}`} alt="Profile Picture" width="100" height="100" className="rounded-circle" /> : <img src={`${process.env.REACT_APP_BASE_URL}/org_images/default-org-photo.jpg`} alt="Profile Picture" width="100" height="100" className="rounded-circle" />
           }
         <span className='applicant-org-name'>{applicant.org_name}</span>
         </Col>

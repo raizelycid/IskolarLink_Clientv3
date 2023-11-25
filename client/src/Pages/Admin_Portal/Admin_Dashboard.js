@@ -9,6 +9,7 @@ import Table from 'react-bootstrap/Table'
 import Dropdown from 'react-bootstrap/Dropdown'
 import GiveFeedback from '../../components/Admin_Dashboard/GiveFeedback';
 import './Admin_Portal.css'
+import Add_Chairperson from '../../components/Add_Chairperson';
 
 
 function Admin_Dashboard() {
@@ -97,7 +98,7 @@ function Admin_Dashboard() {
             <p className='text-red'>{chairperson.user?.email}</p>
           </Col>
           <Col className='text-end mt-1'>
-            <Button variant="primary">Update Chairperson</Button>
+            <Add_Chairperson />
           </Col>
         </Row>
         <Row className='text-center mt-5'>
