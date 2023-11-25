@@ -20,19 +20,19 @@ function Admin_Dashboard() {
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
-    axios.get('http://localhost:3001/admin/count_students').then((response) => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/admin/count_students`).then((response) => {
       setStudentCount(response.data);
     });
 
-    axios.get('http://localhost:3001/admin/count_students_to_verify').then((response) => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/admin/count_students_to_verify`).then((response) => {
       setToVerifyCount(response.data);
     });
 
-    axios.get('http://localhost:3001/admin/get_chairperson').then((response) => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/admin/get_chairperson`).then((response) => {
       setChairperson(response.data);
     });
 
-    axios.get('http://localhost:3001/admin/get_students_to_verify').then((response) => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/admin/get_students_to_verify`).then((response) => {
       setStudentsToVerify(response.data);
     });
 
