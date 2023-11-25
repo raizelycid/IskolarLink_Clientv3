@@ -34,6 +34,8 @@ function OrgSettings() {
         formData.profile_picture = user.profile_picture;
         formData.mission = org.mission;
         formData.vision = org.vision;
+        formData.membership_period = org.membership_period;
+        formData.strict = org.strict;
         formData.currentPassword = user.currentPassword;
         formData.newPassword = user.newPassword;
         formData.facebook = socials.facebook;
@@ -47,11 +49,11 @@ function OrgSettings() {
                     'Content-Type': 'multipart/form-data'
                 }
             }).then((response) => {
-            /*if(response.data.err){
+            if(response.data.err){
                 alert(response.data.err);
             }else{
-                console.log(response.data)
-            }*/
+                alert(response.data.success)
+            }
             //clear formData
             formData = {};
         });
@@ -200,6 +202,36 @@ function OrgSettings() {
                 </InputGroup>
               </Form.Group>
             </Col>
+          </Row>
+          <Row>
+            <h2>Strict Mode</h2>
+            <p className="text-gray2 mb-4">Turn on if you want applicants only from your subjurisdiction.</p>
+            <Form.Group as={Row} className="mb-3">
+              <Col sm="10">
+                <Form.Check
+                  type="switch"
+                  id="custom-switch"
+                  label={org.strict ? "Strict Mode is On" : "Strict Mode is Off"}
+                  checked={org.strict}
+                  onChange={(e) => setOrg({ ...org, strict: e.target.checked })}
+                />
+              </Col>
+            </Form.Group>
+          </Row>
+          <Row>
+            <h2>Membership Period</h2>
+            <p className="text-gray2 mb-4">Set the membership period of your organization.</p>
+            <Form.Group as={Row} className="mb-3">
+              <Col sm="10">
+                <Form.Check
+                  type="switch"
+                  id="custom-switch"
+                  label={org.membership_period ? "Membership Period is Open" : "Membership Period is Closed"}
+                  checked={org.membership_period}
+                  onChange={(e) => setOrg({ ...org, membership_period: e.target.checked })}
+                />
+              </Col>
+            </Form.Group>
           </Row>
           <Row>
             <Col className="text-end mb-4">

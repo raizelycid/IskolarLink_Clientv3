@@ -70,6 +70,7 @@ const MainMenu = ({imgSrc, username}) => {
         {authState.is_web_admin && <NavDropdown.Item href="/web_admin_home"  onClick={switchWebAdmin}>Switch to Web Admin</NavDropdown.Item>}
         <NavDropdown.Item onClick={() => navigate('/student/settings')}>Settings</NavDropdown.Item>
         <NavDropdown.Divider />
+        <NavDropdown.Item onClick={() => {navigate('/student/feedback')}}>Feedback</NavDropdown.Item>
         <NavDropdown.Item onClick={() => {
             axios.post(`${process.env.REACT_APP_BASE_URL}/auth/logout`)
             .then((response) => {
