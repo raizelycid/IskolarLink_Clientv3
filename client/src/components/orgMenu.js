@@ -30,6 +30,7 @@ function OrgMenu({imgSrc, username}) {
         <NavDropdown.Item onClick={() => navigate('/organization/revalidation')}>Revalidation</NavDropdown.Item>
         <NavDropdown.Item onClick={() => navigate('/organization/settings')}>Settings</NavDropdown.Item>
         <NavDropdown.Divider />
+        <NavDropdown.Item onClick={() => navigate('/organization/feedback')}>Feedback</NavDropdown.Item>
         <NavDropdown.Item onClick={() => {
             axios.post(`${process.env.REACT_APP_BASE_URL}/auth/logout`)
             .then((response) => {

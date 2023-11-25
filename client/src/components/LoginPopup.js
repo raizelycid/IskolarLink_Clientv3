@@ -32,8 +32,8 @@ function LoginPopup() {
       if(response.data.error){
         alert(response.data.error);
       }else{
-        if(response.student){
-        alert(response.data);
+        if(response.data.student){
+        alert(response.data.student);
         }
         setAuthState({...authState, status: true});
         if(response.org){

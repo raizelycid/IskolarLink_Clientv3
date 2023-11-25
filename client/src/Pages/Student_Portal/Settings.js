@@ -45,6 +45,11 @@ function StudSettings() {
 
 
   const [profile, setProfile] = useState({});
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleCORChange = (e) => {
+    setProfile({...profile, cor: e.target.files[0]});
+  };
 
   useEffect(() => {
     try{
@@ -70,7 +75,7 @@ function StudSettings() {
       <h4 className='text-red mb-5' >Update your photo and personal details here.</h4>
       <Form>
             <div>
-
+              
 
                 <Form.Group as={Row}  className="mb-3" controlId="formHorizontalImage">
                     <Form.Label column sm={2}>
@@ -87,6 +92,7 @@ function StudSettings() {
                         <FormControl
                         type="file"
                         onChange={handleFileChange}
+                        disabled={!profile.is_verified}
                         />
                     </InputGroup>
                     </Col>
@@ -101,37 +107,13 @@ function StudSettings() {
                 value={profile.description}
                 onChange={(e) => setProfile({...profile, description: e.target.value})}
                 maxLength={600}
+                disabled={!profile.is_verified}
               />
               <Form.Text className="text-muted">
                 {profile.description && 600 - profile.description.length} characters left
               </Form.Text>
           </Form.Group>
-          {!profile.is_verified ?
-          <Form.Group as={Row}  md={12}  className="mb-3" controlId="formCOR">
-            <Form.Label>Certificate of Registration</Form.Label>
-            {!profile.cor ?
-              <InputGroup>
-                <FormControl
-                  type="file"
-                  placeholder="Upload Certificate of Registration"
-                  style={{ width: '98%', margin: '10px' }}
-                  onChange={(e) => setProfile({...profile, cor: e.target.files[0]})}
-                />
-              </InputGroup>
-              : (profile.cor && profile.cor_remarks) ? 
-              (<><InputGroup>
-                <FormControl
-                  type="file"
-                  placeholder="Upload Certificate of Registration"
-                  style={{ width: '98%', margin: '10px' }}
-                  onChange={(e) => setProfile({...profile, cor: e.target.files[0]})}
-                />
-              </InputGroup>
-              <p className="text-gray2">{profile.cor_remarks}</p></>)
-              :
-               "You have already uploaded your Certificate of Registration. Please wait for the admin to verify your COR or for feedback."}
-          </Form.Group>
-          : "Congratulations! Your account has been verified."}
+          
 
           <div className='my-5'>
             <h2>Password</h2>
@@ -179,6 +161,7 @@ function StudSettings() {
                     placeholder="Profile link/url..." 
                     value={profile.facebook}
                     onChange={(e) => setProfile({...profile, facebook: e.target.value})}
+                    disabled={!profile.is_verified}
                   />
                 </InputGroup>
               </Form.Group>
@@ -194,6 +177,7 @@ function StudSettings() {
                     placeholder="Profile link/url..." 
                     value={profile.twitter}
                     onChange={(e) => setProfile({...profile, twitter: e.target.value})}
+                    disabled={!profile.is_verified}
                   />
                 </InputGroup>
               </Form.Group>
@@ -209,6 +193,7 @@ function StudSettings() {
                     placeholder="Profile link/url..." 
                     value={profile.linkedin} 
                     onChange={(e) => setProfile({...profile, linkedin: e.target.value})}
+                    disabled={!profile.is_verified}
                   />
                 </InputGroup>
               </Form.Group>
@@ -224,16 +209,47 @@ function StudSettings() {
                     placeholder="Profile link/url..." 
                     value={profile.instagram} 
                     onChange={(e) => setProfile({...profile, instagram: e.target.value})}
+                    disabled={!profile.is_verified}
                   />
                 </InputGroup>
               </Form.Group>
             </Col>
           </Row>
           <Row>
+            {!profile.is_verified ?
+          <Form.Group as={Row}  md={12}  className="mb-3" controlId="formCOR">
+            <Form.Label>Certificate of Registration</Form.Label>
+            {(!profile.cor && !profile.cor_remarks) ?
+              <InputGroup>
+                <FormControl
+                  type="file"
+                  placeholder="Upload Certificate of Registration"
+                  style={{ width: '98%', margin: '10px' }}
+                  onChange={(e) => setProfile({...profile, cor: e.target.files[0]})}
+                />
+              </InputGroup>
+              : (!profile.cor && profile.cor_remarks) ? 
+              (<><InputGroup>
+                <FormControl
+                  type="file"
+                  placeholder="Upload Certificate of Registration"
+                  style={{ width: '98%', margin: '10px' }}
+                  onChange={(e) => setProfile({...profile, cor: e.target.files[0]})}
+                />
+              </InputGroup>
+              <p className="text-black2"><strong>Feedback: {profile.cor_remarks}</strong></p></>)
+              :
+               "You have already uploaded your Certificate of Registration. Please click \"Save Changes\" wait for the admin to verify your COR or for feedback."}
+          </Form.Group>
+          : "Congratulations! Your account has been verified."}
+          </Row>
+          <br/>
+          <Row>
             <Col className="text-end mb-4">
               <Button variant="secondary" onClick={handleSaveChanges} className='mx-2'>Save Changes</Button>
             </Col>
           </Row>
+          
           </div>
 
       </Form>
