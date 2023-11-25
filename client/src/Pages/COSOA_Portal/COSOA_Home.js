@@ -29,7 +29,7 @@ function COSOA_Home() {
 
   useEffect(() => {
     try{
-      axios.get(`http://localhost:3001/cosoa_profile/get_cosoa_details`).then((response) => {
+      axios.get(`${process.env.REACT_APP_BASE_URL}/cosoa_profile/get_cosoa_details`).then((response) => {
         setInfo(response.data);
       });
     }catch(err){
@@ -40,7 +40,7 @@ function COSOA_Home() {
   
   useEffect(() => {
     try{
-      axios.get(`http://localhost:3001/cosoa_ann`).then((response) => {
+      axios.get(`${process.env.REACT_APP_BASE_URL}/cosoa_ann`).then((response) => {
         setAnnouncements(response.data);
         setRefreshAnnouncement(false)
       });
@@ -51,7 +51,7 @@ function COSOA_Home() {
 
   useEffect(() => {
     try{
-      axios.get(`http://localhost:3001/cosoa_ann/get_events`).then((response) => {
+      axios.get(`${process.env.REACT_APP_BASE_URL}/cosoa_ann/get_events`).then((response) => {
         if(response.data.err){
           console.log(response.data.err);
         }else{
@@ -77,7 +77,7 @@ function COSOA_Home() {
   return (
     <div>
         <HeroVariant2 
-        imgSrc={info.org_picture ? `http://localhost:3001/cosoa/${info.org_picture}` : null}
+        imgSrc={info.org_picture ? `${process.env.REACT_APP_BASE_URL}/cosoa/${info.org_picture}` : null}
         name="Commission on Student Organizations and Accreditation (COSOA)"
         webmail="pupcosoa.iskolarngbayan.pup.edu.ph"
         />
