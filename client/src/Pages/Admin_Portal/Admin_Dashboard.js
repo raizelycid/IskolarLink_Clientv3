@@ -90,7 +90,7 @@ function Admin_Dashboard() {
         </Row>
         <Row className='ms-1 me-5 pe-3 pt-3 border'>  
           <Col xs={1} className='text-end'>
-            {chairperson.user?.profile_picture ? <Image src={chairperson.user?.profile_picture} roundedCircle style={{width:"3rem"}}/> : <FontAwesomeIcon icon={faUserCircle} size="3x" className="text-red"/>}
+            {chairperson.user?.profile_picture ? <Image src={`${process.env.REACT_APP_BASE_URL}/images/${chairperson.user.profile_picture}`} roundedCircle style={{width:"3rem"}}/> : <FontAwesomeIcon icon={faUserCircle} size="3x" className="text-red"/>}
           </Col>
           <Col className="ms-0">
             <p className=' mb-0'><strong>{chairperson.student?.student_Fname + " " + chairperson.student?.student_Lname}</strong></p>
