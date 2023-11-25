@@ -39,7 +39,7 @@ const AnnouncementVariant = ({key, announcement}) => {
   return (
     <Container className='my-4'>
       <Card style={{height: "600px"}}>
-        <Card.Img variant='top' src={`http://localhost:3001/cosoa_announcements/${announcement.cosoa_ann_photo}`} style={{height:"300px",objectFit:'cover'}}></Card.Img>
+        <Card.Img variant='top' src={`${process.env.REACT_APP_BASE_URL}/cosoa_announcements/${announcement.cosoa_ann_photo}`} style={{height:"300px",objectFit:'cover'}}></Card.Img>
         <Card.Body>
           <Card.Title>{announcement.cosoa_ann_title}</Card.Title>
           <Card.Text>{announcement.cosoa_ann_body}</Card.Text>
@@ -59,7 +59,7 @@ const AnnouncementVariant2 = ({key, announcement}) => {
   return (
     <Container className='my-4'>
       <Card style={{height: "600px"}}>
-        <Card.Img variant='top' src={`http://localhost:3001/org_announcements/${announcement.org_ann_photo}`} style={{height:"300px",objectFit:'cover'}}></Card.Img>
+        <Card.Img variant='top' src={`${process.env.REACT_APP_BASE_URL}/org_announcements/${announcement.org_ann_photo}`} style={{height:"300px",objectFit:'cover'}}></Card.Img>
         <Card.Body>
           <Card.Title>{announcement.org_ann_title}</Card.Title>
           <Card.Text>{announcement.org_ann_body}</Card.Text>

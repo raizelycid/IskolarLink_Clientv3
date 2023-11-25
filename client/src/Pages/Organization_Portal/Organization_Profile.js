@@ -21,14 +21,14 @@ const [announcements, setAnnouncements] = useState([]);
 
 
 useEffect(() => {
-  axios.get('http://localhost:3001/org_portal/organization').then((response) => {
+  axios.get(`${process.env.REACT_APP_BASE_URL}/org_portal/organization`).then((response) => {
     setOrganization(response.data.organization);
     setUser(response.data.user);
   });
 }, []);
 
 useEffect(() => {
-  axios.get('http://localhost:3001/org_portal/get_announcements').then((response) => {
+  axios.get(`${process.env.REACT_APP_BASE_URL}/org_portal/get_announcements`).then((response) => {
     setAnnouncements(response.data);
     console.log(response.data);
     setRefreshAnnouncement(false);
@@ -38,7 +38,7 @@ useEffect(() => {
   return (
     <div>
         <HeroVariant2 
-        imgSrc={user.profile_picture ? `http://localhost:3001/org_images/${user.profile_picture}` : null}
+        imgSrc={user.profile_picture ? `${process.env.REACT_APP_BASE_URL}/org_images/${user.profile_picture}` : null}
         name={organization.org_name}
         webmail={user.email}
         />

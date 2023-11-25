@@ -18,14 +18,15 @@ function StudSettings() {
   // Function to handle saving changes
   const handleSaveChanges = () => {
     try{
-      axios.post('http://localhost:3001/student_portal/update_profile', profile, {
+      console.log(profile)
+      axios.post(`${process.env.REACT_APP_BASE_URL}/student_portal/update_profile`, profile, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       })
       .then((response) => {
-        if(response.data === 'Successfully updated Student Profile'){
-          alert(response.data);
+        if(response.data.success){
+          alert(response.data.success);
         }else{
           alert(response.data.error);
         }
@@ -47,7 +48,7 @@ function StudSettings() {
 
   useEffect(() => {
     try{
-      axios.get('http://localhost:3001/student_portal').then((response) => {
+      axios.get(`${process.env.REACT_APP_BASE_URL}/student_portal`).then((response) => {
         setProfile(response.data);
         console.log(response.data)
       });
@@ -76,7 +77,7 @@ function StudSettings() {
                     {showTempImage ?
                         <Image src={profileImage} alt="Profile Preview" roundedCircle fluid /> :
                     profile.profile_picture ? 
-                        <Image src={`http://localhost:3001/images/${profile.profile_picture}`} alt="Profile Preview" roundedCircle fluid /> :
+                        <Image src={`${process.env.REACT_APP_BASE_URL}/images/${profile.profile_picture}`} alt="Profile Preview" roundedCircle fluid /> :
                         <FontAwesomeIcon icon={faUserCircle} size="6x" className="text-white" />
                     
                     }   
@@ -236,10 +237,12 @@ function StudSettings() {
           </div>
 
       </Form>
+      {/*
       <Verification/>
       <Verifying/>
       <Verified/>
-      <VerifyFailed/>
+      <VerifyFailed/>*/
+}
     </Container>
     
     </div>

@@ -48,13 +48,13 @@ function Accreditation() {
 
 
     const generatePDF = async () => {
-        try {/*
-            await axios.post('http://localhost:3001/appdocs/generate_AF001_temp', formData).then((res) => {
+        try {
+            await axios.post(`${process.env.REACT_APP_BASE_URL}/appdocs/generate_AF001_temp`, formData).then((res) => {
                 setTrackerForm(res.data.filename);});
 
-            await axios.post('http://localhost:3001/appdocs/generate_AD009_temp', formData).then((res) => {
+            await axios.post(`${process.env.REACT_APP_BASE_URL}/appdocs/generate_AD009_temp`, formData).then((res) => {
                 setWaiverForm(res.data.filename);});
-                */
+                
         } catch (err) {
             console.log(err);
         }
@@ -63,7 +63,7 @@ function Accreditation() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get('http://localhost:3001/student/accreditation_status').then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/student/accreditation_status`).then((response) => {
             if(response.data.error){
                 alert(response.data.error);
             }
@@ -115,7 +115,7 @@ function Accreditation() {
             const isValid = await accreditationSchema.isValid(formData);
             console.log(isValid)
             if(isValid){
-            const res = await axios.post('http://localhost:3001/org/addorg', formData, {
+            const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/org/addorg`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 }

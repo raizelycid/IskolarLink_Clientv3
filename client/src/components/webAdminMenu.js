@@ -18,18 +18,18 @@ const WebAdminMenu = ({imgSrc, username}) => {
 
     const changeMainMenu = () => {
         setActiveMenu('main');
-        axios.post('http://localhost:3001/menu/', {menu: 'main'})
+        axios.post(`${process.env.REACT_APP_BASE_URL}/menu/`, {menu: 'main'})
         navigate('/');
       }
     
       const changeCosoaMenu = () => {
         setActiveMenu('cosoa');
-        axios.post('http://localhost:3001/menu/', {menu: 'cosoa'})
+        axios.post(`${process.env.REACT_APP_BASE_URL}/menu/`, {menu: 'cosoa'})
       }
     
       const changeWebAdminMenu = () => {
         setActiveMenu('webadmin');
-        axios.post('http://localhost:3001/menu/', {menu: 'webadmin'})
+        axios.post(`${process.env.REACT_APP_BASE_URL}/menu/`, {menu: 'webadmin'})
       }
 
       useEffect(() => {
@@ -39,13 +39,13 @@ const WebAdminMenu = ({imgSrc, username}) => {
 
     
     return(
-    <NavDropdown title={<>{imgSrc ? <img src={`http://localhost:3001/images/${imgSrc}`} alt="Profile Picture" width="40" height="40" className="rounded-circle" /> : <FontAwesomeIcon icon={faUser}/>} <span className='text-dark'>Hi, {username}!</span></>} id="basic-nav-dropdown" className="text-dark" renderMenuOnMount={true}>
+    <NavDropdown title={<>{imgSrc ? <img src={`${process.env.REACT_APP_BASE_URL}/images/${imgSrc}`} alt="Profile Picture" width="40" height="40" className="rounded-circle" /> : <FontAwesomeIcon icon={faUser}/>} <span className='text-dark'>Hi, {username}!</span></>} id="basic-nav-dropdown" className="text-dark" renderMenuOnMount={true}>
         <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
         <NavDropdown.Item onClick={changeMainMenu}>Switch to Student</NavDropdown.Item>
         <NavDropdown.Item href="/settings">Settings</NavDropdown.Item>
         <NavDropdown.Divider />
         <NavDropdown.Item onClick={() => {
-            axios.post('http://localhost:3001/auth/logout')
+            axios.post(`${process.env.REACT_APP_BASE_URL}/auth/logout`)
             .then((response) => {
                 if(response.data.error){
                     alert(response.data.error);
