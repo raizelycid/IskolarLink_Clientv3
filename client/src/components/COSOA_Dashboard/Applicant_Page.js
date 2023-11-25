@@ -17,7 +17,7 @@ function Applicant_Page() {
 
   const ActionLinks = (action) => {
     if(action === 'Proceed to IE2'){
-      axios.post(`${process.env.BACKEND_URL}/cosoa/ie2/${org_application.id}`).then((res) => {
+      axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa/ie2/${org_application.id}`).then((res) => {
         if(res.data.error){
           alert(res.data.error);
         }else{
