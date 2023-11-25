@@ -9,17 +9,52 @@ import axios from 'axios';
 function O_Membership() {
 
   const [members, setMembers] = useState([]);
+  const [org, setOrg] = useState({});
 
   useEffect(() => {
     try{
       axios.get(`${process.env.REACT_APP_BASE_URL}/org_portal/organization/membership`)
       .then((response) => {
-        setMembers(response.data);
+        setMembers(response.data.members);
+        setOrg(response.data.organization);
+
       });
     }catch(err){
       console.log(err);
     }
   }, []);
+
+  const handleAccept = (studentId) => {
+    try{
+      axios.post(`${process.env.REACT_APP_BASE_URL}/membership/membership`, {studentId: studentId, status: 'Accepted', orgId: org.id})
+      .then((response) => {
+        if(response.data.success){
+          alert(response.data.success);
+          window.location.reload();
+        }else{
+          alert(response.data.error);
+        }
+      });
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  const handleDecline = (studentId) => {
+    try{
+      axios.post(`${process.env.REACT_APP_BASE_URL}/membership/membership`, {studentId: studentId, status: 'Declined', orgId: org.id})
+      .then((response) => {
+        if(response.data.success){
+          alert(response.data.success);
+          window.location.reload();
+        }else{
+          alert(response.data.error);
+        }
+      });
+    }catch(err){
+      console.log(err);
+    }
+  }
 
 
   return (
@@ -71,8 +106,8 @@ function O_Membership() {
                   <td>{member.email}</td>
                   <td>{member.details.department}</td>
                   <td>
-                    <Button variant="outline-success" className="m-1">Accept</Button>
-                    <Button variant="outline-danger" className="m-1">Decline</Button>
+                    <Button variant="outline-success" className="m-1" onClick={() => handleAccept(member.details.id)}>Accept</Button>
+                    <Button variant="outline-danger" className="m-1" onClick={() => handleDecline(member.details.id)}>Decline</Button>
                   </td>
                 </tr>
               );

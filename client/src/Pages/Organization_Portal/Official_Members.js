@@ -21,6 +21,21 @@ function Official_Members() {
     }
   }, []);
 
+  const handleRemove = (studentId) => {
+    try{
+      axios.post(`${process.env.REACT_APP_BASE_URL}/membership/remove_member`, {studentId: studentId})
+      .then((response) => {
+        if(response.data.success){
+          alert(response.data.success);
+          window.location.reload();
+        }else{
+          alert(response.data.error);
+        }
+      });
+    }catch(err){
+      console.log(err);
+    }
+  }
 
   return (
     <div>
@@ -71,7 +86,7 @@ function Official_Members() {
                   </td>
                   <td>{member.details.department}</td>
                   <td>
-                    <Button variant="outline-secondary" className="m-1"><i class="fa-solid fa-trash"></i> Remove</Button>
+                    <Button variant="outline-secondary" className="m-1" onClick={() => handleRemove(member.details.id)}><i class="fa-solid fa-trash" ></i></Button>
                   </td>
                 </tr>
               );

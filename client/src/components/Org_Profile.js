@@ -49,6 +49,21 @@ function Org_Profile() {
     })
   }, [location.pathname])
 
+  const handleApply = () => {
+    try{
+      axios.post(`${process.env.REACT_APP_BASE_URL}/membership/apply`, { orgId:orgId, strict:org.organization.strict })
+      .then((response) => {
+        if(response.data.error){
+          alert(response.data.error);
+        }else{
+          alert(response.data.success);
+        }
+      })
+    }catch(err){
+      console.log(err);
+    }
+  }
+
   return (
     <div>
         <HeroVariant
@@ -59,10 +74,9 @@ function Org_Profile() {
         <Row className="mb-0 align-items-center">
           <Col xs={12} md={8} lg={9} className='mb-3'>
             <div className="d-flex align-items-center">
-              {/*<img src="" alt="The Programmers' Guild Logo" className="organization-logo" />*/}
               <div className="ml-3">
-                <h3 className='mb-0'>The Programmers' Guild</h3>
-                {org.organization?.strict ? 
+                {org.organization?.org_name ? <h1 className='text-red mb-0'>{org.organization.org_name}</h1> : <h1 className='text-red mb-0'>Organization Name</h1>}
+                {org.organization?.strict ?
                 (<p className='text-gray2 mb-0'>Open only to students in <br/>{org.organization?.subjurisdiction ? org.organization.subjurisdiction : 'Undefined'}</p>) 
                 : (<p className='text-gray2 mb-0'>Open to all</p>)}
                 <Badge bg="success">
@@ -73,7 +87,7 @@ function Org_Profile() {
           </Col>
           <Col xs={12} md={4} lg={3} className="text-md-right text-end mt-3 mt-md-0">
             {org.organization?.membership_period ?
-            <Button variant="warning"  className="apply-now-btn">Apply Now</Button>
+            <Button variant="warning"  className="apply-now-btn" onClick={handleApply}>Apply Now</Button>
             :
             <Button variant="warning"  className="apply-now-btn" disabled>Membership Period Closed</Button>
             }
