@@ -26,7 +26,7 @@ function Applicant_Page() {
         }
       });
     }else if(action === 'Proceed to FE1'){
-      axios.post(`http://localhost:3001/cosoa/fe1/${org_application.id}`).then((res) => {
+      axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa/fe1/${org_application.id}`).then((res) => {
         if(res.data.error){
           alert(res.data.error);
         }else{
@@ -35,7 +35,7 @@ function Applicant_Page() {
         }
       });
     }else if(action === 'Proceed to FE2'){
-      axios.post(`http://localhost:3001/cosoa/fe2/${org_application.id}`).then((res) => {
+      axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa/fe2/${org_application.id}`).then((res) => {
         if(res.data.error){
           alert(res.data.error);
         }else{
@@ -44,7 +44,7 @@ function Applicant_Page() {
         }
       });
     }else if(action === 'Accredit'){
-      axios.post(`http://localhost:3001/cosoa/accredit/${org_application.id}`).then((res) => {
+      axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa/accredit/${org_application.id}`).then((res) => {
         if(res.data.error){
           alert(res.data.error);
         }else{
@@ -53,7 +53,7 @@ function Applicant_Page() {
         }
       });
     }else if(action === 'Revalidate'){
-      axios.post(`http://localhost:3001/cosoa/accredit/${org_application.id}`).then((res) => {
+      axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa/accredit/${org_application.id}`).then((res) => {
         if(res.data.error){
           alert(res.data.error);
         }else{
@@ -90,7 +90,7 @@ function Applicant_Page() {
   const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/cosoa_dashboard/get_org/${id}`)
+    axios.get(`${process.env.REACT_APP_BASE_URL}/cosoa_dashboard/get_org/${id}`)
     .then((response) => {
       // check if error first
       if(response.data.error){
@@ -115,7 +115,7 @@ function Applicant_Page() {
 
   const handleChange = async event => {
     try{
-      await axios.post(`http://localhost:3001/org/update_form/${applicant.id}/${applicant.application_status}`, {file: event.target.files[0], requirement_name: selectedFile}, {
+      await axios.post(`${process.env.REACT_APP_BASE_URL}/org/update_form/${applicant.id}/${applicant.application_status}`, {file: event.target.files[0], requirement_name: selectedFile}, {
         headers: {
           'Content-Type': 'multipart/form-data',
         }
@@ -137,7 +137,7 @@ function Applicant_Page() {
   const handleApprove = async requirementId => {
     try{
       if(org_application.application_status === 'IE1' || org_application.application_status === 'Pending'){
-        await axios.post(`http://localhost:3001/cosoa/ie2/${org_application.id}/${requirementId}`).then((res) => {
+        await axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa/ie2/${org_application.id}/${requirementId}`).then((res) => {
           if(res.data.error){
             alert(res.data.error);
           }
@@ -156,7 +156,7 @@ function Applicant_Page() {
           }
         });
       }else if(org_application.application_status === 'IE2'){
-        await axios.post(`http://localhost:3001/cosoa/fe1/${org_application.id}/${requirementId}`).then((res) => {
+        await axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa/fe1/${org_application.id}/${requirementId}`).then((res) => {
           if(res.data.error){
             alert(res.data.error);
           }
@@ -174,7 +174,7 @@ function Applicant_Page() {
           }
         });
       }else if(org_application.application_status === 'FE1'){
-        await axios.post(`http://localhost:3001/cosoa/fe2/${org_application.id}/${requirementId}`).then((res) => {
+        await axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa/fe2/${org_application.id}/${requirementId}`).then((res) => {
           if(res.data.error){
             alert(res.data.error);
           }
@@ -192,7 +192,7 @@ function Applicant_Page() {
           }
         });
       }else if(org_application.application_status === 'FE2'){
-        await axios.post(`http://localhost:3001/cosoa/acc/${org_application.id}/${requirementId}`).then((res) => {
+        await axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa/acc/${org_application.id}/${requirementId}`).then((res) => {
           if(res.data.error){
             alert(res.data.error);
           }
@@ -232,7 +232,7 @@ function Applicant_Page() {
     <Container className='applicant-header-container'>
       <Row>
         <Col>
-        {user.profile_picture ? <img src={`http://localhost:3001/org_images/${user.profile_picture}`} alt="Profile Picture" width="100" height="100" className="rounded-circle" /> : <img src='http://localhost:3001/org_images/default-org-photo.jpg' alt="Profile Picture" width="100" height="100" className="rounded-circle" />
+        {user.profile_picture ? <img src={`${process.env.REACT_APP_BASE_URL}/org_images/${user.profile_picture}`} alt="Profile Picture" width="100" height="100" className="rounded-circle" /> : <img src={`${process.env.REACT_APP_BASE_URL}/org_images/default-org-photo.jpg`} alt="Profile Picture" width="100" height="100" className="rounded-circle" />
           }
         <span className='applicant-org-name'>{applicant.org_name}</span>
         </Col>
@@ -306,8 +306,8 @@ function Applicant_Page() {
               <tr key={index}>
                 <td><span className='applicant-requirement-name'>{requirement.requirement_name}</span></td>
                 {applicant.application_status === "Accreditation" ? 
-                <td><span className='applicant-download-text' onClick={() => window.open(`http://localhost:3001/accreditation/${applicant.id}/${requirement.requirement_name}.pdf`,'_blank','noopener')}>Download</span></td>
-                 : <td><span className='applicant-download-text' onClick={() => window.open(`http://localhost:3001/revalidation/${applicant.id}/${requirement.requirement_name}.pdf`,'_blank','noopener')}>Download</span></td>}
+                <td><span className='applicant-download-text' onClick={() => window.open(`${process.env.REACT_APP_BASE_URL}/accreditation/${applicant.id}/${requirement.requirement_name}.pdf`,'_blank','noopener')}>Download</span></td>
+                 : <td><span className='applicant-download-text' onClick={() => window.open(`${process.env.REACT_APP_BASE_URL}/revalidation/${applicant.id}/${requirement.requirement_name}.pdf`,'_blank','noopener')}>Download</span></td>}
                  <td>
                   <Button variant="primary" onClick={event => handleClick(event, requirement.requirement_name)}>Update</Button>
                   <input type="file" style={{display:'none'}} onChange={handleChange} ref={hiddenFileInput}/>
