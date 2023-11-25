@@ -23,7 +23,7 @@ function COSOA_Dashboard() {
   const handleToggle = () => {
     // Logic to handle toggle
     try{
-      axios.post('http://localhost:3001/cosoa/application_period')
+      axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa/application_period`)
       .then((response) => {
         if(response.data.success){
           alert(response.data.success);
@@ -39,7 +39,7 @@ function COSOA_Dashboard() {
 
   useEffect(() => {
     try{
-        axios.get('http://localhost:3001/cosoa_profile/get_cosoa_details')
+        axios.get(`${process.env.REACT_APP_BASE_URL}/cosoa_profile/get_cosoa_details`)
         .then((response) => {
           console.log(response.data);
             setCOSOA(response.data);
@@ -53,24 +53,47 @@ function COSOA_Dashboard() {
 
     useEffect(() => {
       try{
-        axios.get('http://localhost:3001/cosoa/application_period').then((response) => {
-          setCOSOA(response.data.application_period);
-          if(response.data.application_period === true){
-            document.getElementById('anr-period-toggle').checked = true;
-          }else{
-            document.getElementById('anr-period-toggle').checked = false;
-          }
-        });
+        if(cosoa.application_period){
+          // set application period switch to true
+          document.getElementById("anr-period-initial-toggle").checked = true;
+        }else{
+          // set application period switch to false
+          document.getElementById("anr-period-initial-toggle").checked = false;
+        }
       }catch(err){
         console.log(err);
       }
     }, [cosoa.application_period]);
 
   useEffect(() => {
-    axios.get('http://localhost:3001/cosoa_dashboard/get_orgs')
+    axios.get(`${process.env.REACT_APP_BASE_URL}/cosoa_dashboard/get_orgs`)
     .then((response) => {
       console.log(response.data);
       setOrgs(response.data);
+    });
+  }, [])
+
+  const [countApproved, setCountApproved] = useState(0);
+  const [countPending, setCountPending] = useState(0);
+  const [countSubmission, setCountSubmission] = useState(0);
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/cosoa_dashboard/count_active_orgs`)
+    .then((response) => {
+      console.log(response.data);
+      setCountApproved(response.data);
+    });
+
+    axios.get(`${process.env.REACT_APP_BASE_URL}/cosoa_dashboard/count_pending_orgs`)
+    .then((response) => {
+      console.log(response.data);
+      setCountPending(response.data);
+    });
+
+    axios.get(`${process.env.REACT_APP_BASE_URL}/cosoa_dashboard/count_org_application`)
+    .then((response) => {
+      console.log(response.data);
+      setCountSubmission(response.data);
     });
   }, [])
 
@@ -89,22 +112,17 @@ function COSOA_Dashboard() {
         <Row className='my-5 align-items-center'>
           <Stat_Card 
             imgSrc="/check_icon.png"
-            numcount="60"
+            numcount={countApproved}
             subtitle="Approved"
           />
           <Stat_Card
             imgSrc="/time_icon.png"
-            numcount="23"
+            numcount={countPending}
             subtitle="Pending"
           />
           <Stat_Card 
-            imgSrc="/cross_icon.png"
-            numcount="43"
-            subtitle="Rejected"
-          />
-          <Stat_Card 
             imgSrc="/clipboard_icon.png"
-            numcount="126"
+            numcount={countSubmission}
             subtitle="Submission"
           />
         </Row>
@@ -117,9 +135,9 @@ function COSOA_Dashboard() {
                 <Form.Check
                   type="switch"
                   id="anr-period-initial-toggle"
-                  label="Initial Evaluation"
+                  label={cosoa.application_period ? "Accreditation and Revalidation Period is now open" : "Accreditation and Revalidation Period is now closed"}
                   checked={cosoa.application_period}
-                  /*onChange={(e) => setCOSOA({ ...cosoa, application_period: e.target.checked })}*/
+                  onChange={(e) => setCOSOA({ ...cosoa, application_period: e.target.checked })}
                 />
               </Form.Group>
               <Form.Label className="text-red">
@@ -128,27 +146,14 @@ function COSOA_Dashboard() {
             </Form>
         </Row>
         <Row className="my-2">
-        <Form>
-              <Form.Group>  
-                <Form.Check
-                  type="switch"
-                  id="anr-period-final-toggle"
-                  label="Final Evaluation"
-                  checked={cosoa.application_period}
-                  /*onChange={(e) => setCOSOA({ ...cosoa, application_period: e.target.checked })}*/
-                />
-              </Form.Group>
-              <Form.Label className="text-red">
-              Student organizations and Student Representatives may still resubmit their documents.
-              </Form.Label>
-            </Form>
         </Row>
         <Row className='m-4'>
+          {/*
         <Col className='text-start'>
           <Button variant="outline-secondary"><i class="fa-solid fa-filter"></i> Filter</Button>
         </Col>
         <Col>
-        </Col>
+  </Col>*/}
         <InputGroup as={Col} className="text-end">
           <Button variant="outline-secondary" id="button-addon2">
             <i class="fa-solid fa-magnifying-glass"></i>
@@ -177,7 +182,7 @@ function COSOA_Dashboard() {
               return(
                 <tr key={index}>
                   <td>{org.org_name}</td>
-                  <td>{org.representative.photo ? <img src={`http://localhost:3001/images/${org.photo}`} alt="Profile Picture" width="40" height="40" className="rounded-circle" /> : <FontAwesomeIcon icon={faUser} size='2xl'/>} {org.representative}</td>
+                  <td>{org.representative.photo ? <img src={`${process.env.REACT_APP_BASE_URL}/images/${org.photo}`} alt="Profile Picture" width="40" height="40" className="rounded-circle" /> : <FontAwesomeIcon icon={faUser} size='2xl'/>} {org.representative}</td>
                   <td>{org.application.application_status}</td>
                   <td><span className='cs-dashboard-jurisdiction'>{org.subjurisdiction}<br/>{org.type}</span></td>
                   <td><FontAwesomeIcon icon={faArrowRight} size="lg" onClick={() => {

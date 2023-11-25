@@ -49,28 +49,6 @@ function Official_Members() {
           <h1 className='text-red'>Overview</h1>
           <h3>Academic Year 2023-2024</h3>
         </Row>
-        <Row className='my-5 align-items-center'>
-          <Stat_Card 
-            imgSrc="/check_icon.png"
-            numcount="60"
-            subtitle="Approved"
-          />
-          <Stat_Card
-            imgSrc="/time_icon.png"
-            numcount="23"
-            subtitle="Pending"
-          />
-          <Stat_Card 
-            imgSrc="/cross_icon.png"
-            numcount="43"
-            subtitle="Rejected"
-          />
-          <Stat_Card 
-            imgSrc="/clipboard_icon.png"
-            numcount="126"
-            subtitle="Submission"
-          />
-        </Row>
         <Row className='mt-4 mb-3'>
           <h1 className='text-red'>Accreditation and Revalidation Period</h1>
         </Row>
