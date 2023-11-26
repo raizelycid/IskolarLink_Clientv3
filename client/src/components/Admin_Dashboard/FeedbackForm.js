@@ -67,13 +67,9 @@ const FeedbackForm = () => {
           </Form>
         </Modal.Body>
         <Modal.Footer className='border-0'>
-          <Row className='w-100'>
-            <Button variant='primary' className='mb-3' onClick={handleDone}>
-              Submit
-            </Button>
-              
-              <Button variant='light' className=' border' onClick={handleDone}>
-                Cancel
+          <Row className=''>
+              <Button variant='primary' className="px-5 me-5" onClick={handleDone}>
+                Close
               </Button>
           </Row>
         </Modal.Footer>
