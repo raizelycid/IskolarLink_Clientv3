@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './general.css';
 
+import { Link } from 'react-router-dom';
 function RegisterPopup() {
 
     const navigate = useNavigate();
@@ -164,7 +165,7 @@ function RegisterPopup() {
                                 </Form.Group>
                             </Row>
                             
-                            <Form.Check required label={<p>I accept the <a href="#" target="_blank" className='text-red'>Terms and Privacy Policy</a></p>} className="Inter-med"></Form.Check>
+                            <Form.Check required label={<p>I accept the <Link to="/terms" target="_blank" className='text-red'>Terms and Privacy Policy</Link></p>} className="Inter-med"></Form.Check>
                             <Row className="mt-5 mb-3   ">
                                 <Col/>
                                 <Button as={Col} xs={7} variant="primary" type="submit" onClick={handleSubmit}>
