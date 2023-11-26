@@ -10,8 +10,9 @@ const RevForms2 = ({formData, setFormData,show,path,path2}) => {
     <>
     <form style={{display:show}}>
     <Container>
-    <Image src="/3rd.png" alt="IskolarLink Logo"  fluid style={{ marginBottom: '40px' }}/>    
+    <Image src="/3rd.png" alt="IskolarLink Logo"  fluid style={{ marginBottom: '20px' }}/>    
         <Row className="p-4">
+        <p className='mb-4'>Note: To easily sign documents, you can use an online electronic signature. <a href="https://www.ilovepdf.com/sign-pdf" target="_blank" rel="noopener noreferrer">Click Here</a></p>
         <Form.Group as={Row} controlId='RF001' className="mb-3">
             <Form.Label>Upload Signed Tracker Form <span className='accreditation-download' onClick={() => window.open(`http://localhost:3001/${path}`,'_blank','noopener')}>(Download Generated File Here)</span></Form.Label>
             <Form.Control type="file" placeholder='e.g. RF001.pdf' onChange={(e) => setFormData({...formData, AF001: e.target.files[0]})}/>
