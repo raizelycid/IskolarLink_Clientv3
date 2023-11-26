@@ -43,12 +43,19 @@ const GenInfo = ({formData, setFormData, show}) => {
     <>
         <form style={{display:show}} >
         <Container>
-        <Image src="/1st.png" alt="IskolarLink Logo"  fluid style={{ marginBottom: '40px' }}/>    
-        <Row className="p-3">
+        <Image src="/1st.png" alt="IskolarLink Logo"  fluid style={{ marginBottom: '40px' }}/>
+        <Row className='p-3'>
+            <Form.Group as={Col} controlId="socn" className='mb-3'>
+                <Form.Label>Previous SOCN</Form.Label>
+                <Form.Control type="text" placeholder="e.g 2324-130-R-U-WIDE" onChange={(e) => setFormData({...formData, socn: e.target.value})} value={formData.socn} />
+            </Form.Group>
             <Form.Group as={Col} controlId="orgName" className="mb-3">
                 <Form.Label>Complete Name of Student Organization (Abbreviation/Initialisim)</Form.Label>
                 <Form.Control type="text" placeholder="e.g. Association of Concerned Students (ACS)" onChange={(e) => setFormData({...formData, orgName: e.target.value})} value={formData.orgName}/>
             </Form.Group>
+        </Row> 
+        <Row className="p-3">
+            
             
             <Form.Group as={Col} controlId="jurisdiction" className="mb-3">
                 <Form.Label>Classification of Jurisdiction</Form.Label>
@@ -56,6 +63,15 @@ const GenInfo = ({formData, setFormData, show}) => {
                     <option>Choose...</option>
                     <option>Local Student Organization</option>
                     <option>University-Wide Student Organization</option>
+                </Form.Select>
+            </Form.Group>
+            <Form.Group as={Col} controlId="subjurisdiction" className="mb-3">
+                <Form.Label>Sub-Jurisdiction</Form.Label>
+                <Form.Select aria-label='SubJurisdiction' onChange={(e) => setFormData({...formData, subjurisdiction: e.target.value})} value={formData.subjurisdiction}>
+                    <option>Choose...</option>
+                    {Departments.map((department) => (
+                        <option>{department}</option>
+                    ))}
                 </Form.Select>
             </Form.Group>
         </Row>
@@ -69,26 +85,12 @@ const GenInfo = ({formData, setFormData, show}) => {
                     ))}
                 </Form.Select>
             </Form.Group>
-            <Form.Group as={Col} controlId="subjurisdiction" className="mb-3">
-                <Form.Label>Sub-Jurisdiction</Form.Label>
-                <Form.Select aria-label='SubJurisdiction' onChange={(e) => setFormData({...formData, subjurisdiction: e.target.value})} value={formData.subjurisdiction}>
-                    <option>Choose...</option>
-                    {Departments.map((department) => (
-                        <option>{department}</option>
-                    ))}
-                </Form.Select>
-            </Form.Group>
-        </Row >
-        <Row className="p-3">
             <Form.Group as={Col} controlId="advisers" className="mb-3">
                 <Form.Label>Complete Name of Student Organization Adviser(s) (Separated by comma)</Form.Label>
                 <Form.Control type="text" placeholder="e.g. Juan Dela Cruz, Pedro Penduko" onChange={(e) => setFormData({...formData, advisers: e.target.value})} value={formData.advisers}/>
             </Form.Group>
-            <Form.Group as={Col} controlId="advisers" className="mb-3">
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="text" placeholder="e.g. iskolarlink@pup.edu.ph" onChange={(e) => setFormData({...formData, advisers: e.target.value})} value={formData.advisers}/>
-            </Form.Group>
-        </Row>
+            
+        </Row >
         </Container>
     </form>
     </>

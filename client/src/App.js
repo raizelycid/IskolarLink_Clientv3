@@ -19,6 +19,7 @@ import LoginPopup from './components/LoginPopup';
 import RegisterPopup from './components/RegisterPopup';
 import Organization_Profile from './Pages/Organization_Portal/Organization_Profile';
 import Revalidation from './Pages/Organization_Portal/Revalidation';
+import RevalidationStatus from './Pages/Organization_Portal/RevalidationStatus';
 import OrgSettings from './Pages/Organization_Portal/Settings';
 import OrgFeedback from './Pages/Organization_Portal/Feedback';
 import StudentFeedback from './Pages/Student_Portal/Feedback';
@@ -57,7 +58,7 @@ function App() {
       if(response.data.error){
         setAuthState({...authState, status: false});
         console.log("You are not logged in!");
-      }else{
+      }else if(response.data.role === 'student'){
         console.log(`You are logged in as ${response.data.role} ${response.data.username}`)
         console.log(response.data);
         setAuthState({
@@ -70,6 +71,17 @@ function App() {
           is_web_admin: response.data.is_web_admin,
           status: true
         });
+      }else if(response.data.role === 'organization'){
+        console.log(`You are logged in as ${response.data.role} ${response.data.username}`)
+        console.log(response.data);
+        setAuthState({
+          id: response.data.id,
+          username: response.data.username,
+          profile_picture: response.data.profile_picture,
+          role: response.data.role,
+          show_application: response.data.show_application,
+          status: true
+        });
       }
     });
   }, [authState.status])
@@ -77,9 +89,11 @@ function App() {
 
   useEffect(() => {
     if(authState.role === 'organization'){
+      console.log("Organization Detected")
       setActiveMenu('org');
       axios.post(`${process.env.REACT_APP_BASE_URL}/menu`, {menu: 'org'})}
       else{
+        console.log("Student detected")
         axios.get(`${process.env.REACT_APP_BASE_URL}/menu/`).then((response) => {
           if(response.data.error){
             console.log(response.data.error);
@@ -89,7 +103,7 @@ function App() {
           }
         });
       }
-    }, [authState.role])
+    }, [authState.role, authState.status])
 
 
   const [scrolling, setScrolling] = useState(false);
@@ -175,7 +189,7 @@ function App() {
               ) : activeMenu === 'webadmin' ? (
                 <WebAdminMenu imgSrc={authState.profile_picture} username={authState.username} />
               ) : activeMenu === 'org' ? (
-                <OrgMenu imgSrc={authState.profile_picture} username={authState.username} />
+                <OrgMenu imgSrc={authState.profile_picture} username={authState.username} showApplication={authState.show_application} />
               ) : null
   
               ):(
@@ -202,6 +216,7 @@ function App() {
         <Route path="/" exact element={<LandingPage />} />
         <Route path="/organization/profile" exact element ={<Organization_Profile />} />
         <Route path="/organization/revalidation" exact element ={<Revalidation />} />
+        <Route path="/organization/revalidation/status" exact element ={<RevalidationStatus/>} />
         <Route path='/organization/settings' exact element ={<OrgSettings />} />
         <Route path='/organization/feedback' exact element ={<OrgFeedback />} />
         <Route path="/student/feedback" exact element={<StudentFeedback/>} />

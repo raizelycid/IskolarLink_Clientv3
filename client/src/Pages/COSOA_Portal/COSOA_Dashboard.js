@@ -141,7 +141,9 @@ function COSOA_Dashboard() {
                 />
               </Form.Group>
               <Form.Label className="text-red">
-              Student organizations and Student Representatives may now submit their applications.
+              {cosoa.application_period
+              ? "Student organizations and Student Representatives may now submit their applications."
+              : "The COSOA will not be accepting any applications anymore"}
               </Form.Label>
             </Form>
         </Row>
@@ -183,7 +185,7 @@ function COSOA_Dashboard() {
                 <tr key={index}>
                   <td>{org.org_name}</td>
                   <td>{org.representative.photo ? <img src={`${process.env.REACT_APP_BASE_URL}/images/${org.photo}`} alt="Profile Picture" width="40" height="40" className="rounded-circle" /> : <FontAwesomeIcon icon={faUser} size='2xl'/>} {org.representative}</td>
-                  <td>{org.application.application_status}</td>
+                  <td>{org.application?.application_status === "Revalidated" && org.application_status === "Revalidation" ? "Revalidation" : org.application.application_status}</td>
                   <td><span className='cs-dashboard-jurisdiction'>{org.subjurisdiction}<br/>{org.type}</span></td>
                   <td><FontAwesomeIcon icon={faArrowRight} size="lg" onClick={() => {
                     navigate(`/cosoa/applicant/${org.id}`)
