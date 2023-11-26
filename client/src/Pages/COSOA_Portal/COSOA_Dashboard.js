@@ -1,12 +1,13 @@
 import React, { useState,useEffect } from 'react';
 import { HeroVariant3 } from '../../components/HeroVariant/Hero';
 import Stat_Card from '../../components/Stat_Card';
-import { Container, Row, Col, Button, InputGroup, Form, Pagination, Table} from 'react-bootstrap';
+import { Container, Row, Col, Button, InputGroup, Form} from 'react-bootstrap';
 import './COSOA_Portal.css'
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import Table from 'react-bootstrap/Table'
 import {useNavigate} from 'react-router-dom'
 import GiveCredentials from '../../components/COSOA_Dashboard/GiveCredentials';
 
@@ -15,37 +16,12 @@ function COSOA_Dashboard() {
 
   axios.defaults.withCredentials = true;
 
-  // Byron ito yung mga items for pagination
   const [orgs, setOrgs] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const itemsPerPage = 10;
-
-  useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BASE_URL}/cosoa_dashboard/get_orgs`, {
-      params: {
-        page: currentPage,
-        perPage: itemsPerPage
-      }
-    })
-      .then((response) => {
-        console.log(response.data);
-        setOrgs(response.data.orgs); // Assuming response.data contains the paginated orgs
-        setTotalPages(Math.ceil(response.data.totalCount / itemsPerPage)); // Calculate total pages
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
-  }, [currentPage]);
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
-
   const navigate = useNavigate();
   const [cosoa, setCOSOA] = useState({});
 
   const handleToggle = () => {
+    // Logic to handle toggle
     try{
       axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa/application_period`)
       .then((response) => {
@@ -88,6 +64,14 @@ function COSOA_Dashboard() {
         console.log(err);
       }
     }, [cosoa.application_period]);
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/cosoa_dashboard/get_orgs`)
+    .then((response) => {
+      console.log(response.data);
+      setOrgs(response.data);
+    });
+  }, [])
 
   const [countApproved, setCountApproved] = useState(0);
   const [countPending, setCountPending] = useState(0);
@@ -214,31 +198,6 @@ function COSOA_Dashboard() {
             })}
           </tbody>
         </Table>
-
-        {/* Byron I need you to check if legit haha if oo I'll do the same to other dashboards */}
-        <Pagination className="justify-content-center">
-        <Pagination.Prev
-          onClick={() =>
-            setCurrentPage((prev) => (prev === 1 ? prev : prev - 1))
-          }
-        />
-        {Array.from({ length: totalPages }).map((_, index) => (
-          <Pagination.Item
-            key={index}
-            active={index + 1 === currentPage}
-            onClick={() => handlePageChange(index + 1)}
-          >
-            {index + 1}
-          </Pagination.Item>
-        ))}
-        <Pagination.Next
-          onClick={() =>
-            setCurrentPage((prev) =>
-              prev === totalPages ? prev : prev + 1
-            )
-          }
-        />
-      </Pagination>
       </Container>
     </>
   );
