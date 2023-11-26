@@ -1,6 +1,7 @@
 import React from 'react'
 import {Col, Row, Form, Image} from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
+import './AccFinish.css';
 
 const GenInfo = ({formData, setFormData, show}) => {
 
