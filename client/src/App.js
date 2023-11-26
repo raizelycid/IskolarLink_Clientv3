@@ -42,7 +42,8 @@ import Admin_Dashboard from './Pages/Admin_Portal/Admin_Dashboard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import COSOA_Accesibility from './Pages/COSOA_Portal/COSOA_Accesibility';
 import User_Feedback from './Pages/Admin_Portal/User_Feedback';
-
+import Terms from './Pages/Terms';
+import { Link } from 'react-router-dom';
 function App() {
 
   axios.defaults.withCredentials = true;
@@ -234,6 +235,7 @@ function App() {
         <Route path="/admin/dashboard" exact element={<Admin_Dashboard/>}/>
         <Route path="/cosoa/members" exact element={<COSOA_Accesibility/>}/>
         <Route path="/admin/feedback" exact element={<User_Feedback/>}/>
+        <Route path="/terms" exact element={<Terms/>}/>
       </Routes>
 
       <footer className="footer bg-dark text-white py-4 border-bottom Inter">
@@ -297,12 +299,12 @@ function App() {
             <Col className="text-center text-md-right mt-3 mt-md-0">
               {/* Privacy Policy and Terms & Conditions Links */}
               <div className="data-footer d-flex justify-content-center justify-content-md-end">
-                <a className="nav-link text-muted" href="#">
+                <Link to="/terms" target='_top' className="nav-link text-muted">
                   Privacy Policy
-                </a>
-                <a className="nav-link text-muted ms-2 me-1" href="#">
+                </Link>
+                <Link to="/terms#terms-and-conditions" target='_top' className="nav-link text-muted ms-2 me-1">
                   Terms & Conditions
-                </a>
+                </Link>
               </div>
             </Col>
           </Row>
