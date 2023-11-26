@@ -88,10 +88,7 @@ function LoginPopup() {
                 <Row>
                   <Form.Group as={Col} controlId="formLoginCheckbox">
                     <Form.Check type="checkbox" label="Keep me logged in" className='Inter-normal' onChange={(e) => setLoginDetails({...loginDetails, keepLoggedIn: e.target.value})}/>
-                  </Form.Group>
-                  <Button as={Col} variant="link" className="text-end no-decoration text-red Inter forgot-pw">
-                    Forgot Password?
-                  </Button>
+                  </Form.Group> 
                 </Row>
                 
                 <Row className="p-2 my-1">

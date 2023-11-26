@@ -41,6 +41,7 @@ import Admin_Dashboard from './Pages/Admin_Portal/Admin_Dashboard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import COSOA_Accesibility from './Pages/COSOA_Portal/COSOA_Accesibility';
 import User_Feedback from './Pages/Admin_Portal/User_Feedback';
+import Error404 from './Error404';
 function App() {
 
   axios.defaults.withCredentials = true;
@@ -218,6 +219,7 @@ function App() {
         <Route path="/admin/dashboard" exact element={<Admin_Dashboard/>}/>
         <Route path="/cosoa/accesibility" exact element={<COSOA_Accesibility/>}/>
         <Route path="/admin/feedback" exact element={<User_Feedback/>}/>
+        <Route path="/error404" exact element={<Error404/>}/>
       </Routes>
 
       <footer className="footer bg-dark text-white py-4 border-bottom Inter">
