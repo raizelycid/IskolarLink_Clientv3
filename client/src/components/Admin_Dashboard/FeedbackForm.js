@@ -3,17 +3,10 @@ import { Modal, Button, Form, Row, Col, Container } from 'react-bootstrap';
 
 const FeedbackForm = () => {
   const [show, setShow] = useState(false);
-  const [studentNumber, setStudentNumber] = useState('');
-  const [pupWebmail, setPupWebmail] = useState('');
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handleDone = () => {
-    console.log('Student Number:', studentNumber);
-    console.log('PUP Webmail:', pupWebmail);
-    handleClose();
-  };
 
   return (
     <>
@@ -68,7 +61,7 @@ const FeedbackForm = () => {
         </Modal.Body>
         <Modal.Footer className='border-0'>
           <Row className=''>
-              <Button variant='primary' className="px-5 me-5" onClick={handleDone}>
+              <Button variant='primary' className="px-5 me-5">
                 Close
               </Button>
           </Row>
