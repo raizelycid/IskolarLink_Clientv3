@@ -65,7 +65,15 @@ const MainMenu = ({imgSrc, username}) => {
     return(
     <NavDropdown title={<>{imgSrc ? <img src={`${process.env.REACT_APP_BASE_URL}/images/${imgSrc}`} alt="Profile Picture" width="40" height="40" className="rounded-circle" /> : <FontAwesomeIcon icon={faUser}/>} <span className='text-dark'>Hi, {username}!</span></>} id="basic-nav-dropdown" className="text-dark" renderMenuOnMount={true}>
         <NavDropdown.Item onClick={() => navigate('/student/profile')}>Profile</NavDropdown.Item>
-        {accreditationStatus ? <NavDropdown.Item onClick={() => navigate('/accreditation/status')}> Accreditation Status</NavDropdown.Item> : <NavDropdown.Item onClick={() => navigate('/accreditation')}>Create an Organization</NavDropdown.Item>}
+        {
+  authState.is_verified 
+    ? (
+        accreditationStatus 
+          ? <NavDropdown.Item onClick={() => navigate('/accreditation/status')}>Accreditation Status</NavDropdown.Item> 
+          : <NavDropdown.Item onClick={() => navigate('/accreditation')}>Create an Organization</NavDropdown.Item>
+      )
+    : null
+}
         {authState.is_cosoa && <NavDropdown.Item onClick={switchCosoa}>Switch to COSOA</NavDropdown.Item>}
         {authState.is_web_admin && <NavDropdown.Item href="/web_admin_home"  onClick={switchWebAdmin}>Switch to Web Admin</NavDropdown.Item>}
         <NavDropdown.Item onClick={() => navigate('/student/settings')}>Settings</NavDropdown.Item>

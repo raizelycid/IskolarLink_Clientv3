@@ -9,6 +9,7 @@ import Table from 'react-bootstrap/Table'
 import Dropdown from 'react-bootstrap/Dropdown'
 import GiveFeedback from '../../components/Admin_Dashboard/GiveFeedback';
 import './Admin_Portal.css'
+import Add_Chairperson from '../../components/Add_Chairperson';
 
 
 function Admin_Dashboard() {
@@ -20,19 +21,19 @@ function Admin_Dashboard() {
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
-    axios.get('http://localhost:3001/admin/count_students').then((response) => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/admin/count_students`).then((response) => {
       setStudentCount(response.data);
     });
 
-    axios.get('http://localhost:3001/admin/count_students_to_verify').then((response) => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/admin/count_students_to_verify`).then((response) => {
       setToVerifyCount(response.data);
     });
 
-    axios.get('http://localhost:3001/admin/get_chairperson').then((response) => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/admin/get_chairperson`).then((response) => {
       setChairperson(response.data);
     });
 
-    axios.get('http://localhost:3001/admin/get_students_to_verify').then((response) => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/admin/get_students_to_verify`).then((response) => {
       setStudentsToVerify(response.data);
     });
 
@@ -90,14 +91,14 @@ function Admin_Dashboard() {
         </Row>
         <Row className='ms-1 me-5 pe-3 pt-3 border'>  
           <Col xs={1} className='text-end'>
-            {chairperson.user?.profile_picture ? <Image src={chairperson.user?.profile_picture} roundedCircle style={{width:"3rem"}}/> : <FontAwesomeIcon icon={faUserCircle} size="3x" className="text-red"/>}
+            {chairperson.user?.profile_picture ? <Image src={`${process.env.REACT_APP_BASE_URL}/images/${chairperson.user.profile_picture}`} roundedCircle style={{width:"3rem"}}/> : <FontAwesomeIcon icon={faUserCircle} size="3x" className="text-red"/>}
           </Col>
           <Col className="ms-0">
             <p className=' mb-0'><strong>{chairperson.student?.student_Fname + " " + chairperson.student?.student_Lname}</strong></p>
             <p className='text-red'>{chairperson.user?.email}</p>
           </Col>
           <Col className='text-end mt-1'>
-            <Button variant="primary">Update Chairperson</Button>
+            <Add_Chairperson />
           </Col>
         </Row>
         <Row className='text-center mt-5'>
