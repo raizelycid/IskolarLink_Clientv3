@@ -71,14 +71,14 @@ const removeMember = async (memberId) => {
         userPosition === 'Chairperson (Asst.)' ||
         userPosition === 'Vice Chairperson' ||
         userPosition === 'Vice Chairperson (Asst.)' ? (
-          <Button variant="primary">+ Add New COSOA Officer</Button>
+          <Add_COSOA/>
         ) : (
           <Button variant="primary" disabled>
             + Add New COSOA Officer
           </Button>
         )}
 
-          <Add_COSOA/>
+          
         </Container>
 
         <Container>
