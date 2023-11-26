@@ -15,7 +15,7 @@ function COSOASettings(){
   const handleSaveChanges = () => {
     // Logic to handle save changes
     try{
-        axios.post('http://localhost:3001/cosoa_profile/update_cosoa_details', cosoa, {
+        axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa_profile/update_cosoa_details`, cosoa, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -36,7 +36,7 @@ function COSOASettings(){
   const handleToggle = () => {
     // Logic to handle toggle
     try{
-      axios.post('http://localhost:3001/cosoa/application_period')
+      axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa/application_period`)
       .then((response) => {
         if(response.data.success){
           alert(response.data.success);
@@ -52,7 +52,7 @@ function COSOASettings(){
   
   useEffect(() => {
     try{
-        axios.get('http://localhost:3001/cosoa_profile/get_cosoa_details')
+        axios.get(`${process.env.REACT_APP_BASE_URL}/cosoa_profile/get_cosoa_details`)
         .then((response) => {
           console.log(response.data);
             setCOSOA(response.data);
@@ -66,7 +66,7 @@ function COSOASettings(){
 
     useEffect(() => {
       try{
-        axios.get('http://localhost:3001/cosoa/application_period').then((response) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/cosoa/application_period`).then((response) => {
           setCOSOA(response.data.application_period);
           if(response.data.application_period === true){
             document.getElementById('anr-period-toggle').checked = true;
