@@ -47,6 +47,7 @@ const CosoaMenu = ({imgSrc, username}) => {
     <NavDropdown title={<>{imgSrc ? <img src={`${process.env.REACT_APP_BASE_URL}/images/${imgSrc}`} alt="Profile Picture" width="40" height="40" className="rounded-circle" /> : <FontAwesomeIcon icon={faUser}/>} <span className='text-dark'>Hi, {username}!</span></>} id="basic-nav-dropdown" className="text-dark" renderMenuOnMount={true}>
         <NavDropdown.Item onClick={()=>navigate('/cosoa/home')}>Home</NavDropdown.Item>
         <NavDropdown.Item onClick={()=>navigate('/cosoa/dashboard')}>Dashboard</NavDropdown.Item>
+        <NavDropdown.Item onClick={()=>navigate('/cosoa/members')}>Members</NavDropdown.Item>
         <NavDropdown.Item onClick={switchStudent}>Switch to Student</NavDropdown.Item>
         <NavDropdown.Item onClick={()=>navigate('/cosoa/settings')}>Settings</NavDropdown.Item>
         <NavDropdown.Divider />
