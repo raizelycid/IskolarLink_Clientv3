@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Button, Col, Badge, Row, Container } from 'react-bootstrap';
+import { Card, Button, Col, Badge, Row, Pagination, Container } from 'react-bootstrap';
 import './general.css'
 import {useNavigate} from 'react-router-dom';
 
