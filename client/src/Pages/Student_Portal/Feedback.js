@@ -3,7 +3,6 @@ import { HeroVariant } from '../../components/HeroVariant/Hero';
 import { Container } from 'react-bootstrap';
 import FAQs_Form from '../../components/FAQs_Form';
 
-
 function OrgFeedback() {
   return (
     <div>
@@ -13,6 +12,7 @@ function OrgFeedback() {
     />
     <Container className='my-5'>
   <FAQs_Form/>
+
   </Container>
   </div>
 

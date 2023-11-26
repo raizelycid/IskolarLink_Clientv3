@@ -6,6 +6,7 @@ import Table from 'react-bootstrap/Table'
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import Add_COSOA from '../../components/COSOA_Dashboard/Add_COSOA';
 
 function COSOA_Accesibility() {
 
@@ -77,6 +78,7 @@ const removeMember = async (memberId) => {
           </Button>
         )}
 
+          <Add_COSOA/>
         </Container>
 
         <Container>

@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './general.css';
 import { AuthContext } from '../helpers/AuthContent';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Ensure you have FontAwesome imported
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'; // Import the eye icons
 
 
 function LoginPopup() {
@@ -20,6 +22,8 @@ function LoginPopup() {
   const {activeMenu, setActiveMenu} = menu;
   const navigate = useNavigate();
   axios.defaults.withCredentials = true;
+
+  const [passwordShown, setPasswordShown] = useState(false);
 
   const handleCloseLogin = () => setShowLogin(false);
   const handleShowLogin = () => setShowLogin(true);
@@ -44,6 +48,10 @@ function LoginPopup() {
       }
     });
   }
+
+  const togglePasswordVisibility = () => {
+    setPasswordShown(!passwordShown);
+  };
 
   return (
     <>
@@ -79,18 +87,27 @@ function LoginPopup() {
                   <Form.Control type="email" placeholder="Enter your webmail address" className='Inter-normal' onChange={(e) => setLoginDetails({...loginDetails, email: e.target.value})}/>
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formLoginPassword">
-                  <Form.Label className='Inter-med'>Password</Form.Label>
-                  <Form.Control type="password" placeholder="Enter your password" className='Inter-normal' onChange={(e) => setLoginDetails({...loginDetails, password: e.target.value})}/>
-                </Form.Group>
+                <Form.Group className="mb-3 position-relative" controlId="formLoginPassword">
+  <Form.Label className='Inter-med'>Password</Form.Label>
+  <Form.Control
+    type={passwordShown ? "text" : "password"}
+    placeholder="Enter your password"
+    className='Inter-normal'
+    onChange={(e) => setLoginDetails({...loginDetails, password: e.target.value})}
+  />
+  <FontAwesomeIcon
+    icon={passwordShown ? faEyeSlash : faEye}
+    className="position-absolute end-0 top-69 translate-middle-y me-3"
+    onClick={togglePasswordVisibility}
+    style={{ cursor: 'pointer', right: '10px', top: '69%', transform: 'translateY(-50%)' }}
+  />
+  
+</Form.Group>
 
                 <Row>
                   <Form.Group as={Col} controlId="formLoginCheckbox">
                     <Form.Check type="checkbox" label="Keep me logged in" className='Inter-normal' onChange={(e) => setLoginDetails({...loginDetails, keepLoggedIn: e.target.value})}/>
-                  </Form.Group>
-                  <Button as={Col} variant="link" className="text-end no-decoration text-red Inter forgot-pw">
-                    Forgot Password?
-                  </Button>
+                  </Form.Group> 
                 </Row>
                 
                 <Row className="p-2 my-1">

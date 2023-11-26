@@ -258,3 +258,10 @@
   object-fit: contain;
 
 }
+
+.login-form .position-relative .fa {
+  cursor: pointer;
+  right: 10px; /* Adjust as needed */
+  top: 100px; /* Centers the icon vertically */
+  transform: translateY(-50%);
+}
