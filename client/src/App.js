@@ -232,7 +232,7 @@ function App() {
         <Route path="/organization/membership" exact element={<O_Membership/>} />
         <Route path="/organization/members" exact element={<Official_Members/>}/>
         <Route path="/admin/dashboard" exact element={<Admin_Dashboard/>}/>
-        <Route path="/cosoa/accesibility" exact element={<COSOA_Accesibility/>}/>
+        <Route path="/cosoa/members" exact element={<COSOA_Accesibility/>}/>
         <Route path="/admin/feedback" exact element={<User_Feedback/>}/>
       </Routes>
 
