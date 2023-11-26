@@ -7,6 +7,7 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import Add_COSOA from '../../components/COSOA_Dashboard/Add_COSOA';
+import Edit_COSOA from '../../components/COSOA_Dashboard/Edit_COSOA';
 
 function COSOA_Accesibility() {
 
@@ -61,8 +62,8 @@ const removeMember = async (memberId) => {
           pText="Assign permissions to COSOA Staff."
         />
         <Row className='text-center my-5'>
-          <h1 className='text-red'>Lorem Ipsum</h1>
-          <p>Another Lorem ipsum pero subtitle</p>
+          <h1 className='text-red'>COSOA Members</h1>
+          <p>Manage or View COSOA Members</p>
         </Row>
         
         <Container className='text-center my-5'>
@@ -71,7 +72,7 @@ const removeMember = async (memberId) => {
         userPosition === 'Chairperson (Asst.)' ||
         userPosition === 'Vice Chairperson' ||
         userPosition === 'Vice Chairperson (Asst.)' ? (
-          <Add_COSOA/>
+          <Add_COSOA setRefresh={setRefresh}/>
         ) : (
           <Button variant="primary" disabled>
             + Add New COSOA Officer
@@ -111,9 +112,7 @@ const removeMember = async (memberId) => {
                     userPosition === 'Vice Chairperson' ||
                     userPosition === 'Vice Chairperson (Asst.)') ? (
                     <>
-                      <Button variant="warning" style={{ padding: '5px 10px', marginRight: '5px' }}>
-                        Edit
-                      </Button>
+                      <Edit_COSOA setRefresh={setRefresh} imgSrc={member.profile_picture} fullName={member.name} position={member.position} id={member.id} /><br/>
                       <Button variant="danger" style={{ padding: '5px 10px' }} onClick={()=>removeMember(member.id)}>
                         Delete
                       </Button>
