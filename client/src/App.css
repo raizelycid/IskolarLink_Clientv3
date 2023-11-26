@@ -40,6 +40,10 @@
   color: var(--gray2);
 }
 
+.muted-border {
+  border-color: #D0D5DD; 
+}
+
 @font-face {
   font-family: Urbanist;
   src: url(../public/Urbanist-VariableFont_wght.ttf);
@@ -236,4 +240,20 @@ footer, .data-footer {
   background-color: var(--dark-yellow) !important;
   color: var(--dark-yellow) !important;
   border: none;
+}
+
+.form-check-input, .form-check-input:disabled {
+  border-color: var(--gray2) !important;
+}
+
+.form-check-input[type="radio"]:checked {
+  border-color: var(--red) !important;
+  background-color: var(--red) !important;
+}
+
+
+.muted-border:focus,
+.muted-border:hover {
+  border-color: #D0D5DD !important;
+  color: var(--red);
 }

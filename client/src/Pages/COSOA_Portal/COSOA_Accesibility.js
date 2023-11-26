@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { HeroVariant3 } from '../../components/HeroVariant/Hero';
 import { Container, Row, Button } from 'react-bootstrap';
 import './COSOA_Portal.css'
+import Add_COSOA from '../../components/COSOA_Dashboard/Add_COSOA';
 
 function COSOA_Accesibility() {
   return (
@@ -16,8 +17,7 @@ function COSOA_Accesibility() {
         </Row>
         
         <Container className='text-center my-5'>
-        <Button variant="primary">+ Add New COSOA Officer</Button>
-
+          <Add_COSOA/>
         </Container>
   </>
   );
