@@ -1,21 +1,111 @@
-import React, { useState } from 'react';
-import { Modal, Button, Form, Row, Col, InputGroup } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Modal, Button, Form, Row, Col, InputGroup, ListGroup } from 'react-bootstrap';
+import axios from 'axios'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
-const Add_COSOA = () => {
+
+const Add_COSOA = ({setRefresh}) => {
     const [show, setShow] = useState(false);
     const [selectedPosition, setSelectedPosition] = useState(''); // State to manage selected position
+    const [results, setResults] = useState([])
+    const [email, setEmail] = useState('')
+    const [student, setStudent] = useState({})
 
-    const handleClose = () => setShow(false);
+    useEffect(() => {
+        const fetchResults = async () => {
+          try {
+            if (email !== '') {
+                axios.get(`${process.env.REACT_APP_BASE_URL}/cosoa_member/search_student/${email}`).then((response)=>{
+                    console.log(response.data)
+                    setResults(response.data)
+                })
+                
+                
+            }else{
+                setResults([])
+            }
+          } catch (err) {
+            console.log(err);
+          }
+        };
+    
+        // Debounce the search input
+        const debounceTimeout = setTimeout(() => {
+          fetchResults();
+        }, 500); // Adjust the debounce timeout as needed (e.g., 500 milliseconds)
+    
+        // Clear timeout on unmount or when the search value changes
+        return () => clearTimeout(debounceTimeout);
+      }, [email]);
+
+
+    const handleSearch = (e) => {
+        setEmail(e.target.value)
+        console.log(e.target.value)
+    }
+
+    const handleClose = () => {
+        setShow(false);
+        setEmail('');
+        setStudent({});
+        setResults([]);
+    };
+
     const handleShow = () => setShow(true);
 
     const handlePositionChange = (positionId) => {
         setSelectedPosition(positionId);
+        console.log(positionId)
     };
 
+    const handleStudentClick = (selectedStudent) => {
+        setStudent(selectedStudent)
+        setEmail('')
+    };
+
+    const handleSubmit = () => {
+        if (student && selectedPosition) {
+            axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa_member/create_cosoa_member`, {
+                email: student.email,
+                position: selectedPosition,
+            })
+            .then((res) => {
+                if (res.status === 201) {
+                    // Successful creation
+                    alert('COSOA member created successfully.');
+                    // Optionally, you can reset the student and selectedPosition states here
+                    setStudent({});
+                    setSelectedPosition('');
+                    setEmail('')
+                    setRefresh(true)
+                    handleClose();
+                } else {
+                    // Handle other status codes here
+                    if (res.status === 400) {
+                        alert('Bad Request: ' + res.data.error);
+                    } else if (res.status === 500) {
+                        alert('Internal Server Error: ' + res.data.error);
+                    } else {
+                        alert('An error occurred while creating COSOA member.');
+                    }
+                }
+            })
+            .catch((error) => {
+                // Handle network errors or other errors here
+                alert('An error occurred while creating COSOA member.');
+                console.error(error);
+            });
+        } else {
+            alert('Student/Position is missing!');
+        }
+    };
+    
+
     const positions = [
-        'Chairperson',
-        'Assistant Chairperson',
+        'Chairperson (Asst.)',
         'Vice Chairperson',
+        'Vice Chairperson (Asst.)',
         'Secretary-General',
         'Executive Director',
         'External Affairs',
@@ -41,16 +131,64 @@ const Add_COSOA = () => {
                 <Modal.Body className='pt-4'>
                 <Row>
                 <Form.Label>PUP Webmail</Form.Label>
-                <InputGroup as={Col} className="text-end">
-                    <Button variant="outline-secondary" className="border-end-0 bg-white muted-border">
-                    <i className="fa-solid fa-magnifying-glass"></i>
-                    </Button>
+                
+                <InputGroup className="text-end">
+                <Button variant="outline-secondary" className="border-end-0 bg-white muted-border">
+                <i className="fa-solid fa-magnifying-glass"></i>
+                </Button>
                 <Form.Control
                     placeholder="Search"
                     className="shadow-lg muted-border"
+                    type="text"
+                    onChange={handleSearch}
+                    value={email}
                 />
-                </InputGroup>
+            </InputGroup>
+            <ListGroup>
+            {results.map((result, index) => (
+                <ListGroup.Item key={index} className="d-flex align-items-center" onClick={() => handleStudentClick(result)}>
+                    {result.profile_picture ? <img src={`${process.env.REACT_APP_BASE_URL}/images/${result.profile_picture}`} alt="Profile" className="mr-3" style={{ maxWidth: '50px', maxHeight: '50px', marginRight: '10px' }} /> :
+                    <FontAwesomeIcon icon={faUser} style={{ fontSize: '40px', marginRight: '10px' }} />
+                    }
+                    <div className="d-flex flex-column">
+                                        <div className="text-right mb-2">
+                                            {result.email}
+                                        </div>
+                                        <div className="text-right">
+                                            {result.student?.student_Fname} {result.student?.student_Lname}
+                                        </div>
+                    </div>
+                </ListGroup.Item>
+            ))}
+                
+            </ListGroup>
+
                 </Row>
+                <Row>
+                    <div className="d-flex align-items-center my-3">
+                    {student && student.email ? (
+                        student.profile_picture ? (
+                            <img
+                                src={`${process.env.REACT_APP_BASE_URL}/images/${student.profile_picture}`}
+                                alt="Profile"
+                                className="mr-3"
+                                style={{ maxWidth: '50px', maxHeight: '50px', marginRight: '10px' }}
+                            />
+                        ) : (
+                            <FontAwesomeIcon icon={faUser} style={{ fontSize: '40px', marginRight: '10px' }} />
+                        )
+                        ) : null}
+                        {student && student.email && (
+                            <div className="d-flex flex-column">
+                                <div className="text-right mb-2">{student.email}</div>
+                                <div className="text-right">
+                                    {student.student?.student_Fname} {student.student?.student_Lname}
+                                </div>
+                            </div>
+                        )}
+                        </div>
+                    </Row>
+
                     <Form className='mt-3'>
                         <Form.Group>
                             <Form.Label>Choose position</Form.Label>
@@ -66,9 +204,9 @@ const Add_COSOA = () => {
                                             <Form.Check.Input
                                                 type="radio"
                                                 name="position"
-                                                id={position.toLowerCase().replace(/\s/g, '-')}
-                                                checked={selectedPosition === position.toLowerCase().replace(/\s/g, '-')}
-                                                onChange={() => handlePositionChange(position.toLowerCase().replace(/\s/g, '-'))}
+                                                id={position}
+                                                checked={selectedPosition === position}
+                                                onChange={(e) => handlePositionChange(e.target.id)}
                                             />
                                         </Col>
                                     </Row>
@@ -80,7 +218,7 @@ const Add_COSOA = () => {
                 <Modal.Footer className='border-0'>
                 <Row className='w-100'>
                     <Col>
-                    <Button variant='primary' className='w-100 mb-3' onClick={handleClose}>
+                    <Button variant='primary' className='w-100 mb-3' onClick={handleSubmit}>
                         Done
                     </Button>
                     <Button variant='light' className='w-100 border' onClick={handleClose}>

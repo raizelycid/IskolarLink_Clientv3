@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
+import axios from 'axios';
 
-const Add_Chairperson = () => {
+
+const Add_Chairperson = ({setRefresh}) => {
   const [show, setShow] = useState(false);
   const [studentNumber, setStudentNumber] = useState('');
   const [pupWebmail, setPupWebmail] = useState('');
@@ -9,11 +11,34 @@ const Add_Chairperson = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handleDone = () => {
+  const handleDone = async () => {
     console.log('Student Number:', studentNumber);
     console.log('PUP Webmail:', pupWebmail);
-    handleClose();
+  
+    axios
+      .post(`${process.env.REACT_APP_BASE_URL}/admin/update_chairperson`, {
+        student_num: studentNumber,
+        email: pupWebmail,
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          alert(res.data.success);
+          setRefresh(true);
+          handleClose();
+        } else if (res.status === 400) {
+          alert(res.data.error); // Display the specific error message from the API
+        } else {
+          // Handle unexpected status codes or server errors here
+          alert('Server error or unexpected response');
+        }
+      })
+      .catch((error) => {
+        // Handle network errors or other errors here
+        console.error('API request failed with error:', error);
+        alert('Failed to update chairperson');
+      });
   };
+  
 
   return (
     <>

@@ -98,7 +98,7 @@ function Admin_Dashboard() {
             <p className='text-red'>{chairperson.user?.email}</p>
           </Col>
           <Col className='text-end mt-1'>
-            <Add_Chairperson />
+            <Add_Chairperson setRefresh={setRefresh}/>
           </Col>
         </Row>
         <Row className='text-center mt-5'>
@@ -106,13 +106,13 @@ function Admin_Dashboard() {
         </Row>
         <Row className='m-4'>
         <Col className='text-start'>
-          <Button variant="outline-secondary"><i class="fa-solid fa-filter"></i> Filter</Button>
+          <Button variant="outline-secondary"><i className="fa-solid fa-filter"></i> Filter</Button>
         </Col>
         <Col>
         </Col>
         <InputGroup as={Col} className="text-end">
           <Button variant="outline-secondary" id="button-addon2">
-            <i class="fa-solid fa-magnifying-glass"></i>
+            <i className="fa-solid fa-magnifying-glass"></i>
           </Button>
           <Form.Control
             placeholder="Search"
