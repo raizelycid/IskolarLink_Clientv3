@@ -51,9 +51,6 @@ const totalPages = Math.ceil(organizations.length / itemsPerPage);
       />
       <Row className='m-4'>
         <Col xs={1}></Col>
-        <Col>
-          <Button variant="outline-secondary"><i class="fa-solid fa-filter"></i> Filter</Button>
-        </Col>
         <InputGroup as={Col}>
           <Button variant="outline-secondary" id="button-addon2">
             <i class="fa-solid fa-magnifying-glass"></i>
@@ -89,6 +86,23 @@ const totalPages = Math.ceil(organizations.length / itemsPerPage);
                 </>
               )
           })}
+
+          {organizations.map((org) => {
+            return (
+              <>
+              {org.User.role !== 'student' &&
+              <Col xs={12} md={4} className='mb-4'>
+                <Accredited_Org 
+                  imageSrc={org.User.profile_picture ? `${process.env.REACT_APP_BASE_URL}/org_images/${org.User.profile_picture}` : `${process.env.REACT_APP_BASE_URL}/org_images/default-org-photo.jpg`}
+                  title={org.org_name}
+                  description={org.User.description ? org.User.description : 'No description'}
+                  tags={[org.type, org.subjurisdiction]}
+                  orgId={org.id}
+                />
+              </Col>
+            }
+            </>
+            )})}
         </Row>
  
         <Pagination className="justify-content-center pagination-red">

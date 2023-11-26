@@ -30,14 +30,13 @@ function LoginPopup() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(loginDetails);
     axios.post(`${process.env.REACT_APP_BASE_URL}/auth/login`, loginDetails).then((response) => {
-      console.log(response);
+      console.log(response.data);
       if(response.data.error){
         alert(response.data.error);
       }else{
-        if(response.student){
-        alert(response.data);
+        if(response.data.student){
+        alert(response.data.student);
         }
         setAuthState({...authState, status: true});
         if(response.org){
