@@ -28,7 +28,7 @@ const Accredited_Org = ({ imageSrc, title, description, tags, orgId }) => {
           </Card.Text>
         </Card.Body>
         <Card.Footer className="bg-transparent border-0">
-          <Button variant="primary">Apply Now</Button>
+          <Button variant="primary">View</Button>
         </Card.Footer>
       </Card>
     </Col>
