@@ -1,8 +1,25 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { Form, Container, Image, Row, Col, Button} from 'react-bootstrap';
 import './general.css';
+import axios from 'axios';
+
 
 const FAQs_Form = () => {
+  const [feedback, setFeedback] = useState({});
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios.post(`${process.env.REACT_APP_BASE_URL}/feedback/add`, feedback)
+      .then(res => {
+        alert(res.data.success);
+        setFeedback({});
+        window.location.reload();
+      })
+      .catch(err => {
+        alert(err.response.data.error);
+      });
+  }
+
   return (
     <>
         <Container>
@@ -17,28 +34,28 @@ const FAQs_Form = () => {
                 <Row className='mb-3'>
                   <Form.Group as={Col}>
                     <Form.Label>Full Name</Form.Label>
-                    <Form.Control type='text' placeholder='Enter Name'></Form.Control>
+                    <Form.Control type='text' placeholder='Enter Name' value={feedback.fullName} onChange={(e) => setFeedback({...feedback, fullName: e.target.value})} />
                   </Form.Group>
                   <Form.Group as={Col}>
                     <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" placeholder='Enter Email'></Form.Control>
+                    <Form.Control type="email" placeholder='Enter Email' value={feedback.email} onChange={(e) => setFeedback({...feedback, email: e.target.value})} />
                   </Form.Group>
                 </Row>
                 <Row className='mb-3'>
                   <Form.Group>
                     <Form.Label>Subject</Form.Label>
-                    <Form.Control type='text' placeholder='Enter the Subject'></Form.Control>
+                    <Form.Control type='text' placeholder='Enter the Subject' value={feedback.subject} onChange={(e) => setFeedback({...feedback, subject: e.target.value})} required/>
                   </Form.Group>
                 </Row>
                 <Row className='mb-4'>
                   <Form.Group>
                     <Form.Label>Message</Form.Label>
-                    <Form.Control as='textarea' rows={5} placeholder='Hi! I am the student organization representative of...'></Form.Control>
+                    <Form.Control as='textarea' rows={5} placeholder='Hi! I am the student organization representative of...' value={feedback.message} onChange={(e) => setFeedback({...feedback, message: e.target.value})} required/>
                   </Form.Group>
                 </Row>
                 <Row>
                   <Col>
-                    <Button variant="secondary" type="submit" className="text-start px-3">
+                    <Button variant="secondary" type="submit" className="text-start px-3" onClick={handleSubmit}>
                       Submit
                     </Button>
                   </Col>

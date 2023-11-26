@@ -6,7 +6,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { AuthContext } from '../helpers/AuthContent'
 import { useNavigate } from 'react-router-dom'
 
-function OrgMenu({imgSrc, username}) {
+function OrgMenu({imgSrc, username, showApplication}) {
 
     const {auth, menu} = useContext(AuthContext);
     const {authState, setAuthState} = auth;
@@ -17,8 +17,12 @@ function OrgMenu({imgSrc, username}) {
 
     //use useEffect to set the ActiveMenu to org and the cookie to org
     useEffect(() => {
+        if(authState.role === 'student'){
+            setActiveMenu('main')
+        }else{
         setActiveMenu('org');
         axios.post(`${process.env.REACT_APP_BASE_URL}/menu/`, {menu: 'org'})
+        }
     }, [])
 
 
@@ -27,9 +31,10 @@ function OrgMenu({imgSrc, username}) {
         <NavDropdown.Item onClick={()=>navigate('/organization/profile')}>Profile</NavDropdown.Item>
         <NavDropdown.Item onClick={() => navigate('/organization/members')}>Official Members</NavDropdown.Item>
         <NavDropdown.Item onClick={() => navigate('/organization/membership')}>Memberships</NavDropdown.Item>
-        <NavDropdown.Item onClick={() => navigate('/organization/revalidation')}>Revalidation</NavDropdown.Item>
+        {showApplication === 0 ? null : showApplication === 1 ? <NavDropdown.Item onClick={() => navigate('/organization/revalidation')}>Revalidation</NavDropdown.Item> : <NavDropdown.Item onClick={() => navigate('/organization/revalidation/status')}>Revalidation Status</NavDropdown.Item>}
         <NavDropdown.Item onClick={() => navigate('/organization/settings')}>Settings</NavDropdown.Item>
         <NavDropdown.Divider />
+        <NavDropdown.Item onClick={() => navigate('/organization/feedback')}>Feedback</NavDropdown.Item>
         <NavDropdown.Item onClick={() => {
             axios.post(`${process.env.REACT_APP_BASE_URL}/auth/logout`)
             .then((response) => {

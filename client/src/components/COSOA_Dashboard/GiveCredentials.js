@@ -16,7 +16,7 @@ function GiveCredentials({role, applicationStatus, orgId}) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post(`http://localhost:3001/auth/add_org/${orgId}`, { email: email, password: password }).then((response) => {
+        axios.post(`${process.env.REACT_APP_BASE_URL}/auth/add_org/${orgId}`, { email: email, password: password }).then((response) => {
             if(response.data.error){
                 alert(response.data.error);
             }else{

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Container, Col, Row, Image, Button } from 'react-bootstrap';
+import React, {useState} from 'react';
+import { Container, Col, Row, Image, Button , Carousel} from 'react-bootstrap';
 import './Hero.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
@@ -7,16 +7,66 @@ import { AuthContext } from '../../helpers/AuthContent'
 import { useContext } from 'react';
 import {useNavigate} from 'react-router-dom';
 
-const Hero = () => {
+  const Hero = () => {
+    const [index, setIndex] = useState(0);
+
+    const handleSelect = (selectedIndex, e) => {
+      setIndex(selectedIndex);
+    };
+
+    const navigate = useNavigate();
+
+    const handleButtonClick = () => {
+      navigate('/organizations');
+    };
+  
+
+    const backgroundImages = [
+      'url(/Media/1.png)',
+      'url(/Media/2.png)',
+      'url(/Media/3.png)',
+      'url(/Media/4.png)',
+      'url(/Media/5.png)',
+      'url(/Media/6.png)',
+      'url(/Media/7.png)',
+      'url(/Media/8.png)',
+      'url(/Media/9.png)',
+      'url(/Media/22.png)',
+      'url(/Media/23.png)',
+      'url(/Media/24.png)',
+    ];
+
+    const slides = backgroundImages.map((image, idx) => (
+      <Carousel.Item key={idx}>
+        <div className="hero-bg d-flex flex-column justify-content-center align-items-center vh-100" style={{ backgroundImage: image }}>
+          <Container className="px-5">
+            <Col xs={6}>
+            <h1 className="hero-h1 Inter text-white">Your Campus Journey Matters to Us.</h1>
+            </Col>
+            <p className="hero-p Inter-normal text-white pt-2 pb-3">
+              Revolutionize student organization management with <b>IskolarLink</b>:<br />
+              Your one-stop solution for streamlining COSOA applications and<br />
+              student membership management online!
+            </p>
+            <Button variant="secondary py-2 px-3 Inter" onClick={handleButtonClick}>Get Started</Button>
+          </Container>
+        </div>
+      </Carousel.Item>
+    ));
+
     return (
-      <div className="hero-bg vh-100 d-flex align-items-center">
-        <Container>
-          <h1 className="hero-h1 Inter text-white">Your Campus Journey <br/> Matters to Us.</h1>
-          <p className="hero-p Inter-normal text-white pt-2 pb-3">Revolutionize student organization management with <b>IskolarLink</b>:<br/>
-          Your one-stop solution for streamlining COSOA applications and<br/>
-          student membership management online!</p>
-          <Button variant="secondary py-2 px-3 Inter">Get Started</Button>
-        </Container>
+      <div className="vh-100">
+        <Carousel
+          activeIndex={index}
+          onSelect={handleSelect}
+          slide={true}
+          controls={false}
+          fade={true}
+          indicators={false}
+          interval={500}
+        >
+          {slides}
+        </Carousel>
       </div>
     );
   };

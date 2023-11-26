@@ -19,7 +19,7 @@ function AddAnnouncement({setRefreshAnnouncement}) {
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      axios.post(`http://localhost:3001/cosoa_ann`, postAnnouncement, {
+      axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa_ann`, postAnnouncement, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
