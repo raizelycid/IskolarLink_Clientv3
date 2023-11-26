@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react'
+import React, {useState,useEffect,useContext} from 'react'
 import GenInfo from '../../components/Revalidation/GenInfo'
 import RevForms1 from '../../components/Revalidation/RevForms1'
 import RevForms2 from '../../components/Revalidation/RevForms2'
@@ -15,11 +15,11 @@ import { Alert } from 'react-bootstrap';
 function Revalidation() {
     const [page, setPage] = useState(0);
     const [formData, setFormData] = useState({
+        socn:'',
         orgName: '',
         jurisdiction: '',
         subjurisdiction: '',
         orgType: '',
-        department: '',
         advisers: '',
         RD001: '',
         RD002: '',
@@ -29,11 +29,10 @@ function Revalidation() {
         RD006: '',
         RD007: '',
         RD008: '',
-        RF001: '',
-        RD009: '',
         RD010: '',
         RD011: '',
-        privacyPolicy: '',
+        RF001: '',
+        privacyPolicy: false,
     });
 
     const FormTitles = [ ]
@@ -50,10 +49,10 @@ function Revalidation() {
 
     const generatePDF = async () => {
         try {
-            await axios.post(`${process.env.REACT_APP_BASE_URL}/appdocs/generate_AF001_temp`, formData).then((res) => {
+            await axios.post(`${process.env.REACT_APP_BASE_URL}/appdocs/generate_RF001_temp`, formData).then((res) => {
                 setTrackerForm(res.data.filename);});
 
-            await axios.post(`${process.env.REACT_APP_BASE_URL}/appdocs/generate_AD009_temp`, formData).then((res) => {
+            await axios.post(`${process.env.REACT_APP_BASE_URL}/appdocs/generate_RD011_temp`, formData).then((res) => {
                 setWaiverForm(res.data.filename);});
         } catch (err) {
             console.log(err);
@@ -62,18 +61,18 @@ function Revalidation() {
 
     const navigate = useNavigate();
 
-    useEffect(() => {/*
-        axios.get('${process.env.REACT_APP_BASE_URL}/student/accreditation_status').then((response) => {
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/student/accreditation_status`).then((response) => {
             if(response.data.error){
                 alert(response.data.error);
             }
             else{
                 if(response.data.status === true){
                     alert("You have already submitted an application. You will be redirected to the Accreditation Status Page.");
-                    navigate('/accreditation_status');
+                    navigate('/organization/revalidation/status');
                 }  
             }
-        });*/
+        });
     },[]);
     useEffect(() => {
         if(page === 0){
@@ -110,11 +109,22 @@ function Revalidation() {
 
     const submitData = async () => {
         try {
-            const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/org/addorg`, formData, {
+            console.log(formData)
+            const isValid = await revalidationSchema.isValid(formData);
+            if(isValid){
+            const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/org/revalidation`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 }
             }); 
+            if(res.data.err){
+                alert(res.data.err)
+            }else{
+                navigate('/organization/revalidation/status')
+            }
+        }else{
+            setShowAlert(true)
+        }
         } catch (err) {
             console.log(err);
         }
@@ -161,27 +171,25 @@ function Revalidation() {
         <Container>
         <div className="d-flex justify-content-center form-footer">
             <button 
-            disabled={page === 0}
+            disabled={page == 0}
             onClick={() => 
                 setPage((currPage) => currPage - 1)}
             className="custom-button2 margin-right"
             >
             {`< Prev`}
             </button>
+            {page == 3? <ConfirmationDialog confirmation={confirmation} setConfirmation={setConfirmation}/> :
             <button
             onClick={() => {
-                if (page == 3) {
-                submitData();
-                alert("Form Submitted");
-                } else {
-                if (page === 0) { generatePDF(); }
-                setPage((currPage) => currPage + 1);
+                    if(page === 0){generatePDF()}
+                    setPage((currPage) => currPage + 1);
                 }
-            }}
+            }
             className="custom-button margin-right"
             >
-            {page == 3? "Submit" : "Next >"}
+               Next &#8594;
             </button>
+            }
         </div>
         </Container>
       

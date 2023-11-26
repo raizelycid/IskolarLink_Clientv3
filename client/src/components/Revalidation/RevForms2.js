@@ -10,15 +10,16 @@ const RevForms2 = ({formData, setFormData,show,path,path2}) => {
     <>
     <form style={{display:show}}>
     <Container>
-    <Image src="/3rd.png" alt="IskolarLink Logo"  fluid style={{ marginBottom: '40px' }}/>    
+    <Image src="/3rd.png" alt="IskolarLink Logo"  fluid style={{ marginBottom: '20px' }}/>    
         <Row className="p-4">
+        <p className='mb-4'>Note: To easily sign documents, you can use an online electronic signature. <a href="https://www.ilovepdf.com/sign-pdf" target="_blank" rel="noopener noreferrer">Click Here</a></p>
         <Form.Group as={Row} controlId='RF001' className="mb-3">
-            <Form.Label>Upload Signed Tracker Form <span className='accreditation-download' onClick={() => window.open(`http://localhost:3001/${path}`,'_blank','noopener')}>(Download Generated File Here)</span></Form.Label>
-            <Form.Control type="file" placeholder='e.g. RF001.pdf' onChange={(e) => setFormData({...formData, AF001: e.target.files[0]})}/>
+            <Form.Label>Upload Signed Tracker Form <span className='accreditation-download' onClick={() => window.open(`${process.env.REACT_APP_BASE_URL}/${path}`,'_blank','noopener')}>(Download Generated File Here)</span></Form.Label>
+            <Form.Control type="file" placeholder='e.g. RF001.pdf' onChange={(e) => setFormData({...formData, RF001: e.target.files[0]})}/>
         </Form.Group>
-        <Form.Group as={Row} controlId='RD009' className="mb-3">
-            <Form.Label>Upload Signed Waver Form <span className='accreditation-download' onClick={() => window.open(`http://localhost:3001/${path2}`,'_blank','noopener')}>(Download Generated File Here)</span></Form.Label>
-            <Form.Control type="file" placeholder='e.g. RD009.pdf' onChange={(e) => setFormData({...formData, AD009: e.target.files[0]})}/>
+        <Form.Group as={Row} controlId='RD011' className="mb-3">
+            <Form.Label>Upload Signed Waver Form <span className='accreditation-download' onClick={() => window.open(`${process.env.REACT_APP_BASE_URL}/${path2}`,'_blank','noopener')}>(Download Generated File Here)</span></Form.Label>
+            <Form.Control type="file" placeholder='e.g. RD011.pdf' onChange={(e) => setFormData({...formData, RD011: e.target.files[0]})}/>
         </Form.Group>
         <Form.Group>
         <Form.Check
@@ -32,8 +33,8 @@ const RevForms2 = ({formData, setFormData,show,path,path2}) => {
                 I agree to the <span className='accreditation-download'>Privacy Policy</span>
             </>
             }
-            checked={checked}
-            onChange={(e) => setChecked(e.currentTarget.checked)}
+            checked={formData.privacyPolicy}
+            onChange={(e) => setFormData({...formData, privacyPolicy: e.target.checked})}
         />
         </Form.Group>
         </Row>

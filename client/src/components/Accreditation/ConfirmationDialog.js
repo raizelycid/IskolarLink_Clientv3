@@ -3,6 +3,7 @@ import { Button, Modal, Form, Row, Col, CloseButton} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../Pages/Student_Portal/Student_Profile.css';
+import './AccFinish.css';
 
 function ConfirmationDialog({confirmation, setConfirmation}) {
 

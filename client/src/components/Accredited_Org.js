@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Button, Col, Badge, Row, Container } from 'react-bootstrap';
+import { Card, Button, Col, Badge, Row, Pagination, Container } from 'react-bootstrap';
 import './general.css'
 import {useNavigate} from 'react-router-dom';
 
@@ -28,7 +28,7 @@ const Accredited_Org = ({ imageSrc, title, description, tags, orgId }) => {
           </Card.Text>
         </Card.Body>
         <Card.Footer className="bg-transparent border-0">
-          <Button variant="primary">Apply Now</Button>
+          <Button variant="primary">View</Button>
         </Card.Footer>
       </Card>
     </Col>

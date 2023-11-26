@@ -157,7 +157,9 @@ function COSOA_Dashboard() {
                 />
               </Form.Group>
               <Form.Label className="text-red">
-              Student organizations and Student Representatives may now submit their applications.
+              {cosoa.application_period
+              ? "Student organizations and Student Representatives may now submit their applications."
+              : "The COSOA will not be accepting any applications anymore"}
               </Form.Label>
             </Form>
         </Row>
@@ -193,24 +195,24 @@ function COSOA_Dashboard() {
               <th>Credentials</th>
             </tr>
           </thead>
-            <tbody>
-              {orgs.map((org, index) => {
-                return(
-                  <tr key={index}>
-                    <td>{org.org_name}</td>
-                    <td>{org.representative.photo ? <img src={`${process.env.REACT_APP_BASE_URL}/images/${org.photo}`} alt="Profile Picture" width="40" height="40" className="rounded-circle" /> : <FontAwesomeIcon icon={faUser} size='2xl'/>} {org.representative}</td>
-                    <td>{org.application.application_status}</td>
-                    <td><span className='cs-dashboard-jurisdiction'>{org.subjurisdiction}<br/>{org.type}</span></td>
-                    <td><FontAwesomeIcon icon={faArrowRight} size="lg" onClick={() => {
-                      navigate(`/cosoa/applicant/${org.id}`)
-                    }}/></td>
-                    <td>
-                      <GiveCredentials role={org.role} applicationStatus={org.application.application_status} orgId={org.id}/>
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
+          <tbody>
+            {orgs.map((org, index) => {
+              return(
+                <tr key={index}>
+                  <td>{org.org_name}</td>
+                  <td>{org.representative.photo ? <img src={`${process.env.REACT_APP_BASE_URL}/images/${org.photo}`} alt="Profile Picture" width="40" height="40" className="rounded-circle" /> : <FontAwesomeIcon icon={faUser} size='2xl'/>} {org.representative}</td>
+                  <td>{org.application?.application_status === "Revalidated" && org.application_status === "Revalidation" ? "Revalidation" : org.application.application_status}</td>
+                  <td><span className='cs-dashboard-jurisdiction'>{org.subjurisdiction}<br/>{org.type}</span></td>
+                  <td><FontAwesomeIcon icon={faArrowRight} size="lg" onClick={() => {
+                    navigate(`/cosoa/applicant/${org.id}`)
+                  }}/></td>
+                  <td>
+                    <GiveCredentials role={org.role} applicationStatus={org.application.application_status} orgId={org.id}/>
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
         </Table>
 
         {/* Byron I need you to check if legit haha if oo I'll do the same to other dashboards */}
