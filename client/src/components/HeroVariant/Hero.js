@@ -14,6 +14,13 @@ import {useNavigate} from 'react-router-dom';
       setIndex(selectedIndex);
     };
 
+    const navigate = useNavigate();
+
+    const handleButtonClick = () => {
+      navigate('/organizations');
+    };
+  
+
     const backgroundImages = [
       'url(/Media/1.png)',
       'url(/Media/2.png)',
@@ -41,7 +48,7 @@ import {useNavigate} from 'react-router-dom';
               Your one-stop solution for streamlining COSOA applications and<br />
               student membership management online!
             </p>
-            <Button variant="secondary py-2 px-3 Inter">Get Started</Button>
+            <Button variant="secondary py-2 px-3 Inter" onClick={handleButtonClick}>Get Started</Button>
           </Container>
         </div>
       </Carousel.Item>
@@ -56,7 +63,7 @@ import {useNavigate} from 'react-router-dom';
           controls={false}
           fade={true}
           indicators={false}
-          interval={1500}
+          interval={500}
         >
           {slides}
         </Carousel>

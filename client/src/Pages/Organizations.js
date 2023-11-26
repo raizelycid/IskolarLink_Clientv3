@@ -46,9 +46,6 @@ function Organizations() {
       />
       <Row className='m-4'>
         <Col xs={1}></Col>
-        <Col>
-          <Button variant="outline-secondary"><i class="fa-solid fa-filter"></i> Filter</Button>
-        </Col>
         <InputGroup as={Col}>
           <Button variant="outline-secondary" id="button-addon2">
             <i class="fa-solid fa-magnifying-glass"></i>
@@ -74,7 +71,7 @@ function Organizations() {
                   imageSrc={org.User.profile_picture ? `${process.env.REACT_APP_BASE_URL}/org_images/${org.User.profile_picture}` : `${process.env.REACT_APP_BASE_URL}/org_images/default-org-photo.jpg`}
                   title={org.org_name}
                   description={org.User.description ? org.User.description : 'No description'}
-                  tags={[org.jurisdiction, org.subjurisdiction]}
+                  tags={[org.type, org.subjurisdiction]}
                   orgId={org.id}
                 />
               </Col>

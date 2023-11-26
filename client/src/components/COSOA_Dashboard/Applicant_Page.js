@@ -68,9 +68,9 @@ function Applicant_Page() {
     if(showAlert){
     return(
       <Alert variant='success' onClose={() => setShowAlert(false)} dismissible>
-        <Alert.Heading>Requirement Approved</Alert.Heading>
+        <Alert.Heading>Requirement/s Approved</Alert.Heading>
         <p>
-          You have successfully approved a requirement.
+          You have successfully approved a requirement/s.
         </p>
       </Alert>
     )
@@ -214,6 +214,81 @@ function Applicant_Page() {
       console.log(err);
     }
   }
+
+  const handleApproveAll = async () => {
+    try{
+      console.log("Attempting to approve all..")
+      if(org_application.application_status === 'IE1' || org_application.application_status === 'Pending'){
+        await axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa/ie2/${org_application.id}/1`, {all:true}).then((res) => {
+          if(res.data.error){
+            alert(res.data.error);
+          }
+          else{
+            // Change the status of the requirement to approved
+            setRequirements(requirements.map((requirement) => {
+              requirement.status = 'Approved';
+              return requirement;
+            }))
+            setShowAlert(true);
+            setTimeout(() => {
+              setShowAlert(false);
+            }, 3000);
+          }
+        });
+      }else if(org_application.application_status === 'IE2'){
+        await axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa/fe1/${org_application.id}/1`, {all:true}).then((res) => {
+          if(res.data.error){
+            alert(res.data.error);
+          }
+          else{
+            setRequirements(requirements.map((requirement) => {
+              requirement.status = 'Approved';
+              return requirement;
+            }))
+            setShowAlert(true);
+            setTimeout(() => {
+              setShowAlert(false);
+            }, 3000);
+          }
+        });
+      }else if(org_application.application_status === 'FE1'){
+        await axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa/fe2/${org_application.id}/1`, {all:true}).then((res) => {
+          if(res.data.error){
+            alert(res.data.error);
+          }
+          else{
+            setRequirements(requirements.map((requirement) => {
+              requirement.status = 'Approved';
+              return requirement;
+            }))
+            setShowAlert(true);
+            setTimeout(() => {
+              setShowAlert(false);
+            }, 3000);
+          }
+        });
+      }else if(org_application.application_status === 'FE2'){
+        await axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa/acc/${org_application.id}/1`, {all:true}).then((res) => {
+          if(res.data.error){
+            alert(res.data.error);
+          }
+          else{
+            setRequirements(requirements.map((requirement) => {
+              requirement.status = 'Approved';
+              return requirement;
+            }))
+            setShowAlert(true);
+            setTimeout(() => {
+              setShowAlert(false);
+            }, 3000);
+          }
+        });
+      }
+    }
+    catch(err){
+      console.log(err);
+    }
+  }
     
 
   return (
@@ -232,7 +307,7 @@ function Applicant_Page() {
     <Container className='applicant-header-container'>
       <Row>
         <Col>
-        {user.profile_picture ? <img src={`${process.env.REACT_APP_BASE_URL}/org_images/${user.profile_picture}`} alt="Profile Picture" width="100" height="100" className="rounded-circle" /> : <img src={`${process.env.REACT_APP_BASE_URL}/org_images/default-org-photo.jpg`} alt="Profile Picture" width="100" height="100" className="rounded-circle" />
+        {(user.profile_picture && user.role === "organization") ? <img src={`${process.env.REACT_APP_BASE_URL}/org_images/${user.profile_picture}`} alt="Profile Picture" width="100" height="100" className="rounded-circle" /> : <img src={`${process.env.REACT_APP_BASE_URL}/org_images/default-org-photo.jpg`} alt="Profile Picture" width="100" height="100" className="rounded-circle" />
           }
         <span className='applicant-org-name'>{applicant.org_name}</span>
         </Col>
@@ -243,7 +318,7 @@ function Applicant_Page() {
             </Dropdown.Toggle>
             <Dropdown.Menu>
               {
-              org_application.application_status === 'Pending' ? <Dropdown.Item onClick={()=>ActionLinks(Actions[0])}>{Actions[0]}</Dropdown.Item> :
+              (org_application.application_status === 'Pending' || org_application.application_status === 'Revalidation') ? <Dropdown.Item onClick={()=>ActionLinks(Actions[0])}>{Actions[0]}</Dropdown.Item> :
               org_application.application_status === 'IE1' ? <Dropdown.Item onClick={()=>ActionLinks(Actions[0])}>{Actions[0]}</Dropdown.Item> :
               org_application.application_status === 'IE2' ? <Dropdown.Item onClick={()=>ActionLinks(Actions[1])}>{Actions[1]}</Dropdown.Item> :
               org_application.application_status === 'FE1' ? <Dropdown.Item onClick={()=>ActionLinks(Actions[2])}>{Actions[2]}</Dropdown.Item> :
@@ -330,6 +405,11 @@ function Applicant_Page() {
           })}
         </tbody>
       </Table>
+      <Row>
+        <Col className='d-flex align-items-center justify-content-end'>
+          <Button variant="primary" onClick={handleApproveAll}>Approve All</Button>
+        </Col>
+      </Row>
     </Container>
     </>
   );

@@ -64,20 +64,6 @@ function COSOASettings(){
     }
     }, []);
 
-    useEffect(() => {
-      try{
-        axios.get(`${process.env.REACT_APP_BASE_URL}/cosoa/application_period`).then((response) => {
-          setCOSOA(response.data.application_period);
-          if(response.data.application_period === true){
-            document.getElementById('anr-period-toggle').checked = true;
-          }else{
-            document.getElementById('anr-period-toggle').checked = false;
-          }
-        });
-      }catch(err){
-        console.log(err);
-      }
-    }, [cosoa.application_period]);
 
   return (
     <div>
