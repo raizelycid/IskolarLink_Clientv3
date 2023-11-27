@@ -40,7 +40,7 @@ function AccreditationStatus() {
     }
     };
 
-    const Forms = [ 'Certificate of Recognition', 'Official List', 'Officer\'s Profile', 'Letter of Concurrence', 'Letter of Concurrence-Sub', 'CBL 101', 'GPOA', 'Advocacy Plan','Tracker Form', 'Waiver of Responsibility']
+    const Forms = [ 'Certificate of Recognition', 'Official List', 'Officer\'s Profile', 'Letter of Concurrence', 'Letter of Concurrence-Sub', 'CBL 101', 'GPOA', 'Advocacy Plan', 'Waiver of Responsibility', 'Tracker Form']
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/student/org_application_status`).then((response) => {
@@ -71,7 +71,6 @@ function AccreditationStatus() {
 
   return (
     <>
-    {/*
     <HeroVariant
         h1Text="Application Status"
         pText="Check your application."
@@ -114,8 +113,17 @@ function AccreditationStatus() {
                 <Form.Control type="text" value={advisers} readOnly></Form.Control>
             </Form.Group>
         </Row>
-  </Container> */}
-
+  </Container>
+  <Container className='text-center'>
+    <Row>
+    <h1 className='text-red'>Application Status</h1>
+    <p>Discover the latest announcement that will shape the future of PUP COSOA and elevate your student experience!</p>
+    </Row>
+  </Container>
+  <Container>
+    <Table></Table>
+  </Container>
+{/*
         <h2 className='text-center'>Accreditation Status</h2>
         <div className='ac-container'>
             <div className='ac-left-container'>
@@ -142,15 +150,16 @@ function AccreditationStatus() {
                     
                     <span className='ac-right-text'>{org_app.feedback}</span>
             </div>
-        </div>
-        <div className='ac-bottom-container'>
+  </div> */}
+       {/* <div className='ac-bottom-container'> */}
+       <Container>
             <Table striped bordered hover>
                 <thead>
                     <tr>
                         <th>Form Code</th>
                         <th>Form Name</th>
-                        <th>Resubmission</th>
                         <th>Remarks</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -159,16 +168,17 @@ function AccreditationStatus() {
                             <tr>
                                 <td>{requirement.requirement_name}</td>
                                 <td>{requirement.form_name}</td>
+                                <td>{requirement.remarks}</td>
                                 <td>{requirement.status === 'Approved' ? <Button variant='success' disabled>Approved</Button>
                                 : requirement.status === 'Revision' ? <><Button variant="warning" onClick={event => handleClick(event, requirement.requirement_name, requirement.id)}>Resubmit</Button> <input type="file" style={{display:'none'}} onChange={handleChange} ref={hiddenFileInput}/> </>
                                 : <Button variant='primary' disabled>Resubmit</Button>}</td>
-                                <td>{requirement.remarks}</td>
                             </tr>
                         );
                     })}
                 </tbody>
             </Table>
-        </div>
+        </Container>
+        {/*</div>*/}
     </>
   )
 }
