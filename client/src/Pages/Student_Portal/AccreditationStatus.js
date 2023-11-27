@@ -70,7 +70,7 @@ function AccreditationStatus() {
     }
 
   return (
-    <>
+    <>{/*
     <HeroVariant
         h1Text="Application Status"
         pText="Check your application."
@@ -122,8 +122,8 @@ function AccreditationStatus() {
   </Container>
   <Container>
     <Table></Table>
-  </Container>
-{/*
+  </Container>*/}
+
         <h2 className='text-center'>Accreditation Status</h2>
         <div className='ac-container'>
             <div className='ac-left-container'>
@@ -150,9 +150,8 @@ function AccreditationStatus() {
                     
                     <span className='ac-right-text'>{org_app.feedback}</span>
             </div>
-  </div> */}
-       {/* <div className='ac-bottom-container'> */}
-       <Container>
+  </div> 
+        <div className='ac-bottom-container'> 
             <Table striped bordered hover>
                 <thead>
                     <tr>
@@ -177,8 +176,8 @@ function AccreditationStatus() {
                     })}
                 </tbody>
             </Table>
-        </Container>
-        {/*</div>*/}
+        {/* {</Container> */}
+        </div>
     </>
   )
 }
