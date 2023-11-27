@@ -1,9 +1,22 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import '../general.css'; 
 import { Row, Container } from "react-bootstrap";
 import AnnouncementCard from '../AnnouncementVariant/AnnouncementCard.js'
+import axios from 'axios'
 
 const Section3 = () => {
+
+  const [announcements, setAnnouncements] = useState([])
+  
+  useEffect(()=> {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/cosoa_ann/`)
+    .then((res)=>{
+      setAnnouncements(res.data)
+    })
+  },[])
+
+
+
   return (
     <div>
       <Row className="text-center m-3">

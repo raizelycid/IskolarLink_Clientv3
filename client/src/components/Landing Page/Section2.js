@@ -1,8 +1,9 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { Container, Row, Col, Card, Image, Stack } from 'react-bootstrap';
 import '../general.css';
 
 const Section2 = () => {
+
   return (
     <div className="p-5 bg-lightgray Inter text-black d-flex align-items-center">
       <Container fluid>

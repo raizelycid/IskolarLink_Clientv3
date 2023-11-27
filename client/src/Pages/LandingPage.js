@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React,{useEffect,useState} from 'react';
 import Hero from '../components/HeroVariant/Hero';
 import Section1 from '../components/Landing Page/Section1';
 import Section2 from '../components/Landing Page/Section2';
@@ -14,6 +14,8 @@ import axios from 'axios';
 
 function LandingPage() {
 
+  
+
   axios.defaults.withCredentials = true;
 
   return (
@@ -21,7 +23,6 @@ function LandingPage() {
       <Hero />
       <Section1 />
       <Section2 />
-      <Section3 />
       <Section4 />
       <Section5 />
     </main>
