@@ -62,8 +62,8 @@ function Edit_COSOA({setRefresh, imgSrc, fullName, position, id}) {
 
   return (
      <>
-            <Button variant="primary" onClick={handleShow}>
-                Change Position
+            <Button variant="secondary" onClick={handleShow} className='px-4'>
+                Edit
             </Button>
             <Modal show={show} onHide={handleClose} centered backdrop="static" size='md'>
                 <Modal.Header closeButton className="d-flex justify-content-center align-items-center mb-0 pb-0 mx-4">

@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import { HeroVariant3 } from '../../components/HeroVariant/Hero';
-import { Container, Row, Button } from 'react-bootstrap';
+import { Container, Row, Button, Col } from 'react-bootstrap';
 import './COSOA_Portal.css'
 import Table from 'react-bootstrap/Table'
 import axios from 'axios';
@@ -65,22 +65,7 @@ const removeMember = async (memberId) => {
           <h1 className='text-red'>COSOA Members</h1>
           <p>Manage or View COSOA Members</p>
         </Row>
-        
-        <Container className='text-center my-5'>
-        {/* Render the "Add New COSOA Officer" button based on user's position */}
-        {userPosition === 'Chairperson' ||
-        userPosition === 'Chairperson (Asst.)' ||
-        userPosition === 'Vice Chairperson' ||
-        userPosition === 'Vice Chairperson (Asst.)' ? (
-          <Add_COSOA setRefresh={setRefresh}/>
-        ) : (
-          <Button variant="primary" disabled>
-            + Add New COSOA Officer
-          </Button>
-        )}
-
-          
-        </Container>
+      
 
         <Container>
           <Table striped bordered hover>
@@ -88,7 +73,7 @@ const removeMember = async (memberId) => {
               <tr>
               <th>Name</th>
               <th>Position</th>
-              <th>Action</th>
+              <th >Action</th>
               </tr>
             </thead>
             <tbody>
@@ -112,10 +97,17 @@ const removeMember = async (memberId) => {
                     userPosition === 'Vice Chairperson' ||
                     userPosition === 'Vice Chairperson (Asst.)') ? (
                     <>
-                      <Edit_COSOA setRefresh={setRefresh} imgSrc={member.profile_picture} fullName={member.name} position={member.position} id={member.id} /><br/>
-                      <Button variant="danger" style={{ padding: '5px 10px' }} onClick={()=>removeMember(member.id)}>
+                    <Row className='px-0 mx-0 '>
+                      <Col xs={3}>
+                      <Edit_COSOA setRefresh={setRefresh} imgSrc={member.profile_picture} fullName={member.name} position={member.position} id={member.id}/><br/>
+                      </Col>
+                      <Col xs={5}>
+                      <Button variant="primary" onClick={()=>removeMember(member.id)}>
                         Delete
                       </Button>
+                      </Col>
+                    </Row>
+                      
                     </>
                   ) : (
                     <>
@@ -133,6 +125,21 @@ const removeMember = async (memberId) => {
 
             </tbody>
           </Table>
+        </Container>
+        <Container className='text-center my-5'>
+        {/* Render the "Add New COSOA Officer" button based on user's position */}
+        {userPosition === 'Chairperson' ||
+        userPosition === 'Chairperson (Asst.)' ||
+        userPosition === 'Vice Chairperson' ||
+        userPosition === 'Vice Chairperson (Asst.)' ? (
+          <Add_COSOA setRefresh={setRefresh}/>
+        ) : (
+          <Button variant="primary" disabled>
+            + Add New COSOA Officer
+          </Button>
+        )}
+
+          
         </Container>
   </>
   );

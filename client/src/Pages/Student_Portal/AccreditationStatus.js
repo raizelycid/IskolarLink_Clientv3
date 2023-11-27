@@ -1,8 +1,8 @@
 import React, {useEffect, useState, useRef } from 'react'
 import axios from 'axios';
 import './AccreditationStatus.css';
-import Table from 'react-bootstrap/Table';
-import Button from 'react-bootstrap/Button';
+import { Container, Row, Col, Table, Button, Image, Form} from 'react-bootstrap';
+import { HeroVariant } from '../../components/HeroVariant/Hero';
 
 function AccreditationStatus() {
 
@@ -71,6 +71,51 @@ function AccreditationStatus() {
 
   return (
     <>
+    {/*
+    <HeroVariant
+        h1Text="Application Status"
+        pText="Check your application."
+      />
+    <Container>
+        <Row className='mx-5 my-4'>
+            <Col>
+            <h1 className='text-red'>{org.org_name}</h1>
+            <h4>Organization Name</h4>
+            </Col>
+            <Col className='text-end'>
+                <Button variant='secondary' >Pending</Button>
+            </Col>
+        </Row>
+    </Container>
+    <Container>
+        <Row className='mx-5 my-4'>
+            <Form.Group>
+                <Form.Label>Classification of Jurisdiction</Form.Label>
+                <Form.Control type="text" value={org.jurisdiction} readOnly></Form.Control>
+            </Form.Group>
+        </Row>
+        <Row className='mx-5 my-4'>
+            <Col>
+            <Form.Group>
+                <Form.Label>Nature / Type of Student Organization</Form.Label>
+                <Form.Control type="text" value={org.type} readOnly></Form.Control>
+            </Form.Group>
+            </Col>
+            <Col>
+            <Form.Group>
+                <Form.Label>Sub-classification of  Jurisdiction</Form.Label>
+                <Form.Control type="text" value={org.subjurisdiction} readOnly></Form.Control>
+            </Form.Group>
+            </Col>
+        </Row>
+        <Row className='mx-5 my-4'>
+            <Form.Group>
+                <Form.Label>Complete Name of Student Organization’s Adviser(s)</Form.Label>
+                <Form.Control type="text" value={advisers} readOnly></Form.Control>
+            </Form.Group>
+        </Row>
+  </Container> */}
+
         <h2 className='text-center'>Accreditation Status</h2>
         <div className='ac-container'>
             <div className='ac-left-container'>
@@ -84,14 +129,7 @@ function AccreditationStatus() {
                     <span className='ac-left-text'>Organization Type:</span>
                     <span className='ac-left-text'>{org.type}</span>
                     <span className='ac-left-text'>Adviser(s):</span>                                     
-                    <span className='ac-left-text'>{advisers.map((adviser) => {
-                        return (
-                            <>
-                                {adviser.adviser_name}
-                                <br/>
-                            </>
-                        );
-                    })}</span>
+                    <span className='ac-left-text'></span>
             </div>
             <div className='ac-right-container'>
                 <h3>Application Details</h3>
