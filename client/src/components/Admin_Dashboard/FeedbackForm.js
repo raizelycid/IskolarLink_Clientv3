@@ -1,17 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Modal, Button, Form, Row, Col, Container } from 'react-bootstrap';
+import { format } from 'date-fns';
 
-const FeedbackForm = () => {
+const FeedbackForm = ({id, fullName, email, date, subject, message}) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    return format(date, "MMMM dd, yyyy");
+  }
+
 
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        Feedback
+        Expand
       </Button>
 
       <Modal show={show} onHide={handleClose} centered backdrop="static" size='lg' >
@@ -19,7 +25,7 @@ const FeedbackForm = () => {
         <Modal.Title className="text-center mt-3" style={{ fontSize: '2em', width: '100%' }}>
         {<div>
           <h2>Feedback Form</h2>
-          <h4 className=''>ID: 100081273173</h4>
+          <h4 className=''>{`ID: ${id}`} </h4>
         </div>}
         </Modal.Title>
       </Modal.Header>
@@ -29,39 +35,39 @@ const FeedbackForm = () => {
             <Col>
               <Form.Group>
                 <Form.Label>Full Name</Form.Label>
-                <Form.Control type='text'/>
+                <Form.Control type='text' value={fullName} readOnly/>
               </Form.Group>
             </Col>
             <Col>
             <Form.Group>
                 <Form.Label>Email</Form.Label>
-                <Form.Control type='email'/>
+                <Form.Control type='email' value={email} readOnly/>
               </Form.Group>
             </Col>
             <Col>
             <Form.Group>
                 <Form.Label>Date</Form.Label>
-                <Form.Control type='date'/>
+                <Form.Control type='text' value={formatDate(date)} readOnly/>
               </Form.Group>
             </Col>
           </Row>
           <Row>
             <Form.Group>
               <Form.Label>Subject</Form.Label>
-              <Form.Control type='text'/>
+              <Form.Control type='text' value={subject} readOnly/>
             </Form.Group>
           </Row>
           <Row>
             <Form.Group>
               <Form.Label>Message</Form.Label>
-              <Form.Control as="textarea" rows={3}/>
+              <Form.Control as="textarea" rows={3} value={message} readOnly/>
             </Form.Group>
           </Row>
           </Form>
         </Modal.Body>
         <Modal.Footer className='border-0'>
           <Row className=''>
-              <Button variant='primary' className="px-5 me-5">
+              <Button variant='primary' className="px-5 me-5" onClick={handleClose}>
                 Close
               </Button>
           </Row>

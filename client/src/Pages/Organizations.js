@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import { HeroVariant } from '../components/HeroVariant/Hero';
 import './Organizations.css';
 import Accredited_Org from '../components/Accredited_Org'; 
@@ -6,7 +6,10 @@ import { Container, Row, InputGroup, Form, Button, Col, Pagination, Dropdown, Im
 import axios from 'axios';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 
+
 function Organizations() {
+
+  axios.defaults.withCredentials = true;
 
   const [organizations, setOrganizations] = useState([]);
   const [search, setSearch] = useState('');

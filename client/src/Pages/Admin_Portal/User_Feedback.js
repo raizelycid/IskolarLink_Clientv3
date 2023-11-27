@@ -5,6 +5,7 @@ import Table from 'react-bootstrap/Table'
 import axios from 'axios';
 import './Admin_Portal.css'
 import Pagination from 'react-bootstrap/Pagination';
+import FeedbackForm from '../../components/Admin_Dashboard/FeedbackForm';
 
 
 function User_Feedback() {
@@ -66,7 +67,9 @@ function User_Feedback() {
                 <td>{feedback.email}</td>
                 <td>{feedback.subject}</td>
                 <td>{feedback.message.length > 50 ? feedback.message.substring(0, 50) + '...' : feedback.message}</td>
-                <td><Button variant="danger" onClick={() => {
+                <td>
+                  <FeedbackForm id={feedback.id} fullName={feedback.fullName} email={feedback.email} date={feedback.createdAt} subject={feedback.subject} message={feedback.message} />
+                  <Button variant="danger" onClick={() => {
                   axios.delete(`${process.env.REACT_APP_BASE_URL}/feedback/delete/${feedback.id}`)
                     .then(res => {
                       alert(res.data.success);

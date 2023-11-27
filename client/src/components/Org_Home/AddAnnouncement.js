@@ -19,7 +19,7 @@ function AddAnnouncement({setRefreshAnnouncement}) {
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      axios.post(`http://localhost:3001/org_portal/add_announcement`, postAnnouncement, {
+      axios.post(`${process.env.REACT_APP_BASE_URL}/org_portal/add_announcement`, postAnnouncement, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
