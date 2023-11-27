@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './general.css';
 import { HeroVariant } from '../components/HeroVariant/Hero';
 import { Container, Row, Col, Button, Badge } from 'react-bootstrap';
@@ -9,9 +9,14 @@ import ContactBanner2 from '../components/ContactBanner2';
 import { FaCheckCircle } from 'react-icons/fa';
 import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios';
+import { AuthContext } from '../helpers/AuthContent';
 
 
 function Org_Profile() {
+
+  const {auth, menu, handleMenuChange} = useContext(AuthContext);
+  const {authState, setAuthState} = auth;
+  const {activeMenu, setActiveMenu} = menu;
 
   const [org, setOrg] = useState([]);
   const [announcements, setAnnouncements] = useState([]);
@@ -85,6 +90,7 @@ function Org_Profile() {
               </div>
             </div>
           </Col>
+          {authState.status &&
           <Col xs={12} md={4} lg={3} className="text-md-right text-end mt-3 mt-md-0">
             {org.organization?.membership_period ?
             <Button variant="warning"  className="apply-now-btn" onClick={handleApply}>Apply Now</Button>
@@ -92,6 +98,7 @@ function Org_Profile() {
             <Button variant="warning"  className="apply-now-btn" disabled>Membership Period Closed</Button>
             }
           </Col>
+          }
         </Row>
 
           <Col>
