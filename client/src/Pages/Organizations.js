@@ -2,8 +2,9 @@ import React, {useEffect, useState} from 'react'
 import { HeroVariant } from '../components/HeroVariant/Hero';
 import './Organizations.css';
 import Accredited_Org from '../components/Accredited_Org'; 
-import { Container, Row, InputGroup, Form, Button, Col, Pagination } from 'react-bootstrap';
+import { Container, Row, InputGroup, Form, Button, Col, Pagination, Dropdown, Image } from 'react-bootstrap';
 import axios from 'axios';
+import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 
 function Organizations() {
 
@@ -11,6 +12,62 @@ function Organizations() {
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(15); 
+  const [selectedFilters, setSelectedFilters] = useState([]);
+  const [buttonWidth, setButtonWidth] = useState(0);
+
+  const handleSelectItem = (itemName) => {
+    if (selectedFilters.includes(itemName)) {
+      const updatedFilters = selectedFilters.filter((item) => item !== itemName);
+      setSelectedFilters(updatedFilters); // Remove the item from state
+    } else {
+      setSelectedFilters([...selectedFilters, itemName]); // Add the selected item to state
+    }
+  };
+
+  const handleRemoveFilter = (itemName) => {
+    const updatedFilters = selectedFilters.filter((item) => item !== itemName);
+    setSelectedFilters(updatedFilters);
+  };
+  
+  const nature = ['Academic',
+    'Advocacy',
+    'Cultural/Arts/Dance',
+    'Fraternities and Sororities',
+    'Political',
+    'Religious',
+    'Scholars',
+    'Socio-civic',
+    'Special Interest',
+    'Sports'];
+
+  const jurisdiction = ['Uni-wide',
+    'CAF',
+    'CADBE',
+    'CAL',
+    'CBA',
+    'COC',
+    'CCIS',
+    'COED',
+    'CE',
+    'CHK',
+    'CL',
+    'CPSPA',
+    'CSSD',
+    'CS',
+    'CTHTM',
+    'ITECH',
+    'OUS',
+    'GS',
+    'SHS']
+  
+
+  useEffect(() => {
+    const dropdownButton = document.querySelector('.dropdown-toggle');
+
+    if (dropdownButton) {
+      setButtonWidth(dropdownButton.offsetWidth);
+    }
+  }, []);
 
   useEffect(() => {
     const fetchOrganizations = async () => {
@@ -49,14 +106,55 @@ const totalPages = Math.ceil(organizations.length / itemsPerPage);
         h1Text="Accredited Organizations"
         pText="Discover our Accredited Organizations, the heart and soul of our vibrant campus community. Explore their achievements, activities, and the incredible impact they make on our campus life."
       />
-      <Row className='m-4'>
-        <Col xs={1}></Col>
-        <Col>
-          <Button variant="outline-secondary"><i class="fa-solid fa-filter"></i> Filter</Button>
-        </Col>
-        <InputGroup as={Col}>
+      <Container>
+      <Row className='my-4 text-center '>
+      <Col xs={3} className=' text-start me-4'>
+      <Dropdown>
+  <Dropdown.Toggle variant='primary' className="d-flex align-items-center">
+    <Image src='/Dropdown/groups.png' className="me-2"/> Organization Type
+  </Dropdown.Toggle>
+  <Dropdown.Menu className='p-3 responsive-dropdown'>
+    {nature.map((option, index) => (
+      <Form.Check
+        key={index}
+        type='checkbox'
+        label={option}
+        onChange={(e) => handleSelectItem(e.target.value)}
+        value={option}
+        checked={selectedFilters.includes(option)}
+      />
+    ))}
+  </Dropdown.Menu>
+</Dropdown>
+      </Col>
+
+      <Col xs={3} className=' text-start me-4'>
+      <Col xs={3} className='text-start me-4'>
+  <Dropdown>
+    <Dropdown.Toggle variant='secondary' className="d-flex align-items-center">
+      <Image src='/Dropdown/flagpin.png' className="me-2"/> Jurisdiction
+    </Dropdown.Toggle>
+    <Dropdown.Menu style={{ width: `${buttonWidth}px`, maxHeight: '200px', overflowY: 'auto' }} className='p-3'>
+      {jurisdiction.map((option, index) => (
+        <Form.Check
+          key={index}
+          type='checkbox'
+          label={option}
+          onChange={(e) => handleSelectItem(e.target.value)}
+          value={option}
+          checked={selectedFilters.includes(option)}
+        />
+      ))}
+    </Dropdown.Menu>
+  </Dropdown>
+</Col>
+
+      </Col>
+
+      <Col className='  text-end'>
+        <InputGroup>
           <Button variant="outline-secondary" id="button-addon2">
-            <i class="fa-solid fa-magnifying-glass"></i>
+            <i className="fa-solid fa-magnifying-glass"></i>
           </Button>
           <Form.Control
             placeholder="Search"
@@ -66,8 +164,32 @@ const totalPages = Math.ceil(organizations.length / itemsPerPage);
             value={search}
           />
         </InputGroup>
-        <Col xs={1}></Col>
-      </Row>
+      </Col>
+    </Row>
+    
+    <hr/>
+    <Row className='my-2'>
+    <Col>
+      {selectedFilters.map((filter, index) => (
+        <Button
+          key={index}
+          variant='light'
+          onClick={() => handleRemoveFilter(filter)}
+          style={{
+            border: '1px solid #ced4da',
+            padding: '5px 10px',
+            margin: '5px',
+            display: 'inline-block', // Change display to inline-block
+          }}
+        >
+          {filter} <span className='p'><i className="fa-solid fa-xmark"></i></span>
+        </Button>
+      ))}
+    </Col>
+  </Row>
+
+
+    </Container>      
 
      <Container className='mx-auto mb-5'>
         <Row className='mx-4'>

@@ -135,12 +135,25 @@ Navbar {
 .btn-primary {
   background-color: var(--red);
   border-color: var(--red);
+  --bs-btn-active-bg: #565e64;
+  --bs-btn-active-border-color: #565e54;
 }
+
+.dropdown-toggle-primary,
+.dropdown-toggle-primary.show {
+  background-color: var(--red) !important;
+  border-color: var(--red) !important;
+}
+
+.dropdown-toggle-primary:hover{
+  background-color: var(--light-black) !important;
+  border-color: var(--light-black) !important;
+}
+
 
 .btn-secondary {
   background-color: var(--dark-yellow);
   border-color: var(--dark-yellow);
-  font-size: 15px;
 }
 
 
@@ -256,4 +269,16 @@ footer, .data-footer {
 .muted-border:hover {
   border-color: #D0D5DD !important;
   color: var(--red);
+}
+
+.responsive-dropdown {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+  .responsive-dropdown {
+    max-height: 150px;
+  }
 }
