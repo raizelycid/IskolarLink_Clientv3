@@ -139,9 +139,9 @@ const Section4 = () => {
 
   return (
     <div className="bg-red text-white s4">
-      <div className="p-4">
-        <Row className="text-center">
-          <h1 className="s4-h1 Inter-b">Application Documents</h1>
+      <div className="p-4 ">
+        <Row className="text-center mt-4">
+          <h1 className="s4-h1 Inter-b ">Application Documents</h1>
           <p className="s4-p Inter-normal">Here is a brief overview of the Accreditation and Revalidation Requirements.</p>
         </Row>
       </div>
@@ -152,7 +152,7 @@ const Section4 = () => {
       </Container>
 
       <Container className="text-center p-5">
-        <Button variant="secondary" className=' py-3' style={{minWidth:'55vh'}} onClick={()=>navigate('/appdocs')}>Learn More</Button>
+      <Button variant="secondary" style={{ minWidth: '45vh', fontSize: '20px', padding: '8px 5px 8px 5px', }} onClick={() => navigate('/appdocs')}>  Learn More</Button>    
       </Container>
     </div>
   );

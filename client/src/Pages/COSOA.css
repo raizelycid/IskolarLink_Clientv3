@@ -9,3 +9,8 @@
       max-height: 200px;
     }
   }
+
+  .custom-logo-size {
+    width: 180px; /* or any other size */
+    height: auto; /* maintain aspect ratio */
+  }
