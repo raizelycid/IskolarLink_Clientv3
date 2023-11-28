@@ -4,6 +4,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AuthProvider from './helpers/AuthContent';
+import { AccreditationStatusProvider } from './helpers/AccreditationStatusContext';
 
 
 const script = document.createElement('script');
@@ -15,9 +16,11 @@ document.head.appendChild(script);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <AccreditationStatusProvider>
     <AuthProvider>
     <App />
     </AuthProvider>
+    </AccreditationStatusProvider>
   </React.StrictMode>
 );
 
