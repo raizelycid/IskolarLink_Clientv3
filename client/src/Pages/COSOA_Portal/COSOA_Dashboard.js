@@ -110,8 +110,8 @@ function COSOA_Dashboard() {
   }, []);
 
 
-  const filteredItems = currentItems.filter((org) => {
-    const matchesSearch = search.toLowerCase() === "" || org.org_name.toLowerCase().includes(search);
+  const filteredItems = orgs.filter((org) => {
+    const matchesSearch = search.toLowerCase() === "" || org.org_name.toLowerCase().includes(search.toLowerCase());
   
     let matchesStatus;
     if (statusFilter === "Accredited0") {
@@ -119,8 +119,13 @@ function COSOA_Dashboard() {
       matchesStatus = org.application.application_status === "Accredited" && org.role === "student";
     } else if (statusFilter === "Revalidated") {
       // Special case for Revalidated
-      matchesStatus = org.application.application_status === "Revalidated";
-    } else {
+      matchesStatus = org.application.application_status === "Revalidated" && org.application_status === "Revalidated"
+    } else if(statusFilter === "Revalidation"){
+      matchesStatus = org.application_status === "Revalidation"
+
+    }else if(statusFilter === "Accreditation"){
+      matchesStatus = org.application_status === "Accreditation"
+    }else {
       // General case for other statuses
       matchesStatus = statusFilter === "" || org.application.application_status === statusFilter;
     }
@@ -194,10 +199,7 @@ function COSOA_Dashboard() {
           value={statusFilter} 
         >
           <option value="">All Statuses</option>
-          <option value="IE1">IE1</option>
-          <option value="IE2">IE2</option>
-          <option value="FE1">FE1</option>
-          <option value="FE2">FE2</option>
+          <option value="Accreditation">Accreditation</option>
           <option value="Accredited0">Need Credentials</option>
           <option value="Revalidation">Revalidation</option>
           <option value="Accredited">Accredited</option>
@@ -249,7 +251,10 @@ function COSOA_Dashboard() {
           {org.representative}
         </td>
         <td>
-          {org.application?.application_status}
+          {org.application?.application_status === "Revalidated" &&
+          org.application_status === "Revalidation"
+            ? "Revalidation"
+            : org.application.application_status}
         </td>
         <td>
           <span className="cs-dashboard-jurisdiction">

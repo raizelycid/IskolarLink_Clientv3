@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Modal, Form, Row, Col, Image } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './general.css';
 
 import { Link } from 'react-router-dom';
-function RegisterPopup() {
+function RegisterPopup({handleCloseLogin}) {
 
     const navigate = useNavigate();
+
+    
 
     const Departments = [
         `College of Accountancy and Finance | CAF`,
@@ -32,8 +34,11 @@ function RegisterPopup() {
 
     const [showRegister, setShowRegister] = useState(false);
 
+    
+
     const handleCloseRegister = () => setShowRegister(false);
     const handleShowRegister = () => setShowRegister(true);
+
 
     const [regDetails, setRegDetails] = useState({
         student_num: "",
