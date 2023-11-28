@@ -3,6 +3,9 @@ import axios from 'axios';
 import './AccreditationStatus.css';
 import { Container, Row, Col, Table, Button, Image, Form} from 'react-bootstrap';
 import { HeroVariant } from '../../components/HeroVariant/Hero';
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
+import LoadingOverlay from '../../components/LoadingOverlay';
 
 function AccreditationStatus() {
 
@@ -12,6 +15,8 @@ function AccreditationStatus() {
     const [requirements, setRequirements] = useState([]);
     const [selectedFile, setSelectedFile] = useState('');
     const [selectedRequirementId, setSelectedRequirementId] = useState('');
+    const [adviserString, setAdviserString] = useState('')
+    const [loading, setLoading] = useState(false)
 
     const hiddenFileInput = useRef(null);
     const handleClick = (event, requirement_name, requirement_id) => {
@@ -43,15 +48,26 @@ function AccreditationStatus() {
     const Forms = [ 'Certificate of Recognition', 'Official List', 'Officer\'s Profile', 'Letter of Concurrence', 'Letter of Concurrence-Sub', 'CBL 101', 'GPOA', 'Advocacy Plan', 'Waiver of Responsibility', 'Tracker Form']
 
     useEffect(() => {
+        setLoading(true)
+        try{
         axios.get(`${process.env.REACT_APP_BASE_URL}/student/org_application_status`).then((response) => {
             console.log(response.data);
             setOrg(response.data.org);
             setOrgApp(response.data.org_app);
             setRequirements(response.data.requirements);
             setAdvisers(response.data.advisers);
-    });
-
+        })
+    } catch (err){
+            console.log(err)
+        } finally {
+            setLoading(false)
+        }
     }, []);
+
+    useEffect(()=>{
+        const string = advisers.map(adviser => adviser.adviser_name).join(', ');
+        setAdviserString(string)
+    },[advisers])
 
     const DateConverter = (date) => {
         const newDate = new Date(date);
@@ -70,7 +86,7 @@ function AccreditationStatus() {
     }
 
   return (
-    <>{/*
+    <>
     <HeroVariant
         h1Text="Application Status"
         pText="Check your application."
@@ -82,7 +98,7 @@ function AccreditationStatus() {
             <h4>Organization Name</h4>
             </Col>
             <Col className='text-end'>
-                <Button variant='secondary' >Pending</Button>
+                <Button variant='secondary'>Pending</Button>
             </Col>
         </Row>
     </Container>
@@ -110,7 +126,7 @@ function AccreditationStatus() {
         <Row className='mx-5 my-4'>
             <Form.Group>
                 <Form.Label>Complete Name of Student Organization’s Adviser(s)</Form.Label>
-                <Form.Control type="text" value={advisers} readOnly></Form.Control>
+                <Form.Control type="text" value={adviserString} readOnly></Form.Control>
             </Form.Group>
         </Row>
   </Container>
@@ -122,35 +138,7 @@ function AccreditationStatus() {
   </Container>
   <Container>
     <Table></Table>
-  </Container>*/}
-
-        <h2 className='text-center'>Accreditation Status</h2>
-        <div className='ac-container'>
-            <div className='ac-left-container'>
-                <h3>Organization Details</h3>
-                    <span className='ac-left-text'>Organization Name:</span>
-                    <span className='ac-left-text'>{org.org_name}</span>
-                    <span className='ac-left-text'>Jurisdiction:</span>
-                    <span className='ac-left-text'>{org.jurisdiction}</span>
-                    <span className='ac-left-text'>Sub-Jurisdiction:</span>
-                    <span className='ac-left-text'>{org.subjurisdiction}</span>
-                    <span className='ac-left-text'>Organization Type:</span>
-                    <span className='ac-left-text'>{org.type}</span>
-                    <span className='ac-left-text'>Adviser(s):</span>                                     
-                    <span className='ac-left-text'></span>
-            </div>
-            <div className='ac-right-container'>
-                <h3>Application Details</h3>
-                    <span className='ac-right-text'>Application Status:</span>
-                    <span className='ac-right-text'>{org_app.application_status}</span>
-                    <span className='ac-right-text'>Application Date:</span>
-                    <span className='ac-right-text'>{DateConverter(org_app.createdAt)}</span>
-                    <span className='ac-right-text'>Feedback:</span>
-                    
-                    
-                    <span className='ac-right-text'>{org_app.feedback}</span>
-            </div>
-  </div> 
+  </Container>
         <div className='ac-bottom-container'> 
             <Table striped bordered hover>
                 <thead>
@@ -178,6 +166,12 @@ function AccreditationStatus() {
             </Table>
         {/* {</Container> */}
         </div>
+        {loading && (
+                <LoadingOverlay 
+                    title="Loading Organization Data..." 
+                    subtitle=""
+                />
+            )}
     </>
   )
 }

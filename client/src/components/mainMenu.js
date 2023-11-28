@@ -7,6 +7,7 @@ import { AuthContext } from '../helpers/AuthContent'
 import { useNavigate } from 'react-router-dom'
 import {Navbar, Container, Offcanvas, Row, Col, Image, Nav} from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap'
+import { useAccreditationStatus } from '../helpers/AccreditationStatusContext'
 
 const MainMenu = ({imgSrc, username}) => {
 
@@ -18,19 +19,8 @@ const MainMenu = ({imgSrc, username}) => {
     const {authState, setAuthState} = auth;
     const {activeMenu, setActiveMenu} = menu;
 
-    const [accreditationStatus, setAccreditationStatus] = useState(false);
+    const {accreditationStatus} = useAccreditationStatus();
 
-
-    useEffect(() => {
-        axios.get(`${process.env.REACT_APP_BASE_URL}/student/accreditation_status`).then((response) => {
-            if(response.data.error){
-                alert(response.data.error);
-            }
-            else{
-                setAccreditationStatus(response.data.status);
-            }
-        });
-    },[]);
 
     const changeMainMenu = () => {
         setActiveMenu('main');

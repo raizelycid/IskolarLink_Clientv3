@@ -4,7 +4,7 @@ import './general.css';
 
 const Stat_Card = ({ imgSrc, subtitle, numcount }) => {
     return (
-        <Col fluid>
+        <Col fluid="true">
         <Card className="align-items-center text-center rounded-0 shadow py-5" style={{maxHeight:'40vh',maxWidth:'50vh'}}>
             <Card.Img variant="top" src={imgSrc} className="s1-icon" />
             <Card.Body className="pt-2">
