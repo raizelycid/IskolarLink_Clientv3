@@ -118,15 +118,15 @@ function COSOA() {
           <p className='text-gray2'>Discover the latest announcement that will shape the future of PUP COSOA and elevate your student experience!</p>
         </Row>
         <Row>
-          // {
-          //  announcements.map((announcement) => {
-            //  return (
-             //   <AnnouncementVariant 
-              //    key={announcement.cosoa_ann_id}
-              //    announcement={announcement}
-              //  />
-          //    )
-         //   })
+           {
+          announcements.map((announcement) => {
+            return (
+               <AnnouncementVariant 
+                  key={announcement.cosoa_ann_id}
+                 announcement={announcement}
+               />
+             )
+            })
           }
         </Row>
       </Container>

@@ -14,6 +14,17 @@
     background-size: cover;
     background-position: center;
 }
+.hero-bg, .herovariant-bg6 {
+    background-image: url('/public/hero6.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-bg, .herovariant-bg7 {
+    background-image: url('/public/hero7.png');
+    background-size: cover;
+    background-position: center;
+}
 
 .hero-h1 {
     font-size: 52px;
@@ -43,3 +54,15 @@
     border-bottom-right-radius: 150% 25%;
     height: 50vh;
 }
+.herovariant-bg6 {
+    border-bottom-left-radius: 150% 25%;
+    border-bottom-right-radius: 150% 25%;
+    height: 50vh;
+}
+
+.herovariant-bg7 {
+    border-bottom-left-radius: 150% 25%;
+    border-bottom-right-radius: 150% 25%;
+    height: 50vh;
+}
+

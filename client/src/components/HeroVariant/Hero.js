@@ -171,5 +171,28 @@ const HeroVariant5 = ({ h1Text, pText }) => {
   );
 };
 
+const HeroVariant6 = ({ h1Text, pText }) => {
+  return (
+      <div className="herovariant-bg6 d-flex align-items-center">
+          <Container className="text-center">
+              <h1 className="hero-h1 Inter-b text-white">{h1Text}</h1>
+              <p className="hero-p Inter-normal text-white pt-2 pb-3">{pText}</p>
+          </Container>
+      </div>
+  );
+};
+
+const HeroVariant7 = ({ h1Text, pText }) => {
+  return (
+      <div className="herovariant-bg7 d-flex align-items-center">
+          <Container className="text-center">
+              <h1 className="hero-h1 Inter-b text-white">{h1Text}</h1>
+              <p className="hero-p Inter-normal text-white pt-2 pb-3">{pText}</p>
+          </Container>
+      </div>
+  );
+};
+
+
 export default Hero;
-export {HeroVariant, HeroVariant1, HeroVariant2, HeroVariant3, HeroVariant4, HeroVariant5};
+export {HeroVariant, HeroVariant1, HeroVariant2, HeroVariant3, HeroVariant4, HeroVariant5, HeroVariant6, HeroVariant7};

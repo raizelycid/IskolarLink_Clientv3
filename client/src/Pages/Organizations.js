@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useContext} from 'react'
-import { HeroVariant } from '../components/HeroVariant/Hero';
+import { HeroVariant7 } from '../components/HeroVariant/Hero';
 import './Organizations.css';
 import Accredited_Org from '../components/Accredited_Org'; 
 import { Container, Row, InputGroup, Form, Button, Col, Pagination, Dropdown, Image } from 'react-bootstrap';
@@ -105,9 +105,12 @@ const totalPages = Math.ceil(organizations.length / itemsPerPage);
 
   return (
     <div>
-      <HeroVariant 
+      <HeroVariant7 
         h1Text="Accredited Organizations"
-        pText="Discover our Accredited Organizations, the heart and soul of our vibrant campus community. Explore their achievements, activities, and the incredible impact they make on our campus life."
+        pText={
+          <>"Discover our Accredited Organizations, the heart and soul of our vibrant campus community. <br/>
+        Explore their achievements, activities, and the incredible impact they make on our campus life."
+        </>}
       />
       <Container>
       <Row className='my-4 text-center '>
