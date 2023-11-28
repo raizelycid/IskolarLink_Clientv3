@@ -1,6 +1,6 @@
 import React from 'react'
 import { HeroVariant } from '../components/HeroVariant/Hero';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Image } from 'react-bootstrap';
 import { AnnouncementVariant } from '../components/AnnouncementVariant/AnnouncementCard';
 import './COSOA.css';
 import FullCalendar from '@fullcalendar/react';
@@ -53,17 +53,35 @@ function COSOA() {
   return (
     <div>
       <HeroVariant 
-        h1Text="PUP Student Council Commission on Student Organizations and Accreditation (COSOA)"
-        pText="COSOA plays a pivotal role in fostering a vibrant campus community by overseeing the recognition and accreditation of student organizations."
+        h1Text={
+          <>
+            PUP Student Council Commission on
+            <br />
+            Student Organizations and Accreditation
+            <br/> (COSOA)
+          </>
+        }
+        pText={
+          <>COSOA plays a pivotal role in fostering a vibrant campus community by
+          <br/>
+          overseeing the recognition and accreditation of student organizations."
+          </>
+          }
       />
-      <Container className='my-5'>
-        <Row>
-          <Col>
-            <h2>Description</h2>
-            <p className='text-gray2'>The sole-accrediting body and an independent student body set to develop an effective working relationship between the Central Student Council, the Office of Student Services (OSS), and all student organizations at the Polytechnic University of the Philippines (PUP).</p>
-          </Col>
-        </Row>
-      </Container>
+   <Container className='my-5'>
+  <Row className="align-items-center"> 
+    <Col xs={12} md={3} lg={2} className="d-flex justify-content-center p-0">
+      <Image src="/cosoalogo.png" alt="IskolarLink Logo" className="custom-logo-size" fluid />
+    </Col>
+    <Col xs={12} md={9} lg={10} className="p-0">
+      <h2 className="mb-0">Who Are We</h2> 
+      <p className='text-gray2 mb-0'>
+        The sole-accrediting body and an independent student body set to develop an effective working relationship between the Central Student Council, the Office of Student Services (OSS), and all student organizations at the Polytechnic University of the Philippines (PUP).
+      </p>
+    </Col>
+  </Row>
+</Container>
+
 
       <Container className='text-center my-5'>
         <Row>

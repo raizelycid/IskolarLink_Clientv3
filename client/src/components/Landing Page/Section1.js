@@ -33,7 +33,7 @@ const Section1 = () => {
               />
               <Stat_Card
                 imgSrc="./s1-icon2.png"
-                subtitle="Students"
+                subtitle="Users"
                 numcount={section1.students}
               />
               <Stat_Card 
