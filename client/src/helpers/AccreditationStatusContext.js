@@ -11,7 +11,6 @@ export const AccreditationStatusProvider = ({ children }) => {
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/student/accreditation_status`).then((response) => {
             if(response.data.error){
-                alert(response.data.error);
             }
             else{
                 setAccreditationStatus(response.data.status);

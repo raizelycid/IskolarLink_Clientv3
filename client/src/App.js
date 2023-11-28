@@ -62,10 +62,7 @@ function App() {
     .then((response) => {
       if(response.data.error){
         setAuthState({...authState, status: false});
-        console.log("You are not logged in!");
       }else if(response.data.role === 'student'){
-        console.log(`You are logged in as ${response.data.role} ${response.data.username}`)
-        console.log(response.data);
         setAuthState({
           id: response.data.id,
           username: response.data.username,
@@ -79,7 +76,6 @@ function App() {
         });
       }else if(response.data.role === 'organization'){
         console.log(`You are logged in as ${response.data.role} ${response.data.username}`)
-        console.log(response.data);
         setAuthState({
           id: response.data.id,
           username: response.data.username,
@@ -147,7 +143,7 @@ function App() {
 
   return (
     <Router>
-      <AccreditationStatusProvider>
+      
       
       <Navbar expand="lg" className={navbarClass}>
         <Container>
@@ -314,7 +310,6 @@ function App() {
           </Row>
         </Container>
       </footer>
-      </AccreditationStatusProvider>
     </Router>
   );
 }
