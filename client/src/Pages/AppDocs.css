@@ -10,3 +10,10 @@ tbody th:first-child {
 th {
   font-weight: normal;
 }
+.table thead th {
+  font-weight: normal; /* This sets the header cells to normal font weight, overriding the default bold */
+}
+
+.hover-text:hover {
+  color: #D9A31C; /* This changes the text color to yellow when the div is hovered over */
+}
