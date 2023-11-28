@@ -114,7 +114,7 @@ const totalPages = Math.ceil(organizations.length / itemsPerPage);
       />
       <Container>
       <Row className='my-4 text-center '>
-      <Col xs={3} className=' text-start me-4'>
+      <Col xs={2} className=' text-start'>
       <Dropdown>
   <Dropdown.Toggle variant='primary' className="d-flex align-items-center">
     <Image src='/Dropdown/groups.png' className="me-2"/> Organization Type
@@ -134,8 +134,8 @@ const totalPages = Math.ceil(organizations.length / itemsPerPage);
 </Dropdown>
       </Col>
 
-      <Col xs={3} className=' text-start me-4'>
-      <Col xs={3} className='text-start me-4'>
+      <Col xs={4} className=' text-start'>
+      
   <Dropdown>
     <Dropdown.Toggle variant='secondary' className="d-flex align-items-center">
       <Image src='/Dropdown/flagpin.png' className="me-2"/> Jurisdiction
@@ -153,7 +153,7 @@ const totalPages = Math.ceil(organizations.length / itemsPerPage);
       ))}
     </Dropdown.Menu>
   </Dropdown>
-</Col>
+
 
       </Col>
 
@@ -164,7 +164,7 @@ const totalPages = Math.ceil(organizations.length / itemsPerPage);
           </Button>
           <Form.Control
             placeholder="Search"
-            className="shadow-lg"
+            
             type='text'
             onChange={handleSearch}
             value={search}

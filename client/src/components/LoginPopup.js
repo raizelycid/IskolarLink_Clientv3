@@ -88,20 +88,20 @@ function LoginPopup() {
                 </Form.Group>
 
                 <Form.Group className="mb-3 position-relative" controlId="formLoginPassword">
-  <Form.Label className='Inter-med'>Password</Form.Label>
-  <Form.Control
-    type={passwordShown ? "text" : "password"}
-    placeholder="Enter your password"
-    className='Inter-normal'
-    onChange={(e) => setLoginDetails({...loginDetails, password: e.target.value})}
-  />
-  <FontAwesomeIcon
-    icon={passwordShown ? faEyeSlash : faEye}
-    className="position-absolute end-0 top-69 translate-middle-y me-3"
-    onClick={togglePasswordVisibility}
-    style={{ cursor: 'pointer', right: '10px', top: '69%', transform: 'translateY(-50%)' }}
-  />
-  
+                  <Form.Label className='Inter-med'>Password</Form.Label>
+                  <Form.Control
+                    type={passwordShown ? "text" : "password"}
+                    placeholder="Enter your password"
+                    className='Inter-normal'
+                    onChange={(e) => setLoginDetails({...loginDetails, password: e.target.value})}
+                  />
+                  <FontAwesomeIcon
+                    icon={passwordShown ? faEye : faEyeSlash }
+                    className="position-absolute end-0 top-69 translate-middle-y me-3"
+                    onClick={togglePasswordVisibility}
+                    style={{ cursor: 'pointer', right: '10px', top: '69%', transform: 'translateY(-50%)' }}
+                  />
+                  
 </Form.Group>
 
                 <Row>
