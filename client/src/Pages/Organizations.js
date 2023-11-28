@@ -108,13 +108,13 @@ const totalPages = Math.ceil(organizations.length / itemsPerPage);
       <HeroVariant7 
         h1Text="Accredited Organizations"
         pText={
-          <>"Discover our Accredited Organizations, the heart and soul of our vibrant campus community. <br/>
-        Explore their achievements, activities, and the incredible impact they make on our campus life."
+          <>Discover our Accredited Organizations, the heart and soul of our vibrant campus community. <br/>
+        Explore their achievements, activities, and the incredible impact they make on our campus life.
         </>}
       />
       <Container>
       <Row className='my-4 text-center '>
-      <Col xs={2} className=' text-start'>
+      <Col xs={3} className=' text-start'>
       <Dropdown>
   <Dropdown.Toggle variant='primary' className="d-flex align-items-center">
     <Image src='/Dropdown/groups.png' className="me-2"/> Organization Type

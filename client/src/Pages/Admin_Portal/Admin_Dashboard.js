@@ -9,7 +9,8 @@ import Table from 'react-bootstrap/Table'
 import Dropdown from 'react-bootstrap/Dropdown'
 import GiveFeedback from '../../components/Admin_Dashboard/GiveFeedback';
 import './Admin_Portal.css'
-import Add_Chairperson from '../../components/Add_Chairperson';
+import Add_Chairperson from '../../components/Admin_Dashboard/Add_Chairperson';
+import Update_WebAdmin from '../../components/Admin_Dashboard/Update_WebAdmin';
 
 
 function Admin_Dashboard() {
@@ -17,8 +18,11 @@ function Admin_Dashboard() {
   const [studentCount, setStudentCount] = useState(0);
   const [toVerifyCount, setToVerifyCount] = useState(0);
   const [chairperson, setChairperson] = useState({});
-  const [studentsToVerify, setStudentsToVerify] = useState([]);
+  const [webAdmin,setWebAdmin] = useState({})
+  const [students, setStudents] = useState([]);
   const [refresh, setRefresh] = useState(false);
+  const [search, setSearch] = useState('')
+  const [statusFilter, setStatusFilter] = useState('');
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_BASE_URL}/admin/count_students`).then((response) => {
@@ -33,13 +37,36 @@ function Admin_Dashboard() {
       setChairperson(response.data);
     });
 
-    axios.get(`${process.env.REACT_APP_BASE_URL}/admin/get_students_to_verify`).then((response) => {
-      setStudentsToVerify(response.data);
+    axios.get(`${process.env.REACT_APP_BASE_URL}/admin/get_students`).then((response) => {
+      setStudents(response.data);
     });
+
+    axios.get(`${process.env.REACT_APP_BASE_URL}/admin/get_web_admin`).then((response)=> {
+      setWebAdmin(response.data)
+    })
 
     setRefresh(false);
 
   },[refresh])
+
+  const filteredItems = students.filter((student)=>{
+    let fullName = student.student_Fname.concat(" ", student.student_Lname)
+    const matchesSearch = search.toLowerCase() === "" || fullName.toLowerCase().includes(search.toLowerCase());
+
+    let matchesStatus;
+    if(statusFilter==="Submitted COR"){
+      matchesStatus = student.cor !== null && student.is_verified === false
+    }else if(statusFilter === "Verified"){
+      matchesStatus = student.is_verified === true
+    }else if(statusFilter === "Not Verified"){
+      matchesStatus = student.is_verified === false
+    }
+    else{
+      matchesStatus = statusFilter === ""
+    }
+
+    return matchesSearch && matchesStatus;
+  })
 
   const handleVerify = (studentId, cor) => {
     try{
@@ -86,8 +113,8 @@ function Admin_Dashboard() {
             subtitle="To Verify"
           />
         </Row>
-        <Row>
-          <h1 className='text-red'>User Management</h1>
+        <Row className='my-3'>
+          <h1 className='text-red'>Chairperson Management</h1>
         </Row>
         <Row className='ms-1 me-5 pe-3 pt-3 border'>  
           <Col xs={1} className='text-end'>
@@ -101,12 +128,46 @@ function Admin_Dashboard() {
             <Add_Chairperson setRefresh={setRefresh}/>
           </Col>
         </Row>
+        <Row className='my-3'>
+          <h1 className='text-red'>Admin Management</h1>
+        </Row>
+        <Row className='ms-1 me-5 pe-3 pt-3 border'>  
+          <Col xs={1} className='text-end'>
+            {webAdmin.user?.profile_picture ? <Image src={`${process.env.REACT_APP_BASE_URL}/images/${webAdmin.user.profile_picture}`} roundedCircle style={{width:"3rem"}}/> : <FontAwesomeIcon icon={faUserCircle} size="3x" className="text-red"/>}
+          </Col>
+          <Col className="ms-0">
+            <p className=' mb-0'><strong>{webAdmin.admin?.student_Fname + " " + webAdmin.admin?.student_Lname}</strong></p>
+            <p className='text-red'>{webAdmin.user?.email}</p>
+          </Col>
+          <Col className='text-end mt-1'>
+            <Update_WebAdmin setRefresh={setRefresh}/>
+          </Col>
+        </Row>
+        <Row className='my-3'>
+          <h1 className='text-red'>Start a new semester</h1>
+        </Row>
+        <Row className='ms-1 me-5 pe-3 pt-3 border'>  
+          <Col className='text-center my-2'>
+            <Update_WebAdmin setRefresh={setRefresh}/>
+          </Col>
+        </Row>
+        
         <Row className='text-center mt-5'>
           <h1 className='text-red'>List of Iskolar Users</h1>
         </Row>
         <Row className='m-4'>
         <Col className='text-start'>
-          <Button variant="outline-secondary"><i className="fa-solid fa-filter"></i> Filter</Button>
+        <Form.Select 
+          aria-label="Select Status" 
+          onChange={(e) => setStatusFilter(e.target.value)}
+          value={statusFilter} 
+        >
+          <option value="">All Students</option>
+          <option value="Submitted COR">Submitted COR</option>
+          <option value="Verified">Verified</option>
+          <option value="Not Verified">Not Verified</option>
+          {/* Add more status options as needed */}
+        </Form.Select>
         </Col>
         <Col>
         </Col>
@@ -117,6 +178,7 @@ function Admin_Dashboard() {
           <Form.Control
             placeholder="Search"
             className="shadow-lg"
+            onChange={(e)=>setSearch(e.target.value)}
           />
         </InputGroup>
       </Row>
@@ -127,17 +189,19 @@ function Admin_Dashboard() {
               <th>Student Name</th>
               <th>Email</th>
               <th>COR</th>
+              <th>Days</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {studentsToVerify.map((student) => {
+            {filteredItems.length > 0 ? (filteredItems.map((student) => {
               return(
                 <tr>
                   <td>{student.student_Fname + " " + student.student_Lname}</td>
                   <td>{student.email}</td>
-                  <td><span onClick={() => window.open(`${process.env.REACT_APP_BASE_URL}/${student.cor}`)} style={{color: "#007bff", cursor: "pointer"}}>View</span></td>
+                  <td>{student.cor ? (<span onClick={() => window.open(`${process.env.REACT_APP_BASE_URL}/${student.cor}`)} style={{color: "#007bff", cursor: "pointer"}}>View</span>) : "N/A"}</td>
+                  <td>{student.days}</td>
                   <td>{student.is_verified ? "Verified" : "Not Verified"}</td>
                   <td>{!student.is_verified && !student.cor_remarks ? <Dropdown>
                     <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -148,10 +212,14 @@ function Admin_Dashboard() {
                       <GiveFeedback studentId={student.id} cor={student.cor}/>
                       <Dropdown.Item href="#/action-2">Drop</Dropdown.Item>
                     </Dropdown.Menu>
-                  </Dropdown> : "Feedback Given"}</td>
+                  </Dropdown> : student.is_verified ? "Verified for this Semester": "Feedback Given"}</td>
                 </tr>
               )
-            })}
+            })): (
+              <tr>
+      <td colSpan="6" style={noResultsStyle}>No results found</td>
+    </tr>
+            )}
           </tbody>
         </Table>
       </Row>
@@ -159,5 +227,14 @@ function Admin_Dashboard() {
     </>
   );
 }
+
+const noResultsStyle = {
+  textAlign: 'center',
+  padding: '20px',
+  fontSize: '1.2rem',
+  color: 'grey',
+  fontStyle: 'italic'
+};
+
 
 export default Admin_Dashboard;

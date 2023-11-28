@@ -64,7 +64,7 @@ function COSOA() {
         pText={
           <>COSOA plays a pivotal role in fostering a vibrant campus community by
           <br/>
-          overseeing the recognition and accreditation of student organizations."
+          overseeing the recognition and accreditation of student organizations.
           </>
           }
       />
@@ -73,7 +73,8 @@ function COSOA() {
       <Col xs={12} md={8} lg={9} className="text-section p-0">
         <h2 className="title mb-0">Who Are We?</h2> 
         <p className='description text-gray2 mb-0'>
-          The sole-accrediting body and an independent student body set to develop an effective <br/> working relationship between the Central Student Council, the Office of Student Services (OSS), <br/> and all student organizations at the Polytechnic University of the Philippines (PUP).
+          The sole-accrediting body and an independent student body set to develop an effective <br/> 
+          working relationship between the Central Student Council, the Office of Student Services (OSS), and all student organizations at the Polytechnic University of the Philippines (PUP).
         </p>
       </Col>
       <Col xs={12} md={4} lg={3} className="image-section d-flex justify-content-center p-0">
