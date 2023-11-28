@@ -7,7 +7,7 @@ const Accredited_Org = ({ imageSrc, title, description, tags, orgId }) => {
   const navigate = useNavigate();
   return (
     <Col fluid>
-      <Card className="p-3 mx-3" style={{width:'350px',height:'450px'}} onClick={()=>{navigate(`/org/profile/${orgId}`)}}>
+      <Card className="p-3 mx-3" style={{width:'350px',height:'500px'}} onClick={()=>{navigate(`/org/profile/${orgId}`)}}>
         <Card.Img variant="top" src={imageSrc} className="announcement-image" style={{backgroundSize:'cover'}}/>
         <Card.Body>
           <div className="d-flex flex-wrap mb-2">

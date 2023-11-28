@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useContext} from 'react'
-import { HeroVariant } from '../components/HeroVariant/Hero';
+import { HeroVariant7 } from '../components/HeroVariant/Hero';
 import './Organizations.css';
 import Accredited_Org from '../components/Accredited_Org'; 
 import { Container, Row, InputGroup, Form, Button, Col, Pagination, Dropdown, Image } from 'react-bootstrap';
@@ -105,13 +105,16 @@ const totalPages = Math.ceil(organizations.length / itemsPerPage);
 
   return (
     <div>
-      <HeroVariant 
+      <HeroVariant7 
         h1Text="Accredited Organizations"
-        pText="Discover our Accredited Organizations, the heart and soul of our vibrant campus community. Explore their achievements, activities, and the incredible impact they make on our campus life."
+        pText={
+          <>"Discover our Accredited Organizations, the heart and soul of our vibrant campus community. <br/>
+        Explore their achievements, activities, and the incredible impact they make on our campus life."
+        </>}
       />
       <Container>
       <Row className='my-4 text-center '>
-      <Col xs={3} className=' text-start me-4'>
+      <Col xs={2} className=' text-start'>
       <Dropdown>
   <Dropdown.Toggle variant='primary' className="d-flex align-items-center">
     <Image src='/Dropdown/groups.png' className="me-2"/> Organization Type
@@ -131,8 +134,8 @@ const totalPages = Math.ceil(organizations.length / itemsPerPage);
 </Dropdown>
       </Col>
 
-      <Col xs={3} className=' text-start me-4'>
-      <Col xs={3} className='text-start me-4'>
+      <Col xs={4} className=' text-start'>
+      
   <Dropdown>
     <Dropdown.Toggle variant='secondary' className="d-flex align-items-center">
       <Image src='/Dropdown/flagpin.png' className="me-2"/> Jurisdiction
@@ -150,7 +153,7 @@ const totalPages = Math.ceil(organizations.length / itemsPerPage);
       ))}
     </Dropdown.Menu>
   </Dropdown>
-</Col>
+
 
       </Col>
 
@@ -161,7 +164,7 @@ const totalPages = Math.ceil(organizations.length / itemsPerPage);
           </Button>
           <Form.Control
             placeholder="Search"
-            className="shadow-lg"
+            
             type='text'
             onChange={handleSearch}
             value={search}

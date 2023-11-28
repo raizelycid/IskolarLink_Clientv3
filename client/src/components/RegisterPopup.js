@@ -150,8 +150,8 @@ function RegisterPopup() {
                                 </Form.Group>
                             </Row>
                             <Form.Group className="mb-3" controlId="formRegisterWebmail">
-                                <Form.Label className="Inter-med">Webmail<span className="text-red">*</span></Form.Label>
-                                <Form.Control required type="email" placeholder="Enter your Webmail" value={regDetails.email} onChange={(e) => setRegDetails({...regDetails, email: e.target.value})}/>
+                                <Form.Label className="Inter-med">PUP Webmail Address<span className="text-red">*</span></Form.Label>
+                                <Form.Control required type="email" placeholder="Enter your PUP Webmail Address" value={regDetails.email} onChange={(e) => setRegDetails({...regDetails, email: e.target.value})}/>
                             </Form.Group>
 
                             <Row>
