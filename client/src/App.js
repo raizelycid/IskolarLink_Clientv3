@@ -44,6 +44,9 @@ import COSOA_Accesibility from './Pages/COSOA_Portal/COSOA_Accesibility';
 import User_Feedback from './Pages/Admin_Portal/User_Feedback';
 import Terms from './Pages/Terms';
 import { Link } from 'react-router-dom';
+import { AccreditationStatusProvider } from './helpers/AccreditationStatusContext';
+
+
 function App() {
 
   axios.defaults.withCredentials = true;
@@ -144,6 +147,7 @@ function App() {
 
   return (
     <Router>
+      <AccreditationStatusProvider>
       
       <Navbar expand="lg" className={navbarClass}>
         <Container>
@@ -310,6 +314,7 @@ function App() {
           </Row>
         </Container>
       </footer>
+      </AccreditationStatusProvider>
     </Router>
   );
 }

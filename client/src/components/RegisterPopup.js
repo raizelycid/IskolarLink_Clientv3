@@ -133,7 +133,7 @@ function RegisterPopup() {
                                     <Form.Select required defaultValue="Choose..." value={regDetails.department} onChange={(e) => setRegDetails({...regDetails, department: e.target.value})}>
                                         <option>Choose...</option>
                                         {Departments.map((department) => (
-                                            <option>{department}</option>
+                                            <option key={department}>{department}</option>
                                         ))}
                                     </Form.Select>
                                 </Form.Group>

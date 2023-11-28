@@ -10,7 +10,7 @@ function GiveCredentials({role, applicationStatus, orgId}) {
 
     const handleCloseCredentials = () => setShowCredentials(false);
     const handleShowCredentials = () => setShowCredentials(true);
-
+    
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -31,7 +31,7 @@ function GiveCredentials({role, applicationStatus, orgId}) {
 
   return (
     <>
-        {(role === "student" && applicationStatus === "Accredited") ? <Button variant="outline-secondary" size="sm" onClick={handleShowCredentials}>Give Credentials</Button> : <Button variant="outline-secondary" size="sm" disabled>Give Credentials</Button>}
+        {(role === "student" && applicationStatus === "Accredited") ? <Button variant="outline-secondary" size="sm" onClick={handleShowCredentials}>Give Credentials</Button>:(role === "organization") ? <Button variant="outline-secondary" size="sm" disabled>Credentials Given</Button> : <Button variant="outline-secondary" size="sm" disabled>Organization needs to be accredited first</Button>}
         <Modal
         show={showCredentials}
         onHide={handleCloseCredentials}

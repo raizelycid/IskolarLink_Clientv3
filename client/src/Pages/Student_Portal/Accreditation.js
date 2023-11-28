@@ -7,10 +7,11 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import './Student_Profile.css';
 import { HeroVariant } from '../../components/HeroVariant/Hero';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col, Button, Alert, Spinner } from 'react-bootstrap';
 import {accreditationSchema} from '../../Validations/AccreditationValidation'
 import ConfirmationDialog from '../../components/Accreditation/ConfirmationDialog'
-import { Alert } from 'react-bootstrap'
+import { useAccreditationStatus } from '../../helpers/AccreditationStatusContext'
+import LoadingOverlay from '../../components/LoadingOverlay'
 
 function Accreditation() {
     const [page, setPage] = useState(0);
@@ -45,6 +46,8 @@ function Accreditation() {
     const [waiverForm, setWaiverForm] = useState('');
     const [confirmation, setConfirmation] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
+    const { setAccreditationStatus } = useAccreditationStatus();
+    const [loading, setLoading] = useState(false);
 
 
     const generatePDF = async () => {
@@ -111,6 +114,7 @@ function Accreditation() {
     }, [confirmation])
 
     const submitData = async () => {
+        setLoading(true)
         try {
             const isValid = await accreditationSchema.isValid(formData);
             console.log(isValid)
@@ -123,6 +127,7 @@ function Accreditation() {
             if(res.data.error){
                 alert(res.data.error);
             }
+            setAccreditationStatus(true)
             navigate(`/accreditation/status`);
         } else {
             console.log('invalid');
@@ -131,6 +136,8 @@ function Accreditation() {
         
         } catch (err) {
             console.log(err);
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -199,10 +206,21 @@ function Accreditation() {
             }
         </div>
         </Container>
+        
 
     </div>
+    {loading && (
+                <LoadingOverlay 
+                    title="Submitting Application..." 
+                    subtitle="You will be redirected to the Accreditation Status page if submission is a success." 
+                />
+            )}
+    
     </>
   )
 }
+
+
+
 
 export default Accreditation

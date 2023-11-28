@@ -66,8 +66,9 @@ const GenInfo = ({formData, setFormData, show}) => {
                 <Form.Select aria-label='OrgType' onChange={(e) => setFormData({...formData, orgType: e.target.value})} value={formData.orgType}>
                     <option>Choose...</option>
                     {orgTypes.map((orgType) => (
-                        <option>{orgType}</option>
+                        <option key={orgType}>{orgType}</option>
                     ))}
+
                 </Form.Select>
             </Form.Group>
             <Form.Group as={Col} controlId="subjurisdiction" className="mb-3">
@@ -75,7 +76,7 @@ const GenInfo = ({formData, setFormData, show}) => {
                 <Form.Select aria-label='SubJurisdiction' onChange={(e) => setFormData({...formData, subjurisdiction: e.target.value})} value={formData.subjurisdiction}>
                     <option>Choose...</option>
                     {Departments.map((department) => (
-                        <option>{department}</option>
+                        <option key={department}>{department}</option>
                     ))}
                 </Form.Select>
             </Form.Group>
