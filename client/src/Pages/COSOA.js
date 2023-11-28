@@ -1,5 +1,5 @@
 import React from 'react'
-import { HeroVariant } from '../components/HeroVariant/Hero';
+import { HeroVariant, HeroVariant1 } from '../components/HeroVariant/Hero';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import { AnnouncementVariant } from '../components/AnnouncementVariant/AnnouncementCard';
 import './COSOA.css';
@@ -52,7 +52,7 @@ function COSOA() {
 
   return (
     <div>
-      <HeroVariant 
+      <HeroVariant1 
         h1Text={
           <>
             PUP Student Council Commission on
@@ -69,17 +69,17 @@ function COSOA() {
           }
       />
    <Container className='my-5'>
-  <Row className="align-items-center"> 
-    <Col xs={12} md={3} lg={2} className="d-flex justify-content-center p-0">
-      <Image src="/cosoalogo.png" alt="IskolarLink Logo" className="custom-logo-size" fluid />
-    </Col>
-    <Col xs={12} md={9} lg={10} className="p-0">
-      <h2 className="mb-0">Who Are We</h2> 
-      <p className='text-gray2 mb-0'>
-        The sole-accrediting body and an independent student body set to develop an effective working relationship between the Central Student Council, the Office of Student Services (OSS), and all student organizations at the Polytechnic University of the Philippines (PUP).
-      </p>
-    </Col>
-  </Row>
+   <Row className="align-items-center who-we-are-section"> 
+      <Col xs={12} md={8} lg={9} className="text-section p-0">
+        <h2 className="title mb-0">Who Are We?</h2> 
+        <p className='description text-gray2 mb-0'>
+          The sole-accrediting body and an independent student body set to develop an effective <br/> working relationship between the Central Student Council, the Office of Student Services (OSS), <br/> and all student organizations at the Polytechnic University of the Philippines (PUP).
+        </p>
+      </Col>
+      <Col xs={12} md={4} lg={3} className="image-section d-flex justify-content-center p-0">
+        <Image src="/cosoa1.png" alt="IskolarLink Logo" className="custom-logo-size" fluid />
+      </Col>
+    </Row>
 </Container>
 
 
@@ -118,15 +118,15 @@ function COSOA() {
           <p className='text-gray2'>Discover the latest announcement that will shape the future of PUP COSOA and elevate your student experience!</p>
         </Row>
         <Row>
-          {
-            announcements.map((announcement) => {
-              return (
-                <AnnouncementVariant 
-                  key={announcement.cosoa_ann_id}
-                  announcement={announcement}
-                />
-              )
-            })
+          // {
+          //  announcements.map((announcement) => {
+            //  return (
+             //   <AnnouncementVariant 
+              //    key={announcement.cosoa_ann_id}
+              //    announcement={announcement}
+              //  />
+          //    )
+         //   })
           }
         </Row>
       </Container>

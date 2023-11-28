@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { HeroVariant } from '../components/HeroVariant/Hero';
+import { HeroVariant5 } from '../components/HeroVariant/Hero';
 import { Table, Container, Nav, Row, Tab } from 'react-bootstrap';
 import './AppDocs.css';
 import { ContactBanner1 } from '../components/ContactBanner';
@@ -91,7 +91,7 @@ function AppDocs() {
 
   return (
     <div>
-      <HeroVariant 
+      <HeroVariant5 
         h1Text="Application Documents"
         pText="Find all the essential forms and resources you need to start your journey towards accreditation or other important processes."
       />
@@ -102,14 +102,16 @@ function AppDocs() {
         </Row>
         <Row className="m-5 px-5">
           <Tab.Container defaultActiveKey="reval">
-            <Nav variant="pills" fill className='mx-5 px-5 rounded-3  align-items-center d-flex'>
+            <Nav variant="pills" fill className=' margin-left-20 px-5 rounded-3 align-items-center d-flex'>
               <Nav.Item className='border-top border-bottom border-start rounded-start-3 border-primary  p-1'>
                 <Nav.Link
                   eventKey="accredit"
                   className={activeKey === 'accredit' ? 'bg-red' : 'text-gray2'}
                   onClick={() => setActiveKey('accredit')}
                 >
+                  <div className="hover-text">
                   Accreditation
+                  </div>
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item className='border-top border-bottom border-end rounded-end-3 border-primary p-1'>
@@ -118,13 +120,15 @@ function AppDocs() {
                   className={activeKey === 'reval' ? 'bg-red' : 'text-gray2'}
                   onClick={() => setActiveKey('reval')}
                 >
+                  <div className="hover-text">
                   Revalidation
+                  </div>
                 </Nav.Link>
               </Nav.Item>
             </Nav>
-            <Tab.Content className="my-5">
+            <Tab.Content className="my-5 align-items-center">
               <Tab.Pane eventKey="accredit">
-                <Table responsive bordered>
+                <Table responsive bordered >
                   <thead>
                     <tr>
                       <th className='text-red'>Requirement</th>
