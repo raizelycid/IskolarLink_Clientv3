@@ -70,7 +70,8 @@ function OrgSettings() {
       />
 
       <Container className='my-5'>
-      <h1>Organization Profile</h1>
+      <h2 className='mb-0'>Organization Profile</h2>
+      <p>Update your photo and personal details here.</p>
       <Form>
                 <div className='my-5'>
                 <Form.Group controlId="formFileLg" className="mb-3">

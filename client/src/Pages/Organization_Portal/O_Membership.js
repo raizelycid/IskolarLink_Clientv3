@@ -10,7 +10,7 @@ function O_Membership() {
 
   const [members, setMembers] = useState([]);
   const [org, setOrg] = useState({});
-
+/*
   useEffect(() => {
     try{
       axios.get(`${process.env.REACT_APP_BASE_URL}/org_portal/organization/membership`)
@@ -23,7 +23,7 @@ function O_Membership() {
       console.log(err);
     }
   }, []);
-
+*/
   const handleAccept = (studentId) => {
     try{
       axios.post(`${process.env.REACT_APP_BASE_URL}/membership/membership`, {studentId: studentId, status: 'Accepted', orgId: org.id})
@@ -64,24 +64,40 @@ function O_Membership() {
         pText="Check your applicants."
       />
       <Container>
-      <Row className='m-4'>
-        <Col xs={1}></Col>
-        <Col>
-          <Button variant="outline-secondary"><i class="fa-solid fa-filter"></i> Filter</Button>
-        </Col>
+      <Row className='mt-4 mb-3'>
+          <h1 className='text-red'>Membership Application</h1>
+      </Row>
+      <Row>
+        <Form>
+              <Row className='border pt-4 pb-2 px-2'>
+                <Col>
+                <Form.Label>
+                <p><strong>Membership</strong><br/><span className='text-red'>Iskolars <strong>may now apply.</strong></span></p>
+                </Form.Label>
+                </Col>
+                <Col className='text-end'>
+                <Form.Check
+                  type="switch"
+                  id="anr-period-initial-toggle"
+                />
+                </Col>
+              </Row>
+            </Form>
+          </Row>
+      </Container>
+      <Container>
+      <Row className='my-3'>
         <InputGroup as={Col}>
           <Button variant="outline-secondary" id="button-addon2">
             <i class="fa-solid fa-magnifying-glass"></i>
           </Button>
           <Form.Control
             placeholder="Search"
-            className="shadow-lg"
           />
         </InputGroup>
-        <Col xs={1}></Col>
+        <Col>
+        </Col>
       </Row>
-      </Container>
-      <Container>
         <Table striped bordered hover>
           <thead>
             <tr>
