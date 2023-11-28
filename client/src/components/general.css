@@ -265,3 +265,7 @@
   top: 100px; /* Centers the icon vertically */
   transform: translateY(-50%);
 }
+.accordion-button:not(.collapsed) {
+  background-color: #800 !important;
+  color: white !important; /* Change text color to white */
+}

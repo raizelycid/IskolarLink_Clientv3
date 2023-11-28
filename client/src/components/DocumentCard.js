@@ -41,7 +41,7 @@ const DocumentCard = ({ title, subtitle, list_req, documents, userType}) => {
           <Carousel.Item key={index}>
             <Container className="d-flex justify-content-center">
               <Image
-                className="img-top"
+                className="img-top mb-3"
                 src={document.imageSrc}
                 alt={`Document ${index + 1}`}
                 style={{maxHeight:'45vh',maxWidth:'60vh'}}
