@@ -21,6 +21,7 @@ function Edit_COSOA({setRefresh, imgSrc, fullName, position, id}) {
     };
 
     const handleSubmit = async () => {
+        if(window.confirm(`By continuing, you agree to change the position of ${fullName} to ${selectedPosition}`))
         try {
           const response = await axios.put(`${process.env.REACT_APP_BASE_URL}/cosoa_member/update_cosoa_member/${id}`, {
             position: selectedPosition,
@@ -75,7 +76,6 @@ function Edit_COSOA({setRefresh, imgSrc, fullName, position, id}) {
             onMouseOver={(e) => { e.target.style.color = 'var(--dark-yellow)'; }} // Change color on hover
             onMouseOut={(e) => { e.target.style.color = 'black'; }} // Revert to default color
             />
-
             <Modal show={show} onHide={handleClose} centered backdrop="static" size='md'>
                 <Modal.Header closeButton className="d-flex justify-content-center align-items-center mb-0 pb-0 mx-4">
                     <Modal.Title className="text-center mt-3" style={{ fontSize: '2em', width: '100%' }}>

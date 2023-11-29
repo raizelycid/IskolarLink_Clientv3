@@ -65,8 +65,6 @@ const removeMember = async (memberId) => {
           <h1 className='text-red'>COSOA Members</h1>
           <p>Manage or View COSOA Members</p>
         </Row>
-      
-
         <Container>
           <Table striped bordered hover >
           <colgroup>
@@ -111,8 +109,8 @@ const removeMember = async (memberId) => {
                           id={member.id}
                         />
                       </Col>
-                      <Col className='text-center'>
-                        <FontAwesomeIcon 
+                      <Col xs={5}>
+                      <FontAwesomeIcon 
                           icon="fa-solid fa-trash-can"
                           onClick={()=>removeMember(member.id)}
                           style={{
@@ -158,9 +156,8 @@ const removeMember = async (memberId) => {
             + Add New COSOA Officer
           </Button>
         )}
-
-          
-        </Container>
+    </Container>
+        
   </>
   );
 };
