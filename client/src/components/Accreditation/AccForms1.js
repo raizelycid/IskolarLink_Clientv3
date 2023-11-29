@@ -1,9 +1,15 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { Form, Row, Col, Image } from 'react-bootstrap'
 import Container from 'react-bootstrap/Container';
 import './AccFinish.css';
 
-const AccForms1 = ({formData, setFormData, show}) => {
+const AccForms1 = ({formData, setFormData, show, updateValidty, refresh, setRefresh}) => {
+
+    useEffect(()=>{
+        setRefresh(false)
+        const valid = formData.AD001  && formData.AD002  && formData.AD003  && formData.AD004  && formData.AD005  && formData.AD006 && formData.AD007  && formData.AD008 
+        updateValidty(valid)
+    },[refresh, formData.AD001, formData.AD002, formData.AD003, formData.AD004, formData.AD005, formData.AD006, formData.AD007, formData.AD008])
 
   return (
     <>

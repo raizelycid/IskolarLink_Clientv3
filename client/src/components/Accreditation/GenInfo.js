@@ -1,9 +1,11 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import {Col, Row, Form, Image} from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import './AccFinish.css';
 
-const GenInfo = ({formData, setFormData, show}) => {
+const GenInfo = ({formData, setFormData, show, updateValidty, refresh, setRefresh}) => {
+
+    const [filteredDepartments, setFilteredDepartments] = useState([]);
 
     const orgTypes = [
         'Academic Organization',
@@ -40,6 +42,19 @@ const GenInfo = ({formData, setFormData, show}) => {
         `University-Wide`
     ]
 
+    useEffect(()=>{
+        setRefresh(false)
+        const valid = formData.orgName !== '' && formData.jurisdiction !== '' && formData.subjurisdiction !== '' && formData.orgType !== '' && formData.advisers !== ''
+        updateValidty(valid)
+
+        if (formData.jurisdiction === "University-Wide Student Organization") {
+            setFilteredDepartments(["University-Wide"]);
+        } else {
+            setFilteredDepartments(Departments);
+        }
+    },[formData.orgName,formData.jurisdiction,formData.subjurisdiction,formData.orgType,formData.advisers,refresh])
+    
+
   return (
     <>
     <form style={{display:show}}>
@@ -75,7 +90,7 @@ const GenInfo = ({formData, setFormData, show}) => {
                 <Form.Label>Sub-Jurisdiction</Form.Label>
                 <Form.Select aria-label='SubJurisdiction' onChange={(e) => setFormData({...formData, subjurisdiction: e.target.value})} value={formData.subjurisdiction}>
                     <option>Choose...</option>
-                    {Departments.map((department) => (
+                    {filteredDepartments.map((department) => (
                         <option key={department}>{department}</option>
                     ))}
                 </Form.Select>

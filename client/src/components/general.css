@@ -140,15 +140,18 @@
     background-image: url("/public/Login.png");
     background-repeat: no-repeat;
     background-position: top;
+    border-radius: 20px; 
+    backface-visibility: hidden;
+    box-shadow: 10px 10px 20px 20px rgba(109, 88, 88, 0.5);
 }
 
 .register-modal {
     background-image: url("/public/Login.png");
     background-repeat: no-repeat;
     background-position: top;
-}
-.rounded-modal {
-    border-radius: 10%;
+    border-radius: 20px; 
+    backface-visibility: hidden;
+    box-shadow: 10px 10px 20px 20px rgba(109, 88, 88, 0.5);
 }
 
 .login-form, .register-form{

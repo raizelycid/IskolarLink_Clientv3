@@ -1,9 +1,15 @@
-import {React, useState} from 'react'
+import React,{useEffect} from 'react'
 import './AccFinish.css';
 import { Form, Image, ToggleButton, Row, Col, Button } from 'react-bootstrap'
 import Container from 'react-bootstrap/Container';
 
-const AccForms2 = ({formData, setFormData,show,path,path2}) => {
+const AccForms2 = ({formData, setFormData,show,path,path2, updateValidty, refresh, setRefresh}) => {
+
+    useEffect(()=>{
+        setRefresh(false)
+        const valid = formData.AF001 && formData.AD009 && formData.privacyPolicy === true;
+        updateValidty(valid)
+    },[formData.AF001,formData.AD009, refresh, formData.privacyPolicy])
 
   return (
     <>

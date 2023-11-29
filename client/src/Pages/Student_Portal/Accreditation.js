@@ -48,6 +48,14 @@ function Accreditation() {
     const [showAlert, setShowAlert] = useState(false);
     const { setAccreditationStatus } = useAccreditationStatus();
     const [loading, setLoading] = useState(false);
+    const [isCurrentPartValid, setIsCurrentPartValid] = useState(false);
+    const [refresh1,setRefresh1] = useState(false)
+    const [refresh2,setRefresh2] = useState(false)
+    const [refresh3,setRefresh3] = useState(false)
+
+    const updateValidity = (isValid) => {
+        setIsCurrentPartValid(isValid);
+    };
 
 
     const generatePDF = async () => {
@@ -83,17 +91,20 @@ function Accreditation() {
     useEffect(() => {
         if(page === 0){
             setShow1('block');
+            setRefresh1(true)
             setShow2('none');
             setShow3('none');
             setShow4('none');
         } else if(page === 1){
             setShow1('none');
+            setRefresh2(true)
             setShow2('block');
             setShow3('none');
             setShow4('none');
         } else if(page === 2){
             setShow1('none');
             setShow2('none');
+            setRefresh3(true)
             setShow3('block');
             setShow4('none');
         } else if(page === 3){
@@ -176,16 +187,16 @@ function Accreditation() {
         </div>
         <div className="form-body">
         
-        <GenInfo formData={formData} setFormData={setFormData} show={show1}/>
-        <AccForms1 formData={formData} setFormData={setFormData} show={show2}/>
-        <AccForms2 formData={formData} setFormData={setFormData} show={show3} path={trackerForm} path2={waiverForm}/>
+        <GenInfo formData={formData} setFormData={setFormData} show={show1} updateValidty={updateValidity} refresh={refresh1} setRefresh={setRefresh1}/>
+        <AccForms1 formData={formData} setFormData={setFormData} show={show2} refresh={refresh2} setRefresh={setRefresh2} updateValidty={updateValidity}/>
+        <AccForms2 formData={formData} setFormData={setFormData} show={show3} path={trackerForm} path2={waiverForm} refresh={refresh3} setRefresh={setRefresh3} updateValidty={updateValidity}/>
         <AccFinish show={show4}/>
         {showAlert && showAlertPopup()}
         </div>
         <Container>
         <div className="d-flex justify-content-center form-footer">
             <button 
-            disabled={page == 0}
+            disabled={page === 0}
             onClick={() => {
                 setPage((currPage) => currPage - 1);}}
             className="custom-button2 margin-right"
@@ -194,12 +205,15 @@ function Accreditation() {
             </button>
             {page == 3? <ConfirmationDialog confirmation={confirmation} setConfirmation={setConfirmation}/> :
             <button
+            disabled={!isCurrentPartValid}
             onClick={() => {
                     if(page === 0){generatePDF()}
                     setPage((currPage) => currPage + 1);
+                    updateValidity(false)
                 }
             }
             className="custom-button margin-right"
+            
             >
                Next &#8594;
             </button>

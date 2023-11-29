@@ -1,42 +1,56 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
+import LoadingOverlay from '../LoadingOverlay'
+import {useNavigate} from 'react-router-dom'
 
 
 const Add_Chairperson = ({setRefresh}) => {
   const [show, setShow] = useState(false);
   const [studentNumber, setStudentNumber] = useState('');
   const [pupWebmail, setPupWebmail] = useState('');
+  const [loading,setLoading] = useState(false)
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const navigate = useNavigate()
+
   const handleDone = async () => {
-    console.log('Student Number:', studentNumber);
-    console.log('PUP Webmail:', pupWebmail);
-  
-    axios
-      .post(`${process.env.REACT_APP_BASE_URL}/admin/update_chairperson`, {
-        student_num: studentNumber,
-        email: pupWebmail,
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          alert(res.data.success);
-          setRefresh(true);
-          handleClose();
-        } else if (res.status === 400) {
-          alert(res.data.error); // Display the specific error message from the API
-        } else {
-          // Handle unexpected status codes or server errors here
-          alert('Server error or unexpected response');
-        }
-      })
-      .catch((error) => {
-        // Handle network errors or other errors here
-        console.error('API request failed with error:', error);
-        alert('Failed to update chairperson');
-      });
+    setLoading(true)
+    const valid = studentNumber !== "" && pupWebmail !== "";
+
+    try{
+
+    if (valid) {
+      axios
+        .post(`${process.env.REACT_APP_BASE_URL}/admin/update_chairperson`, {
+          student_num: studentNumber,
+          email: pupWebmail,
+        })
+        .then((res) => {
+          if (res.data.error) {
+            alert(res.data.error);
+          } else {
+            alert(res.data.success);
+            handleClose();
+            setRefresh(true)
+            navigate('/admin/dashboard')
+          }
+        })
+        .catch((error) => {
+          // Handle network errors or other errors here
+          console.error("API request failed with error:", error);
+          alert("Failed to update chairperson");
+        });
+    } else {
+      alert("You still haven't filled all required fields");
+    }
+  }catch(err){
+    console.log(err)
+  }finally{
+    setLoading(false)
+  }
   };
   
 
@@ -85,6 +99,8 @@ const Add_Chairperson = ({setRefresh}) => {
           </Row>
         </Modal.Footer>
       </Modal>
+      {loading &&
+      <LoadingOverlay title={"Processing Information"} subtitle={"Chairperson has the highest authority in using COSOA Functionalities"} />}
     </>
   );
 };

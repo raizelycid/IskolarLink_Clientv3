@@ -158,22 +158,22 @@ function App() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mx-auto Inter p-3">
-              <LinkContainer to="/cosoa">
+              <LinkContainer to="/cosoa" activeClassName="nav-link-active">
               <Nav.Link href="#" className="text-dark nav-link ms-4">
                 PUP COSOA
               </Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/organizations">
+              <LinkContainer to="/organizations" activeClassName="nav-link-active">
               <Nav.Link href="#" className="text-dark nav-link ms-4">
                 Accredited Organizations
               </Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/appdocs">
+              <LinkContainer to="/appdocs" activeClassName="nav-link-active">
               <Nav.Link href="#" className="text-dark nav-link ms-4">
                 Application Documents
               </Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/faqs">
+              <LinkContainer to="/faqs" activeClassName="nav-link-active">
               <Nav.Link href="#" className="text-dark nav-link ms-4">
                 FAQs
               </Nav.Link>
