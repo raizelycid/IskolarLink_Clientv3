@@ -13,6 +13,8 @@ import { Alert } from 'react-bootstrap'
 
 function Applicant_Page() {
 
+  axios.defaults.withCredentials = true;
+
   const Actions = ['Proceed to IE2', 'Proceed to FE1', 'Proceed to FE2', 'Accredit', 'Revalidate', 'Give Feedback', 'Reject']
 
   const ActionLinks = (action) => {
