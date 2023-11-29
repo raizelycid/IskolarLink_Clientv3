@@ -8,19 +8,16 @@ import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import Verification, { Verified, VerifyFailed, Verifying } from '../../components/Student Verification/Verification';
 import axios from 'axios';
 
-
 function StudSettings() {
     const [profileImage, setProfileImage] = useState(null);
     const [showTempImage, setShowTempImage] = useState(false);
-    const [profile, setProfile] = useState({});
-  const [submitted, setSubmitted] = useState(false);
-  const fileInputRef = useRef(null);
+    const fileInputRef = useRef(null);
 
-  const handleContainerClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
+    const handleContainerClick = () => {
+      if (fileInputRef.current) {
+        fileInputRef.current.click();
+      }
+    };
 
 
   // Function to handle saving changes
@@ -52,7 +49,8 @@ function StudSettings() {
 
 
 
-  
+  const [profile, setProfile] = useState({});
+  const [submitted, setSubmitted] = useState(false);
 
   const handleCORChange = (e) => {
     setProfile({...profile, cor: e.target.files[0]});
@@ -68,7 +66,35 @@ function StudSettings() {
       console.log(err);
     }
   },[]);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+  
+    // Function to handle input changes and set unsaved changes flag
+    // Example for handling changes in organization name input
+    setProfile({ ...profile, [name]: value });
+    setHasUnsavedChanges(true);
+  };
+  
 
+  useEffect(() => {
+    // Add event listener for beforeunload
+    const handleBeforeUnload = (event) => {
+      if (hasUnsavedChanges) {
+        event.preventDefault();
+        event.returnValue = ''; // For older browsers
+        return 'You have unsaved changes. Are you sure you want to leave?';
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      // Cleanup: remove event listener when component unmounts
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [hasUnsavedChanges]);
 
   return (
     <div>
@@ -76,13 +102,31 @@ function StudSettings() {
         h1Text="Settings"
         pText="Update your profile credentials."
       />
-
       <Container className='my-5'>
       <h2 className='mb-0'>Personal Information</h2>
       <p>Update your photo and personal details here.</p>
       <Form className='text-lightblack'>
-            <div>
-            <Row className='mt-3'>
+        <Row>
+          <Col>
+            <Form.Group>
+              <Form.Label>First Name</Form.Label>
+              <Form.Control
+                type="text"
+                onChange={handleFileChange}
+              />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group>
+              <Form.Label>Last Name</Form.Label>
+              <Form.Control
+                type="text"
+                onChange={handleFileChange}
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row className='mt-3'>
           <Col xs={1}>
              {showTempImage ?
               <Image src={profileImage} alt="Profile Preview" roundedCircle fluid className='setting-logo '/> :
@@ -128,152 +172,211 @@ function StudSettings() {
           </Container>
         </Col>
         </Row>
-
-                <Form.Group as={Row} controlId="formHorizontalImage">
-                    <Form.Label column sm={2}>
-                    {showTempImage ?
-                        <Image src={profileImage} alt="Profile Preview" roundedCircle fluid /> :
-                    profile.profile_picture ? 
-                        <Image src={`${process.env.REACT_APP_BASE_URL}/images/${profile.profile_picture}`} alt="Profile Preview" roundedCircle fluid /> :
-                        <FontAwesomeIcon icon={faUserCircle} size="6x" className="text-white" />
-                    
-                    }   
-                    </Form.Label>
-                    <Col sm={10}>
-                    <InputGroup>
-                        <FormControl
-                        type="file"
-                        onChange={handleFileChange}
-                        disabled={!profile.is_verified}
-                        />
-                    </InputGroup>
-                    </Col>
-                </Form.Group>
-
-                <Form.Group as={Row}  md={12}  controlId="formBio">
+        <Row>
+          <Form.Group>
             <Form.Label>Bio</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                placeholder="Hi! Tell us something about yourself..."
-                value={profile.description}
-                onChange={(e) => setProfile({...profile, description: e.target.value})}
-                maxLength={600}
-                disabled={!profile.is_verified}
-              />
-              <Form.Text className="text-muted">
-                {profile.description && 600 - profile.description.length} characters left
+            <Form.Control
+            as='textarea'
+            placeholder='Hi! Tell us something about yourself...'
+            maxLength="600"
+            value={profile.description}
+            onChange={(e) =>{
+              setProfile({...profile, description: e.target.value});
+              setHasUnsavedChanges(true);
+            }}
+            disabled={!profile.is_verified}
+            />
+            <Form.Text className="text-muted">
+                {`${profile.description ? profile.description.length : 0} / 600 characters left`}
               </Form.Text>
           </Form.Group>
-          
-
-          <div className='mt-2'>
-          <Row className='mt-4'>
+        </Row>
+        <Row className='mt-3'>
+          <Col>
+            <Form.Group>
+            <Form.Label>Mobile Number</Form.Label>
+            <InputGroup>
+              <InputGroup.Text>+63</InputGroup.Text>
+              <Form.Control
+                type="tel"
+                placeholder="(XXX) YYY-ZZZZ"
+                value={profile.contact_number}
+                onChange={(e) => {
+                  setProfile({ ...profile, contact_number: e.target.value });
+                  setHasUnsavedChanges(true);
+                }}
+              />
+            </InputGroup>
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group>
+              <Form.Label>Date of Birth</Form.Label>
+              <Form.Control
+              type="date"
+              value={profile.birthday}
+              onChange={(e) =>{
+                setProfile({...profile, birthday: e.target.value});
+                setHasUnsavedChanges(true);
+              }}
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row className='mt-3'>
+          <Col>
+            <Form.Group>
+              <Form.Label>Department</Form.Label>
+              <Form.Select
+                placeholder='Choose your department'
+              />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group>
+              <Form.Label>Program</Form.Label>
+              <Form.Select
+                placeholder='Choose your program'
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row className='mt-4'>
           <h3 className='mb-0'>Password</h3>
           <p>Change your Password.</p>
         </Row>
-            <Row className='mt-2'>
-              <Col md={6}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Current Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    placeholder="Enter current password"
-                    value={profile.currentPassword}
-                    onChange={(e) => setProfile({...profile, currentPassword: e.target.value})}
-                  />
-                </Form.Group>
-              </Col>
+        <Row>
+          <Col>
+            <Form.Group className="mb-3">
+              <Form.Label>Current Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Enter current password"
+                value={profile.currentPassword}
+                onChange={(e) =>{
+                  setProfile({...profile, currentPassword: e.target.value});
+                  setHasUnsavedChanges(true);
+                }}
+              />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group className="mb-3">
+              <Form.Label>New Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Enter new password"
+                value={profile.newPassword}
+                onChange={(e) =>{
+                  setProfile({...profile, newPassword: e.target.value});
+                  setHasUnsavedChanges(true);
+                }}
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Button variant="primary" className='px-3 py-2 mb-3'>Send Verification Email</Button>
+        <Row className='mt-2'>
+        <h3 className='mb-0 mt-3'>Social Media Profile</h3>
+        <p className='text-gray2'>Update your social media links.</p>
+        </Row>
+        <Row>
+        <Row>
+          <Col>
+            <Form.Group className="mb-3">
+              <Form.Label>Facebook</Form.Label>
+              <InputGroup>
+                <InputGroup.Text><FaFacebookF /></InputGroup.Text>
+                <Form.Control 
+                  type="url" 
+                  placeholder="Profile link/url..." 
+                  value={profile.facebook}
+                  onChange={(e) =>{
+                    setProfile({...profile, facebook: e.target.value});
+                    setHasUnsavedChanges(true);
+                  }}
+                  disabled={!profile.is_verified}
+                />
+              </InputGroup>
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group className="mb-3">
+              <Form.Label>Twitter</Form.Label>
+              <InputGroup>
+                <InputGroup.Text><FaTwitter /></InputGroup.Text>
+                <Form.Control 
+                  type="url" 
+                  placeholder="Profile link/url..." 
+                  value={profile.twitter}
+                  onChange={(e) =>{
+                    setProfile({...profile, twitter: e.target.value});
+                    setHasUnsavedChanges(true);
+                  }}
+                  disabled={!profile.is_verified}
+                />
+              </InputGroup>
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Form.Group className="mb-3">
+              <Form.Label>LinkedIn</Form.Label>
+              <InputGroup>
+                <InputGroup.Text><FaLinkedinIn /></InputGroup.Text>
+                <Form.Control 
+                  type="url" 
+                  placeholder="Profile link/url..." 
+                  value={profile.linkedin} 
+                  onChange={(e) =>{
+                    setProfile({...profile, linkedin: e.target.value});
+                    setHasUnsavedChanges(true);
+                  }}
+                  disabled={!profile.is_verified}
+                />
+              </InputGroup>
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group className="mb-3">
+              <Form.Label>Social Link 4</Form.Label>
+              <InputGroup>
+                <InputGroup.Text><FaInstagram /></InputGroup.Text>
+                <Form.Control 
+                  type="url" 
+                  placeholder="Profile link/url..." 
+                  value={profile.instagram} 
+                  onChange={(e) =>{
+                    setProfile({...profile, instagram: e.target.value});
+                    setHasUnsavedChanges(true);
+                  }}
+                  disabled={!profile.is_verified}
+                />
+              </InputGroup>
+            </Form.Group>
+          </Col>
+        </Row>
+        </Row>
+      </Form>
+      <Row>
+          <Col className="text-end mb-4 mt-2">
+            <Button variant="secondary" onClick={handleSaveChanges} className='mx-3 px-4'>Save Changes</Button>
+            <Button variant="light" className='border px-4'>Cancel</Button>
+          </Col>
+        </Row>
+      </Container>
 
-              <Col md={6}>
-                <Form.Group className="mb-3">
-                  <Form.Label>New Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    placeholder="Enter new password"
-                    value={profile.newPassword}
-                    onChange={(e) => setProfile({...profile, newPassword: e.target.value})}
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
-            </div>
-
-            <div className='my-4'>
-            <h2>Social Media Profile</h2>
-            <p className="text-gray2 mb-4">Update your Social Media Links</p>
-            </div>
-
-            <Row>
-            <Col md={6}>
-              <Form.Group className="mb-3">
-                <Form.Label>Facebook</Form.Label>
-                <InputGroup>
-                  <InputGroup.Text><FaFacebookF /></InputGroup.Text>
-                  <Form.Control 
-                    type="url" 
-                    placeholder="Profile link/url..." 
-                    value={profile.facebook}
-                    onChange={(e) => setProfile({...profile, facebook: e.target.value})}
-                    disabled={!profile.is_verified}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-            
-            <Col md={6}>
-              <Form.Group className="mb-3">
-                <Form.Label>Twitter</Form.Label>
-                <InputGroup>
-                  <InputGroup.Text><FaTwitter /></InputGroup.Text>
-                  <Form.Control 
-                    type="url" 
-                    placeholder="Profile link/url..." 
-                    value={profile.twitter}
-                    onChange={(e) => setProfile({...profile, twitter: e.target.value})}
-                    disabled={!profile.is_verified}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-
-            <Col md={6} className="mb-4">
-              <Form.Group className="mb-3">
-                <Form.Label>LinkedIn</Form.Label>
-                <InputGroup>
-                  <InputGroup.Text><FaLinkedinIn /></InputGroup.Text>
-                  <Form.Control 
-                    type="url" 
-                    placeholder="Profile link/url..." 
-                    value={profile.linkedin} 
-                    onChange={(e) => setProfile({...profile, linkedin: e.target.value})}
-                    disabled={!profile.is_verified}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-
-            <Col md={6}>
-              <Form.Group className="mb-3">
-                <Form.Label>Social Link 4</Form.Label>
-                <InputGroup>
-                  <InputGroup.Text><FaInstagram /></InputGroup.Text>
-                  <Form.Control 
-                    type="url" 
-                    placeholder="Profile link/url..." 
-                    value={profile.instagram} 
-                    onChange={(e) => setProfile({...profile, instagram: e.target.value})}
-                    disabled={!profile.is_verified}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-          </Row>
+      <Container className='my-2'>
+      <Form>
+<div>
           <Row>
             {!profile.is_verified ?
           <Form.Group as={Row}  md={12}  className="mb-3" controlId="formCOR">
-            <Form.Label>Certificate of Registration</Form.Label>
+            {/*<Form.Label>Certificate of Registration</Form.Label>*/}
             {(!profile.cor && !profile.cor_remarks) ?
+              <Verification/>
+              /*
               <InputGroup>
                 <FormControl
                   type="file"
@@ -281,9 +384,10 @@ function StudSettings() {
                   style={{ width: '98%', margin: '10px' }}
                   onChange={(e) => setProfile({...profile, cor: e.target.files[0]})}
                 />
-              </InputGroup>
+            </InputGroup>*/
               : (!profile.cor && profile.cor_remarks) ? 
-              (<><InputGroup>
+              (//<VerifyFailed/>
+              <><InputGroup>
                 <FormControl
                   type="file"
                   placeholder="Upload Certificate of Registration"
@@ -293,18 +397,10 @@ function StudSettings() {
               </InputGroup>
               <p className="text-black2"><strong>Feedback: {profile.cor_remarks}</strong></p></>)
               :
-               "You have already uploaded your Certificate of Registration. Please click \"Save Changes\" wait for the admin to verify your COR or for feedback."}
+              <Verifying/>}
           </Form.Group>
-          : "Congratulations! Your account has been verified."}
+          : <Verified/>}
           </Row>
-          <br/>
-          <Row>
-          <Col className="text-end mb-4 mt-2">
-            <Button variant="secondary" onClick={handleSaveChanges} className='mx-3 px-4'>Save Changes</Button>
-            <Button variant="light" className='border px-4'>Cancel</Button>
-          </Col>
-        </Row>
-          
           </div>
 
       </Form>

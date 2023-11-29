@@ -3,7 +3,13 @@ import './RevFinish.css';
 import { Form, ToggleButton, Row, Image, Col, Button } from 'react-bootstrap'
 import Container from 'react-bootstrap/Container';
 
-const RevForms2 = ({formData, setFormData,show,path,path2}) => {
+const RevForms2 = ({formData, setFormData,show,path,path2, updateValidty, refresh, setRefresh}) => {
+
+    useEffect(()=>{
+        setRefresh(false)
+        const valid = formData.RF001 && formData.RD011 && formData.privacyPolicy === true;
+        updateValidty(valid)
+    },[formData,refresh])
 
     const [checked, setChecked] = useState(false);
   return (

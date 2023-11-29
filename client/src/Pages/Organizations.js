@@ -18,19 +18,6 @@ function Organizations() {
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [buttonWidth, setButtonWidth] = useState(0);
 
-  const handleSelectItem = (itemName) => {
-    if (selectedFilters.includes(itemName)) {
-      const updatedFilters = selectedFilters.filter((item) => item !== itemName);
-      setSelectedFilters(updatedFilters); // Remove the item from state
-    } else {
-      setSelectedFilters([...selectedFilters, itemName]); // Add the selected item to state
-    }
-  };
-
-  const handleRemoveFilter = (itemName) => {
-    const updatedFilters = selectedFilters.filter((item) => item !== itemName);
-    setSelectedFilters(updatedFilters);
-  };
   
   const nature = ['Academic',
     'Advocacy',
@@ -43,7 +30,7 @@ function Organizations() {
     'Special Interest',
     'Sports'];
 
-  const jurisdiction = ['Uni-wide',
+  const jurisdiction = ['U-wide',
     'CAF',
     'CADBE',
     'CAL',
@@ -62,6 +49,8 @@ function Organizations() {
     'OUS',
     'GS',
     'SHS']
+
+  const [jurisdictionFilter, setJurisdictionFilter] = useState('');
   
 
   useEffect(() => {
@@ -75,9 +64,7 @@ function Organizations() {
   useEffect(() => {
     const fetchOrganizations = async () => {
       try {
-        const endpoint = search === ''
-          ? `${process.env.REACT_APP_BASE_URL}/org/show_accredited_orgs?page=${currentPage}&limit=${itemsPerPage}`
-          : `${process.env.REACT_APP_BASE_URL}/org/show_accredited_orgs/${search}?page=${currentPage}&limit=${itemsPerPage}`;
+        const endpoint = `${process.env.REACT_APP_BASE_URL}/org/show_accredited_orgs?page=${currentPage}&limit=${itemsPerPage}`
 
         const response = await axios.get(endpoint);
         setOrganizations(response.data);
@@ -86,14 +73,8 @@ function Organizations() {
       }
     };
 
-    // Debounce the search input
-    const debounceTimeout = setTimeout(() => {
-      fetchOrganizations();
-    }, 500); // Adjust the debounce timeout as needed (e.g., 500 milliseconds)
-
-    // Clear timeout on unmount or when the search value changes
-    return () => clearTimeout(debounceTimeout);
-  }, [search, currentPage, itemsPerPage]);
+    fetchOrganizations()
+  }, [currentPage, itemsPerPage]);
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -102,6 +83,16 @@ function Organizations() {
 
 // Pagination Logic
 const totalPages = Math.ceil(organizations.length / itemsPerPage);
+
+  const filteredItems = organizations.filter((org)=>{
+    const matchesSearch = search.toLowerCase() === "" || org.org_name.toLowerCase().includes(search.toLowerCase())
+
+    const matchesJurisdiction = jurisdictionFilter === "" || org.subjurisdiction === jurisdictionFilter
+
+    return matchesSearch && matchesJurisdiction
+  })
+
+
 
   return (
     <div>
@@ -114,6 +105,7 @@ const totalPages = Math.ceil(organizations.length / itemsPerPage);
       />
       <Container>
       <Row className='my-4 text-center'>
+        {/*
       <Col xs={3} className=' text-start'>
       <Dropdown>
   <Dropdown.Toggle variant='primary' className="d-flex align-items-center">
@@ -133,10 +125,11 @@ const totalPages = Math.ceil(organizations.length / itemsPerPage);
   </Dropdown.Menu>
 </Dropdown>
       </Col>
+    */}
 
       <Col xs={4} className=' text-start'>
       
-  <Dropdown>
+      <Dropdown>
     <Dropdown.Toggle variant='secondary' className="d-flex align-items-center">
       <Image src='/Dropdown/flagpin.png' className="me-2"/> Jurisdiction
     </Dropdown.Toggle>
@@ -144,11 +137,12 @@ const totalPages = Math.ceil(organizations.length / itemsPerPage);
       {jurisdiction.map((option, index) => (
         <Form.Check
           key={index}
-          type='checkbox'
+          type='radio'
           label={option}
-          onChange={(e) => handleSelectItem(e.target.value)}
+          name='jurisdiction'  // Add a 'name' attribute so that all radio buttons are part of the same group
+          onChange={(e) => setJurisdictionFilter(e.target.value)}
           value={option}
-          checked={selectedFilters.includes(option)}
+          checked={selectedFilters === option}  // Update this to compare with a single selected value
         />
       ))}
     </Dropdown.Menu>
@@ -174,7 +168,7 @@ const totalPages = Math.ceil(organizations.length / itemsPerPage);
     </Row>
     
     <hr/>
-    <Row className='my-2'>
+    {/*<Row className='my-2'>
     <Col>
       {selectedFilters.map((filter, index) => (
         <Button
@@ -192,14 +186,14 @@ const totalPages = Math.ceil(organizations.length / itemsPerPage);
         </Button>
       ))}
     </Col>
-  </Row>
+  </Row>*/}
 
 
     </Container>      
 
      <Container className='mx-auto mb-5'>
         <Row className='mx-4'>
-          {organizations.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+          {filteredItems.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
             .map((org) => {
               return (
                 <>

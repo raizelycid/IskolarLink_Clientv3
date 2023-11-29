@@ -2,7 +2,9 @@ import React from 'react'
 import {Col, Row, Form, Image} from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 
-const GenInfo = ({formData, setFormData, show}) => {
+const GenInfo = ({formData, setFormData, show,  updateValidty, refresh, setRefresh}) => {
+
+    const [filteredDepartments, setFilteredDepartments] = useState([]);
 
     const orgTypes = [
         'Academic Organization',
@@ -39,6 +41,18 @@ const GenInfo = ({formData, setFormData, show}) => {
         `University-Wide`
     ]
 
+    useEffect(()=>{
+        setRefresh(false)
+        const valid = formData.socn !== '' && formData.orgName !== '' && formData.jurisdiction !== '' && formData.subjurisdiction !== '' && formData.orgType !== '' && formData.advisers !== ''
+        updateValidty(valid)
+
+        if (formData.jurisdiction === "University-Wide Student Organization") {
+            setFilteredDepartments(["University-Wide"]);
+        } else {
+            setFilteredDepartments(Departments);
+        }
+    },[formData,refresh])
+
   return (
     <>
         <form style={{display:show}} >
@@ -65,12 +79,12 @@ const GenInfo = ({formData, setFormData, show}) => {
                     <option>University-Wide Student Organization</option>
                 </Form.Select>
             </Form.Group>
-            <Form.Group as={Col} controlId="subjurisdiction" className="mb-3">
+             <Form.Group as={Col} controlId="subjurisdiction" className="mb-3">
                 <Form.Label>Sub-Jurisdiction</Form.Label>
                 <Form.Select aria-label='SubJurisdiction' onChange={(e) => setFormData({...formData, subjurisdiction: e.target.value})} value={formData.subjurisdiction}>
                     <option>Choose...</option>
-                    {Departments.map((department) => (
-                        <option>{department}</option>
+                    {filteredDepartments.map((department) => (
+                        <option key={department}>{department}</option>
                     ))}
                 </Form.Select>
             </Form.Group>

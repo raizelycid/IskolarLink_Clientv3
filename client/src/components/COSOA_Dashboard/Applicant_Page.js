@@ -566,7 +566,9 @@ function Applicant_Page() {
           </Col>
         </Row>
       </Container>
+      {loading &&
       <LoadingOverlay title={"Please wait for a while"} />
+      }
     </>
   );
 }
