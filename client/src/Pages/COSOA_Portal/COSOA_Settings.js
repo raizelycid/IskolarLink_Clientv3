@@ -110,7 +110,7 @@ function COSOASettings(){
       />
       <Container className='my-5'>
       <h2 className='mb-0'>COSOA Profile</h2>
-      <p className='text-red'>COSOA Information is an uneditable section.</p>
+      <p className='text-red'>COSOA information is an uneditable section.</p>
       <Form className="text-lightblack">
         <Row>
           <Form.Group>

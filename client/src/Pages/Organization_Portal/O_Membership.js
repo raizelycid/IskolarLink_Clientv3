@@ -69,21 +69,41 @@ function O_Membership() {
       </Row>
       <Row>
         <Form>
-              <Row className='border pt-4 pb-2 px-2'>
-                <Col>
-                <Form.Label>
-                <p><strong>Membership</strong><br/><span className='text-red'>Iskolars <strong>may now apply.</strong></span></p>
-                </Form.Label>
-                </Col>
-                <Col className='text-end'>
-                <Form.Check
-                  type="switch"
-                  id="anr-period-initial-toggle"
-                />
-                </Col>
-              </Row>
-            </Form>
+          <Row className='border pt-4 pb-2 px-2'>
+            <Row>
+            <Col>
+              <Form.Label>
+              <p><strong>Membership</strong><br/><span className='text-red'>Iskolars <strong>may now apply.</strong></span></p>
+              </Form.Label>
+            </Col>
+            <Col className='text-end'>
+              <Form.Check
+              type="switch"
+              id="membership-toggle"
+              />
+            </Col>
+            </Row>
+            <Row>
+            <Col>
+              <Form.Label>
+              <p><strong>Strict Mode</strong><br/><span className='text-red'>Restrict applications to <strong>only from your sub-jurisdiction.</strong></span></p>
+              </Form.Label>
+            </Col>
+            
+            <Col className='text-end'>
+              <Form.Check
+              type="switch"
+              id="strict-toggle"
+               //label={org.strict ? "Strict Mode is On" : "Strict Mode is Off"}
+               // checked={org.strict}
+               //onChange={(e) => setOrg({ ...org, strict: e.target.checked })}
+              />
+            </Col>
+            </Row>
           </Row>
+
+        </Form>
+      </Row>
       </Container>
       <Container>
       <Row className='my-3'>

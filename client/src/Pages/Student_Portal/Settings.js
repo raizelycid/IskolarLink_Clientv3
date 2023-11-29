@@ -359,7 +359,7 @@ function StudSettings() {
         </Row>
         </Row>
       </Form>
-      <Row >
+      <Row>
           <Col className="text-end mb-4 mt-2">
             <Button variant="secondary" onClick={handleSaveChanges} className='mx-3 px-4'>Save Changes</Button>
             <Button variant="light" className='border px-4'>Cancel</Button>
@@ -367,15 +367,16 @@ function StudSettings() {
         </Row>
       </Container>
 
-      <Container>
-      <Form>  
+      <Container className='my-2'>
+      <Form>
 <div>
           <Row>
             {!profile.is_verified ?
           <Form.Group as={Row}  md={12}  className="mb-3" controlId="formCOR">
-            <Form.Label>Certificate of Registration</Form.Label>
+            {/*<Form.Label>Certificate of Registration</Form.Label>*/}
             {(!profile.cor && !profile.cor_remarks) ?
-              //<Verification/>
+              <Verification/>
+              /*
               <InputGroup>
                 <FormControl
                   type="file"
@@ -383,7 +384,7 @@ function StudSettings() {
                   style={{ width: '98%', margin: '10px' }}
                   onChange={(e) => setProfile({...profile, cor: e.target.files[0]})}
                 />
-              </InputGroup>
+            </InputGroup>*/
               : (!profile.cor && profile.cor_remarks) ? 
               (//<VerifyFailed/>
               <><InputGroup>
