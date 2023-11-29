@@ -12,6 +12,7 @@ import { AuthContext } from '../../helpers/AuthContent';
 import AddAnnouncement from '../../components/COSOA_Home/AddAnnouncement';
 import axios from 'axios';
 import AddEvent from '../../components/COSOA_Home/AddEvent';
+import EventModal from '../../components/COSOA_Home/EventModal';
 import { render } from '@fullcalendar/core/preact';
 
 function COSOA_Home() {
@@ -63,16 +64,54 @@ function COSOA_Home() {
       console.log(err);
     }
   },[refreshEvents]);
+  const [showModal, setShowModal] = useState(false);
+  const [eventInfo, setEventInfo] = useState({});
 
+  const openModal = () => {
+    // Simulating an action that triggers the modal
+    // For instance, a button click
+    setEventInfo({
+      date: '2023-12-18',
+      title: 'Extension for Initial Requirements',
+      description: 'The PUP SC COSOA en banc convened an urgent meeting with regard to the deadline extension of ACE AnR 2023-2024. Following this decision, it was resolved by a vote of 7-0-0 that the final and extended deadline shall be set on Monday, 18 December 2023, with the application of adjustments and exemptions on other requirements stipulated in the AnR process for initial submissions.',
+      link: 'https://www.facebook.com/pup.sccosoa/posts/pfbid0J5MwDcurWHSEbEs47An3Fe4Xg7BX7RRtDd1TRgBao7mZbA225LYbNShXJJZye4c6l'
+    });
+
+    // Show the modal
+    setShowModal(true);
+  }
+  
   const handleDateClick = (eventInfo) => {
     // Format date to YYYY-MM-DD
+    let date = eventInfo.event.extendedProps.date;
+    date = date.split('T')[0];
+
+    // Set eventInfo state to display in the modal
+    setEventInfo({
+      date: date,
+      title: eventInfo.event.title,
+      description: eventInfo.event.extendedProps.description,
+      link: eventInfo.event.extendedProps.link
+    });
+
+    // Show the modal
+    setShowModal(true);
+  }
+
+  const handleCloseModal = () => {
+    // Close the modal
+    setShowModal(false);
+  }
+  {/*
+  const handleDateClick = (eventInfo) => {
+    
     let date = eventInfo.event.extendedProps.date;
     date = date.split('T')[0];
 
     // Alert the date, event title, event description, and event link
     console.log({date: date, title: eventInfo.event.title, description: eventInfo.event.extendedProps.description, link: eventInfo.event.extendedProps.link})
   }
-
+*/}
 
   return (
     <div>
@@ -89,6 +128,8 @@ function COSOA_Home() {
       </Container>
 
       <Container className='text-center my-5'>
+      {/*<button onClick={openModal}>Open Modal</button> TO TEST EVENT MODAL*/}
+
         <Row>
           <h1 className='text-red'>COSOA Calendar</h1>
           <p className='text-gray2'>Discover the latest announcement that will shape the future of PUP COSOA and elevate your student experience!</p>
@@ -114,6 +155,10 @@ function COSOA_Home() {
           eventClick={handleDateClick}
           displayEventTime={false}
           />
+          <EventModal 
+            show={showModal}
+            handleClose={handleCloseModal}
+            event = {eventInfo}/>
         </Row>
         <Col className='text-center my-5'>
          <AddEvent setRefreshEvents={setRefreshEvents}/>
@@ -139,42 +184,7 @@ function COSOA_Home() {
         <AddAnnouncement setRefreshAnnouncement = {setRefreshAnnouncement}/>
         </Col>
         </Row>
-        
       </Container>
-        <Row className='text-center'>
-            <h1 className='text-red'>The Core of Our Team</h1>
-            <p className='text-gray2'>Organically grow the holistic world view of disruptive innovation via workplace diversity  and empowerment of people and great talent that truly rocks.</p>
-        </Row>
-      <Container>
-        <OfficerCard 
-          imageSrc="/Officer.png"
-          imageSrc2="/Officer.png"
-          imageSrc3="/Officer.png"
-          name="John Doe"
-          name2="James Doe"
-          name3="Joe Doe"
-          role="President"
-          role2="Vice President"
-          role3="Secretary"
-        />
-        <OfficerCard 
-          imageSrc="/Officer.png"
-          imageSrc2="/Officer.png"
-          imageSrc3="/Officer.png"
-          name="Jared Doe"
-          name2="Jerald Doe"
-          name3="Jest Doe"
-          role="Head for Membership"
-          role2="Vice President for Finance"
-          role3="Head for Creatives"
-        />
-        <Row className='text-center my-5'>
-        <Col>
-        <Button variant="primary">Modify</Button>
-        </Col>
-        </Row>
-      </Container>
-      <ContactBanner />
     </div>
   );
   

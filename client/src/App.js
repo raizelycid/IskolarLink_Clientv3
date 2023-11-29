@@ -45,7 +45,7 @@ import User_Feedback from './Pages/Admin_Portal/User_Feedback';
 import Terms from './Pages/Terms';
 import { Link } from 'react-router-dom';
 import { AccreditationStatusProvider } from './helpers/AccreditationStatusContext';
-
+import WhoWeAre from './Pages/WhoWeAre';
 
 function App() {
 
@@ -238,6 +238,7 @@ function App() {
         <Route path="/cosoa/members" exact element={<COSOA_Accesibility/>}/>
         <Route path="/admin/feedback" exact element={<User_Feedback/>}/>
         <Route path="/terms" exact element={<Terms/>}/>
+        <Route path="/whoweare" exact element={<WhoWeAre/>}/>
       </Routes>
 
       <footer className="footer bg-dark text-white py-4 border-bottom Inter">
