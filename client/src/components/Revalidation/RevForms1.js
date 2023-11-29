@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState,useEffect} from 'react'
 import { Form, Row, Col, Image } from 'react-bootstrap'
 import Container from 'react-bootstrap/Container';
 import './RevFinish.css';

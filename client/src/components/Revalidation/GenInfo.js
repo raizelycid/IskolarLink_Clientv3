@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState,useEffect} from 'react'
 import {Col, Row, Form, Image} from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 

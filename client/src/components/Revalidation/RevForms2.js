@@ -1,4 +1,4 @@
-import {React, useState} from 'react'
+import {React, useState, useEffect} from 'react'
 import './RevFinish.css';
 import { Form, ToggleButton, Row, Image, Col, Button } from 'react-bootstrap'
 import Container from 'react-bootstrap/Container';
