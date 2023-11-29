@@ -93,7 +93,7 @@ function Org_Profile() {
           {authState.status &&
           <Col xs={12} md={4} lg={3} className="text-md-right text-end mt-3 mt-md-0">
             {org.organization?.membership_period ?
-            <Button variant="warning"  className="apply-now-btn" onClick={handleApply}>Apply Now</Button>
+            <Button variant="warning"  className="apply-now-btn" onClick={handleApply} disabled={authState.is_verified}>Apply Now</Button>
             :
             <Button variant="warning"  className="apply-now-btn" disabled>Membership Period Closed</Button>
             }
