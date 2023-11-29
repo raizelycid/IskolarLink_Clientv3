@@ -141,7 +141,7 @@ const Add_COSOA = ({setRefresh}) => {
                 </Button>
                 <Form.Control
                     placeholder="Search"
-                    className="shadow-lg muted-border"
+                    className="muted-border"
                     type="text"
                     onChange={handleSearch}
                     value={email}

@@ -286,6 +286,18 @@ footer, .data-footer {
   }
 }
 
+.text-lightblack {
+  color:var(--light-black);
+}
+
+.setting-logo {
+    max-width: '100px';
+    max-height: '100px';
+    width: '100%';
+    height: 'auto';
+    border-radius: '50%';
+    display: 'block';
+}
 .rounded-modal .modal-content {
   border-radius: 20px; /* Adjust the value as you see fit for more or less curvature */
 }
