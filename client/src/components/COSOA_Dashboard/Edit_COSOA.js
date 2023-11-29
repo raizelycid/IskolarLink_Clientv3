@@ -3,6 +3,7 @@ import { Modal, Button, Form, Row, Col, InputGroup, ListGroup, Image } from 'rea
 import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faPencil } from '@fortawesome/free-solid-svg-icons';
 
 function Edit_COSOA({setRefresh, imgSrc, fullName, position, id}) {
     const [show, setShow] = useState(false);
@@ -63,9 +64,18 @@ function Edit_COSOA({setRefresh, imgSrc, fullName, position, id}) {
 
   return (
      <>
-            <Button variant="secondary" onClick={handleShow} className='px-4' disabled={position === "Chairperson"}>
-                Edit
-            </Button>
+            <FontAwesomeIcon 
+            icon="fa-solid fa-pencil"
+            onClick={handleShow}
+            className="px-4"
+            style={{
+                cursor: 'pointer',
+                transition: 'color 0.3s ease', // Adding a smooth transition effect
+                color: 'black', // Default color
+            }}
+            onMouseOver={(e) => { e.target.style.color = 'var(--dark-yellow)'; }} // Change color on hover
+            onMouseOut={(e) => { e.target.style.color = 'black'; }} // Revert to default color
+            />
             <Modal show={show} onHide={handleClose} centered backdrop="static" size='md'>
                 <Modal.Header closeButton className="d-flex justify-content-center align-items-center mb-0 pb-0 mx-4">
                     <Modal.Title className="text-center mt-3" style={{ fontSize: '2em', width: '100%' }}>

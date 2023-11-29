@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useRef } from 'react'
 import axios from 'axios';
 import './AccreditationStatus.css';
-import { Container, Row, Col, Table, Button, Image, Form} from 'react-bootstrap';
+import { Container, Row, Col, Table, Button, Image, Form, Dropdown} from 'react-bootstrap';
 import { HeroVariant } from '../../components/HeroVariant/Hero';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
@@ -91,27 +91,46 @@ function AccreditationStatus() {
         h1Text="Application Status"
         pText="Check your application."
       />
-    <Container>
-        <Row className='mx-5 my-4'>
-            <Col>
-            <h1 className='text-red'>{org.org_name}</h1>
-            <h4>Organization Name</h4>
-            </Col>
-            <Col className='text-end'>
-                <Button variant='secondary'>Pending</Button>
-            </Col>
-        </Row>
+    <Container className='mt-4'>
+      <Row>
+        <Col xs={1} className='d-flex align-items-center justify-content-center'>
+        <Image
+            src="/cosoalogo.png"
+            style={{
+                width: '120px',
+                height: '120px',
+                borderRadius: '50%',
+                display: 'block'
+            }}
+            alt="Logo"
+        />
+        </Col>
+        <Col xs={5} className='d-flex align-items-center ms-2'>
+            <Row>
+                <h2 className='text-red mb-0'>PUP Sample Organization Name</h2>
+                {/*<h2 className='text-red'>{org.org_name}</h2>*/}
+                <p>Organization Name</p>
+            </Row>
+        </Col>
+        <Col className='d-flex align-items-center justify-content-end'>
+          <Dropdown>
+            <Dropdown.Toggle variant='secondary'>
+              Pending
+            </Dropdown.Toggle>
+          </Dropdown>
+        </Col>
+      </Row>
     </Container>
-    <Container>
-        <Row className='mx-5 my-4'>
+    <Container className="mt-3">
+        <Row>
             <Form.Group>
                 <Form.Label>Classification of Jurisdiction</Form.Label>
                 <Form.Control type="text" value={org.jurisdiction} readOnly></Form.Control>
             </Form.Group>
         </Row>
-        <Row className='mx-5 my-4'>
+        <Row className='mt-2'>
             <Col>
-            <Form.Group>
+            <Form.Group >
                 <Form.Label>Nature / Type of Student Organization</Form.Label>
                 <Form.Control type="text" value={org.type} readOnly></Form.Control>
             </Form.Group>
@@ -123,25 +142,35 @@ function AccreditationStatus() {
             </Form.Group>
             </Col>
         </Row>
-        <Row className='mx-5 my-4'>
+        <Row className='mt-2'>
+            <Col>
             <Form.Group>
                 <Form.Label>Complete Name of Student Organization’s Adviser(s)</Form.Label>
                 <Form.Control type="text" value={adviserString} readOnly></Form.Control>
             </Form.Group>
+            </Col>
+            <Col>
+            <Form.Group>
+                <Form.Label>PUP Webmail</Form.Label>
+                <Form.Control type="email" value={org.email} readOnly></Form.Control>
+            </Form.Group>
+            </Col>
         </Row>
-  </Container>
-  <Container className='text-center'>
-    <Row>
-    <h1 className='text-red'>Application Status</h1>
-    <p>Discover the latest announcement that will shape the future of PUP COSOA and elevate your student experience!</p>
-    </Row>
-  </Container>
-  <Container>
-    <Table></Table>
-  </Container>
-        <div className='ac-bottom-container'> 
+    </Container>
+    <Container className='text-center mt-4'>
+        <Row>
+        <Col></Col>
+        <Col xs={5}>
+        <h1 className='text-red'>Application Status</h1>
+        <p>Discover the latest announcement that will shape the future of PUP COSOA and elevate your student experience!</p>
+        </Col>
+        <Col></Col>
+        </Row>
+    </Container>
+    <Container>
+    <div className='ac-bottom-container'> 
             <Table striped bordered hover>
-                <thead>
+                <thead className='text-center'>
                     <tr>
                         <th>Form Code</th>
                         <th>Form Name</th>
@@ -152,7 +181,7 @@ function AccreditationStatus() {
                 <tbody>
                     {requirements.map((requirement) => {
                         return (
-                            <tr>
+                            <tr >
                                 <td>{requirement.requirement_name}</td>
                                 <td>{requirement.form_name}</td>
                                 <td>{requirement.remarks}</td>
@@ -172,6 +201,8 @@ function AccreditationStatus() {
                     subtitle=""
                 />
             )}
+    </Container>
+ 
     </>
   )
 }
