@@ -49,23 +49,6 @@ function Official_Members() {
           <h1 className='text-red'>Overview</h1>
           <h3>Academic Year 2023-2024</h3>
         </Row>
-        <Row className='mt-4 mb-3'>
-          <h1 className='text-red'>Accreditation and Revalidation Period</h1>
-        </Row>
-        <Row>
-        <Form>
-              <Form.Group>
-                <Form.Check
-                  type="switch"
-                  id="anr-period-initial-toggle"
-                  label="Membership"
-                />
-              </Form.Group>
-              <Form.Label className='text-red'>
-              Iskolars <strong>may now apply</strong>.
-              </Form.Label>
-            </Form>
-          </Row>
           <Row className='m-4'>
         <Col className='text-start'>
           <Button variant="outline-secondary"><i class="fa-solid fa-filter"></i> Filter</Button>

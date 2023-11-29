@@ -64,7 +64,7 @@ const MainMenu = ({imgSrc, username}) => {
         accreditationStatus 
           ? 
           <NavDropdown.Item onClick={() => navigate('/accreditation/status')}>Accreditation Status</NavDropdown.Item> 
-          : period ? <NavDropdown.Item onClick={() => navigate('/accreditation')}>Create an Organization</NavDropdown.Item> : null
+          : period && !authState.has_created ? <NavDropdown.Item onClick={() => navigate('/accreditation')}>Create an Organization</NavDropdown.Item> : null
       )
     : null
 }

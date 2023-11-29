@@ -1,8 +1,8 @@
 import React, {useEffect, useState, useRef } from 'react'
 import axios from 'axios';
 import './RevalidationStatus.css';
-import Table from 'react-bootstrap/Table';
-import Button from 'react-bootstrap/Button';
+import {Table, Button, Container, Row, Col, Image, Dropdown, Form} from 'react-bootstrap';
+import { HeroVariant } from '../../components/HeroVariant/Hero';
 
 function RevalidationStatus() {
 
@@ -12,8 +12,14 @@ function RevalidationStatus() {
     const [requirements, setRequirements] = useState([]);
     const [selectedFile, setSelectedFile] = useState('');
     const [selectedRequirementId, setSelectedRequirementId] = useState('');
-
+    const [adviserString, setAdviserString] = useState('')
     const hiddenFileInput = useRef(null);
+
+    useEffect(()=>{
+        const string = advisers.map(adviser => adviser.adviser_name).join(', ');
+        setAdviserString(string)
+    },[advisers])
+    
     const handleClick = (event, requirement_name, requirement_id) => {
         setSelectedFile(requirement_name);
         setSelectedRequirementId(requirement_id);
@@ -71,6 +77,114 @@ function RevalidationStatus() {
 
   return (
     <>
+    <HeroVariant
+        h1Text="Revalidation Status"
+        pText="Check your application."
+    />
+    <Container className="mt-4">
+        <Row>
+            <Col xs={1} className="d-flex align-items-center justify-content-center">
+            <Image
+            src="/cosoalogo.png"
+            style={{
+            width: '120px',
+            height: '120px',
+            borderRadius: '50%',
+            display: 'block'
+            }}
+             alt="Logo"
+            />
+            </Col>
+            <Col xs={5} className='d-flex align-items-center ms-2'>
+                <Row>
+                    <h2 className='text-red mb-0'>PUP Sample Organization Name</h2>
+                    <p>Organization Name</p>
+                </Row>
+            </Col>
+            <Col className='d-flex align-items-center justify-content-end'>
+                <Dropdown>
+                    <Dropdown.Toggle variant='secondary'>
+                        Pending
+                    </Dropdown.Toggle>
+                </Dropdown>
+            </Col>
+        </Row>
+    </Container>
+    <Container className='mt-3'>
+        <Row>
+            <Form.Group>
+                <Form.Label>Classification of Jurisdiction</Form.Label>
+                <Form.Control type="text" value={org.jurisdiction} readOnly></Form.Control>
+            </Form.Group>
+        </Row>
+        <Row className='mt-2'>
+            <Col>
+            <Form.Group >
+                <Form.Label>Nature / Type of Student Organization</Form.Label>
+                <Form.Control type="text" value={org.type} readOnly></Form.Control>
+            </Form.Group>
+            </Col>
+            <Col>
+            <Form.Group>
+                <Form.Label>Sub-classification of  Jurisdiction</Form.Label>
+                <Form.Control type="text" value={org.subjurisdiction} readOnly></Form.Control>
+            </Form.Group>
+            </Col>
+        </Row>
+        <Row className='mt-2'>
+            <Col>
+            <Form.Group>
+                <Form.Label>Complete Name of Student Organization’s Adviser(s)</Form.Label>
+                <Form.Control type="text" value={adviserString} readOnly></Form.Control>
+            </Form.Group>
+            </Col>
+            {/*<Col>
+            <Form.Group>
+                <Form.Label>PUP Webmail</Form.Label>
+                <Form.Control type="email" value={org.email} readOnly></Form.Control>
+            </Form.Group>
+        </Col>*/}
+        </Row>
+    </Container>
+    <Container className='text-center mt-4'>
+        <Row>
+        <Col></Col>
+        <Col xs={5}>
+        <h1 className='text-red'>Application Status</h1>
+        <p>Discover the latest announcement that will shape the future of PUP COSOA and elevate your student experience!</p>
+        </Col>
+        <Col></Col>
+        </Row>
+    </Container>
+    <Container>
+    <div className='ac-bottom-container'>
+            <Table striped bordered hover>
+                <thead>
+                    <tr>
+                        <th>Form Code</th>
+                        <th>Form Name</th>
+                        <th>Resubmission</th>
+                        <th>Remarks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {requirements.map((requirement) => {
+                        return (
+                            <tr>
+                                <td>{requirement.requirement_name}</td>
+                                <td>{requirement.form_name}</td>
+                                <td>{requirement.status === 'Approved' ? <Button variant='success' disabled>Approved</Button>
+                                : requirement.status === 'Revision' ? <><Button variant="warning" onClick={event => handleClick(event, requirement.requirement_name, requirement.id)}>Resubmit</Button> <input type="file" style={{display:'none'}} onChange={handleChange} ref={hiddenFileInput}/> </>
+                                : <Button variant='primary' disabled>Resubmit</Button>}</td>
+                                <td>{requirement.remarks}</td>
+                            </tr>
+                        );
+                    })}
+                </tbody>
+            </Table>
+        </div>
+    </Container>
+    {/*
         <h2 className='text-center'>Accreditation Status</h2>
         <div className='ac-container'>
             <div className='ac-left-container'>
@@ -130,7 +244,7 @@ function RevalidationStatus() {
                     })}
                 </tbody>
             </Table>
-        </div>
+                </div>*/}
     </>
   )
 }

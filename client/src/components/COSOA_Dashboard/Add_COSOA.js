@@ -50,6 +50,7 @@ const Add_COSOA = ({setRefresh}) => {
         setEmail('');
         setStudent({});
         setResults([]);
+        setSelectedPosition('')
     };
 
     const handleShow = () => setShow(true);
@@ -64,7 +65,8 @@ const Add_COSOA = ({setRefresh}) => {
         setEmail('')
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
+        if(window.confirm(`By proceeding, you agree to add ${student.student?.student_Fname} ${student.student?.student_Lname} as a member of COSOA with the position of ${selectedPosition}. Continue?`) === true){
         if (student && selectedPosition) {
             axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa_member/create_cosoa_member`, {
                 email: student.email,
@@ -99,6 +101,7 @@ const Add_COSOA = ({setRefresh}) => {
         } else {
             alert('Student/Position is missing!');
         }
+    }
     };
     
 
@@ -138,7 +141,7 @@ const Add_COSOA = ({setRefresh}) => {
                 </Button>
                 <Form.Control
                     placeholder="Search"
-                    className="shadow-lg muted-border"
+                    className="muted-border"
                     type="text"
                     onChange={handleSearch}
                     value={email}

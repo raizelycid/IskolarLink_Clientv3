@@ -3,6 +3,7 @@ import { Button, Modal, Form, Row, Col, Image } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './general.css';
+import validator from 'validator'
 
 import { Link } from 'react-router-dom';
 function RegisterPopup({handleCloseLogin}) {
@@ -52,6 +53,7 @@ function RegisterPopup({handleCloseLogin}) {
         password: "",
         confirmPassword: ""
     });
+    const [isValid,setIsValid]=useState(false)
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -72,6 +74,14 @@ function RegisterPopup({handleCloseLogin}) {
             });
         }
         
+    }
+
+    function emailValidation(){
+        if(validator.isEmail(regDetails.email) && regDetails.email.endsWith('iskolarngbayan.pup.edu.ph')){
+            setIsValid(true)
+        }else{
+            setIsValid(false)
+        }
     }
   return (
     <>
@@ -99,7 +109,7 @@ function RegisterPopup({handleCloseLogin}) {
                     <p className="modal-subtitle text-center Inter-normal text-white pt-3">Be part of our growing Iskolar Family!</p>
                 </div>
                  <Modal.Body className="Inter-normal text-white">
-                    <div className='register-form p-5 mx-auto text-black shadow-lg'>
+                    <div className='register-form mb-5  p-5 mx-auto text-black shadow-lg'>
                         <div className='text-center'>
                             <Image src="Register_icon.png" roundedCircle/>
                             <h3 className="reg-h3 Inter text-red pb-3">Account</h3>
