@@ -234,7 +234,7 @@
 
 .apply-now-btn {
   color: white; /* This sets the text color to white */
-  background-color: #f0ad4e; 
+  background-color: #800; 
   border: none; 
   transition: background-color 0.3s; 
 
@@ -242,7 +242,7 @@
 
 .apply-now-btn:hover {
   color: white; 
-  background-color: #800; 
+  background-color: gray; 
 }
 
 .btn-warning {
