@@ -83,6 +83,19 @@ function Admin_Dashboard() {
       console.log(err);
     }
   };
+
+  const handleNewSemester = async () => {
+    const cont = window.confirm("Are you sure you want to start a new semester?")
+    if(cont){
+    await axios.post(`${process.env.REACT_APP_BASE_URL}/admin/start_semester`).then((res)=>{
+      if(res.data.err){
+        alert(res.data.err)
+      }else{
+        alert(res.data.success)
+      }
+    })
+  }
+  }
     
 
   return (
@@ -148,7 +161,7 @@ function Admin_Dashboard() {
         </Row>
         <Row className='ms-1 me-5 pe-3 pt-3 border'>  
           <Col className='text-center my-2'>
-            <Update_WebAdmin setRefresh={setRefresh}/>
+            <Button variant='primary' onClick={handleNewSemester}>Start new semester</Button>
           </Col>
         </Row>
         
@@ -199,8 +212,8 @@ function Admin_Dashboard() {
               return(
                 <tr>
                   <td>{student.student_Fname + " " + student.student_Lname}</td>
-                  <td>{student.email}</td>
-                  <td>{student.cor ? (<span onClick={() => window.open(`${process.env.REACT_APP_BASE_URL}/${student.cor}`)} style={{color: "#007bff", cursor: "pointer"}}>View</span>) : "N/A"}</td>
+                  <td>{student.user.email}</td>
+                  <td>{student.cor ? (<span onClick={() => window.open(`${process.env.REACT_APP_BASE_URL}/${student.cor}`)} style={{color: "#007bff", cursor: "pointer"}}>View</span>) :(!student.cor && student.is_verified) ? "Already Verified": "N/A"}</td>
                   <td>{student.days}</td>
                   <td>{student.is_verified ? "Verified" : "Not Verified"}</td>
                   <td>{!student.is_verified && !student.cor_remarks ? <Dropdown>

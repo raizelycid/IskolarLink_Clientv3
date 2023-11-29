@@ -20,6 +20,7 @@ function Edit_COSOA({setRefresh, imgSrc, fullName, position, id}) {
     };
 
     const handleSubmit = async () => {
+        if(window.confirm(`By continuing, you agree to change the position of ${fullName} to ${selectedPosition}`))
         try {
           const response = await axios.put(`${process.env.REACT_APP_BASE_URL}/cosoa_member/update_cosoa_member/${id}`, {
             position: selectedPosition,
@@ -62,7 +63,7 @@ function Edit_COSOA({setRefresh, imgSrc, fullName, position, id}) {
 
   return (
      <>
-            <Button variant="secondary" onClick={handleShow} className='px-4'>
+            <Button variant="secondary" onClick={handleShow} className='px-4' disabled={position === "Chairperson"}>
                 Edit
             </Button>
             <Modal show={show} onHide={handleClose} centered backdrop="static" size='md'>

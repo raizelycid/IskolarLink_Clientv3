@@ -65,6 +65,22 @@ const removeMember = async (memberId) => {
           <h1 className='text-red'>COSOA Members</h1>
           <p>Manage or View COSOA Members</p>
         </Row>
+
+        <Container className='text-center my-5'>
+        {/* Render the "Add New COSOA Officer" button based on user's position */}
+        {userPosition === 'Chairperson' ||
+        userPosition === 'Chairperson (Asst.)' ||
+        userPosition === 'Vice Chairperson' ||
+        userPosition === 'Vice Chairperson (Asst.)' ? (
+          <Add_COSOA setRefresh={setRefresh}/>
+        ) : (
+          <Button variant="primary" disabled>
+            + Add New COSOA Officer
+          </Button>
+        )}
+
+          
+        </Container>
       
 
         <Container>
@@ -102,7 +118,7 @@ const removeMember = async (memberId) => {
                       <Edit_COSOA setRefresh={setRefresh} imgSrc={member.profile_picture} fullName={member.name} position={member.position} id={member.id}/><br/>
                       </Col>
                       <Col xs={5}>
-                      <Button variant="primary" onClick={()=>removeMember(member.id)}>
+                      <Button variant="primary" onClick={()=>removeMember(member.id)} disabled={member.position === "Chairperson"}>
                         Delete
                       </Button>
                       </Col>
@@ -126,21 +142,7 @@ const removeMember = async (memberId) => {
             </tbody>
           </Table>
         </Container>
-        <Container className='text-center my-5'>
-        {/* Render the "Add New COSOA Officer" button based on user's position */}
-        {userPosition === 'Chairperson' ||
-        userPosition === 'Chairperson (Asst.)' ||
-        userPosition === 'Vice Chairperson' ||
-        userPosition === 'Vice Chairperson (Asst.)' ? (
-          <Add_COSOA setRefresh={setRefresh}/>
-        ) : (
-          <Button variant="primary" disabled>
-            + Add New COSOA Officer
-          </Button>
-        )}
-
-          
-        </Container>
+        
   </>
   );
 };
