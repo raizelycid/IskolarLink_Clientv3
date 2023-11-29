@@ -63,6 +63,7 @@ function App() {
       if(response.data.error){
         setAuthState({...authState, status: false});
       }else if(response.data.role === 'student'){
+        console.log(response.data)
         setAuthState({
           id: response.data.id,
           username: response.data.username,
@@ -72,6 +73,7 @@ function App() {
           is_verified: response.data.is_verified,
           is_cosoa: response.data.is_cosoa,
           is_web_admin: response.data.is_web_admin,
+          has_created: response.data.has_created,
           status: true
         });
       }else if(response.data.role === 'organization'){
