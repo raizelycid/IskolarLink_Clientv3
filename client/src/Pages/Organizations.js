@@ -113,7 +113,7 @@ const totalPages = Math.ceil(organizations.length / itemsPerPage);
         </>}
       />
       <Container>
-      <Row className='my-4 text-center '>
+      <Row className='my-4 text-center'>
       <Col xs={3} className=' text-start'>
       <Dropdown>
   <Dropdown.Toggle variant='primary' className="d-flex align-items-center">
