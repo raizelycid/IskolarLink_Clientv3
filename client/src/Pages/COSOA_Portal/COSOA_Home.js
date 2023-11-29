@@ -184,42 +184,7 @@ function COSOA_Home() {
         <AddAnnouncement setRefreshAnnouncement = {setRefreshAnnouncement}/>
         </Col>
         </Row>
-        
       </Container>
-        <Row className='text-center'>
-            <h1 className='text-red'>The Core of Our Team</h1>
-            <p className='text-gray2'>Organically grow the holistic world view of disruptive innovation via workplace diversity  and empowerment of people and great talent that truly rocks.</p>
-        </Row>
-      <Container>
-        <OfficerCard 
-          imageSrc="/Officer.png"
-          imageSrc2="/Officer.png"
-          imageSrc3="/Officer.png"
-          name="John Doe"
-          name2="James Doe"
-          name3="Joe Doe"
-          role="President"
-          role2="Vice President"
-          role3="Secretary"
-        />
-        <OfficerCard 
-          imageSrc="/Officer.png"
-          imageSrc2="/Officer.png"
-          imageSrc3="/Officer.png"
-          name="Jared Doe"
-          name2="Jerald Doe"
-          name3="Jest Doe"
-          role="Head for Membership"
-          role2="Vice President for Finance"
-          role3="Head for Creatives"
-        />
-        <Row className='text-center my-5'>
-        <Col>
-        <Button variant="primary">Modify</Button>
-        </Col>
-        </Row>
-      </Container>
-      <ContactBanner />
     </div>
   );
   

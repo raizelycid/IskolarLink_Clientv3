@@ -21,7 +21,7 @@ function EventModal({ event, show, handleClose }) {
       </Modal.Body>
 
         <Modal.Footer className='border-0'>
-            <Button variant='light' className='border px-4 me-2'>Close</Button>
+            <Button variant='light' className='border px-4 me-2' onClick={handleClose}>Close</Button>
             <Button variant='primary' className='px-4' onClick={handleFacebookLink}>
               View Facebook Post
             </Button>
