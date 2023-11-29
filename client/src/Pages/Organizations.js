@@ -15,7 +15,7 @@ function Organizations() {
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(15); 
-  const [selectedFilters, setSelectedFilters] = useState([]);
+  const [selectedFilter, setSelectedFilter] = useState('');
   const [buttonWidth, setButtonWidth] = useState(0);
 
   
@@ -30,7 +30,7 @@ function Organizations() {
     'Special Interest',
     'Sports'];
 
-  const jurisdiction = ['U-wide',
+  const jurisdiction = ['U-Wide',
     'CAF',
     'CADBE',
     'CAL',
@@ -86,11 +86,12 @@ const totalPages = Math.ceil(organizations.length / itemsPerPage);
 
   const filteredItems = organizations.filter((org)=>{
     const matchesSearch = search.toLowerCase() === "" || org.org_name.toLowerCase().includes(search.toLowerCase())
+ 
+    const matchesJurisdiction = selectedFilter === "" || org.subjurisdiction === selectedFilter
 
-    const matchesJurisdiction = jurisdictionFilter === "" || org.subjurisdiction === jurisdictionFilter
 
     return matchesSearch && matchesJurisdiction
-  })
+  });
 
 
 
@@ -128,27 +129,30 @@ const totalPages = Math.ceil(organizations.length / itemsPerPage);
     */}
 
       <Col xs={4} className=' text-start'>
-        {/*
+        
       
       <Dropdown>
     <Dropdown.Toggle variant='secondary' className="d-flex align-items-center">
       <Image src='/Dropdown/flagpin.png' className="me-2"/> Jurisdiction
     </Dropdown.Toggle>
     <Dropdown.Menu style={{ width: `${buttonWidth}px`, maxHeight: '200px', overflowY: 'auto' }} className='p-3'>
-      {jurisdiction.map((option, index) => (
-        <Form.Check
-          key={index}
-          type='radio'
-          label={option}
-          name='jurisdiction'  // Add a 'name' attribute so that all radio buttons are part of the same group
-          onChange={(e) => setJurisdictionFilter(e.target.value)}
-          value={option}
-          checked={selectedFilters === option}  // Update this to compare with a single selected value
-        />
-      ))}
-    </Dropdown.Menu>
+  {jurisdiction.map((option, index) => (
+    <Form.Check
+      key={index}
+      type='checkbox'
+      label={option}
+      name='jurisdiction'
+      onChange={(e) => {
+        // If the checkbox is checked, set the filter, otherwise reset it
+        setSelectedFilter(e.target.checked ? e.target.value : '');
+      }}
+      value={option}
+      checked={selectedFilter === option}
+    />
+  ))}
+</Dropdown.Menu>
   </Dropdown>
-      */}
+      
 
 
       </Col>
