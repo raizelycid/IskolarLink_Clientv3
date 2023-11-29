@@ -61,15 +61,16 @@ function LoginPopup() {
       <Modal
         show={showLogin}
         onHide={handleCloseLogin}
-        backdrop="static"
+       
         keyboard={true}
         size="lg"
         className="rounded-modal"
+        style={{ borderRadius: '20px' }}
         centered
         animation
       >
         <div className="login-modal pt-1 " >
- 
+        
           <Modal.Header className="px-4 modal-header text-white mx-5" closeButton>
             <Modal.Title id="login-popup" className="ms-auto Inter-b modal-title mt-4">
               Welcome Back!
@@ -79,9 +80,9 @@ function LoginPopup() {
               <p className="modal-subtitle Inter-normal text-center text-white pt-3 ">We're glad you want to connect!</p>
           </div>
           <Modal.Body className="Inter-normal text-white">
-            <div className='login-form p-5 mx-auto  text-black shadow-lg'>
-              
-              <Form>
+            <div className='login-form mb-5 p-5 mx-auto  text-black shadow-lg'>
+               
+              <Form >
                 <Form.Group className="mb-3" controlId="formLoginWebmail">
                   <Form.Label className='Inter-med'>Webmail address</Form.Label>
                   <Form.Control type="email" placeholder="Enter your webmail address" className='Inter-normal' onChange={(e) => setLoginDetails({...loginDetails, email: e.target.value})}/>
@@ -102,7 +103,7 @@ function LoginPopup() {
                     style={{ cursor: 'pointer', right: '10px', top: '69%', transform: 'translateY(-50%)' }}
                   />
                   
-</Form.Group>
+                      </Form.Group>
 
                 <Row>
                   <Form.Group as={Col} controlId="formLoginCheckbox">

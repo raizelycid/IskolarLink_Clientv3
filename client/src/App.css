@@ -285,3 +285,7 @@ footer, .data-footer {
     max-height: 150px;
   }
 }
+
+.rounded-modal .modal-content {
+  border-radius: 20px; /* Adjust the value as you see fit for more or less curvature */
+}
