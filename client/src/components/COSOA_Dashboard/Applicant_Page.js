@@ -61,6 +61,15 @@ function Applicant_Page() {
         navigate('/cosoa/dashboard')
         }
       });
+    }else if(action === 'Reject'){
+      axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa/reject/${org_application.id}`).then((res) => {
+        if(res.data.error){
+          alert(res.data.error);
+        }else{
+        alert('Successfully rejected organization');
+        navigate('/cosoa/dashboard')
+        }
+      });
     }
   }
 
@@ -299,118 +308,241 @@ function Applicant_Page() {
       />
       <Container>
         <Row>
-            <Col>
-                <Image roundedCircle/>
-            </Col>
+          <Col>
+            <Image roundedCircle />
+          </Col>
         </Row>
       </Container>
-    <Container className='applicant-header-container'>
-      <Row>
-        <Col>
-        {(user.profile_picture && user.role === "organization") ? <img src={`${process.env.REACT_APP_BASE_URL}/org_images/${user.profile_picture}`} alt="Profile Picture" width="100" height="100" className="rounded-circle" /> : <img src={`${process.env.REACT_APP_BASE_URL}/org_images/default-org-photo.jpg`} alt="Profile Picture" width="100" height="100" className="rounded-circle" />
-          }
-        <span className='applicant-org-name'>{applicant.org_name}</span>
-        </Col>
-        <Col className='d-flex align-items-center justify-content-end'>
-          <Dropdown>
-            <Dropdown.Toggle variant='success' id='applicant-actions'>
-              {org_application.application_status}
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              {
-              (org_application.application_status === 'Pending' || org_application.application_status === 'Revalidation') ? <Dropdown.Item onClick={()=>ActionLinks(Actions[0])}>{Actions[0]}</Dropdown.Item> :
-              org_application.application_status === 'IE1' ? <Dropdown.Item onClick={()=>ActionLinks(Actions[0])}>{Actions[0]}</Dropdown.Item> :
-              org_application.application_status === 'IE2' ? <Dropdown.Item onClick={()=>ActionLinks(Actions[1])}>{Actions[1]}</Dropdown.Item> :
-              org_application.application_status === 'FE1' ? <Dropdown.Item onClick={()=>ActionLinks(Actions[2])}>{Actions[2]}</Dropdown.Item> :
-              org_application.application_status === 'FE2' && applicant.application_status === 'Accreditation' ? <Dropdown.Item onClick={()=>ActionLinks(Actions[3])}>{Actions[3]}</Dropdown.Item> :
-              org_application.application_status === 'FE2' && applicant.application_status === 'Revalidation' ? <Dropdown.Item onClick={()=>ActionLinks(Actions[4])}>{Actions[4]}</Dropdown.Item> : null
-            }
-            <Dropdown.Item>{Actions[5]}</Dropdown.Item>
-            <Dropdown.Item>{Actions[6]}</Dropdown.Item>
-            </Dropdown.Menu>
-
-          </Dropdown>
-        </Col>
-      </Row>
-
-    </Container>
-    <Container>
-      
-      <form>
-        <Form.Group as={Col} controlId='jurisdiction'>
-          <Form.Label>Classification of Jurisdiction</Form.Label>
-          <Form.Control type='text' placeholder='Jurisdiction' value={applicant.jurisdiction} readOnly/>
-        </Form.Group>
+      <Container className="applicant-header-container">
         <Row>
-          <Form.Group as={Col} controlId='type'>
-            <Form.Label>Nature / Type of Student Organization</Form.Label>
-            <Form.Control type='text' placeholder='Type' value={applicant.type} readOnly/>
-          </Form.Group>
-          <Form.Group as={Col} controlId='subjurisdiction'>
-            <Form.Label>Sub-classification of  Jurisdiction</Form.Label>
-            <Form.Control type='text' placeholder='Sub-Jurisdiction' value={applicant.subjurisdiction} readOnly/>
-          </Form.Group>
+          <Col>
+            {user.profile_picture && user.role === "organization" ? (
+              <img
+                src={`${process.env.REACT_APP_BASE_URL}/org_images/${user.profile_picture}`}
+                alt="Profile Picture"
+                width="100"
+                height="100"
+                className="rounded-circle"
+              />
+            ) : (
+              <img
+                src={`${process.env.REACT_APP_BASE_URL}/org_images/default-org-photo.jpg`}
+                alt="Profile Picture"
+                width="100"
+                height="100"
+                className="rounded-circle"
+              />
+            )}
+            <span className="applicant-org-name">{applicant.org_name}</span>
+          </Col>
+          <Col className="d-flex align-items-center justify-content-end">
+            <Dropdown>
+              <Dropdown.Toggle variant="success" id="applicant-actions">
+                {org_application.application_status}
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                {org_application.application_status === "Pending" ||
+                org_application.application_status === "Revalidation" ? (
+                  <Dropdown.Item onClick={() => ActionLinks(Actions[0])}>
+                    {Actions[0]}
+                  </Dropdown.Item>
+                ) : org_application.application_status === "IE1" ? (
+                  <Dropdown.Item onClick={() => ActionLinks(Actions[0])}>
+                    {Actions[0]}
+                  </Dropdown.Item>
+                ) : org_application.application_status === "IE2" ? (
+                  <Dropdown.Item onClick={() => ActionLinks(Actions[1])}>
+                    {Actions[1]}
+                  </Dropdown.Item>
+                ) : org_application.application_status === "FE1" ? (
+                  <Dropdown.Item onClick={() => ActionLinks(Actions[2])}>
+                    {Actions[2]}
+                  </Dropdown.Item>
+                ) : org_application.application_status === "FE2" &&
+                  applicant.application_status === "Accreditation" ? (
+                  <Dropdown.Item onClick={() => ActionLinks(Actions[3])}>
+                    {Actions[3]}
+                  </Dropdown.Item>
+                ) : org_application.application_status === "FE2" &&
+                  applicant.application_status === "Revalidation" ? (
+                  <Dropdown.Item onClick={() => ActionLinks(Actions[4])}>
+                    {Actions[4]}
+                  </Dropdown.Item>
+                ) : null}
+                <Dropdown.Item onClick={()=> ActionLinks(Actions[6])}>{Actions[6]}</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </Col>
         </Row>
-        <Row>
-          <Form.Group as={Col} controlId='advisers'>
-            <Form.Label>Advisers</Form.Label>
-            <Form.Control type='text' placeholder='Advisers' value={advisers} readOnly/>
+      </Container>
+      <Container>
+        <form>
+          <Form.Group as={Col} controlId="jurisdiction">
+            <Form.Label>Classification of Jurisdiction</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Jurisdiction"
+              value={applicant.jurisdiction}
+              readOnly
+            />
           </Form.Group>
-          <Form.Group as={Col} controlId='email'>
-            <Form.Label>Email</Form.Label>
-            <Form.Control type='text' placeholder='Email' value={user.email} readOnly/>
-          </Form.Group>
-        </Row>
-      </form>
-
-    </Container>
-    {showApprovedAlert()}
-    <Container className='applicant-footer-container'>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>File Submitted</th>
-            <th>Download Link</th>
-            <th>Submit Signed Form</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {requirements.map((requirement, index) => {
-            return(
-              <tr key={index}>
-                <td><span className='applicant-requirement-name'>{requirement.requirement_name}</span></td>
-                {applicant.application_status === "Accreditation" ? 
-                <td><span className='applicant-download-text' onClick={() => window.open(`${process.env.REACT_APP_BASE_URL}/accreditation/${applicant.id}/${requirement.requirement_name}.pdf`,'_blank','noopener')}>Download</span></td>
-                 : <td><span className='applicant-download-text' onClick={() => window.open(`${process.env.REACT_APP_BASE_URL}/revalidation/${applicant.id}/${requirement.requirement_name}.pdf`,'_blank','noopener')}>Download</span></td>}
-                 <td>
-                  <Button variant="primary" onClick={event => handleClick(event, requirement.requirement_name)}>Update</Button>
-                  <input type="file" style={{display:'none'}} onChange={handleChange} ref={hiddenFileInput}/>
+          <Row>
+            <Form.Group as={Col} controlId="type">
+              <Form.Label>Nature / Type of Student Organization</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Type"
+                value={applicant.type}
+                readOnly
+              />
+            </Form.Group>
+            <Form.Group as={Col} controlId="subjurisdiction">
+              <Form.Label>Sub-classification of Jurisdiction</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Sub-Jurisdiction"
+                value={applicant.subjurisdiction}
+                readOnly
+              />
+            </Form.Group>
+          </Row>
+          <Row>
+            <Form.Group as={Col} controlId="advisers">
+              <Form.Label>Advisers</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Advisers"
+                value={advisers}
+                readOnly
+              />
+            </Form.Group>
+            <Form.Group as={Col} controlId="email">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Email"
+                value={user.email}
+                readOnly
+              />
+            </Form.Group>
+          </Row>
+        </form>
+      </Container>
+      {showApprovedAlert()}
+      <Container className="applicant-footer-container">
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>File Submitted</th>
+              <th>Download Link</th>
+              <th>Submit Signed Form</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {requirements.map((requirement, index) => {
+              return (
+                <tr key={index}>
+                  <td>
+                    <span className="applicant-requirement-name">
+                      {requirement.requirement_name}
+                    </span>
+                  </td>
+                  {applicant.application_status === "Accreditation" ? (
+                    <td>
+                      <span
+                        className="applicant-download-text"
+                        onClick={() =>
+                          window.open(
+                            `${process.env.REACT_APP_BASE_URL}/accreditation/${applicant.id}/${requirement.requirement_name}.pdf`,
+                            "_blank",
+                            "noopener"
+                          )
+                        }
+                      >
+                        Download
+                      </span>
+                    </td>
+                  ) : (
+                    <td>
+                      <span
+                        className="applicant-download-text"
+                        onClick={() =>
+                          window.open(
+                            `${process.env.REACT_APP_BASE_URL}/revalidation/${applicant.id}/${requirement.requirement_name}.pdf`,
+                            "_blank",
+                            "noopener"
+                          )
+                        }
+                      >
+                        Download
+                      </span>
+                    </td>
+                  )}
+                  <td>
+                    <Button
+                      variant="primary"
+                      onClick={(event) =>
+                        handleClick(event, requirement.requirement_name)
+                      }
+                    >
+                      Update
+                    </Button>
+                    <input
+                      type="file"
+                      style={{ display: "none" }}
+                      onChange={handleChange}
+                      ref={hiddenFileInput}
+                    />
                   </td>
                   <td>
-                    {(requirement.status !== 'Approved' && requirement.status !== 'Revision')?
-                    <Dropdown>
-                      <Dropdown.Toggle variant="primmary" id="requirement-status">
+                    {requirement.status !== "Approved" &&
+                    requirement.status !== "Revision" ? (
+                      <Dropdown>
+                        <Dropdown.Toggle
+                          variant="primmary"
+                          id="requirement-status"
+                        >
+                          {requirement.status}
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                          <Dropdown.Item
+                            onClick={(event) => handleApprove(requirement.id)}
+                          >
+                            Approve
+                          </Dropdown.Item>
+                          <GiveFeedback
+                            org_applicationId={org_application.id}
+                            requirementId={requirement.id}
+                            orgApplicationStatus={
+                              org_application.application_status
+                            }
+                          />
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    ) : requirement.status === "Approved" ? (
+                      <span className="applicant-approved-text">
                         {requirement.status}
-                      </Dropdown.Toggle>
-                      <Dropdown.Menu>
-                        <Dropdown.Item onClick={event => handleApprove(requirement.id)}>Approve</Dropdown.Item>
-                        <GiveFeedback org_applicationId={org_application.id} requirementId={requirement.id} orgApplicationStatus={org_application.application_status} />
-                      </Dropdown.Menu>
-                    </Dropdown>
-                     : requirement.status === 'Approved' ? <span className='applicant-approved-text'>{requirement.status}</span> : requirement.status === 'Revision' ? <span className='applicant-revision-text'>Revision needed</span> : null}
+                      </span>
+                    ) : requirement.status === "Revision" ? (
+                      <span className="applicant-revision-text">
+                        Revision needed
+                      </span>
+                    ) : null}
                   </td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </Table>
-      <Row>
-        <Col className='d-flex align-items-center justify-content-end'>
-          <Button variant="primary" onClick={handleApproveAll}>Approve All</Button>
-        </Col>
-      </Row>
-    </Container>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+        <Row>
+          <Col className="d-flex align-items-center justify-content-end">
+            <Button variant="primary" onClick={handleApproveAll}>
+              Approve All
+            </Button>
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 }
