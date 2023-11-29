@@ -10,64 +10,85 @@ import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import GiveFeedback from './GiveFeedback';
 import { Alert } from 'react-bootstrap'
+import LoadingOverlay from '../LoadingOverlay';
 
 function Applicant_Page() {
 
   axios.defaults.withCredentials = true;
 
+  const [loading,setLoading]= useState(false)
+
   const Actions = ['Proceed to IE2', 'Proceed to FE1', 'Proceed to FE2', 'Accredit', 'Revalidate', 'Give Feedback', 'Reject']
 
   const ActionLinks = (action) => {
     if(action === 'Proceed to IE2'){
+      setLoading(true)
       axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa/ie2/${org_application.id}`).then((res) => {
         if(res.data.error){
+          setLoading(false)
           alert(res.data.error);
         }else{
+        setLoading(false)
         alert('Successfully updated application to IE2');
         window.location.reload('false');
         }
       });
     }else if(action === 'Proceed to FE1'){
+      setLoading(true)
       axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa/fe1/${org_application.id}`).then((res) => {
         if(res.data.error){
+          setLoading(false)
           alert(res.data.error);
         }else{
+          setLoading(false)
         alert('Successfully updated application to FE1');
         window.location.reload('false');
         }
       });
     }else if(action === 'Proceed to FE2'){
+      setLoading(true)
       axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa/fe2/${org_application.id}`).then((res) => {
         if(res.data.error){
+          setLoading(false)
           alert(res.data.error);
         }else{
+          setLoading(false)
         alert('Successfully updated application to FE2');
         window.location.reload('false');
         }
       });
     }else if(action === 'Accredit'){
+      setLoading(true)
       axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa/accredit/${org_application.id}`).then((res) => {
         if(res.data.error){
+          setLoading(false)
           alert(res.data.error);
         }else{
+          setLoading(false)
         alert('Successfully accredited organization');
         navigate('/cosoa/dashboard')
         }
       });
     }else if(action === 'Revalidate'){
+      setLoading(true)
       axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa/accredit/${org_application.id}`).then((res) => {
         if(res.data.error){
+          setLoading(false)
           alert(res.data.error);
         }else{
+          setLoading(false)
         alert('Successfully revalidated organization');
         navigate('/cosoa/dashboard')
         }
       });
     }else if(action === 'Reject'){
+      setLoading(true)
       axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa/reject/${org_application.id}`).then((res) => {
         if(res.data.error){
+          setLoading(false)
           alert(res.data.error);
         }else{
+          setLoading(false)
         alert('Successfully rejected organization');
         navigate('/cosoa/dashboard')
         }
@@ -545,6 +566,7 @@ function Applicant_Page() {
           </Col>
         </Row>
       </Container>
+      <LoadingOverlay title={"Please wait for a while"} />
     </>
   );
 }
