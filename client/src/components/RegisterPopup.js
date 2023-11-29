@@ -1,13 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Modal, Form, Row, Col, Image } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './general.css';
+import validator from 'validator'
 
 import { Link } from 'react-router-dom';
-function RegisterPopup() {
+function RegisterPopup({handleCloseLogin}) {
 
     const navigate = useNavigate();
+
+    
 
     const Departments = [
         `College of Accountancy and Finance | CAF`,
@@ -31,9 +34,13 @@ function RegisterPopup() {
     ]
 
     const [showRegister, setShowRegister] = useState(false);
+    const [complete,setComplete] = useState(false)
+
+    
 
     const handleCloseRegister = () => setShowRegister(false);
     const handleShowRegister = () => setShowRegister(true);
+
 
     const [regDetails, setRegDetails] = useState({
         student_num: "",
@@ -45,11 +52,14 @@ function RegisterPopup() {
         year_level: "",
         email: "",
         password: "",
-        confirmPassword: ""
+        confirmPassword: "",
+        privacyPolicy: false
     });
+    const [isValid,setIsValid]=useState(false)
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if(complete){
         if(regDetails.password !== regDetails.confirmPassword){
             alert("Passwords do not match!");
         }else{
@@ -66,8 +76,34 @@ function RegisterPopup() {
                 }
             });
         }
+    }else{
+        alert("Please supply missing required fields.")
+    }
         
     }
+
+    function emailValidation(){
+        if(validator.isEmail(regDetails.email) && regDetails.email.endsWith('iskolarngbayan.pup.edu.ph')){
+            setIsValid(true)
+        }else{
+            setIsValid(false)
+        }
+    }
+
+    function completeValidation(){
+        if(regDetails.student_Fname && regDetails.student_Lname && regDetails.department && regDetails.year_level && regDetails.email && regDetails.password && regDetails.confirmPassword && regDetails.privacyPolicy === true){
+            setComplete(true)
+        }else{
+            setComplete(false)
+        }
+    }
+
+    useEffect(()=>{
+        emailValidation()
+        completeValidation()
+    },[regDetails.email,regDetails])
+
+
   return (
     <>
         <Button variant="link" className="text-red link-button Inter" onClick={handleShowRegister}>
@@ -152,6 +188,7 @@ function RegisterPopup() {
                             <Form.Group className="mb-3" controlId="formRegisterWebmail">
                                 <Form.Label className="Inter-med">PUP Webmail Address<span className="text-red">*</span></Form.Label>
                                 <Form.Control required type="email" placeholder="Enter your PUP Webmail Address" value={regDetails.email} onChange={(e) => setRegDetails({...regDetails, email: e.target.value})}/>
+                                {(!isValid && regDetails.email !== '') && <span>Email must end in school email</span> }
                             </Form.Group>
 
                             <Row>
@@ -165,7 +202,7 @@ function RegisterPopup() {
                                 </Form.Group>
                             </Row>
                             
-                            <Form.Check required label={<p>I accept the <Link to="/terms" target="_blank" className='text-red'>Terms and Privacy Policy</Link></p>} className="Inter-med"></Form.Check>
+                            <Form.Check required label={<p>I accept the <Link to="/terms" target="_blank" className='text-red'>Terms and Privacy Policy</Link></p>} className="Inter-med" onChange={(e)=>setRegDetails({...regDetails,privacyPolicy:e.target.checked})}></Form.Check>
                             <Row className="mt-5 mb-3   ">
                                 <Col/>
                                 <Button as={Col} xs={7} variant="primary" type="submit" onClick={handleSubmit}>

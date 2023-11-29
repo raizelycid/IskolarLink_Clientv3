@@ -209,7 +209,7 @@ const totalPages = Math.ceil(organizations.length / itemsPerPage);
                       imageSrc={org.User.profile_picture ? `${process.env.REACT_APP_BASE_URL}/org_images/${org.User.profile_picture}` : `${process.env.REACT_APP_BASE_URL}/org_images/default-org-photo.jpg`}
                       title={org.org_name}
                       description={org.User.description ? org.User.description : 'No description'}
-                      tags={[org.jurisdiction, org.subjurisdiction]}
+                      tags={[org.type, org.subjurisdiction]}
                       orgId={org.id}
                     />
                   </Col>

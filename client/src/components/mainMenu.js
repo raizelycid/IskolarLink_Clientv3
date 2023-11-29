@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import {Navbar, Container, Offcanvas, Row, Col, Image, Nav} from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap'
 import { useAccreditationStatus } from '../helpers/AccreditationStatusContext'
+import { useApplicationPeriod } from '../helpers/ApplicationPeriodContext'
 
 const MainMenu = ({imgSrc, username}) => {
 
@@ -20,6 +21,8 @@ const MainMenu = ({imgSrc, username}) => {
     const {activeMenu, setActiveMenu} = menu;
 
     const {accreditationStatus} = useAccreditationStatus();
+    const {period} = useApplicationPeriod();
+    
 
 
     const changeMainMenu = () => {
@@ -59,8 +62,9 @@ const MainMenu = ({imgSrc, username}) => {
   authState.is_verified 
     ? (
         accreditationStatus 
-          ? <NavDropdown.Item onClick={() => navigate('/accreditation/status')}>Accreditation Status</NavDropdown.Item> 
-          : <NavDropdown.Item onClick={() => navigate('/accreditation')}>Create an Organization</NavDropdown.Item>
+          ? 
+          <NavDropdown.Item onClick={() => navigate('/accreditation/status')}>Accreditation Status</NavDropdown.Item> 
+          : period && !authState.has_created ? <NavDropdown.Item onClick={() => navigate('/accreditation')}>Create an Organization</NavDropdown.Item> : null
       )
     : null
 }

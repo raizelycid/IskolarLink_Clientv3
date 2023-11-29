@@ -65,22 +65,25 @@ const removeMember = async (memberId) => {
           <h1 className='text-red'>COSOA Members</h1>
           <p>Manage or View COSOA Members</p>
         </Row>
-      
-
         <Container>
-          <Table striped bordered hover>
+          <Table striped bordered hover >
+          <colgroup>
+              <col style={{ width: '40%' }} />
+              <col style={{ width: '40%' }} />
+              <col style={{ width: '20%' }} />
+            </colgroup>
             <thead>
               <tr>
-              <th>Name</th>
-              <th>Position</th>
-              <th >Action</th>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
             {members.map((member) => (
               <tr key={member.id}>
                 <td>
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <div >
                   {member.profile_picture ? (
                       <img src={`${process.env.REACT_APP_BASE_URL}/images/${member.profile_picture}`}alt="Profile" style={{ width: '40px', height: '40px', marginRight: '10px' }} />
                     ) : (
@@ -91,23 +94,35 @@ const removeMember = async (memberId) => {
                 </td>
                 <td>{member.position}</td>
                 <td>
-                {/* Render the "Edit" and "Delete" buttons based on user's position */}
                 {(  userPosition === 'Chairperson' ||
                   userPosition === 'Chairperson (Asst.)' ||
                     userPosition === 'Vice Chairperson' ||
                     userPosition === 'Vice Chairperson (Asst.)') ? (
                     <>
-                    <Row className='px-0 mx-0 '>
-                      <Col xs={3}>
-                      <Edit_COSOA setRefresh={setRefresh} imgSrc={member.profile_picture} fullName={member.name} position={member.position} id={member.id}/><br/>
+                      <Row className='align-items-center'>
+                      <Col className='text-center'>
+                        <Edit_COSOA 
+                          setRefresh={setRefresh} 
+                          imgSrc={member.profile_picture} 
+                          fullName={member.name} 
+                          position={member.position} 
+                          id={member.id}
+                        />
                       </Col>
                       <Col xs={5}>
-                      <Button variant="primary" onClick={()=>removeMember(member.id)}>
-                        Delete
-                      </Button>
+                      <FontAwesomeIcon 
+                          icon="fa-solid fa-trash-can"
+                          onClick={()=>removeMember(member.id)}
+                          style={{
+                            cursor: 'pointer',
+                            transition: 'color 0.3s ease',
+                            color: 'black',
+                          }}
+                          onMouseOver={(e) => { e.target.style.color = 'var(--red)'; }}
+                          onMouseOut={(e) => { e.target.style.color = 'black'; }}
+                        />
                       </Col>
                     </Row>
-                      
                     </>
                   ) : (
                     <>
@@ -134,13 +149,15 @@ const removeMember = async (memberId) => {
         userPosition === 'Vice Chairperson (Asst.)' ? (
           <Add_COSOA setRefresh={setRefresh}/>
         ) : (
-          <Button variant="primary" disabled>
+          <Button 
+          variant="primary" 
+          disabled 
+          style={{ backgroundColor: 'var(--light-gray)', borderColor: 'var(--gray)', color: 'var(--dark-gray)'}}>
             + Add New COSOA Officer
           </Button>
         )}
-
-          
-        </Container>
+    </Container>
+        
   </>
   );
 };

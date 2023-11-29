@@ -6,6 +6,7 @@ import './general.css';
 import { AuthContext } from '../helpers/AuthContent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Ensure you have FontAwesome imported
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'; // Import the eye icons
+import RegisterPopup from './RegisterPopup'
 
 
 function LoginPopup() {
@@ -118,7 +119,8 @@ function LoginPopup() {
                 </Row>
                 
                 <Row classname="mb-3">
-                      <p className='text-gray2 Inter-normal login-q'>Don't have an account?<span className='mx-3 text-yellow'>Register</span></p>             
+                      <p className='text-gray2 Inter-normal login-q'>Don't have an account?</p>        
+                      <RegisterPopup  />     
                 </Row>
 
                 </Form>
