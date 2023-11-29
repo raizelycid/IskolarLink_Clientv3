@@ -1,4 +1,4 @@
-import React, { useCallback,  useEffect,  useState } from 'react';
+import React, { useCallback,  useEffect,  useState, useRef} from 'react';
 import './AccreditationStatus.css';
 import { HeroVariant } from '../../components/HeroVariant/Hero';
 import { Container, Row, Col, Form, Image, Button, InputGroup, FormControl } from 'react-bootstrap';
@@ -14,7 +14,13 @@ function StudSettings() {
     const [showTempImage, setShowTempImage] = useState(false);
     const [profile, setProfile] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const fileInputRef = useRef(null);
 
+  const handleContainerClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
 
 
   // Function to handle saving changes
@@ -72,13 +78,58 @@ function StudSettings() {
       />
 
       <Container className='my-5'>
-      <h1>Personal info</h1>
-      <h4 className='text-red mb-5' >Update your photo and personal details here.</h4>
-      <Form>
+      <h2 className='mb-0'>Personal Information</h2>
+      <p>Update your photo and personal details here.</p>
+      <Form className='text-lightblack'>
             <div>
-              
+            <Row className='mt-3'>
+          <Col xs={1}>
+             {showTempImage ?
+              <Image src={profileImage} alt="Profile Preview" roundedCircle fluid className='setting-logo '/> :
+              profile.profile_picture ? 
+              <Image src={`${process.env.REACT_APP_BASE_URL}/images/${profile.profile_picture}`} alt="Profile Preview" roundedCircle fluid className='setting-logo '/> :
+              <FontAwesomeIcon icon={faUserCircle} size="6x" className="text-white" />      
+            } 
+  
+          </Col>
+          <Col className=' d-flex justify-content-center align-items-center'>
+            <Container
+              className='border text-center my-2 rounded-4'
+              fluid
+              onClick={handleContainerClick}
+              style={{ cursor: 'pointer' }}
+            >
+              <input
+                type="file"
+                ref={fileInputRef}
+                style={{ display: 'none' }}
+                onChange={handleFileChange}
+              />
+            <Row className='justify-content-center'>
+              <Image
+                src="/uploadicon.png"
+                style={{
+                  maxWidth: '80px',
+                  maxHeight: '80px',
+                  width: '100%',
+                  height: 'auto',
+                  borderRadius: '50%',
+                  display: 'block'
+                }}
+                alt="Upload Icon"
+              />
+            </Row>
+            <Row className='mb-0 pb-0'>
+              <p className='text-gray2'>
+                <strong className='text-red'>Click to upload</strong> or drag and drop
+                <br />SVG, PNG, or JPG (max. 800x400 px)
+              </p>
+            </Row>
+          </Container>
+        </Col>
+        </Row>
 
-                <Form.Group as={Row}  className="mb-3" controlId="formHorizontalImage">
+                <Form.Group as={Row} controlId="formHorizontalImage">
                     <Form.Label column sm={2}>
                     {showTempImage ?
                         <Image src={profileImage} alt="Profile Preview" roundedCircle fluid /> :
@@ -99,12 +150,12 @@ function StudSettings() {
                     </Col>
                 </Form.Group>
 
-                <Form.Group as={Row}  md={12}  className="mb-3" controlId="formBio">
+                <Form.Group as={Row}  md={12}  controlId="formBio">
             <Form.Label>Bio</Form.Label>
-              <FormControl
+              <Form.Control
                 as="textarea"
+                rows={3}
                 placeholder="Hi! Tell us something about yourself..."
-                style={{ width: '98%', margin: '10px' }}
                 value={profile.description}
                 onChange={(e) => setProfile({...profile, description: e.target.value})}
                 maxLength={600}
@@ -116,10 +167,12 @@ function StudSettings() {
           </Form.Group>
           
 
-          <div className='my-5'>
-            <h2>Password</h2>
-            <p className="text-gray2 mb-4">Change your Password.</p>
-            <Row>
+          <div className='mt-2'>
+          <Row className='mt-4'>
+          <h3 className='mb-0'>Password</h3>
+          <p>Change your Password.</p>
+        </Row>
+            <Row className='mt-2'>
               <Col md={6}>
                 <Form.Group className="mb-3">
                   <Form.Label>Current Password</Form.Label>
@@ -146,7 +199,7 @@ function StudSettings() {
             </Row>
             </div>
 
-            <div className='my-5'>
+            <div className='my-4'>
             <h2>Social Media Profile</h2>
             <p className="text-gray2 mb-4">Update your Social Media Links</p>
             </div>
