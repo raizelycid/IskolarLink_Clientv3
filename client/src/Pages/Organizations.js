@@ -128,6 +128,7 @@ const totalPages = Math.ceil(organizations.length / itemsPerPage);
     */}
 
       <Col xs={4} className=' text-start'>
+        {/*
       
       <Dropdown>
     <Dropdown.Toggle variant='secondary' className="d-flex align-items-center">
@@ -147,6 +148,7 @@ const totalPages = Math.ceil(organizations.length / itemsPerPage);
       ))}
     </Dropdown.Menu>
   </Dropdown>
+      */}
 
 
       </Col>
