@@ -1,4 +1,4 @@
-import React, { useCallback,  useEffect,  useState } from 'react';
+import React, { useCallback,  useEffect,  useState, useRef } from 'react';
 import './RevalidationStatus.css';
 import { HeroVariant } from '../../components/HeroVariant/Hero';
 import { Container, Row, Col, Form, Image, Button, InputGroup, FormControl } from 'react-bootstrap';
@@ -12,6 +12,13 @@ import axios from 'axios';
 function StudSettings() {
     const [profileImage, setProfileImage] = useState(null);
     const [showTempImage, setShowTempImage] = useState(false);
+    const fileInputRef = useRef(null);
+
+    const handleContainerClick = () => {
+      if (fileInputRef.current) {
+        fileInputRef.current.click();
+      }
+    };
 
 
 
@@ -70,9 +77,8 @@ function StudSettings() {
         pText="Update your profile credentials."
       />
 
-      <Container className='my-5'>
-      <h1>Personal info</h1>
-      <h4 className='text-red mb-5' >Update your photo and personal details here.</h4>
+<Container className='my-5'>
+      <h1>Organization Profile</h1>
       <Form>
             <div>
               
@@ -97,6 +103,61 @@ function StudSettings() {
                     </InputGroup>
                     </Col>
                 </Form.Group>
+                <Row className='mt-3'>
+          <Col xs={1}>
+            <Image
+            src="/cosoalogo.png"
+            className="logo"
+            style={{
+              maxWidth: '100px', /* Maximum width for the image */
+              maxHeight: '100px', /* Maximum height for the image */
+              width: '100%', /* Ensures the image fills its container */
+              height: 'auto', /* Allows the image to scale proportionally */
+              borderRadius: '50%', /* Creates a circular shape */
+              display: 'block' /* Ensures proper display */
+            }}
+            alt="Logo"
+          />
+          </Col>
+          <Col className=' d-flex justify-content-center align-items-center'>
+            <Container
+              className='border text-center my-2 rounded-4'
+              fluid
+              onClick={handleContainerClick}
+              style={{ cursor: 'pointer' }}
+            >
+              <input
+                type="file"
+                ref={fileInputRef}
+                style={{ display: 'none' }}
+                onChange={(e) => {
+                  setProfile({ ...profile, org_picture: e.target.value });
+                }}
+              />
+            <Row className='justify-content-center'>
+              <Image
+                src="/uploadicon.png"
+                style={{
+                  maxWidth: '80px',
+                  maxHeight: '80px',
+                  width: '100%',
+                  height: 'auto',
+                  borderRadius: '50%',
+                  display: 'block'
+                }}
+                alt="Upload Icon"
+              />
+            </Row>
+            <Row className='mb-0 pb-0'>
+              <p className='text-gray2'>
+                <strong className='text-red'>Click to upload</strong> or drag and drop
+                <br />SVG, PNG, or JPG (max. 800x400 px)
+              </p>
+            </Row>
+          </Container>
+        </Col>
+        </Row>
+                
 
                 <Form.Group as={Row}  md={12}  className="mb-3" controlId="formBio">
             <Form.Label>Bio</Form.Label>
@@ -116,7 +177,7 @@ function StudSettings() {
           
 
           <div className='my-5'>
-            <h2>Password</h2>
+            <h2 className='mb-0'>Password</h2>
             <p className="text-gray2 mb-4">Change your Password.</p>
             <Row>
               <Col md={6}>
@@ -145,7 +206,7 @@ function StudSettings() {
             </Row>
             </div>
 
-            <div className='my-5'>
+            <div className='mt-3'>
             <h2>Social Media Profile</h2>
             <p className="text-gray2 mb-4">Update your Social Media Links</p>
             </div>
@@ -247,6 +308,8 @@ function StudSettings() {
           <Row>
             <Col className="text-end mb-4">
               <Button variant="secondary" onClick={handleSaveChanges} className='mx-2'>Save Changes</Button>
+              <Button variant="light" className='border px-4'>Cancel</Button>
+
             </Col>
           </Row>
           

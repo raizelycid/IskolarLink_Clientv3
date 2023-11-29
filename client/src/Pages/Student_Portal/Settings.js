@@ -299,10 +299,11 @@ function StudSettings() {
           </Row>
           <br/>
           <Row>
-            <Col className="text-end mb-4">
-              <Button variant="secondary" onClick={handleSaveChanges} className='mx-2'>Save Changes</Button>
-            </Col>
-          </Row>
+          <Col className="text-end mb-4 mt-2">
+            <Button variant="secondary" onClick={handleSaveChanges} className='mx-3 px-4'>Save Changes</Button>
+            <Button variant="light" className='border px-4'>Cancel</Button>
+          </Col>
+        </Row>
           
           </div>
 
