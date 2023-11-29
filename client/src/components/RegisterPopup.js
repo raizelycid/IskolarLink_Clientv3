@@ -99,7 +99,7 @@ function RegisterPopup({handleCloseLogin}) {
                     <p className="modal-subtitle text-center Inter-normal text-white pt-3">Be part of our growing Iskolar Family!</p>
                 </div>
                  <Modal.Body className="Inter-normal text-white">
-                    <div className='register-form p-5 mx-auto text-black shadow-lg'>
+                    <div className='register-form mb-5  p-5 mx-auto text-black shadow-lg'>
                         <div className='text-center'>
                             <Image src="Register_icon.png" roundedCircle/>
                             <h3 className="reg-h3 Inter text-red pb-3">Account</h3>
@@ -155,8 +155,8 @@ function RegisterPopup({handleCloseLogin}) {
                                 </Form.Group>
                             </Row>
                             <Form.Group className="mb-3" controlId="formRegisterWebmail">
-                                <Form.Label className="Inter-med">Webmail<span className="text-red">*</span></Form.Label>
-                                <Form.Control required type="email" placeholder="Enter your Webmail" value={regDetails.email} onChange={(e) => setRegDetails({...regDetails, email: e.target.value})}/>
+                                <Form.Label className="Inter-med">PUP Webmail Address<span className="text-red">*</span></Form.Label>
+                                <Form.Control required type="email" placeholder="Enter your PUP Webmail Address" value={regDetails.email} onChange={(e) => setRegDetails({...regDetails, email: e.target.value})}/>
                             </Form.Group>
 
                             <Row>

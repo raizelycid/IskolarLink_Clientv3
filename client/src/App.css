@@ -123,6 +123,9 @@ body {
 Navbar {
   height: 86px;   
 }
+.nav-link-active {
+  color: #D9A31C !important; /* This will ensure the color applies over the default styles */
+}
 
 .navbar-brand {
   font-size: 25px;
@@ -281,4 +284,8 @@ footer, .data-footer {
   .responsive-dropdown {
     max-height: 150px;
   }
+}
+
+.rounded-modal .modal-content {
+  border-radius: 20px; /* Adjust the value as you see fit for more or less curvature */
 }

@@ -1,6 +1,6 @@
 import React from 'react'
-import { HeroVariant } from '../components/HeroVariant/Hero';
-import { Container, Row, Col } from 'react-bootstrap';
+import { HeroVariant, HeroVariant1 } from '../components/HeroVariant/Hero';
+import { Container, Row, Col, Image } from 'react-bootstrap';
 import { AnnouncementVariant } from '../components/AnnouncementVariant/AnnouncementCard';
 import './COSOA.css';
 import FullCalendar from '@fullcalendar/react';
@@ -52,18 +52,37 @@ function COSOA() {
 
   return (
     <div>
-      <HeroVariant 
-        h1Text="PUP Student Council Commission on Student Organizations and Accreditation (COSOA)"
-        pText="COSOA plays a pivotal role in fostering a vibrant campus community by overseeing the recognition and accreditation of student organizations."
+      <HeroVariant1 
+        h1Text={
+          <>
+            PUP Student Council Commission on
+            <br />
+            Student Organizations and Accreditation
+            <br/> (COSOA)
+          </>
+        }
+        pText={
+          <>COSOA plays a pivotal role in fostering a vibrant campus community by
+          <br/>
+          overseeing the recognition and accreditation of student organizations.
+          </>
+          }
       />
-      <Container className='my-5'>
-        <Row>
-          <Col>
-            <h2>Description</h2>
-            <p className='text-gray2'>The sole-accrediting body and an independent student body set to develop an effective working relationship between the Central Student Council, the Office of Student Services (OSS), and all student organizations at the Polytechnic University of the Philippines (PUP).</p>
-          </Col>
-        </Row>
-      </Container>
+   <Container className='my-5'>
+   <Row className="align-items-center who-we-are-section"> 
+      <Col xs={12} md={8} lg={9} className="text-section p-0">
+        <h2 className="title mb-0">Who Are We?</h2> 
+        <p className='description text-gray2 mb-0'>
+          The sole-accrediting body and an independent student body set to develop an effective <br/> 
+          working relationship between the Central Student Council, the Office of Student Services (OSS), and all student organizations at the Polytechnic University of the Philippines (PUP).
+        </p>
+      </Col>
+      <Col xs={12} md={4} lg={3} className="image-section d-flex justify-content-center p-0">
+        <Image src="/cosoa1.png" alt="IskolarLink Logo" className="custom-logo-size" fluid />
+      </Col>
+    </Row>
+</Container>
+
 
       <Container className='text-center my-5'>
         <Row>
@@ -100,14 +119,14 @@ function COSOA() {
           <p className='text-gray2'>Discover the latest announcement that will shape the future of PUP COSOA and elevate your student experience!</p>
         </Row>
         <Row>
-          {
-            announcements.map((announcement) => {
-              return (
-                <AnnouncementVariant 
+           {
+          announcements.map((announcement) => {
+            return (
+               <AnnouncementVariant 
                   key={announcement.cosoa_ann_id}
-                  announcement={announcement}
-                />
-              )
+                 announcement={announcement}
+               />
+             )
             })
           }
         </Row>
