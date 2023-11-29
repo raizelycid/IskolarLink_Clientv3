@@ -69,7 +69,6 @@ useEffect(() => {
           <AddAnnouncement setRefreshAnnouncement={setRefreshAnnouncement}/>
         </Row>
       </Container>
-      <ContactBanner2 />
     </div>
   );
 }
