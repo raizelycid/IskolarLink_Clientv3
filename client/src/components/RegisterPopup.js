@@ -3,6 +3,7 @@ import { Button, Modal, Form, Row, Col, Image } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './general.css';
+import validator from 'validator'
 
 import { Link } from 'react-router-dom';
 function RegisterPopup({handleCloseLogin}) {
@@ -52,6 +53,7 @@ function RegisterPopup({handleCloseLogin}) {
         password: "",
         confirmPassword: ""
     });
+    const [isValid,setIsValid]=useState(false)
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -72,6 +74,14 @@ function RegisterPopup({handleCloseLogin}) {
             });
         }
         
+    }
+
+    function emailValidation(){
+        if(validator.isEmail(regDetails.email) && regDetails.email.endsWith('iskolarngbayan.pup.edu.ph')){
+            setIsValid(true)
+        }else{
+            setIsValid(false)
+        }
     }
   return (
     <>

@@ -10,6 +10,7 @@ import { FaCheckCircle } from 'react-icons/fa';
 import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios';
 import { AuthContext } from '../helpers/AuthContent';
+import LoadingOverlay from './LoadingOverlay'
 
 
 function Org_Profile() {
@@ -23,6 +24,18 @@ function Org_Profile() {
   const { orgId} = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const [applied,setApplied] = useState(false)
+  const [loading,setLoading] = useState(true)
+
+  useEffect(()=>{
+    if(authState.status){
+      axios.get(`${process.env.REACT_APP_BASE_URL}/accredited/org/has_joined/${orgId}`).then((res)=>{
+        setApplied(res.data.applied)
+        console.log(res.data.applied)
+      })
+    }
+    setLoading(false)
+  },[authState.status])
 
 
   useEffect(() => {
@@ -37,6 +50,7 @@ function Org_Profile() {
     .catch((err) => {
       console.log(err);
     })
+
   }, [location.pathname])
 
   useEffect(() => {
@@ -54,6 +68,8 @@ function Org_Profile() {
     })
   }, [location.pathname])
 
+  
+
   const handleApply = () => {
     try{
       axios.post(`${process.env.REACT_APP_BASE_URL}/membership/apply`, { orgId:orgId, strict:org.organization.strict })
@@ -62,12 +78,23 @@ function Org_Profile() {
           alert(response.data.error);
         }else{
           alert(response.data.success);
+          setApplied(true)
         }
       })
     }catch(err){
       console.log(err);
     }
   }
+
+  const handleCancel = async () => {
+    if(window.confirm("Are you sure you want to cancel/remove your membership from this organization?")=== true){
+      axios.post(`${process.env.REACT_APP_BASE_URL}/accredited/org/delete_membership/${orgId}`).then((res)=>{
+        alert(res.data.success)
+        window.location.reload()
+    }) 
+  }
+  }
+
 
   return (
     <div>
@@ -92,23 +119,27 @@ function Org_Profile() {
           </Col>
           {authState.status &&
           <Col xs={12} md={4} lg={3} className="text-md-right text-end mt-3 mt-md-0">
-            {org.organization?.membership_period ?
-            <Button variant="warning"  className="apply-now-btn" onClick={handleApply} disabled={authState.is_verified}>Apply Now</Button>
-            :
-            <Button variant="warning"  className="apply-now-btn" disabled>Membership Period Closed</Button>
+            {org.organization?.membership_period && !applied ?
+            <Button variant="warning"  className="apply-now-btn" onClick={handleApply} disabled={!authState.is_verified}>Apply Now</Button>
+            : org.organization?.membership_period && applied ?
+              <Button variant="danger" className='apply-now-btn' onClick={handleCancel} disabled={!authState.is_verified}>Cancel Membership</Button>
+            :<Button variant="warning"  className="apply-now-btn" disabled>Membership Period Closed</Button>
             }
           </Col>
           }
         </Row>
-
+          {org.organization?.mission ?
           <Col>
             <h2>Our Mission</h2>
-            <p className='text-gray2'>{org.organization?.mission ? org.organization.mission : 'No Mission'}</p>
+            <p className='text-gray2'>{org.organization?.mission}</p>
           </Col>
+          :null}
+          {org.organization?.vision ? 
           <Col>
             <h2>Our Vision</h2>
-            <p className='text-gray2'>{org.organization?.vision ? org.organization.vision : 'No Vision'}</p>
+            <p className='text-gray2'>{org.organization?.vision}</p>
           </Col>
+          :null}
         </Row>
       </Container>
 
@@ -128,8 +159,13 @@ function Org_Profile() {
         }
         
       </Container>
+      {loading &&
+      <LoadingOverlay title={"Loading Organization Data"}/>
+      }
     </div>
   );
 }
+
+
 
 export default Org_Profile;

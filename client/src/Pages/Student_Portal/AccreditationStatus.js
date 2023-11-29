@@ -149,12 +149,12 @@ function AccreditationStatus() {
                 <Form.Control type="text" value={adviserString} readOnly></Form.Control>
             </Form.Group>
             </Col>
-            <Col>
+            {/*<Col>
             <Form.Group>
                 <Form.Label>PUP Webmail</Form.Label>
                 <Form.Control type="email" value={org.email} readOnly></Form.Control>
             </Form.Group>
-            </Col>
+        </Col>*/}
         </Row>
     </Container>
     <Container className='text-center mt-4'>
