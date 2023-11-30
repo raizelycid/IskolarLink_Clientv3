@@ -18,6 +18,7 @@ function OrgSettings() {
             .then((response) => {
                 setOrg(response.data.organization);
                 setUser(response.data.user);
+                console.log(response.data.user)
                 if(response.data.socials){
                 setSocials(response.data.socials);
                 }
@@ -32,6 +33,7 @@ function OrgSettings() {
       try{
         let formData = {};
         formData.profile_picture = user.profile_picture;
+        formData.description = user.description;
         formData.mission = org.mission;
         formData.vision = org.vision;
         formData.currentPassword = user.currentPassword;
@@ -47,11 +49,11 @@ function OrgSettings() {
                     'Content-Type': 'multipart/form-data'
                 }
             }).then((response) => {
-            /*if(response.data.err){
+            if(response.data.err){
                 alert(response.data.err);
             }else{
-                console.log(response.data)
-            }*/
+                alert("Changes saved.")
+            }
             //clear formData
             formData = {};
         });
@@ -75,6 +77,21 @@ function OrgSettings() {
                     <Form.Label>Upload Profile or Logo</Form.Label>
                     <Form.Control type="file" size="lg" onChange={(e) => {setUser({ ...user, profile_picture: e.target.files[0]})}}/>
                 </Form.Group>
+
+                <Form.Group as={Row}  md={12}  className="mb-3" controlId="formBio">
+            <Form.Label>Description</Form.Label>
+              <FormControl
+                as="textarea"
+                placeholder="Hi! Tell us something about the organization..."
+                style={{ width: '98%', margin: '10px' }}
+                value={user.description}
+                onChange={(e) => setUser({...user, description: e.target.value})}
+                maxLength={600}
+              />
+              <Form.Text className="text-muted">
+                {user.description ? 600 - user.description.length : 600} characters left
+              </Form.Text>
+          </Form.Group>
                 
               <Form.Group as={Row} md={12} className="mb-3">
                 <Form.Label>Your Mission</Form.Label>

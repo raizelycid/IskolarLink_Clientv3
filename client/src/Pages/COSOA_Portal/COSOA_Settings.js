@@ -102,6 +102,8 @@ function COSOASettings(){
                     onChange={(e) => {setCOSOA({ ...cosoa, org_picture: e.target.files[0]})}}
                     />
                 </Form.Group>
+
+                
                 
               <Form.Group as={Row} md={12} className="mb-3">
                 <Form.Label>Your Mission</Form.Label>
