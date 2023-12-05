@@ -145,7 +145,7 @@ function AppDocs() {
                     <tr>
                       <th>Certificate of Recognition from Central/Local Student Council</th>
                       <th>AD001</th>
-                      <th><a onClick={downloadAD001}>Download</a></th>
+                      <th><a href="#" onClick={downloadAD001}>Download</a></th>
                     </tr>
                     <tr>
                       <th>Official List of Officers and Adviser(s) with signatures over printed names, and list of members <i>(at least 15 members including the officers/executives)</i></th>
@@ -208,7 +208,7 @@ function AppDocs() {
                     <tr>
                       <th>Certificate of Recognition from Central/Local Student Council</th>
                       <th>RD001</th>
-                      <th><a onClick={downloadRD001}>Download</a></th>
+                      <th><a href="#" onClick={downloadRD001}>Download</a></th>
                     </tr>
                     <tr>
                       <th>Scanned Copy of the Latest Certificate of Accreditation/Revalidation</th>
@@ -233,7 +233,7 @@ function AppDocs() {
                     <tr>
                       <th>Student Organization's Constitution and Bylaws (CBL)</th>
                       <th>RD006</th>
-                      <th><a onClick={downloadRD005}>No Template</a></th>
+                      <th><a href="#" onClick={downloadRD005}>Download</a></th>
                     </tr>
                     <tr>
                       <th>General Plan of Activities with Budgetary Outlay</th>
@@ -253,7 +253,7 @@ function AppDocs() {
                     <tr>
                       <th>Financial Statements</th>
                       <th>RD010</th>
-                      <th><a>Download</a></th>
+                      <th><a href="#">Download</a></th>
                     </tr>
                     <tr>
                       <th>Certificate of Clearance from PUP Student Council Commission on Audit (PUP SC COA)</th>
@@ -281,4 +281,4 @@ function AppDocs() {
   )
 }
 
-export default AppDocs
+export default AppDocs;
