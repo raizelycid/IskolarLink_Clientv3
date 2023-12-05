@@ -145,7 +145,7 @@ function AppDocs() {
                     <tr>
                       <th>Certificate of Recognition from Central/Local Student Council</th>
                       <th>AD001</th>
-                      <th><a onClick={downloadAD001}>No Template</a></th>
+                      <th><a onClick={downloadAD001}>Download</a></th>
                     </tr>
                     <tr>
                       <th>Official List of Officers and Adviser(s) with signatures over printed names, and list of members <i>(at least 15 members including the officers/executives)</i></th>
@@ -158,7 +158,7 @@ function AppDocs() {
                       <th><a href="#" onClick={downloadAD003}>Download</a></th>
                     </tr>
                     <tr>
-                      <th>Advier(s)'s Letter of Concurrence with scanned copy of their University-issued ID</th>
+                      <th>Adviser(s)'s Letter of Concurrence with scanned copy of their University-issued ID</th>
                       <th>AD004</th>
                       <th><a href="#" onClick={downloadAD004}>Download</a></th>
                     </tr>
@@ -208,56 +208,66 @@ function AppDocs() {
                     <tr>
                       <th>Certificate of Recognition from Central/Local Student Council</th>
                       <th>RD001</th>
-                      <th><a onClick={downloadRD001}>No Template</a></th>
+                      <th><a onClick={downloadRD001}>Download</a></th>
+                    </tr>
+                    <tr>
+                      <th>Scanned Copy of the Latest Certificate of Accreditation/Revalidation</th>
+                      <th>RD002</th>
+                      <th><a>No Template</a></th>
                     </tr>
                     <tr>
                       <th>Official List of Officers and Adviser(s) with signatures over printed names, and list of members</th>
-                      <th>RD002</th>
+                      <th>RD003</th>
                       <th><a href="#" onClick={downloadRD002}>Download</a></th>
                     </tr>
                     <tr>
                       <th>Officers' Profile with 1st Semester Certificate of Registration <i>*alternatives, e.g., Confirmation Slip/Certificate of Enrollment</i></th>
-                      <th>RD003</th>
+                      <th>RD004</th>
                       <th><a href="#" onClick={downloadRD003}>Download</a></th>
                     </tr>
                     <tr>
-                      <th>Advier(s)'s Letter of Concurrence with scanned copy of their University-issued ID</th>
-                      <th>RD004</th>
+                      <th>Adviser(s)'s Letter of Concurrence with scanned copy of their University-issued ID</th>
+                      <th>RD005</th>
                       <th><a href="#" onClick={downloadRD004}>Download</a></th>
                     </tr>
                     <tr>
                       <th>Student Organization's Constitution and Bylaws (CBL)</th>
-                      <th>RD005</th>
+                      <th>RD006</th>
                       <th><a onClick={downloadRD005}>No Template</a></th>
                     </tr>
                     <tr>
                       <th>General Plan of Activities with Budgetary Outlay</th>
-                      <th>RD006</th>
+                      <th>RD007</th>
                       <th><a href="#" onClick={downloadRD006}>Download</a></th>
                     </tr>
                     <tr>
                       <th>Advocacy Plan</th>
-                      <th>RD007</th>
+                      <th>RD008</th>
                       <th><a href="#" onClick={downloadRD007}>Download</a></th>
                     </tr>
                     <tr>
                       <th>Accomplishment Report</th>
-                      <th>RD008</th>
+                      <th>RD009</th>
                       <th><a href="#" onClick={downloadRD008}>Download</a></th>
                     </tr>
                     <tr>
+                      <th>Financial Statements</th>
+                      <th>RD010</th>
+                      <th><a>Download</a></th>
+                    </tr>
+                    <tr>
                       <th>Certificate of Clearance from PUP Student Council Commission on Audit (PUP SC COA)</th>
-                      <th>RD009</th>
+                      <th>RD011</th>
                       <th><a>No Template</a></th>
                     </tr>
                     <tr>
                       <th>Turnover of Assets and Funds</th>
-                      <th>RD010</th>
+                      <th>RD012</th>
                       <th><a href="#" onClick={downloadRD010}>Download</a></th>
                     </tr>
                     <tr>
                       <th>Waiver of Responsibility</th>
-                      <th>RD011</th>
+                      <th>RD013</th>
                       <th><a href="#" onClick={downloadRD011}>Download</a></th>
                     </tr>
                   </tbody>
