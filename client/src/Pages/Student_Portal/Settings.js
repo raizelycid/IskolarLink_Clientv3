@@ -128,7 +128,7 @@ function StudSettings() {
           </Container>
         </Col>
         </Row>
-
+{/*
                 <Form.Group as={Row} controlId="formHorizontalImage">
                     <Form.Label column sm={2}>
                     {showTempImage ?
@@ -149,7 +149,7 @@ function StudSettings() {
                     </InputGroup>
                     </Col>
                 </Form.Group>
-
+                  */}
                 <Form.Group as={Row}  md={12}  controlId="formBio">
             <Form.Label>Bio</Form.Label>
               <Form.Control
@@ -162,7 +162,7 @@ function StudSettings() {
                 disabled={!profile.is_verified}
               />
               <Form.Text className="text-muted">
-                {profile.description && 600 - profile.description.length} characters left
+              {`${profile.description ? profile.description.length : 0} / 600 characters left`}
               </Form.Text>
           </Form.Group>
           
@@ -269,6 +269,7 @@ function StudSettings() {
               </Form.Group>
             </Col>
           </Row>
+          {/*
           <Row>
             {!profile.is_verified ?
           <Form.Group as={Row}  md={12}  className="mb-3" controlId="formCOR">
@@ -298,14 +299,14 @@ function StudSettings() {
           : "Congratulations! Your account has been verified."}
           </Row>
           <br/>
+              */}
           <Row>
           <Col className="text-end mb-4 mt-2">
             <Button variant="secondary" onClick={handleSaveChanges} className='mx-3 px-4'>Save Changes</Button>
             <Button variant="light" className='border px-4'>Cancel</Button>
           </Col>
-        </Row>
-          
-          </div>
+          </Row>
+        </div>
 
       </Form>
       {/*
