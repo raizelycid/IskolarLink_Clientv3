@@ -1,9 +1,15 @@
-import React from 'react'
+import React, {useState,useEffect} from 'react'
 import { Form, Row, Col, Image } from 'react-bootstrap'
 import Container from 'react-bootstrap/Container';
 import './RevFinish.css';
 
-const RevForms1 = ({formData, setFormData, show}) => {
+const RevForms1 = ({formData, setFormData, show, updateValidty, refresh, setRefresh}) => {
+
+    useEffect(()=>{
+        setRefresh(false)
+        const valid = formData.RD001  && formData.RD002  && formData.RD003  && formData.RD004  && formData.RD005  && formData.RD006 && formData.RD007  && formData.RD008 && formData.RD010
+        updateValidty(valid)
+    },[refresh, formData])
 
   return (
     <>

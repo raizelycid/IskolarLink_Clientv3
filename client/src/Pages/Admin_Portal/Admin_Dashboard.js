@@ -110,11 +110,6 @@ function Admin_Dashboard() {
           <h3>Academic Year 2023-2024</h3>
         </Row>
         <Row className='my-5 align-items-center'>
-        <Stat_Card 
-            imgSrc="/clipboard_icon.png"
-            numcount="Ongoing"
-            subtitle="AnR Period"
-          />
           <Stat_Card 
             imgSrc="/check_icon.png"
             numcount={studentCount}

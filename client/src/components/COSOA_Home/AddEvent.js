@@ -2,12 +2,14 @@ import { useState } from 'react';
 import { Button, Modal, Form, Row, Col, CloseButton, Container} from 'react-bootstrap';
 import './general.css';
 import axios from 'axios';
+import LoadingOverlay from '../LoadingOverlay'
 
 
 function AddEvent({setRefreshEvents}) {
   const [showEvent, setShowEvent] = useState(false);
   const handleCloseEvent = () => setShowEvent(false);
   const handleShowEvent = () => setShowEvent(true);
+  const [loading, setLoading] = useState(false);
 
   const [date, setDate] = useState(new Date());
 
@@ -20,6 +22,7 @@ function AddEvent({setRefreshEvents}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa_ann/add_event`, postEvent).then((response) => {
         if(response.data.error){
@@ -34,7 +37,9 @@ function AddEvent({setRefreshEvents}) {
       console.log(postEvent)
       
     } catch (error) {
-      
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -95,6 +100,7 @@ function AddEvent({setRefreshEvents}) {
           </Modal.Body>
         </Container>
       </Modal>
+      {loading && <LoadingOverlay title={"Adding an Event..."}/>}
     </>
   );
 }
