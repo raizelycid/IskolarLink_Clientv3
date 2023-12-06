@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Button, Modal, Form, Row, Col, CloseButton, Container} from 'react-bootstrap';
+import { useRef } from 'react';
+import { Button, Modal, Form, Row, Col, CloseButton, Container, Image} from 'react-bootstrap';
 import './general.css';
 import axios from 'axios';
 
@@ -7,6 +8,9 @@ import axios from 'axios';
 function AddAnnouncement({setRefreshAnnouncement}) {
   const [showAnnouncement, setShowAnnouncement] = useState(false);
   const handleCloseAnnouncement = () => setShowAnnouncement(false);
+  const [showTempImage, setShowTempImage] = useState(false);
+  const fileInputRef = useRef(null);
+
   const handleShowAnnouncement = () => setShowAnnouncement(true);
 
   const [postAnnouncement, setPostAnnouncement] = useState({
@@ -39,6 +43,19 @@ function AddAnnouncement({setRefreshAnnouncement}) {
     }
   }
 
+    const handleContainerClick = () => {
+      if (fileInputRef.current) {
+        fileInputRef.current.click();
+      }
+    };
+
+    const handleFileChange = (e) => {
+      setPostAnnouncement({...postAnnouncement, cosoa_ann_photo: e.target.files[0]});
+      setShowTempImage(true);
+      setPostAnnouncement(URL.createObjectURL(e.target.files[0]));
+    };
+  
+
   return (
     <>
         <Button variant="primary" onClick={handleShowAnnouncement}>+ Add Announcement</Button>
@@ -54,33 +71,67 @@ function AddAnnouncement({setRefreshAnnouncement}) {
         >
         <Container fluid className="pt-1" >
           <Modal.Header className="px-4 modal-header text-black mx-5" closeButton>
-            <Modal.Title id="announcement-popup" className="ms-auto Inter-b modal-title mt-4">
+            <Modal.Title id="announcement-popup" className="ms-auto Inter-b modal-title" style={{fontSize:'2em'}}>
               Publish an Announcement
             </Modal.Title>
           </Modal.Header>
           <Modal.Body className="Inter-normal">
-            <div className='p-5'>
+            <div className='px-2 py-0'>
               <Form>
                 <Form.Group className="mb-3" controlId="formAnnouncementTitle">
                   <Form.Label className='Inter-med'>Title/Headline</Form.Label>
-                  <Form.Control type="text" placeholder="Insert Title/Headline" className='Inter-normal' onChange={(e) => {setPostAnnouncement({...postAnnouncement, cosoa_ann_title: e.target.value})}}/>
+                  <Form.Control type="text" required lassName='Inter-normal' onChange={(e) => {setPostAnnouncement({...postAnnouncement, cosoa_ann_title: e.target.value})}}/>
                 </Form.Group>
-
+              <Form.Label>Upload Photo</Form.Label>  
+              <Container
+              className='border text-center my-2 rounded-4'
+              fluid
+              onClick={handleContainerClick}
+              style={{ cursor: 'pointer' }}
+            >
+              <input
+                type="file"
+                ref={fileInputRef}
+                style={{ display: 'none' }}
+                onChange={handleFileChange}
+              />
+              <Row className='justify-content-center'>
+                <Image
+                  src="/uploadicon.png"
+                  style={{
+                    maxWidth: '80px',
+                    maxHeight: '80px',
+                    width: '100%',
+                    height: 'auto',
+                    borderRadius: '50%',
+                    display: 'block'
+                  }}
+                  alt="Upload Icon"
+                />
+              </Row>
+              <Row className='mb-0 pb-0'>
+                <p className='text-gray2'>
+                  <strong className='text-red'>Click to upload</strong> or drag and drop
+                  <br />SVG, PNG, or JPG (max. 800x400 px)
+                </p>
+              </Row>
+            </Container>
+            <Form.Group className="mb-3" controlId="formAnnouncementDesc">
+                  <Form.Label className='Inter-med'>Description</Form.Label>
+                  <Form.Control as="textarea" rows={3} className='Inter-normal' onChange={(e) => {setPostAnnouncement({...postAnnouncement, cosoa_ann_body: e.target.value})}}/>
+                </Form.Group>
                 <Form.Group className="mb-3" controlId="formAnnouncementSubTitle">
                   <Form.Label className='Inter-med'>Facebook Link</Form.Label>
-                  <Form.Control type="text" placeholder="Insert Subtitle" className='Inter-normal' onChange={(e) => {setPostAnnouncement({...postAnnouncement, cosoa_ann_link: e.target.value})}}/>
+                  <Form.Control type="text" className='Inter-normal' onChange={(e) => {setPostAnnouncement({...postAnnouncement, cosoa_ann_link: e.target.value})}}/>
                 </Form.Group>
-
+{/*
                 <Form.Group className="mb-3" controlId="formAnnouncementImg">
                   <Form.Label className='Inter-med'>Upload Photo</Form.Label>
                   <Form.Control type="file" className='Inter-normal' onChange={(e) => {setPostAnnouncement({...postAnnouncement, cosoa_ann_photo: e.target.files[0]})}}/>
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formAnnouncementDesc">
-                  <Form.Label className='Inter-med'>Description</Form.Label>
-                  <Form.Control type="text" className='Inter-normal' placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." onChange={(e) => {setPostAnnouncement({...postAnnouncement, cosoa_ann_body: e.target.value})}}/>
-                </Form.Group>
-
+                
+                */}
                 
                 <Row className="p-2 my-1">
                   <Button variant="primary" type="submit" className="Inter" onClick={handleSubmit}>

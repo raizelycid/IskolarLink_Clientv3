@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import Add_COSOA from '../../components/COSOA_Dashboard/Add_COSOA';
 import Edit_COSOA from '../../components/COSOA_Dashboard/Edit_COSOA';
+import WarningAlert from '../../components/Alerts/WarningAlert';
 
 function COSOA_Accesibility() {
 
@@ -158,6 +159,9 @@ const removeMember = async (memberId) => {
         )}
     </Container>
         
+    <WarningAlert
+    feature="add"
+    item="member"/>
   </>
   );
 };
