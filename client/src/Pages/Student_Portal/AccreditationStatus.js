@@ -87,7 +87,7 @@ function AccreditationStatus() {
   return (
     <>
     <HeroVariant
-        h1Text="Application Status"
+        h1Text="Accreditation Status"
         pText="Check your application."
       />
     <Container className='mt-4'>
