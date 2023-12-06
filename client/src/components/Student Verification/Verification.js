@@ -1,9 +1,46 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Image, Form, Button} from 'react-bootstrap';
+import axios from 'axios';
+import LoadingOverlay from '../LoadingOverlay';
 import '../general.css';
+import {verificationSchema} from '../../Validations/VerificationValidation';
 
 /* When they are verified */
 const Verification = () => {
+  const [loading, setLoading] = useState(false);
+  const [cor, setCOR] = useState(null);
+  const [privacyPolicy, setPrivacyPolicy] = useState(false);
+
+  const handleFileChange = (e) => {
+    setCOR(e.target.files[0]);
+  }
+
+  const handleSubmit = async (e) => {
+    const isValid = await verificationSchema.isValid({cor, privacyPolicy}); 
+    if(isValid){
+    e.preventDefault();
+    setLoading(true);
+    // set headers to multipart/form-data
+    axios.post(`${process.env.REACT_APP_BASE_URL}/student_profile/submit_cor`, cor, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then(res => {
+      if(res.data.success){
+        setLoading(false);
+        alert(res.data.success);
+        window.location.reload();
+      }
+    }).catch(err => {
+      console.log(err);
+    }).finally(() => {
+      setLoading(false);
+    });
+  }else{
+    alert('Please upload a valid Certificate of Registration and accept the privacy policy.');
+  }
+  }
+
     return (
         <Container>
         <Row>
@@ -23,7 +60,7 @@ const Verification = () => {
           <Form className='mx-5 px-5'>
           <Form.Group controlId="formFile" className="mb-3 ">
             <Form.Label>Upload Current Certificate of Registration</Form.Label>
-            <Form.Control type="file" className='text-gray2'/>
+            <Form.Control type="file" className='text-gray2' onChange={handleFileChange}/>
           </Form.Group>
           <Row className='mt-4 mb-0'>
             <Col></Col>
@@ -31,12 +68,13 @@ const Verification = () => {
             <Form.Check
             type="checkbox"
             label={<p>I accept Iskolar Link’s <strong>Terms</strong> and <strong>Privacy Policy</strong>"</p>}
+            onChange={() => setPrivacyPolicy(!privacyPolicy)}
           />
             </Col>
             <Col></Col>
           </Row>
           <div className='text-center'>
-          <Button variant="primary" className='px-4'>Verify Account</Button>
+          <Button variant="primary" className='px-4' onClick={handleSubmit}>Verify Account</Button>
 
           </div>
         </Form>
