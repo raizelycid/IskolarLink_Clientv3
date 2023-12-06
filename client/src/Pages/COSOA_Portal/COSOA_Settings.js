@@ -82,9 +82,10 @@ function COSOASettings(){
       />
 
       <Container className='my-5'>
-      <h1>COSOA Profile</h1>
+      <h1 className='mb-0'>COSOA Profile</h1>
+      <p className='text-red'>Organization Information is an uneditable section.</p>
       <Form>
-            <div>
+            <div className='pt-2'>
             <Form.Group as={Col} md={12} className="mb-3">
                 <Form.Label>
                 Name of Organization (Abbreviation/Initialism)
@@ -156,7 +157,7 @@ function COSOASettings(){
                 
                 </div>
 
-                <div className='my-5'>
+                <div className='my-3'>
                {/*<Form.Group controlId="formFileLg" className="mb-3">
                     <Form.Label>Upload Profile or Logo</Form.Label>
                     <Form.Control 
@@ -173,11 +174,11 @@ function COSOASettings(){
                     maxLength="600"
                     value={cosoa.mission}
                     onChange={(e) => setCOSOA({ ...cosoa, mission: e.target.value })}
-                    placeholder="Enter the mission of the organization..."
+                    placeholder="Hi! Tell us something about your organization..."
                     style={{ width: '98%', margin: '10px' }}
                 />
                 <Form.Text className="text-muted">
-                    {cosoa.mission && 600 - cosoa.mission.length} characters left
+                {`${cosoa.mission ? cosoa.mission.length : 0} / 600 characters left`}
                 </Form.Text>
                 </Form.Group>
                 </div>
@@ -186,22 +187,6 @@ function COSOASettings(){
                 <div>
                 <Row>
                 <Col md={6}>
-                <Form.Group as={Col} md={12} className="mb-3">
-                <Form.Label>Mobile Number</Form.Label>
-                <InputGroup>
-                    <InputGroup.Text>+63</InputGroup.Text>
-                    <Form.Control
-                    type="tel"
-                    placeholder="(XXX) YYY-ZZZZ"
-                    value={cosoa.contact_number}
-                    onChange={(e) => setCOSOA({ ...cosoa, contact_number: e.target.value })}
-                    />
-                </InputGroup>
-                </Form.Group>
-                </Col>
-
-                
-                <Col md={6}>
                     <Form.Group className="mb-3">
                     <Form.Label>PUP Webmail</Form.Label>
                     <Form.Control
@@ -209,13 +194,15 @@ function COSOASettings(){
                         placeholder="e.g. pup@student.pup.edu.ph"
                         value={cosoa.email}
                         onChange={(e) => setCOSOA({ ...cosoa, email: e.target.value })}
+                        readOnly  
+                        disabled
                     />
                     </Form.Group>
                 </Col>
                 </Row>
                 </div>
            
-          <h2 className='mt-5'>Social Media Profile</h2>
+          <h2 className='mt-3'>Social Media Profile</h2>
           <p className="text-gray2 mb-4">Update your Social Media Links</p>
           <Row>
             <Col md={6}>

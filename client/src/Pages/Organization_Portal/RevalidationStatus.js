@@ -181,12 +181,7 @@ function RevalidationStatus() {
                 </tbody>
             </Table>
         </div>
-        {loading && (
-                <LoadingOverlay 
-                    title="Loading Organization Data..." 
-                    subtitle=""
-                />
-            )}
+
     </Container>
     {/*
         <h2 className='text-center'>Accreditation Status</h2>
