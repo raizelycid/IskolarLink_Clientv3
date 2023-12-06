@@ -11,6 +11,7 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import {revalidationSchema} from '../../Validations/RevalidationValidation';
 import ConfirmationDialog from '../../components/Revalidation/ConfirmationDialog';
 import { Alert } from 'react-bootstrap';
+import LoadingOverlay from '../../components/LoadingOverlay'
 
 function Revalidation() {
     const [page, setPage] = useState(0);
@@ -45,6 +46,15 @@ function Revalidation() {
     const [waiverForm, setWaiverForm] = useState('');
     const [confirmation, setConfirmation] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [isCurrentPartValid, setIsCurrentPartValid] = useState(false);
+    const [refresh1,setRefresh1] = useState(false)
+    const [refresh2,setRefresh2] = useState(false)
+    const [refresh3,setRefresh3] = useState(false)
+
+    const updateValidity = (isValid) => {
+        setIsCurrentPartValid(isValid);
+    };
 
 
     const generatePDF = async () => {
@@ -74,20 +84,25 @@ function Revalidation() {
             }
         });
     },[]);
+
+
     useEffect(() => {
         if(page === 0){
             setShow1('block');
+            setRefresh1(true)
             setShow2('none');
             setShow3('none');
             setShow4('none');
         } else if(page === 1){
             setShow1('none');
+            setRefresh2(true)
             setShow2('block');
             setShow3('none');
             setShow4('none');
         } else if(page === 2){
             setShow1('none');
             setShow2('none');
+            setRefresh3(true)
             setShow3('block');
             setShow4('none');
         } else if(page === 3){
@@ -108,7 +123,9 @@ function Revalidation() {
     }, [confirmation])
 
     const submitData = async () => {
+        setLoading(true)
         try {
+            
             console.log(formData)
             const isValid = await revalidationSchema.isValid(formData);
             if(isValid){
@@ -127,6 +144,8 @@ function Revalidation() {
         }
         } catch (err) {
             console.log(err);
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -162,9 +181,9 @@ function Revalidation() {
             <h1 className="form-title">{FormTitles[page]}</h1>
         </div>
         <div className="form-body">
-        <GenInfo formData={formData} setFormData={setFormData} show={show1}/>
-        <RevForms1 formData={formData} setFormData={setFormData} show={show2}/>
-        <RevForms2 formData={formData} setFormData={setFormData} show={show3} path={trackerForm} path2={waiverForm}/>
+        <GenInfo formData={formData} setFormData={setFormData} show={show1} updateValidty={updateValidity} refresh={refresh1} setRefresh={setRefresh1} />
+        <RevForms1 formData={formData} setFormData={setFormData} show={show2} refresh={refresh2} setRefresh={setRefresh2} updateValidty={updateValidity}/>
+        <RevForms2 formData={formData} setFormData={setFormData} show={show3} path={trackerForm} path2={waiverForm} refresh={refresh3} setRefresh={setRefresh3} updateValidty={updateValidity}/>
         <RevFinish show={show4}/>
         {showAlert && showAlertPopup()}
         </div>
@@ -194,6 +213,12 @@ function Revalidation() {
         </Container>
       
     </div>
+    {loading && (
+                <LoadingOverlay 
+                    title="Submitting Application..." 
+                    subtitle="You will be redirected to the Accreditation Status page if submission is a success." 
+                />
+            )}
     </>
   )
 }

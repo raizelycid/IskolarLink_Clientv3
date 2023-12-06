@@ -1,7 +1,7 @@
-import React, {useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect } from 'react';
 import './COSOA_Profile.css';
 import { HeroVariant } from '../../components/HeroVariant/Hero';
-import { Container, Row, Col, Form, Button, InputGroup, Image } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, InputGroup, FormControl } from 'react-bootstrap';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
 import axios from 'axios';
 
@@ -10,15 +10,6 @@ function COSOASettings(){
 
     const [cosoa, setCOSOA] = useState({
     });
-
-    const fileInputRef = useRef(null);
-
-  const handleContainerClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
-  
 
   // Function to handle saving changes
   const handleSaveChanges = () => {
@@ -98,76 +89,24 @@ function COSOASettings(){
                 disabled
                 />
             </Form.Group>
-            <Row className='mt-3'>
-          <Col xs={1}>
-            <Image
-            src="/cosoalogo.png"
-            className="logo"
-            style={{
-              maxWidth: '100px', /* Maximum width for the image */
-              maxHeight: '100px', /* Maximum height for the image */
-              width: '100%', /* Ensures the image fills its container */
-              height: 'auto', /* Allows the image to scale proportionally */
-              borderRadius: '50%', /* Creates a circular shape */
-              display: 'block' /* Ensures proper display */
-            }}
-            alt="Logo"
-          />
-          </Col>
-          <Col className=' d-flex justify-content-center align-items-center'>
-            <Container
-              className='border text-center my-2 rounded-4'
-              fluid
-              onClick={handleContainerClick}
-              style={{ cursor: 'pointer' }}
-            >
-              <input
-                type="file"
-                ref={fileInputRef}
-                style={{ display: 'none' }}
-                onChange={(e) => {
-                  setCOSOA({ ...cosoa, org_picture: e.target.value });
-                }}
-              />
-            <Row className='justify-content-center'>
-              <Image
-                src="/uploadicon.png"
-                style={{
-                  maxWidth: '80px',
-                  maxHeight: '80px',
-                  width: '100%',
-                  height: 'auto',
-                  borderRadius: '50%',
-                  display: 'block'
-                }}
-                alt="Upload Icon"
-              />
-            </Row>
-            <Row className='mb-0 pb-0'>
-              <p className='text-gray2'>
-                <strong className='text-red'>Click to upload</strong> or drag and drop
-                <br />SVG, PNG, or JPG (max. 800x400 px)
-              </p>
-            </Row>
-          </Container>
-        </Col>
-        </Row>
 
                 
                 </div>
 
                 <div className='my-5'>
-               {/*<Form.Group controlId="formFileLg" className="mb-3">
+                <Form.Group controlId="formFileLg" className="mb-3">
                     <Form.Label>Upload Profile or Logo</Form.Label>
                     <Form.Control 
                     type="file" 
                     size="lg"
                     onChange={(e) => {setCOSOA({ ...cosoa, org_picture: e.target.files[0]})}}
                     />
-              </Form.Group>*/}
+                </Form.Group>
+
+                
                 
               <Form.Group as={Row} md={12} className="mb-3">
-                <Form.Label>Your Description</Form.Label>
+                <Form.Label>Your Mission</Form.Label>
                 <Form.Control 
                     as="textarea" 
                     maxLength="600"
@@ -180,40 +119,23 @@ function COSOASettings(){
                     {cosoa.mission && 600 - cosoa.mission.length} characters left
                 </Form.Text>
                 </Form.Group>
+
+                <Form.Group as={Row} md={12} className="mb-3">
+                <Form.Label>Your Vision</Form.Label>
+                <Form.Control 
+                    as="textarea" 
+                    maxLength="600"
+                    value={cosoa.vision}
+                    onChange={(e) => setCOSOA({ ...cosoa, vision: e.target.value })}
+                    placeholder="Enter the vision of the organization..."
+                    style={{ width: '98%', margin: '10px' }}
+                />
+                <Form.Text className="text-muted">
+                    {cosoa.mission && 600 - cosoa.vision.length} characters left
+                </Form.Text>
+                </Form.Group>
                 </div>
             
-
-                <div>
-                <Row>
-                <Col md={6}>
-                <Form.Group as={Col} md={12} className="mb-3">
-                <Form.Label>Mobile Number</Form.Label>
-                <InputGroup>
-                    <InputGroup.Text>+63</InputGroup.Text>
-                    <Form.Control
-                    type="tel"
-                    placeholder="(XXX) YYY-ZZZZ"
-                    value={cosoa.contact_number}
-                    onChange={(e) => setCOSOA({ ...cosoa, contact_number: e.target.value })}
-                    />
-                </InputGroup>
-                </Form.Group>
-                </Col>
-
-                
-                <Col md={6}>
-                    <Form.Group className="mb-3">
-                    <Form.Label>PUP Webmail</Form.Label>
-                    <Form.Control
-                        type="email"
-                        placeholder="e.g. pup@student.pup.edu.ph"
-                        value={cosoa.email}
-                        onChange={(e) => setCOSOA({ ...cosoa, email: e.target.value })}
-                    />
-                    </Form.Group>
-                </Col>
-                </Row>
-                </div>
            
           <h2 className='mt-5'>Social Media Profile</h2>
           <p className="text-gray2 mb-4">Update your Social Media Links</p>
@@ -279,11 +201,10 @@ function COSOASettings(){
             </Col>
           </Row>
           <Row>
-          <Col className="text-end mb-4 mt-2">
-            <Button variant="secondary" onClick={handleSaveChanges} className='mx-3 px-4'>Save Changes</Button>
-            <Button variant="light" className='border px-4'>Cancel</Button>
-          </Col>
-        </Row>
+            <Col className="text-end mb-4">
+              <Button variant="secondary" onClick={handleSaveChanges}>Save Changes</Button>
+            </Col>
+          </Row>
     
       </Form>
 

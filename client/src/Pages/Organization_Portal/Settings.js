@@ -1,74 +1,66 @@
-import React, { useCallback,  useEffect,  useState, useRef } from 'react';
-import './RevalidationStatus.css';
+import React, { useCallback,  useEffect,  useState } from 'react';
+import './Organization_Profile.css';
 import { HeroVariant } from '../../components/HeroVariant/Hero';
-import { Container, Row, Col, Form, Image, Button, InputGroup, FormControl } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, InputGroup, FormControl } from 'react-bootstrap';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
-import Verification, { Verified, VerifyFailed, Verifying } from '../../components/Student Verification/Verification';
 import axios from 'axios';
 
 
-function StudSettings() {
-    const [profileImage, setProfileImage] = useState(null);
-    const [showTempImage, setShowTempImage] = useState(false);
-    const fileInputRef = useRef(null);
+function OrgSettings() {
 
-    const handleContainerClick = () => {
-      if (fileInputRef.current) {
-        fileInputRef.current.click();
+    const [org, setOrg] = useState({});
+    const [user, setUser] = useState({});
+    const [socials, setSocials] = useState({});
+
+    useEffect(() => {
+        try{
+            axios.get(`${process.env.REACT_APP_BASE_URL}/org_portal/organization`)
+            .then((response) => {
+                setOrg(response.data.organization);
+                setUser(response.data.user);
+                console.log(response.data.user)
+                if(response.data.socials){
+                setSocials(response.data.socials);
+                }
+            });
+        }catch(err){
+            console.log(err);
+        }
+        }, []);
+
+    const handleSubmit = () => {
+      // try catch set headers to multipart/form-data
+      try{
+        let formData = {};
+        formData.profile_picture = user.profile_picture;
+        formData.description = user.description;
+        formData.mission = org.mission;
+        formData.vision = org.vision;
+        formData.currentPassword = user.currentPassword;
+        formData.newPassword = user.newPassword;
+        formData.facebook = socials.facebook;
+        formData.twitter = socials.twitter;
+        formData.linkedin = socials.linkedin;
+        formData.instagram = socials.instagram;
+        console.log(formData)
+        axios.post(`${process.env.REACT_APP_BASE_URL}/org_portal/organization/settings`,
+            formData,{
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then((response) => {
+            if(response.data.err){
+                alert(response.data.err);
+            }else{
+                alert("Changes saved.")
+            }
+            //clear formData
+            formData = {};
+        });
+      }catch(err){
+        console.log(err);
       }
-    };
-
-
-
-  // Function to handle saving changes
-  const handleSaveChanges = () => {
-    try{
-      console.log(profile)
-      axios.post(`${process.env.REACT_APP_BASE_URL}/student_portal/update_profile`, profile, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
-      .then((response) => {
-        if(response.data.success){
-          alert(response.data.success);
-        }else{
-          alert(response.data.error);
-        }
-      });
-    }catch(err){
-      console.log(err);
     }
-  };
-
-  const handleFileChange = (e) => {
-    setProfile({...profile, profile_picture: e.target.files[0]});
-    setShowTempImage(true);
-    setProfileImage(URL.createObjectURL(e.target.files[0]));
-  };
-
-
-
-  const [profile, setProfile] = useState({});
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleCORChange = (e) => {
-    setProfile({...profile, cor: e.target.files[0]});
-  };
-
-  useEffect(() => {
-    try{
-      axios.get(`${process.env.REACT_APP_BASE_URL}/student_portal`).then((response) => {
-        setProfile(response.data);
-        console.log(response.data)
-      });
-    }catch(err){
-      console.log(err);
-    }
-  },[]);
-
 
   return (
     <div>
@@ -77,107 +69,63 @@ function StudSettings() {
         pText="Update your profile credentials."
       />
 
-<Container className='my-5'>
+      <Container className='my-5'>
       <h1>Organization Profile</h1>
       <Form>
-            <div>
-              
-
-                <Form.Group as={Row}  className="mb-3" controlId="formHorizontalImage">
-                    <Form.Label column sm={2}>
-                    {showTempImage ?
-                        <Image src={profileImage} alt="Profile Preview" roundedCircle fluid /> :
-                    profile.profile_picture ? 
-                        <Image src={`${process.env.REACT_APP_BASE_URL}/images/${profile.profile_picture}`} alt="Profile Preview" roundedCircle fluid /> :
-                        <FontAwesomeIcon icon={faUserCircle} size="6x" className="text-white" />
-                    
-                    }   
-                    </Form.Label>
-                    <Col sm={10}>
-                    <InputGroup>
-                        <FormControl
-                        type="file"
-                        onChange={handleFileChange}
-                        disabled={!profile.is_verified}
-                        />
-                    </InputGroup>
-                    </Col>
+                <div className='my-5'>
+                <Form.Group controlId="formFileLg" className="mb-3">
+                    <Form.Label>Upload Profile or Logo</Form.Label>
+                    <Form.Control type="file" size="lg" onChange={(e) => {setUser({ ...user, profile_picture: e.target.files[0]})}}/>
                 </Form.Group>
-                <Row className='mt-3'>
-          <Col xs={1}>
-            <Image
-            src="/cosoalogo.png"
-            className="logo"
-            style={{
-              maxWidth: '100px', /* Maximum width for the image */
-              maxHeight: '100px', /* Maximum height for the image */
-              width: '100%', /* Ensures the image fills its container */
-              height: 'auto', /* Allows the image to scale proportionally */
-              borderRadius: '50%', /* Creates a circular shape */
-              display: 'block' /* Ensures proper display */
-            }}
-            alt="Logo"
-          />
-          </Col>
-          <Col className=' d-flex justify-content-center align-items-center'>
-            <Container
-              className='border text-center my-2 rounded-4'
-              fluid
-              onClick={handleContainerClick}
-              style={{ cursor: 'pointer' }}
-            >
-              <input
-                type="file"
-                ref={fileInputRef}
-                style={{ display: 'none' }}
-                onChange={(e) => {
-                  setProfile({ ...profile, org_picture: e.target.value });
-                }}
-              />
-            <Row className='justify-content-center'>
-              <Image
-                src="/uploadicon.png"
-                style={{
-                  maxWidth: '80px',
-                  maxHeight: '80px',
-                  width: '100%',
-                  height: 'auto',
-                  borderRadius: '50%',
-                  display: 'block'
-                }}
-                alt="Upload Icon"
-              />
-            </Row>
-            <Row className='mb-0 pb-0'>
-              <p className='text-gray2'>
-                <strong className='text-red'>Click to upload</strong> or drag and drop
-                <br />SVG, PNG, or JPG (max. 800x400 px)
-              </p>
-            </Row>
-          </Container>
-        </Col>
-        </Row>
-                
 
                 <Form.Group as={Row}  md={12}  className="mb-3" controlId="formBio">
-            <Form.Label>Bio</Form.Label>
+            <Form.Label>Description</Form.Label>
               <FormControl
                 as="textarea"
-                placeholder="Hi! Tell us something about yourself..."
+                placeholder="Hi! Tell us something about the organization..."
                 style={{ width: '98%', margin: '10px' }}
-                value={profile.description}
-                onChange={(e) => setProfile({...profile, description: e.target.value})}
+                value={user.description}
+                onChange={(e) => setUser({...user, description: e.target.value})}
                 maxLength={600}
-                disabled={!profile.is_verified}
               />
               <Form.Text className="text-muted">
-                {profile.description && 600 - profile.description.length} characters left
+                {user.description ? 600 - user.description.length : 600} characters left
               </Form.Text>
           </Form.Group>
-          
+                
+              <Form.Group as={Row} md={12} className="mb-3">
+                <Form.Label>Your Mission</Form.Label>
+                <Form.Control 
+                    as="textarea"
+                    maxLength="600"
+                    value={org.mission}
+                    onChange={(e) => setOrg({ ...org, mission: e.target.value })}
+                    placeholder="Enter the mission of the organization..."
+                    style={{ width: '98%', margin: '10px' }}
+                />
+                <Form.Text className="text-muted">
+                    {org.mission && 600 - org.mission.length} characters left
+                </Form.Text>
+                </Form.Group>
 
-          <div className='my-5'>
-            <h2 className='mb-0'>Password</h2>
+                <Form.Group as={Row} md={12} className="mb-3">
+                <Form.Label>Your Vision</Form.Label>
+                <Form.Control 
+                    as="textarea" 
+                    maxLength="600"
+                    value={org.vision}
+                    onChange={(e) => setOrg({ ...org, vision: e.target.value })}
+                    placeholder="Enter the vision of the organization..."
+                    style={{ width: '98%', margin: '10px' }}
+                />
+                <Form.Text className="text-muted">
+                    {org.vision && 600 - org.vision.length} characters left
+                </Form.Text>
+                </Form.Group>
+                </div>
+            
+            <div className='my-5'>
+            <h2>Password</h2>
             <p className="text-gray2 mb-4">Change your Password.</p>
             <Row>
               <Col md={6}>
@@ -186,8 +134,8 @@ function StudSettings() {
                   <Form.Control
                     type="password"
                     placeholder="Enter current password"
-                    value={profile.currentPassword}
-                    onChange={(e) => setProfile({...profile, currentPassword: e.target.value})}
+                    value={user.currentPassword}
+                    onChange={(e) => setUser({ ...user, currentPassword: e.target.value })}
                   />
                 </Form.Group>
               </Col>
@@ -198,31 +146,28 @@ function StudSettings() {
                   <Form.Control
                     type="password"
                     placeholder="Enter new password"
-                    value={profile.newPassword}
-                    onChange={(e) => setProfile({...profile, newPassword: e.target.value})}
+                    value={user.newPassword}
+                    onChange={(e) => setUser({ ...user, newPassword: e.target.value })}
                   />
                 </Form.Group>
               </Col>
             </Row>
+          
             </div>
-
-            <div className='mt-3'>
-            <h2>Social Media Profile</h2>
-            <p className="text-gray2 mb-4">Update your Social Media Links</p>
-            </div>
-
-            <Row>
+           
+          <h2>Social Media Profile</h2>
+          <p className="text-gray2 mb-4">Update your Social Media Links</p>
+          <Row>
             <Col md={6}>
               <Form.Group className="mb-3">
-                <Form.Label>Facebook</Form.Label>
+                <Form.Label>Social Link 1</Form.Label>
                 <InputGroup>
                   <InputGroup.Text><FaFacebookF /></InputGroup.Text>
                   <Form.Control 
                     type="url" 
                     placeholder="Profile link/url..." 
-                    value={profile.facebook}
-                    onChange={(e) => setProfile({...profile, facebook: e.target.value})}
-                    disabled={!profile.is_verified}
+                    value={socials.facebook}
+                    onChange={(e) => setSocials({ ...socials, facebook: e.target.value })}
                   />
                 </InputGroup>
               </Form.Group>
@@ -230,15 +175,14 @@ function StudSettings() {
             
             <Col md={6}>
               <Form.Group className="mb-3">
-                <Form.Label>Twitter</Form.Label>
+                <Form.Label>Social Link 2</Form.Label>
                 <InputGroup>
                   <InputGroup.Text><FaTwitter /></InputGroup.Text>
                   <Form.Control 
                     type="url" 
                     placeholder="Profile link/url..." 
-                    value={profile.twitter}
-                    onChange={(e) => setProfile({...profile, twitter: e.target.value})}
-                    disabled={!profile.is_verified}
+                    value={socials.twitter}
+                    onChange={(e) => setSocials({ ...socials, twitter: e.target.value })}
                   />
                 </InputGroup>
               </Form.Group>
@@ -246,15 +190,14 @@ function StudSettings() {
 
             <Col md={6} className="mb-4">
               <Form.Group className="mb-3">
-                <Form.Label>LinkedIn</Form.Label>
+                <Form.Label>Social Link 3</Form.Label>
                 <InputGroup>
                   <InputGroup.Text><FaLinkedinIn /></InputGroup.Text>
                   <Form.Control 
                     type="url" 
                     placeholder="Profile link/url..." 
-                    value={profile.linkedin} 
-                    onChange={(e) => setProfile({...profile, linkedin: e.target.value})}
-                    disabled={!profile.is_verified}
+                    value={socials.linkedin}
+                    onChange={(e) => setSocials({...socials, linkedin: e.target.value})}
                   />
                 </InputGroup>
               </Form.Group>
@@ -268,66 +211,27 @@ function StudSettings() {
                   <Form.Control 
                     type="url" 
                     placeholder="Profile link/url..." 
-                    value={profile.instagram} 
-                    onChange={(e) => setProfile({...profile, instagram: e.target.value})}
-                    disabled={!profile.is_verified}
+                    value={socials.instagram}
+                    onChange={(e) => setSocials({ ...socials, instagram: e.target.value })}
                   />
                 </InputGroup>
               </Form.Group>
             </Col>
           </Row>
           <Row>
-            {!profile.is_verified ?
-          <Form.Group as={Row}  md={12}  className="mb-3" controlId="formCOR">
-            <Form.Label>Certificate of Registration</Form.Label>
-            {(!profile.cor && !profile.cor_remarks) ?
-              <InputGroup>
-                <FormControl
-                  type="file"
-                  placeholder="Upload Certificate of Registration"
-                  style={{ width: '98%', margin: '10px' }}
-                  onChange={(e) => setProfile({...profile, cor: e.target.files[0]})}
-                />
-              </InputGroup>
-              : (!profile.cor && profile.cor_remarks) ? 
-              (<><InputGroup>
-                <FormControl
-                  type="file"
-                  placeholder="Upload Certificate of Registration"
-                  style={{ width: '98%', margin: '10px' }}
-                  onChange={(e) => setProfile({...profile, cor: e.target.files[0]})}
-                />
-              </InputGroup>
-              <p className="text-black2"><strong>Feedback: {profile.cor_remarks}</strong></p></>)
-              :
-               "You have already uploaded your Certificate of Registration. Please click \"Save Changes\" wait for the admin to verify your COR or for feedback."}
-          </Form.Group>
-          : "Congratulations! Your account has been verified."}
-          </Row>
-          <br/>
-          <Row>
             <Col className="text-end mb-4">
-              <Button variant="secondary" onClick={handleSaveChanges} className='mx-2'>Save Changes</Button>
-              <Button variant="light" className='border px-4'>Cancel</Button>
-
+              <Button variant="secondary" onClick={handleSubmit}>Save Changes</Button>{' '}
+              <Button className="btn-cancel" onClick={''}>Cancel</Button>
             </Col>
           </Row>
-          
-          </div>
-
-      </Form>
-      {/*
-      <Verification/>
-      <Verifying/>
-      <Verified/>
-      <VerifyFailed/>*/
-}
-    </Container>
     
+      </Form>
+
+    </Container>
     </div>
 
   )
 }
 
 
-export default StudSettings;
+export default OrgSettings;

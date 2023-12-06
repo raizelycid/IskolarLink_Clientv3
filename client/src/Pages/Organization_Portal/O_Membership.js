@@ -10,7 +10,7 @@ function O_Membership() {
 
   const [members, setMembers] = useState([]);
   const [org, setOrg] = useState({});
-/*
+
   useEffect(() => {
     try{
       axios.get(`${process.env.REACT_APP_BASE_URL}/org_portal/organization/membership`)
@@ -23,7 +23,7 @@ function O_Membership() {
       console.log(err);
     }
   }, []);
-*/
+
   const handleAccept = (studentId) => {
     try{
       axios.post(`${process.env.REACT_APP_BASE_URL}/membership/membership`, {studentId: studentId, status: 'Accepted', orgId: org.id})

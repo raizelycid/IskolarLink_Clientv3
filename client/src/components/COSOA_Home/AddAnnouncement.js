@@ -3,13 +3,18 @@ import { useRef } from 'react';
 import { Button, Modal, Form, Row, Col, CloseButton, Container, Image} from 'react-bootstrap';
 import './general.css';
 import axios from 'axios';
+import LoadingOverlay from '../LoadingOverlay'
 
 
 function AddAnnouncement({setRefreshAnnouncement}) {
+
+  axios.defaults.withCredentials = true;
   const [showAnnouncement, setShowAnnouncement] = useState(false);
   const handleCloseAnnouncement = () => setShowAnnouncement(false);
   const [showTempImage, setShowTempImage] = useState(false);
+  const [previewImageUrl, setPreviewImageUrl] = useState('');
   const fileInputRef = useRef(null);
+  const [loading, setLoading] = useState(false);
 
   const handleShowAnnouncement = () => setShowAnnouncement(true);
 
@@ -20,9 +25,11 @@ function AddAnnouncement({setRefreshAnnouncement}) {
     cosoa_ann_photo: ""
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
+      console.log(postAnnouncement)
       axios.post(`${process.env.REACT_APP_BASE_URL}/cosoa_ann`, postAnnouncement, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -39,7 +46,9 @@ function AddAnnouncement({setRefreshAnnouncement}) {
       });
       
     } catch (error) {
-      
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -50,9 +59,16 @@ function AddAnnouncement({setRefreshAnnouncement}) {
     };
 
     const handleFileChange = (e) => {
-      setPostAnnouncement({...postAnnouncement, cosoa_ann_photo: e.target.files[0]});
-      setShowTempImage(true);
-      setPostAnnouncement(URL.createObjectURL(e.target.files[0]));
+      const selectedFile = e.target.files[0]
+      if(selectedFile){
+        setShowTempImage(true)
+        setPreviewImageUrl(URL.createObjectURL(selectedFile))
+        setPostAnnouncement({...postAnnouncement, cosoa_ann_photo: selectedFile})
+      }else{
+        setShowTempImage(false)
+        setPreviewImageUrl('')
+      }
+      
     };
   
 
@@ -80,7 +96,7 @@ function AddAnnouncement({setRefreshAnnouncement}) {
               <Form>
                 <Form.Group className="mb-3" controlId="formAnnouncementTitle">
                   <Form.Label className='Inter-med'>Title/Headline</Form.Label>
-                  <Form.Control type="text" required lassName='Inter-normal' onChange={(e) => {setPostAnnouncement({...postAnnouncement, cosoa_ann_title: e.target.value})}}/>
+                  <Form.Control type="text" required className='Inter-normal' onChange={(e) => {setPostAnnouncement({...postAnnouncement, cosoa_ann_title: e.target.value})}}/>
                 </Form.Group>
               <Form.Label>Upload Photo</Form.Label>  
               <Container
@@ -89,6 +105,20 @@ function AddAnnouncement({setRefreshAnnouncement}) {
               onClick={handleContainerClick}
               style={{ cursor: 'pointer' }}
             >
+              {showTempImage ? (
+                <Image
+                src={previewImageUrl}
+                style={{
+                  width: '100%',
+                  height: '300px',
+                  objectFit: 'cover',
+                  display: 'block',
+                  borderRadius: '10px',
+                  marginTop: '10px'
+                }}
+                alt='Uploaded Image'
+                />
+              ):null}
               <input
                 type="file"
                 ref={fileInputRef}
@@ -148,6 +178,7 @@ function AddAnnouncement({setRefreshAnnouncement}) {
           </Modal.Body>
         </Container>
       </Modal>
+      {loading && <LoadingOverlay title={"Uploading Announcement..."}/>}
     </>
   );
 }

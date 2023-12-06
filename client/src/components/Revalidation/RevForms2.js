@@ -1,9 +1,15 @@
-import {React, useState} from 'react'
+import {React, useState, useEffect} from 'react'
 import './RevFinish.css';
 import { Form, ToggleButton, Row, Image, Col, Button } from 'react-bootstrap'
 import Container from 'react-bootstrap/Container';
 
-const RevForms2 = ({formData, setFormData,show,path,path2}) => {
+const RevForms2 = ({formData, setFormData,show,path,path2, updateValidty, refresh, setRefresh}) => {
+
+    useEffect(()=>{
+        setRefresh(false)
+        const valid = formData.RF001 && formData.RD011 && formData.privacyPolicy === true;
+        updateValidty(valid)
+    },[formData,refresh])
 
     const [checked, setChecked] = useState(false);
   return (
@@ -12,7 +18,7 @@ const RevForms2 = ({formData, setFormData,show,path,path2}) => {
     <Container>
     <Image src="/3rd.png" alt="IskolarLink Logo"  fluid style={{ marginBottom: '20px' }}/>    
         <Row className="p-4">
-        <p className='mb-4'>Note: To easily sign documents, you can use an online electronic signature. <a href="https://www.ilovepdf.com/sign-pdf" target="_blank" rel="noopener noreferrer">Click Here</a></p>
+        <p className='mb-4'>Note: To easily sign documents, you can use an online electronic signature. <a href="https://youtu.be/o47tZWzYy7k?si=uI2z2m1nVk-38NY-" target="_blank" rel="noopener noreferrer">Click Here</a></p>
         <Form.Group as={Row} controlId='RF001' className="mb-3">
             <Form.Label>Upload Signed Tracker Form <span className='accreditation-download' onClick={() => window.open(`${process.env.REACT_APP_BASE_URL}/${path}`,'_blank','noopener')}  style={{ cursor: 'pointer', textDecoration:'underline', color:'blue' }}>(Download Generated File Here)</span></Form.Label>
             <Form.Control type="file" placeholder='e.g. RF001.pdf' onChange={(e) => setFormData({...formData, RF001: e.target.files[0]})}/>

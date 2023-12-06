@@ -143,6 +143,7 @@ function Org_Profile() {
         </Row>
       </Container>
 
+            {announcements.length > 0  &&
       <Container className='my-5'>
         <Row className='text-center'>
           <h1 className='text-red'>Latest Announcements</h1>
@@ -158,7 +159,7 @@ function Org_Profile() {
           })
         }
         
-      </Container>
+      </Container>}
       {loading &&
       <LoadingOverlay title={"Loading Organization Data"}/>
       }
