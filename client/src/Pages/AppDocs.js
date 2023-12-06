@@ -53,27 +53,27 @@ function AppDocs() {
   }
 
   const downloadRD002 = () => {
-    saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD002-OFFICIAL LIST.docx'}`, 'RD003-OFFICIAL LIST OF OFFICERS AND ADVISERS.docx');
+    saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD002-OFFICIAL LIST.docx'}`, 'RD002-OFFICIAL LIST OF OFFICERS AND ADVISERS.docx');
   }
 
   const downloadRD003 = () => {
-    saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD003-OFFICERS\' PROFILE.docx'}`, 'RD004-OFFICERS PROFILE.docx');
+    saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD003-OFFICERS\' PROFILE.docx'}`, 'RD003-OFFICERS PROFILE.docx');
   }
 
   const downloadRD004 = () => {
-    saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD004-LETTER OF CONCURRENCE.docx'}`, 'RD005-ADVIER LETTER OF CONCURRENCE.docx');
+    saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD004-LETTER OF CONCURRENCE.docx'}`, 'RD004-ADVIER LETTER OF CONCURRENCE.docx');
   }
 
   const downloadRD005 = () => {
-    saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD005-CBL-TABLE-OF-AMENDMENTS.docx'}`, 'RD006-CONSTITUTION AND BYLAWS.docx');
+    saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD005-CBL-TABLE-OF-AMENDMENTS.docx'}`, 'RD005-CONSTITUTION AND BYLAWS.docx');
   }
 
   const downloadRD006 = () => {
-    saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD006-GPOA.docx'}`, 'RD007-GENERAL PLAN OF ACTIVITIES.docx');
+    saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD006-GPOA.docx'}`, 'RD006-GENERAL PLAN OF ACTIVITIES.docx');
   }
 
   const downloadRD007 = () => {
-    saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD007-ADVOCACY PLAN.docx'}`, 'RD008-ADVOCACY PLAN.docx');
+    saveAs(`${process.env.REACT_APP_BASE_URL}/revalidation/${'RD007-ADVOCACY PLAN.docx'}`, 'RD007-ADVOCACY PLAN.docx');
   }
 
   const downloadRD008 = () => {
@@ -145,7 +145,7 @@ function AppDocs() {
                     <tr>
                       <th>Certificate of Recognition from Central/Local Student Council</th>
                       <th>AD001</th>
-                      <th><a onClick={downloadAD001}>No Template</a></th>
+                      <th><a href="#" onClick={downloadAD001}>Download</a></th>
                     </tr>
                     <tr>
                       <th>Official List of Officers and Adviser(s) with signatures over printed names, and list of members <i>(at least 15 members including the officers/executives)</i></th>
