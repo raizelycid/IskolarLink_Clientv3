@@ -79,6 +79,54 @@ function StudSettings() {
               
 
                 <Form.Group as={Row}  className="mb-3" controlId="formHorizontalImage">
+            <Row className='mt-3'>
+          <Col xs={1}>
+             {showTempImage ?
+              <Image src={profileImage} alt="Profile Preview" roundedCircle fluid className='setting-logo '/> :
+              profile.profile_picture ? 
+              <Image src={`${process.env.REACT_APP_BASE_URL}/images/${profile.profile_picture}`} alt="Profile Preview" roundedCircle fluid className='setting-logo '/> :
+              <FontAwesomeIcon icon={faUserCircle} size="6x" className="text-white" />      
+            } 
+  
+          </Col>
+          <Col className=' d-flex justify-content-center align-items-center'>
+            <Container
+              className='border text-center my-2 rounded-4'
+              fluid
+              onClick={handleContainerClick}
+              style={{ cursor: 'pointer' }}
+            >
+              <input
+                type="file"
+                ref={fileInputRef}
+                style={{ display: 'none' }}
+                onChange={handleFileChange}
+              />
+            <Row className='justify-content-center'>
+              <Image
+                src="/uploadicon.png"
+                style={{
+                  maxWidth: '80px',
+                  maxHeight: '80px',
+                  width: '100%',
+                  height: 'auto',
+                  borderRadius: '50%',
+                  display: 'block'
+                }}
+                alt="Upload Icon"
+              />
+            </Row>
+            <Row className='mb-0 pb-0'>
+              <p className='text-gray2'>
+                <strong className='text-red'>Click to upload</strong> or drag and drop
+                <br />SVG, PNG, or JPG (max. 800x400 px)
+              </p>
+            </Row>
+          </Container>
+        </Col>
+        </Row>
+{/*
+                <Form.Group as={Row} controlId="formHorizontalImage">
                     <Form.Label column sm={2}>
                     {showTempImage ?
                         <Image src={profileImage} alt="Profile Preview" roundedCircle fluid /> :
@@ -100,6 +148,8 @@ function StudSettings() {
                 </Form.Group>
 
                 <Form.Group as={Row}  md={12}  className="mb-3" controlId="formBio">
+                  */}
+                <Form.Group as={Row}  md={12}  controlId="formBio">
             <Form.Label>Bio</Form.Label>
               <FormControl
                 as="textarea"
@@ -111,7 +161,7 @@ function StudSettings() {
                 disabled={!profile.is_verified}
               />
               <Form.Text className="text-muted">
-                {profile.description && 600 - profile.description.length} characters left
+              {`${profile.description ? profile.description.length : 0} / 600 characters left`}
               </Form.Text>
           </Form.Group>
           
@@ -216,6 +266,7 @@ function StudSettings() {
               </Form.Group>
             </Col>
           </Row>
+          {/*
           <Row>
             {!profile.is_verified ?
           <Form.Group as={Row}  md={12}  className="mb-3" controlId="formCOR">
@@ -245,6 +296,7 @@ function StudSettings() {
           : "Congratulations! Your account has been verified."}
           </Row>
           <br/>
+              */}
           <Row>
             <Col className="text-end mb-4">
               <Button variant="secondary" onClick={handleSaveChanges} className='mx-2'>Save Changes</Button>
@@ -252,6 +304,12 @@ function StudSettings() {
           </Row>
           
           </div>
+          <Col className="text-end mb-4 mt-2">
+            <Button variant="secondary" onClick={handleSaveChanges} className='mx-3 px-4'>Save Changes</Button>
+            <Button variant="light" className='border px-4'>Cancel</Button>
+          </Col>
+          </Row>
+        </div>
 
       </Form>
       {/*

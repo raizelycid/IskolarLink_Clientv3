@@ -84,7 +84,6 @@ function AccreditationStatus() {
         }
         console.log(requirements)
     }
-
   return (
     <>
     <HeroVariant
@@ -105,19 +104,16 @@ function AccreditationStatus() {
             alt="Logo"
         />
         </Col>
-        <Col xs={5} className='d-flex align-items-center ms-2'>
+        <Col xs={8} className='d-flex align-items-center ms-2'>
             <Row>
-                <h2 className='text-red mb-0'>PUP Sample Organization Name</h2>
-                {/*<h2 className='text-red'>{org.org_name}</h2>*/}
+                <h2 className='text-red mb-0'>{org.org_name}</h2>
                 <p>Organization Name</p>
             </Row>
         </Col>
         <Col className='d-flex align-items-center justify-content-end'>
-          <Dropdown>
-            <Dropdown.Toggle variant='secondary'>
-              Pending
-            </Dropdown.Toggle>
-          </Dropdown>
+          <Button variant='secondary' className='px-5'>
+            Pending
+          </Button>
         </Col>
       </Row>
     </Container>
@@ -125,20 +121,23 @@ function AccreditationStatus() {
         <Row>
             <Form.Group>
                 <Form.Label>Classification of Jurisdiction</Form.Label>
-                <Form.Control type="text" value={org.jurisdiction} readOnly></Form.Control>
+                <Form.Control type="text" value={org.jurisdiction} 
+                readOnly></Form.Control>
             </Form.Group>
         </Row>
         <Row className='mt-2'>
             <Col>
             <Form.Group >
                 <Form.Label>Nature / Type of Student Organization</Form.Label>
-                <Form.Control type="text" value={org.type} readOnly></Form.Control>
+                <Form.Control type="text" value={org.type} 
+                readOnly></Form.Control>
             </Form.Group>
             </Col>
             <Col>
             <Form.Group>
                 <Form.Label>Sub-classification of  Jurisdiction</Form.Label>
-                <Form.Control type="text" value={org.subjurisdiction} readOnly></Form.Control>
+                <Form.Control type="text" value={org.subjurisdiction} 
+                readOnly></Form.Control>
             </Form.Group>
             </Col>
         </Row>
@@ -146,23 +145,25 @@ function AccreditationStatus() {
             <Col>
             <Form.Group>
                 <Form.Label>Complete Name of Student Organization’s Adviser(s)</Form.Label>
-                <Form.Control type="text" value={adviserString} readOnly></Form.Control>
+                <Form.Control type="text" value={adviserString} 
+                readOnly></Form.Control>
             </Form.Group>
             </Col>
-            {/*<Col>
+            <Col>
             <Form.Group>
                 <Form.Label>PUP Webmail</Form.Label>
-                <Form.Control type="email" value={org.email} readOnly></Form.Control>
+                <Form.Control type="email" value={org.email} 
+                readOnly></Form.Control>
             </Form.Group>
-        </Col>*/}
+            </Col>
         </Row>
     </Container>
     <Container className='text-center mt-4'>
         <Row>
         <Col></Col>
         <Col xs={5}>
-        <h1 className='text-red'>Application Status</h1>
-        <p>Discover the latest announcement that will shape the future of PUP COSOA and elevate your student experience!</p>
+        <h1 className='text-red mt-3'>Application Status</h1>
+        <p>Check out your application status and remarks (if there are any)!</p>
         </Col>
         <Col></Col>
         </Row>
@@ -185,9 +186,9 @@ function AccreditationStatus() {
                                 <td>{requirement.requirement_name}</td>
                                 <td>{requirement.form_name}</td>
                                 <td>{requirement.remarks}</td>
-                                <td>{requirement.status === 'Approved' ? <Button variant='success' disabled>Approved</Button>
-                                : requirement.status === 'Revision' ? <><Button variant="warning" onClick={event => handleClick(event, requirement.requirement_name, requirement.id)}>Resubmit</Button> <input type="file" style={{display:'none'}} onChange={handleChange} ref={hiddenFileInput}/> </>
-                                : <Button variant='primary' disabled>Resubmit</Button>}</td>
+                                <td>{requirement.status === 'Approved' ? <Button variant='primary' disabled>Approved</Button>
+                                : requirement.status === 'Revision' ? <><Button variant="secondary" onClick={event => handleClick(event, requirement.requirement_name, requirement.id)}>Resubmit</Button> <input type="file" style={{display:'none'}} onChange={handleChange} ref={hiddenFileInput}/> </>
+                                : <Button variant='primary' disabled>None</Button>}</td>
                             </tr>
                         );
                     })}

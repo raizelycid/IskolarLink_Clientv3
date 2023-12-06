@@ -46,6 +46,7 @@ import Terms from './Pages/Terms';
 import { Link } from 'react-router-dom';
 import { AccreditationStatusProvider } from './helpers/AccreditationStatusContext';
 import WhoWeAre from './Pages/WhoWeAre';
+import Verification from './Pages/Student_Portal/Verification_Page';
 
 function App() {
 
@@ -239,6 +240,7 @@ function App() {
         <Route path="/admin/feedback" exact element={<User_Feedback/>}/>
         <Route path="/terms" exact element={<Terms/>}/>
         <Route path="/whoweare" exact element={<WhoWeAre/>}/>
+        <Route path="/student/verification" exact element={<Verification/>}/>
       </Routes>
 
       <footer className="footer bg-dark text-white py-4 border-bottom Inter">
