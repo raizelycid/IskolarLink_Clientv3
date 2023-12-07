@@ -119,14 +119,22 @@ function Org_Profile() {
           </Col>
           {authState.status &&
           <Col xs={12} md={4} lg={3} className="text-md-right text-end mt-3 mt-md-0">
+
+            {org.organization?.membership_period ?
+            <Button variant="warning"  className="apply-now-btn apply" onClick={handleApply}>Apply Now</Button>
+            :
+            <Button variant="warning"  className="apply-now-btn" disabled>Closed Membership</Button>
+            }
             {org.organization?.membership_period && !applied ?
             <Button variant="warning"  className="apply-now-btn" onClick={handleApply} disabled={!authState.is_verified}>Apply Now</Button>
             : org.organization?.membership_period && applied ?
               <Button variant="danger" className='apply-now-btn' onClick={handleCancel} disabled={!authState.is_verified}>Cancel Membership</Button>
             :<Button variant="warning"  className="apply-now-btn" disabled>Membership Period Closed</Button>
             }
+          
           </Col>
           }
+          
         </Row>
           {org.organization?.mission ?
           <Col>
