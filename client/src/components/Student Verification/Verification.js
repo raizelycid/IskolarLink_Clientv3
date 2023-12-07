@@ -21,7 +21,8 @@ const Verification = () => {
     e.preventDefault();
     setLoading(true);
     // set headers to multipart/form-data
-    axios.post(`${process.env.REACT_APP_BASE_URL}/student_profile/submit_cor`, cor, {
+    console.log(cor)
+    axios.post(`${process.env.REACT_APP_BASE_URL}/student_portal/submit_cor`, cor, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
@@ -81,6 +82,7 @@ const Verification = () => {
           </Col>
           <Col></Col>
         </Row>
+        {loading && <LoadingOverlay title={"Submitting Certificate of Registration..."}/>}
         
         </Container>
     );

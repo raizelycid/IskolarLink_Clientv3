@@ -15,7 +15,8 @@ function Verification_Page() {
   useEffect(() => {
     setLoading(true);
     try{
-      axios.get(`${process.env.REACT_APP_BASE_URL}/student_profile/check_cor`).then(res => {
+      axios.get(`${process.env.REACT_APP_BASE_URL}/student_portal/check_cor`).then(res => {
+        console.log(res.data.process);
         if(res.data.process === 'pending'){
           setStatus('pending');
         }else if(res.data.process === 'returned'){
