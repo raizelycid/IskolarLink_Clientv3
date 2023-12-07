@@ -124,14 +124,17 @@ function Org_Profile() {
             <Button variant="warning"  className="apply-now-btn apply" onClick={handleApply}>Apply Now</Button>
             :
             <Button variant="warning"  className="apply-now-btn" disabled>Closed Membership</Button>
+            }
             {org.organization?.membership_period && !applied ?
             <Button variant="warning"  className="apply-now-btn" onClick={handleApply} disabled={!authState.is_verified}>Apply Now</Button>
             : org.organization?.membership_period && applied ?
               <Button variant="danger" className='apply-now-btn' onClick={handleCancel} disabled={!authState.is_verified}>Cancel Membership</Button>
             :<Button variant="warning"  className="apply-now-btn" disabled>Membership Period Closed</Button>
             }
+          
           </Col>
           }
+          
         </Row>
           {org.organization?.mission ?
           <Col>

@@ -272,3 +272,51 @@
   background-color: #800 !important;
   color: white !important; /* Change text color to white */
 }
+
+.list-group-item-no-outline {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  margin-bottom: 10px;
+
+}
+.list-group-item-no-outline:focus,
+.list-group-item-no-outline:active {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  margin-bottom: 20px;
+}
+
+.no-border {
+  border: none !important;
+}
+
+.no-border:hover {
+  color: #d03948; 
+}
+
+.nav-item-hover:hover {
+  color: #d03948; /* or the specific shade of red you prefer */
+}
+
+.nav-item-hover:active {
+  color: #d03948; /* or the specific shade of red you prefer */
+}
+
+.list-group-item:hover {
+  background-color: #f0bdbd; /* This will change the background of the item */
+  color: rgb(0, 0, 0); /* This changes the text color so it stands out */
+  border-radius: 10px;
+}
+
+.list-group-item:active {
+  background-color: #f0bdbd; /* This will change the background of the item */
+  color: rgb(0, 0, 0); /* This changes the text color so it stands out */
+  border-radius: 7px;
+}
+
+.list-group-item-no-outline {
+  background-color: transparent !important;
+}
+
