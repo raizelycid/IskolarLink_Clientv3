@@ -11,12 +11,24 @@ import LoadingOverlay from '../../components/LoadingOverlay';
 
 
 function StudSettings() {
-    const [profileImage, setProfileImage] = useState(null);
+    const [profileImage, setProfileImage] = useState('');
     const [showTempImage, setShowTempImage] = useState(false);
-    const [profile, setProfile] = useState({});
+    const [profile, setProfile] = useState({
+      profile_picture: '',
+      description: '',
+      currentPassword: '',
+      newPassword: '',
+      facebook: '',
+      twitter: '',
+      linkedin: '',
+      instagram: '',
+      is_verified: false
+    });
   const [submitted, setSubmitted] = useState(false);
   const fileInputRef = useRef(null);
   const [loading, setLoading] = useState(false);
+
+  axios.defaults.withCredentials = true;
 
   const handleContainerClick = () => {
     if (fileInputRef.current) {
@@ -145,7 +157,7 @@ function StudSettings() {
                 as="textarea"
                 placeholder="Hi! Tell us something about yourself..."
                 style={{ width: '98%', margin: '10px' }}
-                value={profile.description}
+                value={profile.description || ''}
                 onChange={(e) => setProfile({...profile, description: e.target.value})}
                 maxLength={600}
                 disabled={!profile.is_verified}
@@ -166,7 +178,7 @@ function StudSettings() {
                   <Form.Control
                     type="password"
                     placeholder="Enter current password"
-                    value={profile.currentPassword}
+                    value={profile.currentPassword || ''}
                     onChange={(e) => setProfile({...profile, currentPassword: e.target.value})}
                   />
                 </Form.Group>
@@ -178,7 +190,7 @@ function StudSettings() {
                   <Form.Control
                     type="password"
                     placeholder="Enter new password"
-                    value={profile.newPassword}
+                    value={profile.newPassword || ''}
                     onChange={(e) => setProfile({...profile, newPassword: e.target.value})}
                   />
                 </Form.Group>
@@ -200,7 +212,7 @@ function StudSettings() {
                   <Form.Control 
                     type="url" 
                     placeholder="Profile link/url..." 
-                    value={profile.facebook}
+                    value={profile.facebook || ''}
                     onChange={(e) => setProfile({...profile, facebook: e.target.value})}
                     disabled={!profile.is_verified}
                   />
@@ -216,7 +228,7 @@ function StudSettings() {
                   <Form.Control 
                     type="url" 
                     placeholder="Profile link/url..." 
-                    value={profile.twitter}
+                    value={profile.twitter || ''}
                     onChange={(e) => setProfile({...profile, twitter: e.target.value})}
                     disabled={!profile.is_verified}
                   />
@@ -232,7 +244,7 @@ function StudSettings() {
                   <Form.Control 
                     type="url" 
                     placeholder="Profile link/url..." 
-                    value={profile.linkedin} 
+                    value={profile.linkedin || ''} 
                     onChange={(e) => setProfile({...profile, linkedin: e.target.value})}
                     disabled={!profile.is_verified}
                   />
@@ -248,7 +260,7 @@ function StudSettings() {
                   <Form.Control 
                     type="url" 
                     placeholder="Profile link/url..." 
-                    value={profile.instagram} 
+                    value={profile.instagram || ''} 
                     onChange={(e) => setProfile({...profile, instagram: e.target.value})}
                     disabled={!profile.is_verified}
                   />

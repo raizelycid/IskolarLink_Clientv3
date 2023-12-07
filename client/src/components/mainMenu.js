@@ -70,7 +70,7 @@ const MainMenu = ({imgSrc, username}) => {
 }
         {authState.is_cosoa && <NavDropdown.Item onClick={switchCosoa}>Switch to COSOA</NavDropdown.Item>}
         {authState.is_web_admin && <NavDropdown.Item href="/web_admin_home"  onClick={switchWebAdmin}>Switch to Web Admin</NavDropdown.Item>}
-        {!authState.is_verified && <NavDropdown.Item onClick={() => navigate('/student/verification')}>Verify</NavDropdown.Item>}
+        <NavDropdown.Item onClick={() => navigate('/student/verification')}>Verify</NavDropdown.Item>
         <NavDropdown.Item onClick={() => navigate('/student/settings')}>Settings</NavDropdown.Item>
         <NavDropdown.Divider />
         <NavDropdown.Item onClick={() => {navigate('/student/feedback')}}>Feedback</NavDropdown.Item>
