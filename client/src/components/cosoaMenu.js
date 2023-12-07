@@ -134,7 +134,8 @@ useEffect(() => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'flex-start',
-      border: 'none !important'
+      border: 'none !important',
+      cursor: 'pointer'
     };
   
     const bottomItemStyles = {
