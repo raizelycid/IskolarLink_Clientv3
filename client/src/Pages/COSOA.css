@@ -30,3 +30,60 @@
     max-width: 120%; /* Adjust the size as needed */
     height: auto; /* maintain aspect ratio */
   }
+
+  .fc-toolbar-title {
+    font-size: 22px !important; /* Adjust the font size to your preference */
+    color: #800; /* Adjust the font color as needed */
+    margin-bottom: -30px  !important;
+    outline: none !important; 
+  }
+  
+.fc-prev-button{
+  background-color: #800 !important; /* Using !important to ensure override */
+  color: white; /* Change text color if needed */
+  border-color: #800 !important; 
+  margin-right: 10px !important;
+  outline: none !important; 
+}
+
+.fc-next-button {
+  background-color: #800 !important; /* Using !important to ensure override */
+  color: white; /* Change text color if needed */
+  border-color: #800 d !important; /* If there's a border, make it the same color as the background */
+}
+
+/* If you also want to change the hover state of the buttons */
+.fc-prev-button:hover,
+.fc-next-button:hover {
+  background-color: #800 !important; /* Darker red on hover */
+  border-color: #800  !important;
+}
+
+.fc-today-button {
+  background-color: #800 !important; /* Set the background color to red */
+  color: white; /* Set the text color to white */
+  border-color: #800 !important; /* Ensure the border color is also red */
+}
+
+.fc-today-button:hover {
+  background-color: #800 !important; /* Darker red on hover */
+  border-color: #800 !important; /* Match the border color on hover */
+}
+
+.fc-col-header-cell-cushion {
+  font-weight: bold !important; /* Makes the text bold */
+  color: black !important; 
+  text-decoration: none !important;
+  font-family: '', sans-serif; 
+}
+
+.fc-daygrid-day-number {
+  color: black; /* Sets the text color to black */
+  text-decoration: none !important;
+  font-size: 20px !important;
+}
+
+.fc-event-title {
+  color: #800; /* Sets the text color to black */
+}
+

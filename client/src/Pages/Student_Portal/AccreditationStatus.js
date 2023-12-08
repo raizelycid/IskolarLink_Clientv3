@@ -87,7 +87,7 @@ function AccreditationStatus() {
   return (
     <>
     <HeroVariant
-        h1Text="Application Status"
+        h1Text="Accreditation Status"
         pText="Check your application."
       />
     <Container className='mt-4'>
@@ -162,14 +162,14 @@ function AccreditationStatus() {
         <Row>
         <Col></Col>
         <Col xs={5}>
-        <h1 className='text-red mt-3'>Application Status</h1>
-        <p>Check out your application status and remarks (if there are any)!</p>
+        <h1 className='text-red mt-3 '>Application Status</h1>
+        <p className='mb-4'>Check out your application status and remarks (if there are any)!</p>
         </Col>
         <Col></Col>
         </Row>
     </Container>
     <Container>
-    <div className='ac-bottom-container'> 
+    <div className='ac-bottom-container mb-5'> 
             <Table striped bordered hover>
                 <thead className='text-center'>
                     <tr>

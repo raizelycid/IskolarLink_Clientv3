@@ -23,7 +23,8 @@ import RevalidationStatus from './Pages/Organization_Portal/RevalidationStatus';
 import OrgSettings from './Pages/Organization_Portal/Settings';
 import OrgFeedback from './Pages/Organization_Portal/Feedback';
 import StudentFeedback from './Pages/Student_Portal/Feedback';
-import MainMenu from './components/mainMenu';
+import MainMenu1 from './components/mainMenu';
+import MainMenu2 from './components/mainMenu';
 import CosoaMenu from './components/cosoaMenu';
 import WebAdminMenu from './components/webAdminMenu';
 import { AuthContext } from './helpers/AuthContent';
@@ -189,7 +190,7 @@ function App() {
               // menu depends on activeMenu which has three value (main, cosoa, webadmin)
 
               activeMenu === 'main' ? (
-                <MainMenu imgSrc={authState.profile_picture} username={authState.username} />
+                <MainMenu2 imgSrc={authState.profile_picture} username={authState.username} />
               ) : activeMenu === 'cosoa' ? (
                 <CosoaMenu imgSrc={authState.profile_picture} username={authState.username} />
               ) : activeMenu === 'webadmin' ? (
