@@ -107,7 +107,6 @@ function RevalidationStatus() {
                 alt="Logo"
                 />
             }
-
             </Col>
             <Col xs={5} className='d-flex align-items-center ms-2'>
                 <Row>
@@ -115,11 +114,9 @@ function RevalidationStatus() {
                 </Row>
             </Col>
             <Col className='d-flex align-items-center justify-content-end'>
-                <Dropdown>
-                    <Dropdown.Toggle variant='secondary'>
-                        Pending
-                    </Dropdown.Toggle>
-                </Dropdown>
+                <Button variant='secondary' className='px-5'>
+                    Pending
+                </Button> {/* Change pendin to statuses */}
             </Col>
         </Row>
     </Container>
@@ -151,12 +148,12 @@ function RevalidationStatus() {
                 <Form.Control type="text" value={adviserString} readOnly></Form.Control>
             </Form.Group>
             </Col>
-            {/*<Col>
+            <Col>
             <Form.Group>
                 <Form.Label>PUP Webmail</Form.Label>
                 <Form.Control type="email" value={org.email} readOnly></Form.Control>
             </Form.Group>
-        </Col>*/}
+        </Col>
         </Row>
     </Container>
     <Container className='text-center mt-4'>
@@ -164,7 +161,7 @@ function RevalidationStatus() {
         <Col></Col>
         <Col xs={5}>
         <h1 className='text-red'>Application Status</h1>
-        <p>Discover the latest announcement that will shape the future of PUP COSOA and elevate your student experience!</p>
+        <p>Check out your application status and remarks (if there are any)!</p>
         </Col>
         <Col></Col>
         </Row>
@@ -186,9 +183,9 @@ function RevalidationStatus() {
                             <tr>
                                 <td>{requirement.requirement_name}</td>
                                 <td>{requirement.form_name}</td>
-                                <td>{requirement.status === 'Approved' ? <Button variant='success' disabled>Approved</Button>
-                                : requirement.status === 'Revision' ? <><Button variant="warning" onClick={event => handleClick(event, requirement.requirement_name, requirement.id)}>Resubmit</Button> <input type="file" style={{display:'none'}} onChange={handleChange} ref={hiddenFileInput}/> </>
-                                : <Button variant='primary' disabled>Resubmit</Button>}</td>
+                                <td>{requirement.status === 'Approved' ? <Button variant='primary' disabled>Approved</Button>
+                                : requirement.status === 'Revision' ? <><Button variant="secondary" onClick={event => handleClick(event, requirement.requirement_name, requirement.id)}>Resubmit</Button> <input type="file" style={{display:'none'}} onChange={handleChange} ref={hiddenFileInput}/> </>
+                                : <Button variant='primary' disabled>None</Button>}</td>
                                 <td>{requirement.remarks}</td>
                             </tr>
                         );
@@ -196,6 +193,7 @@ function RevalidationStatus() {
                 </tbody>
             </Table>
         </div>
+
     </Container>
     {/*
         <h2 className='text-center'>Accreditation Status</h2>
