@@ -133,7 +133,7 @@ function O_Membership() {
                 <tr>
                   <td><Row>
                       <Col xs={2}>
-                        <FontAwesomeIcon icon={faUser} size="2x" />
+                        {member.profile_picture ? <img src={`${process.env.REACT_APP_BASE_URL}/images/${member.profile_picture}`} alt="profile_picture" className="profile_picture" style={{width: '40px', height: '40px', borderRadius: '50%'}}/> : <FontAwesomeIcon icon={faUser} className="profile_picture" style={{width: '40px', height: '40px', borderRadius: '50%'}}/>}
                       </Col>
                       <Col>
                         <p>{member.details.student_Lname}, {member.details.student_Fname}</p>

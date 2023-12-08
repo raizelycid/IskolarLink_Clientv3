@@ -46,7 +46,7 @@ function RevalidationStatus() {
     }
     };
 
-    const Forms = [ 'Certificate of Recognition', 'Official List', 'Officer\'s Profile', 'Letter of Concurrence', 'CBL 101', 'GPOA', 'Advocacy Plan','Accomplishment Report', 'Turnover of Assets', 'Waiver of Responsibility','Tracker Form']
+    const Forms = [ 'Certificate of Recognition', 'Scanned Copy of the Latest Certificate of Accreditation/Revalidation', 'Official List', 'Officer\'s Profile', 'Letter of Concurrence', 'CBL 101', 'GPOA', 'Advocacy Plan','Accomplishment Report','Financial Statements','Certificate of Clearance from PUP SC COA', 'Turnover of Assets', 'Waiver of Responsibility','Tracker Form']
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/student/org_application_status`).then((response) => {

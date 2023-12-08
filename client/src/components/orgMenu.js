@@ -44,7 +44,8 @@ function OrgMenu({imgSrc, username, showApplication}) {
                 else{
                     alert('User logged out!');
                     // set authState.status to false
-                    setAuthState({...authState, status: false});
+                    setAuthState({...authState, status: false, role: ''});
+                    //setAuthState({...authState, role: ''});
                     setActiveMenu('main');
                     navigate('/');
                 }
