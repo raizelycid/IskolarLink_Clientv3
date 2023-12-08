@@ -30,8 +30,11 @@ function Revalidation() {
         RD006: '',
         RD007: '',
         RD008: '',
+        RD009: '',
         RD010: '',
         RD011: '',
+        RD012: '',
+        RD013: '',
         RF001: '',
         privacyPolicy: false,
     });

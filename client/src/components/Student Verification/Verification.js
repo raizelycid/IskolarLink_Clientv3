@@ -1,9 +1,53 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Image, Form, Button} from 'react-bootstrap';
+import axios from 'axios';
+import LoadingOverlay from '../LoadingOverlay';
 import '../general.css';
+import {verificationSchema} from '../../Validations/VerificationValidation';
 
 /* When they are verified */
 const Verification = () => {
+  const [loading, setLoading] = useState(false);
+  const [cor, setCOR] = useState(null);
+  const [privacyPolicy, setPrivacyPolicy] = useState(false);
+
+  const handleFileChange = (e) => {
+    console.log(e.target.files[0])
+    setCOR(e.target.files[0]);
+  }
+
+  const handleSubmit = async (e) => {
+    console.log(cor, privacyPolicy)
+    
+    const isValid = await verificationSchema.isValid({cor, privacyPolicy}); 
+    if(isValid){
+    e.preventDefault();
+    setLoading(true);
+    // set headers to multipart/form-data
+    console.log(cor)
+    axios.post(`${process.env.REACT_APP_BASE_URL}/student_portal/submit_cor`, {cor:cor}, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then(res => {
+      if(res.data.success){
+        setLoading(false);
+        alert(res.data.success);
+        window.location.reload();
+      }else{
+        setLoading(false);
+        alert(res.data.error);
+      }
+    }).catch(err => {
+      console.log(err);
+    }).finally(() => {
+      setLoading(false);
+    });
+  }else{
+    alert('Please upload a valid Certificate of Registration and accept the privacy policy.');
+  }
+  }
+
     return (
         <Container>
         <Row>
@@ -23,7 +67,7 @@ const Verification = () => {
           <Form className='mx-5 px-5'>
           <Form.Group controlId="formFile" className="mb-3 ">
             <Form.Label>Upload Current Certificate of Registration</Form.Label>
-            <Form.Control type="file" className='text-gray2'/>
+            <Form.Control type="file" className='text-gray2' onChange={handleFileChange}/>
           </Form.Group>
           <Row className='mt-4 mb-0'>
             <Col></Col>
@@ -31,24 +75,27 @@ const Verification = () => {
             <Form.Check
             type="checkbox"
             label={<p>I accept Iskolar Link’s <strong>Terms</strong> and <strong>Privacy Policy</strong>"</p>}
+            onChange={() => setPrivacyPolicy(!privacyPolicy)}
           />
             </Col>
             <Col></Col>
           </Row>
           <div className='text-center'>
-          <Button variant="primary" className='px-4'>Verify Account</Button>
+          <Button variant="primary" className='px-4' onClick={handleSubmit}>Verify Account</Button>
 
           </div>
         </Form>
           </Col>
           <Col></Col>
         </Row>
+        {loading && <LoadingOverlay title={"Submitting Certificate of Registration..."}/>}
         
         </Container>
     );
   };
   
   const Verifying = () => {
+    
     return (
       <Container>
         <Row>
@@ -86,7 +133,49 @@ const Verification = () => {
     );
   };
 
-  const VerifyFailed = () => {
+  const VerifyFailed = ({remarks}) => {
+    const [loading, setLoading] = useState(false);
+    const [cor, setCOR] = useState(null);
+    const [privacyPolicy, setPrivacyPolicy] = useState(false);
+
+    axios.defaults.withCredentials = true;
+
+    const handleFileChange = (e) => {
+      console.log(e.target.files[0])
+      setCOR(e.target.files[0]);
+    }
+
+    const handleSubmit = async (e) => {
+      console.log(cor, privacyPolicy)
+      
+      const isValid = await verificationSchema.isValid({cor, privacyPolicy}); 
+      if(isValid){
+      e.preventDefault();
+      setLoading(true);
+      // set headers to multipart/form-data
+      console.log(cor)
+      axios.post(`${process.env.REACT_APP_BASE_URL}/student_portal/submit_cor`, {cor:cor}, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(res => {
+        if(res.data.success){
+          setLoading(false);
+          alert(res.data.success);
+          window.location.reload();
+        }else{
+          setLoading(false);
+          alert(res.data.error);
+        }
+      }).catch(err => {
+        console.log(err);
+      }).finally(() => {
+        setLoading(false);
+      });
+    }
+  }
+
+
     return (
       <Container className="my-5">
         <Row>
@@ -112,15 +201,20 @@ const Verification = () => {
           <p>If 1 or 2 is correct, please try verifying your account again by uploading the correct requirement.</p>
           </Col>
           <Col xs={1}></Col>
+          
+        </Row>
+        <Row className='mt-4 mb-0'>
+           <center>Remarks: {remarks}</center>
         </Row>
         <Row>
+        
           <Col></Col>
           <Col xs={8}>
             
           <Form className='mx-5 px-5'>
           <Form.Group controlId="formFile" className="mb-3 ">
             <Form.Label>Upload Current Certificate of Registration</Form.Label>
-            <Form.Control type="file" className='text-gray2'/>
+            <Form.Control type="file" className='text-gray2' onChange={handleFileChange}/>
           </Form.Group>
           <Row className='mt-4 mb-0'>
             <Col></Col>
@@ -128,18 +222,21 @@ const Verification = () => {
             <Form.Check
             type="checkbox"
             label={<p>I accept Iskolar Link’s <strong>Terms</strong> and <strong>Privacy Policy</strong>"</p>}
+            onChange={() => setPrivacyPolicy(!privacyPolicy)}
+            value={privacyPolicy}
           />
             </Col>
             <Col></Col>
           </Row>
           <div className='text-center'>
-          <Button variant="primary" className='px-4'>Verify Account</Button>
+          <Button variant="primary" className='px-4' onClick={handleSubmit}>Verify Account</Button>
 
           </div>
         </Form>
           </Col>
           <Col></Col>
         </Row>
+        {loading && <LoadingOverlay title={"Submitting Certificate of Registration..."}/>}
         
       </Container>
     );

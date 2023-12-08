@@ -71,6 +71,7 @@ function Official_Members() {
           <thead>
             <tr>
               <th>Members</th>
+              <th>Email</th>
               <th>Department</th>
               <th>Action</th>
             </tr>
@@ -82,13 +83,15 @@ function Official_Members() {
                   <td>
                     <Row>
                       <Col xs={2}>
-                        <FontAwesomeIcon icon={faUser} size="2x" />
+                        {member.profile_picture ? <img src={`${process.env.REACT_APP_BASE_URL}/images/${member.profile_picture}`} alt="profile_picture" className="profile_picture" style={{width: '40px', height: '40px', borderRadius: '50%'}}/> : <FontAwesomeIcon icon={faUser} className="profile_picture" style={{width: '40px', height: '40px', borderRadius: '50%'}}/>}
+              
                       </Col>
                       <Col>
                         <p>{member.details.student_Lname}, {member.details.student_Fname}</p>
                       </Col>
                     </Row>
                   </td>
+                  <td>{member.email}</td>
                   <td>{member.details.department}</td>
                   <td>
                     <Button variant="outline-secondary" className="m-1" onClick={() => handleRemove(member.details.id)}><i class="fa-solid fa-trash" ></i></Button>

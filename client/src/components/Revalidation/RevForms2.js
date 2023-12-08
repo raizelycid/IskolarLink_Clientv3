@@ -23,9 +23,9 @@ const RevForms2 = ({formData, setFormData,show,path,path2, updateValidty, refres
             <Form.Label>Upload Signed Tracker Form <span className='accreditation-download' onClick={() => window.open(`${process.env.REACT_APP_BASE_URL}/${path}`,'_blank','noopener')}  style={{ cursor: 'pointer', textDecoration:'underline', color:'blue' }}>(Download Generated File Here)</span></Form.Label>
             <Form.Control type="file" placeholder='e.g. RF001.pdf' onChange={(e) => setFormData({...formData, RF001: e.target.files[0]})}/>
         </Form.Group>
-        <Form.Group as={Row} controlId='RD011' className="mb-3">
+        <Form.Group as={Row} controlId='RD013' className="mb-3">
             <Form.Label>Upload Signed Waver Form <span className='accreditation-download' onClick={() => window.open(`${process.env.REACT_APP_BASE_URL}/${path2}`,'_blank','noopener')} style={{ cursor: 'pointer', textDecoration:'underline', color:'blue' }}>(Download Generated File Here)</span></Form.Label>
-            <Form.Control type="file" placeholder='e.g. RD011.pdf' onChange={(e) => setFormData({...formData, RD011: e.target.files[0]})}/>
+            <Form.Control type="file" placeholder='e.g. RD011.pdf' onChange={(e) => setFormData({...formData, RD013: e.target.files[0]})}/>
         </Form.Group>
         <Form.Group>
         <Form.Check
