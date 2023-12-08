@@ -7,9 +7,9 @@ const RevForms2 = ({formData, setFormData,show,path,path2, updateValidty, refres
 
     useEffect(()=>{
         setRefresh(false)
-        const valid = formData.RF001 && formData.RD011 && formData.privacyPolicy === true;
+        const valid = formData.RF001 && formData.RD013 && formData.privacyPolicy === true;
         updateValidty(valid)
-    },[formData,refresh])
+    },[formData.RF001, formData.RD013, formData.privacyPolicy, refresh])
 
     const [checked, setChecked] = useState(false);
   return (

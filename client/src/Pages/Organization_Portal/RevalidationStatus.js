@@ -84,21 +84,34 @@ function RevalidationStatus() {
     <Container className="mt-4">
         <Row>
             <Col xs={1} className="d-flex align-items-center justify-content-center">
-            <Image
-            src="/cosoalogo.png"
-            style={{
-            width: '120px',
-            height: '120px',
-            borderRadius: '50%',
-            display: 'block'
-            }}
-             alt="Logo"
-            />
+                {org.profile_picture ?
+                <Image
+                src={`${process.env.REACT_APP_BASE_URL}/org_images/${org.profile_picture}`}
+                style={{
+                width: '120px',
+                height: '120px',
+                borderRadius: '50%',
+                display: 'block'
+                }}
+                alt="Logo"
+                />
+                :
+                <Image
+                src={`${process.env.REACT_APP_BASE_URL}/org_images/default-org-photo.jpg`}
+                style={{
+                width: '120px',
+                height: '120px',
+                borderRadius: '50%',
+                display: 'block'
+                }}
+                alt="Logo"
+                />
+            }
+
             </Col>
             <Col xs={5} className='d-flex align-items-center ms-2'>
                 <Row>
-                    <h2 className='text-red mb-0'>PUP Sample Organization Name</h2>
-                    <p>Organization Name</p>
+                    {org.org_name.length > 30 ? <h2 className='text-red mb-0 text-wrap'>{org.org_name}</h2> : <h2 className='text-red mb-0'>{org.org_name}</h2>}
                 </Row>
             </Col>
             <Col className='d-flex align-items-center justify-content-end'>

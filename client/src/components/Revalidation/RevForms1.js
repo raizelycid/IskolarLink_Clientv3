@@ -7,9 +7,9 @@ const RevForms1 = ({formData, setFormData, show, updateValidty, refresh, setRefr
 
     useEffect(()=>{
         setRefresh(false)
-        const valid = formData.RD001  && formData.RD002  && formData.RD003  && formData.RD004  && formData.RD005  && formData.RD006 && formData.RD007  && formData.RD008 && formData.RD010
+        const valid = formData.RD001  && formData.RD002  && formData.RD003  && formData.RD004  && formData.RD005  && formData.RD006 && formData.RD007  && formData.RD008 && formData.RD009 && formData.RD010 && formData.RD011 && formData.RD012
         updateValidty(valid)
-    },[refresh, formData])
+    },[refresh, formData.RD001, formData.RD002, formData.RD003, formData.RD004, formData.RD005, formData.RD006, formData.RD007, formData.RD008, formData.RD009, formData.RD010, formData.RD011, formData.RD012])
 
   return (
     <>
