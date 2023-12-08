@@ -93,6 +93,16 @@ function COSOA() {
         <FullCalendar 
           plugins={[ dayGridPlugin, interactionPlugin ]}
           initialView="dayGridMonth"
+          columnHeaderFormat={{ weekday: 'long' }}
+          dayHeaders={true}
+          headerToolbar={{
+          }}
+          views={{
+            dayGridMonth: { // name of view
+              dayHeaderFormat: { weekday: 'long' }, // adjust to 'short' or 'long' as needed
+              // other view-specific options here
+            }
+          }}
           events={events.map((event) => {
             return(
               {
