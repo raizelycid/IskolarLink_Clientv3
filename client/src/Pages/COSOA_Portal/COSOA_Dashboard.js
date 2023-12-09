@@ -21,19 +21,9 @@ function COSOA_Dashboard() {
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = orgs.slice(indexOfFirstItem, indexOfLastItem);
-  const [search, setSearch] = useState('')
-
-
-  let pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(orgs.length / itemsPerPage); i++) {
-    pageNumbers.push(i);
-  }
-
-  
+  const [search, setSearch] = useState('');
+  const [statusFilter, setStatusFilter] = useState('');
+ 
 
   const handleToggle = () => {
     try {
@@ -86,7 +76,6 @@ function COSOA_Dashboard() {
   const [countApproved, setCountApproved] = useState(0);
   const [countPending, setCountPending] = useState(0);
   const [countSubmission, setCountSubmission] = useState(0);
-  const [statusFilter, setStatusFilter] = useState(''); // Possible values: '', 'Approved', 'Pending', etc.
 
 
   useEffect(() => {
@@ -112,27 +101,31 @@ function COSOA_Dashboard() {
 
   const filteredItems = orgs.filter((org) => {
     const matchesSearch = search.toLowerCase() === "" || org.org_name.toLowerCase().includes(search.toLowerCase());
-  
+
     let matchesStatus;
     if (statusFilter === "Accredited0") {
-      // Special case for Accredited0
       matchesStatus = org.application.application_status === "Accredited" && org.role === "student";
     } else if (statusFilter === "Revalidated") {
-      // Special case for Revalidated
-      matchesStatus = org.application.application_status === "Revalidated" && org.application_status === "Revalidated"
+      matchesStatus = org.application.application_status === "Revalidated" && org.application_status === "Revalidated";
     } else if(statusFilter === "Revalidation"){
-      matchesStatus = org.application_status === "Revalidation"
-
-    }else if(statusFilter === "Accreditation"){
-      matchesStatus = org.application_status === "Accreditation"
-    }else {
-      // General case for other statuses
+      matchesStatus = org.application_status === "Revalidation";
+    } else if(statusFilter === "Accreditation"){
+      matchesStatus = org.application_status === "Accreditation";
+    } else {
       matchesStatus = statusFilter === "" || org.application.application_status === statusFilter;
     }
-  
+
     return matchesSearch && matchesStatus;
   });
-  
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentFilteredItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+
+  let pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(filteredItems.length / itemsPerPage); i++) {
+    pageNumbers.push(i);
+  }
   
 
   return (
@@ -232,8 +225,8 @@ function COSOA_Dashboard() {
             </tr>
           </thead>
           <tbody>
-          {filteredItems.length > 0 ? (
-    filteredItems.map((org, index) => (
+          {currentFilteredItems.length > 0 ? (
+              currentFilteredItems.map((org, index) => (
       <tr key={index}>
         <td>{org.org_name}</td>
         <td>

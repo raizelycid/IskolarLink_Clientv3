@@ -457,7 +457,7 @@ function Applicant_Page() {
           <thead>
             <tr>
               <th>File Submitted</th>
-              <th>Download Link</th>
+              <th>View Credentials</th>
               <th>Submit Signed Form</th>
               <th>Status</th>
             </tr>
@@ -483,7 +483,7 @@ function Applicant_Page() {
                           )
                         }
                       >
-                        Download
+                        View
                       </span>
                     </td>
                   ) : (
@@ -509,7 +509,7 @@ function Applicant_Page() {
                         handleClick(event, requirement.requirement_name)
                       }
                     >
-                      Update
+                      Upload
                     </Button>
                     <input
                       type="file"
