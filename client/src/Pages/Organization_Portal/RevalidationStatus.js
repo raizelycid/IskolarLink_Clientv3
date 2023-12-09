@@ -110,7 +110,7 @@ function RevalidationStatus() {
             </Col>
             <Col xs={5} className='d-flex align-items-center ms-2'>
                 <Row>
-                    {org.org_name.length > 30 ? <h2 className='text-red mb-0 text-wrap'>{org.org_name}</h2> : <h2 className='text-red mb-0'>{org.org_name}</h2>}
+                    {org.org_name?.length > 30 ? <h2 className='text-red mb-0 text-wrap'>{org.org_name}</h2> : <h2 className='text-red mb-0'>{org.org_name}</h2>}
                 </Row>
             </Col>
             <Col className='d-flex align-items-center justify-content-end'>

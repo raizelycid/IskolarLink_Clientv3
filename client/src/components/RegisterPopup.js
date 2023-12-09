@@ -6,7 +6,7 @@ import './general.css';
 import validator from 'validator'
 
 import { Link } from 'react-router-dom';
-function RegisterPopup({handleCloseLogin}) {
+function RegisterPopup({showRegister,setShowRegister, setShowLogin}) {
 
     const navigate = useNavigate();
 
@@ -33,7 +33,6 @@ function RegisterPopup({handleCloseLogin}) {
 `Senior High School | SHS`
     ]
 
-    const [showRegister, setShowRegister] = useState(false);
     const [complete,setComplete] = useState(false)
 
     
@@ -79,6 +78,11 @@ function RegisterPopup({handleCloseLogin}) {
     }else{
         alert("Please supply missing required fields.")
     }
+    }
+
+    const handleShowLogin = () => {
+        setShowLogin(true);
+        setShowRegister(false);
         
     }
 
@@ -212,7 +216,7 @@ function RegisterPopup({handleCloseLogin}) {
                             </Row>
                             
                             <Row classname="mb-3">
-                                <p className='text-gray2 Inter-normal reg-q text-center'>Already have an account?<span className='mx-3 text-yellow'>Log in</span></p>             
+                                <p className='text-gray2 Inter-normal reg-q text-center'>Already have an account?<span className='mx-3 text-yellow' onClick={handleShowLogin}>Log in</span></p>          
                             </Row>
                         </Form>
                     </div> 

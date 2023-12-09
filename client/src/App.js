@@ -48,6 +48,7 @@ import { Link } from 'react-router-dom';
 import { AccreditationStatusProvider } from './helpers/AccreditationStatusContext';
 import WhoWeAre from './Pages/WhoWeAre';
 import Verification from './Pages/Student_Portal/Verification_Page';
+import ForgotPassword from './components/ForgotPassword';
 
 function App() {
 
@@ -145,6 +146,10 @@ function App() {
 
   const navbarClass = initialScroll ? 'solid-navbar shadow' : scrolling ? 'fixed-top solid-navbar shadow' : 'fixed-top solid-navbar shadow';
 
+  const [showLogin, setShowLogin] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+
   return (
     <Router>
       
@@ -201,8 +206,9 @@ function App() {
   
               ):(
                 <>
-                <LoginPopup />
-                <RegisterPopup />
+                <LoginPopup showLogin={showLogin} setShowLogin={setShowLogin} setShowRegister={setShowRegister} setShowForgotPassword={setShowForgotPassword}/>
+                <RegisterPopup showRegister={showRegister} setShowRegister={setShowRegister} setShowLogin={setShowLogin}/>
+                <ForgotPassword showForgotPassword={showForgotPassword} setShowForgotPassword={setShowForgotPassword} setShowLogin={setShowLogin}/>
                 </>
               )}
             
