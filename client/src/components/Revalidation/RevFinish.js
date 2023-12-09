@@ -12,10 +12,10 @@ const RevFinish = ({show}) => {
             <div className="d-flex justify-content-center" style={{ marginBottom: '40px' }}>
               <Image src="/checkbox.png" alt="Accreditation Form Success" fluid />
             </div>
-            <h2 className='accreditation-form-success-header'>Done! Excited to Continue Connecting with Your Fellow Iskolars.</h2>
-              <h4 className='accreditation-form-success-subheader'>
-               Click the submit button and wait for any updates from <span className="bold-text red-text">COSOA</span>.
-              </h4>
+            <h2 className='accreditation-form-success-header'>Documents Ready for Submission!</h2>
+    <h5 className='accreditation-form-success-subheader'>
+            Your files are complete and upon submission, you will be redirected to check your accreditation status. <br/> Please await updates from <span className='cosoa'>COSOA</span> regarding the status of your application.
+          </h5>
           </div>
         </Container>
 

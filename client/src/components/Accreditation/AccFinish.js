@@ -12,10 +12,11 @@ const AccFinish = ({show}) => {
             <div className="d-flex justify-content-center" style={{ marginBottom: '40px' }}>
               <Image src="/checkbox.png" alt="Accreditation Form Success" fluid />
             </div>
-    <h2 className='accreditation-form-success-header'>Done! Excited to establish your organization</h2>
+    <h2 className='accreditation-form-success-header'>Documents Ready for Submission!</h2>
     <h5 className='accreditation-form-success-subheader'>
-      Your application is now being reviewed by the COSOA. See status of your application in the Accreditation tab.</h5>
-    </div>
+            Your files are complete and upon submission, you will be redirected to check your accreditation status. <br/> Please await updates from <span className='cosoa'>COSOA</span> regarding the status of your application.
+          </h5>
+          </div>
     </Container>
 
 </>
