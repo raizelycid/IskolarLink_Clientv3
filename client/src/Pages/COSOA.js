@@ -77,7 +77,7 @@ function COSOA() {
           working relationship between the Central Student Council, the Office of Student Services (OSS), and all student organizations at the Polytechnic University of the Philippines (PUP).
         </p>
       </Col>
-      <Col xs={12} md={4} lg={3} className="image-section d-flex justify-content-center p-0">
+      <Col xs={12} md={4} lg={3} className="image-section d-flex justify-content-center p-0 image">
         <Image src="/cosoa1.png" alt="IskolarLink Logo" className="custom-logo-size" fluid />
       </Col>
     </Row>
