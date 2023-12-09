@@ -7,6 +7,7 @@ import { AuthContext } from '../helpers/AuthContent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Ensure you have FontAwesome imported
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'; // Import the eye icons
 import RegisterPopup from './RegisterPopup'
+import LoadingOverlay from './LoadingOverlay'
 
 function ForgotPassword({setShowLogin, showForgotPassword, setShowForgotPassword}) {
     const [forgotPasswordDetails, setForgotPasswordDetails] = useState({
@@ -17,6 +18,7 @@ function ForgotPassword({setShowLogin, showForgotPassword, setShowForgotPassword
     const {activeMenu, setActiveMenu} = menu;
     const navigate = useNavigate();
     axios.defaults.withCredentials = true;
+    const [loading, setLoading] = useState(false);
 
 
     const handleCloseForgotPassword = () => setShowForgotPassword(false);
@@ -27,6 +29,29 @@ function ForgotPassword({setShowLogin, showForgotPassword, setShowForgotPassword
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setLoading(true);
+        try{
+            axios.post(`${process.env.REACT_APP_BASE_URL}/mailing/send_forgot_password`, {
+                email: forgotPasswordDetails.email
+            })
+                .then(res => {
+                    if(res.data.error){
+                        alert(res.data.error);
+                    }else{
+                        alert(res.data.success)
+                    }
+                    handleCloseForgotPassword();
+                })
+                .catch(err => {
+                    console.log(err);
+                    alert('An error occurred while sending the email.');
+                });
+        }catch(err){
+            console.log(err);
+            alert('An error occurred while sending the email.');
+        }finally{
+            setLoading(false);
+        }
     }
 
     
@@ -51,7 +76,9 @@ function ForgotPassword({setShowLogin, showForgotPassword, setShowForgotPassword
                     </Button>
                 </Form>
             </Modal.Body>
+            {loading && <LoadingOverlay title={"Finding Email..."}/>}
         </Modal>
+        
 
       
     </div>

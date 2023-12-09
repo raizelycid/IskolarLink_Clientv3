@@ -49,6 +49,7 @@ import { AccreditationStatusProvider } from './helpers/AccreditationStatusContex
 import WhoWeAre from './Pages/WhoWeAre';
 import Verification from './Pages/Student_Portal/Verification_Page';
 import ForgotPassword from './components/ForgotPassword';
+import ResetPasswordPage from './components/ResetPasswordPage';
 
 function App() {
 
@@ -248,6 +249,8 @@ function App() {
         <Route path="/terms" exact element={<Terms/>}/>
         <Route path="/whoweare" exact element={<WhoWeAre/>}/>
         <Route path="/student/verification" exact element={<Verification/>}/>
+        <Route path="/forgot_password/:email/:code" exact element={<ResetPasswordPage/>}/>
+        
       </Routes>
 
       <footer className="footer bg-dark text-white py-4 border-bottom Inter">

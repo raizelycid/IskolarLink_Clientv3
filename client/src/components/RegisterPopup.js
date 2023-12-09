@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './general.css';
 import validator from 'validator'
+import RegisterPopup2 from './RegisterPopup2';
 
 import { Link } from 'react-router-dom';
 function RegisterPopup({showRegister,setShowRegister, setShowLogin}) {
@@ -34,6 +35,7 @@ function RegisterPopup({showRegister,setShowRegister, setShowLogin}) {
     ]
 
     const [complete,setComplete] = useState(false)
+    const [success,setSuccess] = useState(false)
 
     
 
@@ -106,6 +108,12 @@ function RegisterPopup({showRegister,setShowRegister, setShowLogin}) {
         emailValidation()
         completeValidation()
     },[regDetails.email,regDetails])
+
+    useEffect(()=>{
+        if(success){
+            handleCloseRegister()
+        }
+    },[success])
 
 
   return (
@@ -209,9 +217,7 @@ function RegisterPopup({showRegister,setShowRegister, setShowLogin}) {
                             <Form.Check required label={<p>I accept the <Link to="/terms" target="_blank" className='text-red'>Terms and Privacy Policy</Link></p>} className="Inter-med" onChange={(e)=>setRegDetails({...regDetails,privacyPolicy:e.target.checked})}></Form.Check>
                             <Row className="mt-5 mb-3   ">
                                 <Col/>
-                                <Button as={Col} xs={7} variant="primary" type="submit" onClick={handleSubmit}>
-                                Register
-                                </Button>
+                                <RegisterPopup2 regDetails={regDetails} complete={complete} setRegDetails={setRegDetails} />
                                 <Col/>
                             </Row>
                             
