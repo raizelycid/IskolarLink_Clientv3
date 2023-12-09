@@ -51,7 +51,7 @@ const GenInfo = ({formData, setFormData, show,  updateValidty, refresh, setRefre
         } else {
             setFilteredDepartments(Departments);
         }
-    },[formData,refresh])
+    },[formData.socn, formData.orgName, formData.jurisdiction, formData.subjurisdiction, formData.orgType, formData.advisers, refresh])
 
   return (
     <>

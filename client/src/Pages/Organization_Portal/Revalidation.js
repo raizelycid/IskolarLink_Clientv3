@@ -57,6 +57,7 @@ function Revalidation() {
 
     const updateValidity = (isValid) => {
         setIsCurrentPartValid(isValid);
+        console.log(isValid)
     };
 
 
@@ -208,6 +209,7 @@ function Revalidation() {
                 }
             }
             className="custom-button margin-right"
+            disabled={!isCurrentPartValid}
             >
                Next &#8594;
             </button>

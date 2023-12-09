@@ -7,10 +7,10 @@ import { AuthContext } from '../helpers/AuthContent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Ensure you have FontAwesome imported
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'; // Import the eye icons
 import RegisterPopup from './RegisterPopup'
+import ForgotPassword from './ForgotPassword';
 
 
-function LoginPopup() {
-  const [showLogin, setShowLogin] = useState(false);
+function LoginPopup({showLogin,setShowLogin, setShowForgotPassword, setShowRegister}) {
 
   const [loginDetails, setLoginDetails] = useState({
     email: '',
@@ -23,6 +23,11 @@ function LoginPopup() {
   const {activeMenu, setActiveMenu} = menu;
   const navigate = useNavigate();
   axios.defaults.withCredentials = true;
+
+  const handleShowRegister = () => {
+    setShowLogin(false);
+    setShowRegister(true);
+  }
 
   const [passwordShown, setPasswordShown] = useState(false);
 
@@ -49,10 +54,17 @@ function LoginPopup() {
       }
     });
   }
+  
+
 
   const togglePasswordVisibility = () => {
     setPasswordShown(!passwordShown);
   };
+
+  const handleShowForgotPassword = () => {
+    setShowLogin(false);
+    setShowForgotPassword(true);
+  }
 
   return (
     <>
@@ -110,6 +122,9 @@ function LoginPopup() {
                   <Form.Group as={Col} controlId="formLoginCheckbox">
                     <Form.Check type="checkbox" label="Keep me logged in" className='Inter-normal' onChange={(e) => setLoginDetails({...loginDetails, keepLoggedIn: e.target.value})}/>
                   </Form.Group> 
+                  <Form.Group as={Col} controlId="formLoginForgotPassword" className="text-end">
+                    <span className='Inter-normal login-q' onClick={handleShowForgotPassword}>Forgot Password?</span>
+                  </Form.Group>
                 </Row>
                 
                 <Row className="p-2 my-1">
@@ -120,7 +135,7 @@ function LoginPopup() {
                 
                 <Row classname="mb-3">
                       <p className='text-gray2 Inter-normal login-q'>Don't have an account?</p>        
-                      <RegisterPopup  />     
+                      <span className='Inter-normal login-q' onClick={handleShowRegister}>Sign Up</span>    
                 </Row>
 
                 </Form>

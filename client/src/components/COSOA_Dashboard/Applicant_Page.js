@@ -124,6 +124,7 @@ function Applicant_Page() {
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_BASE_URL}/cosoa_dashboard/get_org/${id}`)
     .then((response) => {
+      console.log(response.data)
       // check if error first
       if(response.data.error){
         navigate('/cosoa/dashboard');
