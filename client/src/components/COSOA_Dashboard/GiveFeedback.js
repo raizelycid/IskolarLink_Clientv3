@@ -92,8 +92,10 @@ function GiveFeedback({org_applicationId, requirementId, orgApplicationStatus}) 
                         </Col>
                     </Form.Group>
                 </Form>
+                <div className="d-flex justify-content-center">
                     <Button as='Col' variant="outline-secondary" className="text-black ms-2 px-3 Inter" onClick={handleCloseFeedback}>Cancel</Button>
-                    <Button as='Col' variant="primary" className="text-black ms-2 px-3 Inter" onClick={handleSubmit}>Submit</Button>
+                    <Button as='Col' variant="primary" className="text-white ms-2 px-3 Inter" onClick={handleSubmit}>Submit</Button>
+                    </div>
             </Modal.Body>
         </Modal>
     </>
