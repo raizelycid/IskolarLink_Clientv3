@@ -18,8 +18,6 @@ const CosoaMenu = ({imgSrc, username}) => {
     const navigate = useNavigate();
     axios.defaults.withCredentials = true;
 
-    
-
     const changeMainMenu = () => {
         setActiveMenu('main');
         axios.post(`${process.env.REACT_APP_BASE_URL}/menu/`, {menu: 'main'})
@@ -128,6 +126,7 @@ useEffect(() => {
       height: '100%',
     };
   
+    
     const navItemStyles = {
       color: 'black',
       padding: '10px 15px',
@@ -149,12 +148,17 @@ useEffect(() => {
     };
   
     const bottomDivStyles = {
-      marginTop: '320px', // This pushes the entire block to the bottom of the sidebar
+      marginTop: 'auto', // Remove marginTop to prevent additional space
       width: '100%', // Ensures the div takes the full width of the sidebar
+      position: 'absolute', // Position the element absolutely within the sidebar
+      bottom: '0', // Align the element to the bottom of the sidebar
+      left: '0', // Position the element from the left edge
+      right: '0', // Position the element from the right edge
       outline: 'none !important',
-    boxshadow: 'none !important',    
-    border: 'none !important'
+      boxShadow: 'none !important',
+      border: 'none !important',
     };
+    
   
     return (
       <>
