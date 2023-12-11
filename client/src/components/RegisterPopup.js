@@ -97,7 +97,7 @@ function RegisterPopup({showRegister,setShowRegister, setShowLogin}) {
     }
 
     function completeValidation(){
-        if(regDetails.student_Fname && regDetails.student_Lname && regDetails.department && regDetails.year_level && regDetails.email && regDetails.password && regDetails.confirmPassword && regDetails.privacyPolicy === true){
+        if(regDetails.student_Fname && regDetails.student_Mname && regDetails.student_Lname && regDetails.department && regDetails.year_level && regDetails.email && regDetails.password && regDetails.confirmPassword && regDetails.privacyPolicy === true){
             setComplete(true)
         }else{
             setComplete(false)

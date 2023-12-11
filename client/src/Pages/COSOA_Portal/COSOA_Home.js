@@ -3,8 +3,6 @@ import './COSOA_Portal.css';
 import { HeroVariant2 } from '../../components/HeroVariant/Hero';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { AnnouncementVariant } from '../../components/AnnouncementVariant/AnnouncementCard';
-import OfficerCard from '../../components/OfficerCard';
-import ContactBanner from '../../components/ContactBanner';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -13,7 +11,6 @@ import AddAnnouncement from '../../components/COSOA_Home/AddAnnouncement';
 import axios from 'axios';
 import AddEvent from '../../components/COSOA_Home/AddEvent';
 import EventModal from '../../components/COSOA_Home/EventModal';
-import { render } from '@fullcalendar/core/preact';
 
 function COSOA_Home() {
 

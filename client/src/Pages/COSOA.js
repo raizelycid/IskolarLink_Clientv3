@@ -1,29 +1,54 @@
-import React from 'react'
-import { HeroVariant, HeroVariant1 } from '../components/HeroVariant/Hero';
-import { Container, Row, Col, Image } from 'react-bootstrap';
-import { AnnouncementVariant } from '../components/AnnouncementVariant/AnnouncementCard';
+
 import './COSOA.css';
+import React, { useState,useEffect, useContext } from 'react';
+import './COSOA_Portal/COSOA_Portal.css';
+import { HeroVariant2 } from '../components/HeroVariant/Hero';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import { AnnouncementVariant } from '../components/AnnouncementVariant/AnnouncementCard';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { useEffect, useState } from 'react';
+import { AuthContext } from '../helpers/AuthContent';
+import AddAnnouncement from '../components/COSOA_Home/AddAnnouncement';
+import EventModal from '../components/COSOA_Home/EventModal';
 import axios from 'axios';
  
 
 function COSOA() {
 
+  
+  const {auth, menu} = useContext(AuthContext);
+    const {authState, setAuthState} = auth;
+    const {activeMenu, setActiveMenu} = menu;
+
+  const [refreshAnnouncement, setRefreshAnnouncement] = useState(false);
+  const [refreshEvents, setRefreshEvents] = useState(false);
+
   const [announcements, setAnnouncements] = useState([]);
   const [events, setEvents] = useState([]);
+  const [info, setInfo] = useState({});
 
   useEffect(() => {
     try{
-      axios.get(`${process.env.REACT_APP_BASE_URL}/cosoa_ann`).then((response) => {
-        setAnnouncements(response.data);
+      axios.get(`${process.env.REACT_APP_BASE_URL}/cosoa_profile/get_cosoa_details`).then((response) => {
+        setInfo(response.data);
       });
     }catch(err){
       console.log(err);
     }
   },[]);
+
+  
+  useEffect(() => {
+    try{
+      axios.get(`${process.env.REACT_APP_BASE_URL}/cosoa_ann`).then((response) => {
+        setAnnouncements(response.data);
+        setRefreshAnnouncement(false)
+      });
+    }catch(err){
+      console.log(err);
+    }
+  },[refreshAnnouncement]);
 
   useEffect(() => {
     try{
@@ -32,77 +57,87 @@ function COSOA() {
           console.log(response.data.err);
         }else{
         setEvents(response.data);
+        setRefreshEvents(false)
         }
       });
     }catch(err){
       console.log(err);
     }
-  },[]);
+  },[refreshEvents]);
+  const [showModal, setShowModal] = useState(false);
+  const [eventInfo, setEventInfo] = useState({});
 
+  const openModal = () => {
+    // Simulating an action that triggers the modal
+    // For instance, a button click
+    setEventInfo({
+      date: '2023-12-18',
+      title: 'Extension for Initial Requirements',
+      description: 'The PUP SC COSOA en banc convened an urgent meeting with regard to the deadline extension of ACE AnR 2023-2024. Following this decision, it was resolved by a vote of 7-0-0 that the final and extended deadline shall be set on Monday, 18 December 2023, with the application of adjustments and exemptions on other requirements stipulated in the AnR process for initial submissions.',
+      link: 'https://www.facebook.com/pup.sccosoa/posts/pfbid0J5MwDcurWHSEbEs47An3Fe4Xg7BX7RRtDd1TRgBao7mZbA225LYbNShXJJZye4c6l'
+    });
+
+    // Show the modal
+    setShowModal(true);
+  }
+  
   const handleDateClick = (eventInfo) => {
     // Format date to YYYY-MM-DD
     let date = eventInfo.event.extendedProps.date;
     date = date.split('T')[0];
 
+    // Set eventInfo state to display in the modal
+    setEventInfo({
+      date: date,
+      title: eventInfo.event.title,
+      description: eventInfo.event.extendedProps.description,
+      link: eventInfo.event.extendedProps.link
+    });
+
+    // Show the modal
+    setShowModal(true);
+  }
+
+  const handleCloseModal = () => {
+    // Close the modal
+    setShowModal(false);
+  }
+  {/*
+  const handleDateClick = (eventInfo) => {
+    
+    let date = eventInfo.event.extendedProps.date;
+    date = date.split('T')[0];
+
     // Alert the date, event title, event description, and event link
     console.log({date: date, title: eventInfo.event.title, description: eventInfo.event.extendedProps.description, link: eventInfo.event.extendedProps.link})
-
-    alert(`${date}\n${eventInfo.event.title}\n${eventInfo.event.extendedProps.description}\n${eventInfo.event.extendedProps.link}`)
   }
+*/}
 
   return (
     <div>
-      <HeroVariant1 
-        h1Text={
-          <>
-            PUP Student Council Commission on
-            <br />
-            Student Organizations and Accreditation
-            <br/> (COSOA)
-          </>
-        }
-        pText={
-          <>COSOA plays a pivotal role in fostering a vibrant campus community by
-          <br/>
-          overseeing the recognition and accreditation of student organizations.
-          </>
-          }
-      />
-   <Container className='my-5'>
-   <Row className="align-items-center who-we-are-section"> 
-      <Col xs={12} md={8} lg={9} className="text-section p-0">
-        <h2 className="title mb-0">Who Are We?</h2> 
-        <p className='description text-gray2 mb-0'>
-          The sole-accrediting body and an independent student body set to develop an effective <br/> 
-          working relationship between the Central Student Council, the Office of Student Services (OSS), and all student organizations at the Polytechnic University of the Philippines (PUP).
-        </p>
-      </Col>
-      <Col xs={12} md={4} lg={3} className="image-section d-flex justify-content-center p-0 image">
-        <Image src="/cosoa1.png" alt="IskolarLink Logo" className="custom-logo-size" fluid />
-      </Col>
-    </Row>
-</Container>
-
+        <HeroVariant2 
+        imgSrc={info.org_picture ? `${process.env.REACT_APP_BASE_URL}/cosoa/${info.org_picture}` : null}
+        name="Commission on Student Organizations and Accreditation (COSOA)"
+        webmail="pupcosoa.iskolarngbayan.pup.edu.ph"
+        />
+      <Container className='my-5'>
+        <Row>
+            <h2>Who We Are</h2>
+            <p className='text-gray2'>PUP COSOA or known as Commission Of Student Organizations and Accreditation, is a commission under the PUP Central Student Council. They are the ones partnering with the Office of the Student Services in order to oversee the accreditation and revalidaiton process.</p>
+        </Row>
+      </Container>
 
       <Container className='text-center my-5'>
+      {/*<button onClick={openModal}>Open Modal</button> TO TEST EVENT MODAL*/}
+
         <Row>
           <h1 className='text-red'>COSOA Calendar</h1>
           <p className='text-gray2'>Discover the latest announcement that will shape the future of PUP COSOA and elevate your student experience!</p>
         </Row>
         <Row>
-        <FullCalendar 
+          <FullCalendar 
           plugins={[ dayGridPlugin, interactionPlugin ]}
           initialView="dayGridMonth"
-          columnHeaderFormat={{ weekday: 'long' }}
-          dayHeaders={true}
-          headerToolbar={{
-          }}
-          views={{
-            dayGridMonth: { // name of view
-              dayHeaderFormat: { weekday: 'long' }, // adjust to 'short' or 'long' as needed
-              // other view-specific options here
-            }
-          }}
           events={events.map((event) => {
             return(
               {
@@ -120,33 +155,32 @@ function COSOA() {
           eventClick={handleDateClick}
           displayEventTime={false}
           />
+          <EventModal 
+            show={showModal}
+            handleClose={handleCloseModal}
+            event = {eventInfo}/>
         </Row>
       </Container>
 
-      <Container className='my-5'>
+      {/*<Container className='my-5'>
         <Row className='text-center'>
           <h1 className='text-red'>Latest Announcements</h1>
           <p className='text-gray2'>Discover the latest announcement that will shape the future of PUP COSOA and elevate your student experience!</p>
         </Row>
-        <Row>
-           {
-          announcements.map((announcement) => {
-            return (
-               <AnnouncementVariant 
-                  key={announcement.cosoa_ann_id}
-                 announcement={announcement}
-               />
-             )
-            })
-          }
-        </Row>
-      </Container>
+        {announcements.map((announcement, index) => {
+          return(
+            <AnnouncementVariant
+              key={index}
+              announcement={announcement}
+            />
+          );
+        }
+        )}
         <Row className='text-center'>
-            <h1 className='text-red'>The Core of Our Team</h1>
-            <p className='text-gray2'>Organically grow the holistic world view of disruptive innovation via workplace diversity  and empowerment of people and great talent that truly rocks.</p>
         </Row>
+      </Container>*/}
     </div>
-  )
+  );
 }
 
 export default COSOA
