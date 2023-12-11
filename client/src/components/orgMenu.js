@@ -183,7 +183,7 @@ const OrgMenu1 = ({ imgSrc, username, webmail, showApplication }) => {
           <Offcanvas.Body>
               <ListGroup variant="flush" >
   
-                  <ListGroup.Item style={navItemStyles} onClick={() => navigate('/organiization/home')}>
+                  <ListGroup.Item style={navItemStyles} onClick={() => navigate('/organization/profile')}>
                   <FontAwesomeIcon icon={faUserCircle} size="lg" className="me-2" />
                       <p className='m-0'>Profile</p>
                   </ListGroup.Item>
