@@ -222,6 +222,13 @@ const switchWebAdmin = (e) => {
                 <FontAwesomeIcon icon="fa-solid fa-user" size="lg" className="me-2" />
                     <p className='m-0'>Profile</p>
                 </ListGroup.Item>
+
+                <ListGroup.Item  style={navItemStyles}                 
+                onClick={() => navigate('/student/verification')}>
+                <FontAwesomeIcon icon="fa-solid fa-user-check" size="lg" className="me-2" />
+                    <p className='m-0'>Verify</p>
+                </ListGroup.Item>
+
                 <ListGroup.Item style={{navItemStyles}}  onClick={() => navigate('/student/feedback')}>
                     <FontAwesomeIcon icon="fa-solid fa-comment" size="lg" className="me-2"  />
                     Feedback
